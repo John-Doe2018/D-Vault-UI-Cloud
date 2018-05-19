@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="FileItApp">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1,  maximum-scale=1.0, user-scalable=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta http-equiv="X-Frame-Options" content="deny">
+<style id="antiClickjack">
+body {
+	display: none !important;
+}
+</style>
+<script src="libraries/custom/anticlickjack.js"></script>
+
+
+<title>FileIt</title>
+
+<!-- Favorite icon -->
+<link href="images/fav.ico" rel="icon">
+
+<!-- Library CSS -->
+<link href="themes/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="themes/fonts/font-awesome-4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="themes/fonts/font-awesome-4.4.0/css/awesome-bootstrap-checkbox.css">
+<link
+	href="themes/css/custom/common/material-design-iconic-font.min.css"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<!-- Application CSS files required -->
+<link href="themes/fonts/roboto/font.css" rel="stylesheet">
+<link href="themes/css/angular-material/angular-material.min.css"
+	rel="stylesheet">
+<link href="themes/css/angular-material/material-datetimepicker.min.css"
+	rel="stylesheet">
+<link href="themes/css/angular-material/angular-ui-tree.min.css"
+	rel="stylesheet">
+<link href="themes/css/jquery/jquery.booklet.1.1.0.css" rel="stylesheet">
+<link href="themes/css/custom/common/fileit-common.css" rel="stylesheet">
+<link href="themes/css/custom/common/util.css" rel="stylesheet">
+<link href="themes/css/custom/common/main.css" rel="stylesheet">
+<link href="themes/css/custom/common/animate.css" rel="stylesheet">
+<link href="themes/css/custom/common/animsition.min.css"
+	rel="stylesheet">
+<link href="themes/css/custom/common/daterangepicker.css"
+	rel="stylesheet">
+<link href="themes/css/custom/common/hamburgers.min.css"
+	rel="stylesheet">
+<link href="themes/css/custom/common/select2.min.css" rel="stylesheet">
+<link href="themes/css/custom/modules/header/header.css"
+	rel="stylesheet">
+<link href="themes/css/custom/modules/header/footer.css"
+	rel="stylesheet">
+<link href="themes/css/custom/modules/header/header-mediaquery.css"
+	rel="stylesheet">
+<script src="libraries/iecompatibility/ie-emulation-modes-warning.js"></script>
+
+</head>
+
+<body ng-controller="MainController" ondragstart="return false;"
+	onselectstart="return false;" ng-cloak>
+
+	<div ng-include="headerPath" ng-if="loginState"></div>
+	<div class="row">
+		<div ng-view class="app-page-container no-padding"
+			style="background-color: white; padding-left: 0px; padding-right: 0px; height: inherit !important;"
+			ng-class="{'col-sm-12': loginState}"></div>
+	</div>
+
+	<div class="site-wrapper">
+		<div ng-include="fileName" class="full-height"></div>
+	</div>
+	<div ng-include="'resources/common_views/loadingScreen.html'"></div>
+	<div ng-include="'resources/common_views/dialog.html'"></div>
+	<!-- Library files required -->
+	<script src="libraries/angular/angular.min.js"></script>
+	<script src="libraries/angular/angular-route.min.js"></script>
+	<script src="libraries/angular/pdf.js"></script>
+	<script src="libraries/angular/angular-pdfjs-viewer.js"></script>
+	<script src="libraries/angular/angular-animate.min.js"></script>
+	<script src="libraries/angular/angular-aria.min.js"></script>
+	<script src="libraries/angular/angular-messages.min.js"></script>
+	<script src="libraries/angular/angular-material.min.js"></script>
+	<script src="libraries/angular/angular-ui-tree.min.js"></script>
+	<script src="libraries/jquery/jquery.min.js"></script>
+	<script src="libraries/jquery/jquery-ui.min.js"></script>
+	<script src="libraries/jquery/jquery.easing.1.3.js"></script>
+	<script src="libraries/jquery/jquery.booklet.1.1.0.min.js"></script>
+	<script src="libraries/bootstrap/bootstrap.min.js"></script>
+	<script src="libraries/bootstrap/popper.min.js"></script>
+	<script src="libraries/angular/angular-translate.min.js"></script>
+	<script src="libraries/cufon/cufon-yui.js"></script>
+	<script src="libraries/cufon/ChunkFive_400.font.js"></script>
+	<script src="libraries/cufon/Note_this_400.font.js"></script>
+
+	<script src="libraries/angular/angular-touch.min.js"></script>
+	<script src="libraries/custom/moment-withlocale.js"></script>
+	<script src="libraries/angular/angular-material-datetimepicker.min.js"></script>
+	<script src="libraries/angular/ngStorage.min.js"></script>
+	<script src="libraries/angular/spin.min.js"></script>
+	<script src="libraries/cordova/cordova-2.5.0.js"></script>
+	<!-- <script src="libraries/angular/ng-device-detector.min.js"></script> -->
+	<!-- 	<script src="libraries/angular/re-tree.js"></script> -->
+	<script src="libraries/angular/angular-idle.min.js"></script>
+	<!-- <script src="libraries/jquery/jquery-ui.js"></script>
+	<script src="libraries/jquery/jquery.ui.datepicker.js"></script> -->
+
+
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="libraries/iecompatibility/ie10-viewport-bug-workaround.js"></script>
+
+	<!-- Application files required -->
+	<script src="app/main/AppInstance.js"></script>
+	<script src="app/main/MainController.js"></script>
+	<script src="libraries/custom/fileit-services.js"></script>
+	<script src="libraries/custom/ValidationUtil.js"></script>
+	<script src="libraries/custom/animsition.min.js"></script>
+	<script src="libraries/custom/moment.min.js"></script>
+	<script src="libraries/custom/daterangepicker.js"></script>
+	<script src="libraries/custom/countdowntime.js"></script>
+	<script src="libraries/custom/select2.min.js"></script>
+	<script src="libraries/custom/aes.js"></script>
+	<script src="libraries/custom/AesUtil.js"></script>
+	<script src="libraries/custom/pbkdf2.js"></script>
+
+	<!-- Configuration and Properties files required -->
+	<script src="resources/config/fileit-router.js"></script>
+	<script src="resources/config/fileit-config.js"></script>
+	<script src="resources/properties/i18n_en.js"></script>
+	<script src="resources/properties/i18n_fr.js"></script>
+	<script src="resources/properties/fileit-service-url.js"></script>
+
+
+	<!-- Controllers required -->
+	<script src="app/modules/header/controller/HeaderController.js"></script>
+	<script src="app/modules/user_management/controller/LoginController.js"></script>
+	<script src="app/modules/home/controller/HomeController.js"></script>
+	<script src="app/modules/home/service/HomeSvc.js"></script>
+	<script src="app/modules/configurations/controller/EventsCtrl.js"></script>
+	<script src="app/modules/user_management/service/UserOperationsSvc.js"></script>
+	<script src="app/modules/landing/controller/LandingController.js"></script>
+	<script src="app/modules/landing/service/LandingOperationSvc.js"></script>
+	<script type="text/javascript">
+		Cufon.replace('h1,p,.b-counter');
+		Cufon.replace('.book_wrapper a', {
+			hover : true
+		});
+		Cufon.replace('.title', {
+			textShadow : '1px 1px #C59471',
+			fontFamily : 'ChunkFive'
+		});
+		Cufon.replace('.reference a', {
+			textShadow : '1px 1px #C59471',
+			fontFamily : 'ChunkFive'
+		});
+		Cufon.replace('.loading', {
+			textShadow : '1px 1px #000',
+			fontFamily : 'ChunkFive'
+		});
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			var $mybook = $('#mybook');
+			var $bttn_next = $('#next_page_button');
+			var $bttn_prev = $('#prev_page_button');
+			var $loading = $('#loading');
+			var $mybook_images = $mybook.find('img');
+			var cnt_images = $mybook_images.length;
+			var loaded = 0;
+			//preload all the images in the book,
+			//and then call the booklet plugin
+
+			$mybook_images.each(function() {
+				var $img = $(this);
+				var source = $img.attr('src');
+				$('<img/>').load(function() {
+					++loaded;
+					if (loaded == cnt_images) {
+						$loading.hide();
+						$bttn_next.show();
+						$bttn_prev.show();
+						$mybook.show().booklet({
+							name : null, // name of the booklet to display in the document title bar
+							width : 800, // container width
+							height : 500, // container height
+							speed : 600, // speed of the transition between pages
+							direction : 'LTR', // direction of the overall content organization, default LTR, left to right, can be RTL for languages which read right to left
+							startingPage : 0, // index of the first page to be displayed
+							easing : 'easeInOutQuad', // easing method for complete transition
+							easeIn : 'easeInQuad', // easing method for first half of transition
+							easeOut : 'easeOutQuad', // easing method for second half of transition
+
+							closed : true, // start with the book "closed", will add empty pages to beginning and end of book
+							closedFrontTitle : null, // used with "closed", "menu" and "pageSelector", determines title of blank starting page
+							closedFrontChapter : null, // used with "closed", "menu" and "chapterSelector", determines chapter name of blank starting page
+							closedBackTitle : null, // used with "closed", "menu" and "pageSelector", determines chapter name of blank ending page
+							closedBackChapter : null, // used with "closed", "menu" and "chapterSelector", determines chapter name of blank ending page
+							covers : false, // used with  "closed", makes first and last pages into covers, without page numbers (if enabled)
+
+							pagePadding : 10, // padding for each page wrapper
+							pageNumbers : true, // display page numbers on each page
+
+							hovers : false, // enables preview pageturn hover animation, shows a small preview of previous or next page on hover
+							overlays : false, // enables navigation using a page sized overlay, when enabled links inside the content will not be clickable
+							tabs : false, // adds tabs along the top of the pages
+							tabWidth : 60, // set the width of the tabs
+							tabHeight : 20, // set the height of the tabs
+							arrows : false, // adds arrows overlayed over the book edges
+							cursor : 'pointer', // cursor css setting for side bar areas
+
+							hash : false, // enables navigation using a hash string, ex: #/page/1 for page 1, will affect all booklets with 'hash' enabled
+							keyboard : true, // enables navigation with arrow keys (left: previous, right: next)
+							next : $bttn_next, // selector for element to use as click trigger for next page
+							prev : $bttn_prev, // selector for element to use as click trigger for previous page
+
+							menu : null, // selector for element to use as the menu area, required for 'pageSelector'
+							pageSelector : false, // enables navigation with a dropdown menu of pages, requires 'menu'
+							chapterSelector : false, // enables navigation with a dropdown menu of chapters, determined by the "rel" attribute, requires 'menu'
+
+							shadows : true, // display shadows on page animations
+							shadowTopFwdWidth : 166, // shadow width for top forward anim
+							shadowTopBackWidth : 166, // shadow width for top back anim
+							shadowBtmWidth : 50, // shadow width for bottom shadow
+
+							before : function() {
+							}, // callback invoked before each page turn animation
+							after : function() {
+							} // callback invoked after each page turn animation
+						});
+						Cufon.refresh();
+					}
+				}).attr('src', source);
+			});
+
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<div ng-controller="HeaderController" class="header" ng-cloak>
+	<md-toolbar>
+	<div class="md-toolbar-tools"
+		style="background-image: linear-gradient(to bottom right, #54290C, #E9967A);">
+		<md-icon md-svg-src="images/home.svg" aria-label="Home"
+			ng-click="backtoHome()"></md-icon>
+		<md-truncate
+			style="position: absolute;left: 79px;right: 170px;top: 18px;bottom: 13px;color: cornsilk;font-size: 24px;">File</md-truncate>
+		<md-truncate
+			style="position: absolute;left: 118px;right: 170px;top: 18px;bottom: 13px;color: red;font-size: 24px;font-style: oblique;">It</md-truncate>
+		<span flex></span>
+		<div>
+			<md-input-container> <label
+				style="color: white; font-family: calibri;">Search</label> <input
+				ng-model="searchContent"> </md-input-container>
+		</div>
+		<md-button class="md-fab md-mini" aria-label="Search"
+			style="background-color: #54290C;" ng-click="onSearch()">
+		<md-icon md-svg-src="images/search.svg" aria-label="Search"></md-icon>
+		</md-button>
+		<md-button class="md-fab md-mini" aria-label="Profile"
+			style="background-color: #54290C;"> <md-icon
+			md-svg-src="images/user.svg" aria-label="User"></md-icon> </md-button>
+	</div>
+</div>
+

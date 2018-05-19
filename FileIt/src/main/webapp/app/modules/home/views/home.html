@@ -1,0 +1,131 @@
+<div>
+	<a ng-click="openModal()" class="float1"> <i
+		class="fa fa-plus my-float"></i>
+	</a>
+	<div class="bookshelf"></div>
+</div>
+<div class="modal fade" id="createNew" tabindex="-1" role="dialog"
+	aria-labelledby="myLargeModalLabel" aria-hidden="true"
+	data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-lg" style="width: 90%">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">
+					<p style="color: red">{{errorMessage}}</p>
+					<h3>
+						<md-icon md-svg-src="images/tag.svg" aria-label="Add Book"
+							style="margin-right: 5px;width: 30px;height: 30px;"></md-icon>
+						Add Binder
+					</h3>
+					<p ng-if="fileCHoosed !== undefined"
+						style="font-size: 14px; margin-top: 5px" class="animationIf">
+						<label style="color: #6495ED;">File Type : </label><b>
+							{{fileCHoosed}} </b>
+					</p>
+					<p style="font-size: 14px; margin-top: 5px"
+						ng-if="fileCHoosedName !== undefined" class="animationIf">
+						<label style="color: #6495ED;">File Name : </label><b>
+							{{fileCHoosedName}} </b>
+					</p>
+				</h4>
+			</div>
+			<div class="modal-body">
+				<form name="createVersionForm" class="form-register" method="post"
+					novalidate>
+					<div class="content">
+						<form class="form-horizontal">
+							<div ng-switch on="selection">
+								<!-- First Step -->
+								<div ng-switch-when="Binder Name">
+									<div class="parentDirective">
+										<div layout-gt-sm="row" layout-align="space-around center">
+											<md-input-container flex="60"> <label>Book
+												Name</label> <input name="binderName" ng-model="$parent.binderName"
+												required>
+											<div ng-messages="createVersionForm.binderName.$error"
+												ng-if="createVersionForm.binderName.$invalid && !createVersionForm.binderName.$pristine"
+												ng-messages-include="resources/common_views/message.html"></div>
+											</md-input-container>
+										</div>
+										<div layout-gt-sm="row" layout-align="space-around center">
+											<md-checkbox ng-model="uploadFIleValue"
+												aria-label="Checkbox 1"
+												ng-change="showButton(uploadFIleValue)" required>
+											Upload File</md-checkbox>
+										</div>
+									</div>
+								</div>
+								<!-- Second Step -->
+								<div ng-switch-when="Classification">
+									<div layout-gt-sm="row" layout-align="space-around center">
+										<md-input-container flex="60"> <label>Classification
+										</label> <input name="classification"
+											ng-model="$parent.classification" required>
+										<div ng-messages="createVersionForm.classification.$error"
+											ng-if="createVersionForm.classification.$invalid && !createVersionForm.classification.$pristine"
+											ng-messages-include="resources/common_views/message.html"></div>
+										</md-input-container>
+									</div>
+								</div>
+								<!-- Third Step -->
+								<div ng-switch-when="Upload" data-file-drop>
+									<div class="parentDirective">
+										<div class="col-md-12"
+											style="text-align: center; margin-bottom: 10px;">
+											<input type="file" id="file" name="file" multiple
+												onchange="angular.element(this).scope().setFile(this)"
+												class="btn btn-warning" />
+										</div>
+
+										<div class="col-md-12" style="padding-top: 10px;">
+
+											<div class="col-md-7">
+												<table class="table table-bordered table-striped">
+													<thead>
+														<tr>
+															<th>File Name</th>
+															<th>File Type</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr ng-repeat="file in fileList">
+
+															<td>{{file.name}}</td>
+															<td>{{file.type}}</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<div class="clearfix"></div>
+				<ul class="pager pull-left">
+					<li class="" ng-class="{disabled: !hasPreviousStep()}"><a
+						href="javascript:void(0);" ng-click="decrementStep()">&larr;
+							Previous Step</a></li>
+					<li class="" ng-class="{disabled: !hasNextStep()}"><a
+						href="javascript:void(0);" ng-click="incrementStep()">Next
+							Step &rarr;</a></li>
+				</ul>
+				<div class="pull-right">
+					<md-button class="md-raised md-primary md-hue-2"
+						ng-disabled="!showSubmitButton" style="margin: 20px 0;"
+						data-dismiss="modal" aria-hidden="true" ng-click="onSubmitClick()">{{'SUBMIT'
+					| translate}}</md-button>
+					<md-button style="margin: 20px 0;"
+						class="md-warn md-raised md-hue-2" data-dismiss="modal"
+						aria-hidden="true" ng-click="onCancelClick()">{{'CANCEL'
+					| translate}}</md-button>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+</div>

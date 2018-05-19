@@ -1,0 +1,13 @@
+.loginFooter{
+	height: 65px;
+	background-color: #2678a3;	
+}
+.tcsFooter{
+	background-image: url("../../../../../images/tcs-logo.png");
+    background-repeat: no-repeat;
+    background-position: 2%;
+    height: 65px;
+}
+.footer-text{
+	padding-top: 25px;
+}

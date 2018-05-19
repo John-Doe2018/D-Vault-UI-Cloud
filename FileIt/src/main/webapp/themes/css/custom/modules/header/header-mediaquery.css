@@ -1,0 +1,44 @@
+@charset "ISO-8859-1";
+
+/* Large desktops and laptops */
+@media ( min-width : 1200px) and (max-width: 1499px) {
+}
+
+/* Portrait tablets and medium desktops */
+@media ( min-width : 992px) and (max-width: 1199px) {
+	.menu-item {
+		font-size: 12px;
+	}
+	.header-title-text {
+		font-size: 30px !important;
+	}
+	.move-left {
+		padding-left: 5px
+	}
+}
+
+/* Portrait tablets and small desktops */
+@media ( min-width : 768px) and (max-width: 991px) {
+	.menu-item {
+		font-size: 9px;
+	}
+	.header-item {
+		height: 70px;
+	}
+	.header-title-text {
+		font-size: 25px !important;
+	}
+	.move-left {
+		padding-left: 0px
+	}
+	.menu-header {
+		height: 70px;
+	}
+	.userProfieImage {
+		height: 40px;
+	}
+}
+
+/* Landscape phones and portrait tablets */
+@media ( max-width : 767px) {
+}
