@@ -2,7 +2,7 @@
 	<a ng-click="openModal()" class="float1"> <i
 		class="fa fa-plus my-float"></i>
 	</a>
-	<div class="bookshelf"></div>
+	<div ng-if="noBookPresent" class="bookshelf"></div>
 </div>
 <div class="modal fade" id="createNew" tabindex="-1" role="dialog"
 	aria-labelledby="myLargeModalLabel" aria-hidden="true"

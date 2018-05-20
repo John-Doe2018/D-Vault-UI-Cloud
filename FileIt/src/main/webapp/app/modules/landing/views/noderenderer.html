@@ -5,9 +5,7 @@
           'glyphicon-chevron-right': collapsed,
           'glyphicon-chevron-down': !collapsed
         }"></span></a>
-	{{node.title}}<a class="pull-right btn  btn-xs" data-nodrag
-		ng-click="removeBook(node.title) "><span
-		class="glyphicon glyphicon-remove"></span>
+	{{node.title}}
 </div>
 <ol ui-tree-nodes="" ng-model="node.nodes"
 	ng-class="{hidden: collapsed}">

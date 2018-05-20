@@ -10,25 +10,112 @@ fileItApp
 						'AesEncoder',
 						'LandingOperationsSvc',
 						'BINDER_NAME',
+						'rfc4122',
+						'$route',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder,
-								LandingOperationsSvc, BINDER_NAME) {
+								LandingOperationsSvc, BINDER_NAME, rfc4122,
+								$route) {
 							$scope.remove = function(scope) {
 								scope.remove();
 							};
+
+							$scope.closeModal = function() {
+								$scope.fileList = [];
+							}
+
+							$scope.fileList = [];
+
+							$scope.addFlieClick = function() {
+								$('#addFileModal').modal('show');
+							}
+							$scope.ImageProperty = {
+								id : rfc4122.newuuid(),
+								name : "",
+								path : "",
+								type : "",
+								version : "1.0 ",
+								note : "NA"
+							};
+
+							$scope.setFile = function(element) {
+								// get the files
+								var files = element.files;
+								for (var i = 0; i < files.length; i++) {
+									$scope.showSubmitButton = true;
+									$scope.ImageProperty.name = files[i].name;
+									$scope.ImageProperty.path = document
+											.getElementById("file").value;
+									$scope.ImageProperty.type = files[i].type;
+
+									$scope.fileList.push($scope.ImageProperty);
+									$scope.ImageProperty = {};
+									$scope.$apply();
+
+								}
+							};
+
+							$scope.onAddFileClick = function() {
+								var addFileObj = {
+									binderName : BINDER_NAME.name,
+									oBookRequests : $scope.fileList
+								};
+								LandingOperationsSvc
+										.addfile(addFileObj)
+										.then(
+												function(result) {
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														$route.reload();
+													}
+												});
+
+							};
+
+							$scope.openSideBar = function() {
+								document.getElementById("main").style.marginLeft = "20%";
+								document.getElementById("mySidebar").style.width = "20%";
+								document.getElementById("mySidebar").style.display = "block";
+								document.getElementById("openNav").style.display = 'none';
+							};
+
+							$scope.closeSideBar = function() {
+								document.getElementById("main").style.marginLeft = "0%";
+								document.getElementById("mySidebar").style.display = "none";
+								document.getElementById("openNav").style.display = "inline-block";
+							}
 
 							$scope.$on('onNodeClick', function(event, node) {
 								console.log(node);
 								$('#pdfModal').modal('show');
 							});
 
-							$scope.$on('onRemoveBookClick', function(event,
-									bookname) {
-								LandingOperationsSvc.deleteBook(bookname).then(
-										function(result) {
-											$location.path('/home');
-										});
-							});
+							$scope.deletebook = function(bookname) {
+								var deleteObj = {
+									bookName : bookname
+								}
+								LandingOperationsSvc
+										.deleteBook(deleteObj)
+										.then(
+												function(result) {
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														$location.path('/home');
+													}
+												});
+							}
+
+							$scope.removeBook = function() {
+								$scope.deletebook(BINDER_NAME.name);
+							}
 
 							$scope.toggle = function(scope) {
 								scope.toggle();
@@ -61,6 +148,8 @@ fileItApp
 
 							$scope.nodearray = [];
 							$scope.getData = function() {
+								var text1 = '<div><img src="http://localhost:8080/static/Adi/Images/4.jpg" alt=""style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;" /></div>';
+								$(text1).appendTo(".b-load");
 								$scope.pdf = {
 									src : 'Test.pdf',
 								};
@@ -68,46 +157,47 @@ fileItApp
 										.treeList(BINDER_NAME.name)
 										.then(
 												function(result) {
-													var resultObj = result.data;
-													var a = resultObj.map.body.topicref.topic;
-													if (angular.isArray(a)) {
-														for (var x = 0; x < a.length; x++) {
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														var resultObj = result.data;
+														var a = resultObj.map.body.topicref.topic;
+														if (angular.isArray(a)) {
+															for (var x = 0; x < a.length; x++) {
+																var nodeObj = {
+																	'id' : a[x].id,
+																	'title' : a[x].name,
+																	'path' : a[x].path
+																}
+																$scope.nodearray
+																		.push(nodeObj);
+															}
+														} else {
 															var nodeObj = {
-																'id' : a[x].id,
-																'title' : a[x].name,
-																'path' : a[x].path
+																'id' : a.id,
+																'title' : a.name,
+																'path' : a.path
 															}
 															$scope.nodearray
 																	.push(nodeObj);
 														}
-													} else {
-														var nodeObj = {
-															'id' : a.id,
-															'title' : a.name,
-															'path' : a.path
-														}
-														$scope.nodearray
-																.push(nodeObj);
-													}
 
-													var nodeObjMaster = {
-														'id' : resultObj.map.id,
-														'title' : resultObj.map.body.topicref.navtitle,
-														'nodes' : $scope.nodearray
-													};
-													$scope.data = [];
-													$scope.data
-															.push(nodeObjMaster);
+														var nodeObjMaster = {
+															'id' : resultObj.map.id,
+															'title' : resultObj.map.body.topicref.navtitle,
+															'nodes' : $scope.nodearray
+														};
+														$scope.data = [];
+														$scope.data
+																.push(nodeObjMaster);
+													}
 												});
 							};
 
 							$scope.getData();
-							/*
-							 * $scope.data = [ { 'id' : 1, 'title' : 'Book
-							 * Name', 'nodes' : [ { 'id' : 11, 'title' :
-							 * 'node1.1.pdf', 'nodes' : [] }, { 'id' : 12,
-							 * 'title' : 'node1.2.pdf', 'nodes' : [] } ] }, ];
-							 */
 
 							$(function() {
 								var $mybook = $('#mybook');
@@ -408,25 +498,5 @@ fileItApp
 								});
 
 							});
-							$scope.viewerProps = {
-								serviceUrl : 'http://demos.componentone.com/ASPNET/c1webapi/4.0.20172.105/api/pdf',
-								filePath : 'Test.pdf',
-								fullScreen : false,
-								mouseMode : 'SelectTool',
-								zoomFactor : 1,
-								continuousViewMode : false
-							};
 
-							$scope.pdfViewer = null;
-
-							$scope
-									.$watch(
-											'viewerProps.continuousViewMode',
-											function() {
-												var continuousViewMode = $scope.viewerProps.continuousViewMode;
-												if ($scope.pdfViewer) {
-													$scope.pdfViewer.viewMode = continuousViewMode ? wijmo.viewer.ViewMode.Continuous
-															: wijmo.viewer.ViewMode.Single;
-												}
-											});
 						} ]);

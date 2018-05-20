@@ -19,56 +19,63 @@ fileItApp
 								HomeSvc, rfc4122, $compile, LoadingService,
 								$route) {
 
+							$scope.noBookPresent = true;
 							$scope.initialize = function() {
 
 								HomeSvc
 										.shelfBook()
 										.then(
 												function(result) {
-													var ob = result.data;
-													for (var i = 0; i < ob.BookList.length; i++) {
-														$scope.h2name = Object
-																.keys(ob.BookList[i])[0];
-														var text1;
-														if (i % 5 == 0) {
-															text1 = "<div class='book-tilted'><div class='book' id='"
-																	+ $scope.h2name
-																	+ "'><h2>"
-																	+ $scope.h2name
-																	+ "</h2></div></div>";
-														} else {
-															text1 = "<div class='book' id='"
-																	+ $scope.h2name
-																	+ "'><h2>"
-																	+ $scope.h2name
-																	+ "</h2></div>";
-														}
-														var id = '#'
-																+ $scope.h2name;
-														$(text1).appendTo(
-																".bookshelf");
-														var array = [
-																"book-green",
-																"book-blue",
-																"book-umber",
-																"book-springer" ];
-														var colorNumber = Math
-																.round((Math
-																		.random() * (array.length - 1)));
-														$(id)
-																.addClass(
-																		array[colorNumber]);
+													if (result.data.Error !== undefined) {
+														$scope.noBookPresent = false;
+													} else {
+														$scope.noBookPresent = true;
+														var ob = result.data;
+														for (var i = 0; i < ob.BookList.length; i++) {
+															$scope.h2name = Object
+																	.keys(ob.BookList[i])[0];
+															var text1;
+															if (i % 5 == 0) {
+																text1 = "<div class='book-tilted'><div class='book' id='"
+																		+ $scope.h2name
+																		+ "'><h2>"
+																		+ $scope.h2name
+																		+ "</h2></div></div>";
+															} else {
+																text1 = "<div class='book' id='"
+																		+ $scope.h2name
+																		+ "'><h2>"
+																		+ $scope.h2name
+																		+ "</h2></div>";
+															}
+															var id = '#'
+																	+ $scope.h2name;
+															$(text1)
+																	.appendTo(
+																			".bookshelf");
+															var array = [
+																	"book-green",
+																	"book-blue",
+																	"book-umber",
+																	"book-springer" ];
+															var colorNumber = Math
+																	.round((Math
+																			.random() * (array.length - 1)));
+															$(id)
+																	.addClass(
+																			array[colorNumber]);
 
-														$(id)
-																.replaceWith(
-																		$(id));
-														$(id)
-																.attr(
-																		'ng-click',
-																		"onBinderClick('"
-																				+ $scope.h2name
-																				+ "')");
-														$compile($(id))($scope);
+															$(id).replaceWith(
+																	$(id));
+															$(id)
+																	.attr(
+																			'ng-click',
+																			"onBinderClick('"
+																					+ $scope.h2name
+																					+ "')");
+															$compile($(id))(
+																	$scope);
+														}
 													}
 												});
 
