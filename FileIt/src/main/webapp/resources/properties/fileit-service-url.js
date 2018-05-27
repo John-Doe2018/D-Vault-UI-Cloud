@@ -4,5 +4,6 @@ fileItApp.constant('BINDER_SVC', {
 	shelf : '/helloworld/getMasterJson',
 	listview : '/binder/getBookTreeDetail',
 	deleteBook : '/binder/delete',
-	search : '/binder/searchBook'
+	search : '/binder/searchBook',
+	convertImg : '/binder/imageConvert'
 });

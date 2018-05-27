@@ -14,10 +14,13 @@ fileItApp
 						'$compile',
 						'LoadingService',
 						'$route',
+						'FILEIT_CONFIG',
+						'BINDER_SVC',
+						'$http',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder, BINDER_NAME,
 								HomeSvc, rfc4122, $compile, LoadingService,
-								$route) {
+								$route, FILEIT_CONFIG, BINDER_SVC, $http) {
 
 							$scope.noBookPresent = true;
 							$scope.initialize = function() {
@@ -109,14 +112,36 @@ fileItApp
 								note : "NA"
 							}
 
+							$scope.convertImage = function(files) {
+								var fd = new FormData();
+								fd.append('file', files[0]);
+								fd.append('bookName', $scope.binderName);
+								fd.append('path', $scope.binderName
+										+ "/Images/");
+								$http
+										.post(
+												FILEIT_CONFIG.apiUrl
+														+ BINDER_SVC.convertImg,
+												fd,
+												{
+													transformRequest : angular.identity,
+													headers : {
+														'Content-Type' : undefined
+													}
+												}).then(function() {
+											alert('hh');
+										});
+							}
+
 							$scope.setFile = function(element) {
 								// get the files
 								var files = element.files;
 								for (var i = 0; i < files.length; i++) {
+									$scope.convertImage(files);
 									$scope.showSubmitButton = true;
 									$scope.ImageProperty.name = files[i].name;
-									$scope.ImageProperty.path = document
-											.getElementById("file").value;
+									$scope.ImageProperty.path = $scope.binderName
+											+ "/Images/";
 									$scope.ImageProperty.type = files[i].type;
 
 									$scope.fileList.push($scope.ImageProperty);
