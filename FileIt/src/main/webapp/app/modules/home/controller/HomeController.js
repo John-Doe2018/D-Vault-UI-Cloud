@@ -118,6 +118,7 @@ fileItApp
 								fd.append('bookName', $scope.binderName);
 								fd.append('path', $scope.binderName
 										+ "/Images/");
+								fd.append('type', files[0].type);
 								$http
 										.post(
 												FILEIT_CONFIG.apiUrl
@@ -129,7 +130,6 @@ fileItApp
 														'Content-Type' : undefined
 													}
 												}).then(function() {
-											alert('hh');
 										});
 							}
 
