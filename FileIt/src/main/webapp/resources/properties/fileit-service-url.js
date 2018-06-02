@@ -5,5 +5,7 @@ fileItApp.constant('BINDER_SVC', {
 	listview : '/binder/getBookTreeDetail',
 	deleteBook : '/binder/delete',
 	search : '/binder/searchBook',
-	convertImg : '/binder/imageConvert'
+	convertImg : '/binder/imageConvert',
+	getImage : '/binder/getImage',
+	getFileCount : '/binder/getFileCount'
 });

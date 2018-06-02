@@ -17,10 +17,13 @@ fileItApp
 						'FILEIT_CONFIG',
 						'BINDER_SVC',
 						'$http',
+						'IMAGE_URLS',
+						'LandingOperationsSvc',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder, BINDER_NAME,
 								HomeSvc, rfc4122, $compile, LoadingService,
-								$route, FILEIT_CONFIG, BINDER_SVC, $http) {
+								$route, FILEIT_CONFIG, BINDER_SVC, $http,
+								IMAGE_URLS, LandingOperationsSvc) {
 
 							$scope.noBookPresent = true;
 							$scope.initialize = function() {
@@ -90,15 +93,16 @@ fileItApp
 								$('#createNew').modal('show');
 							}
 
-							function onBinderClick(value) {
-								BINDER_NAME.name = value;
-								$location.path('/landingPage');
-							}
-							;
-
 							$scope.onBinderClick = function(value) {
 								BINDER_NAME.name = value;
-								$location.path('/landingPage');
+								var reqObj1 = {
+									"bookName" : BINDER_NAME.name
+								}
+								LandingOperationsSvc.getImage(reqObj1).then(
+										function(result) {
+											IMAGE_URLS.url = result.data;
+											$location.path('/landingPage');
+										});
 							}
 
 							$scope.fileList = [];

@@ -97,7 +97,7 @@ fileItApp
 									'Accept' : 'application/json',
 									'Content-type' : 'application/json'
 								};
-							}  else if (config.url.includes("imageConvert")) {
+							} else if (config.url.includes("imageConvert")) {
 								config.headers = {
 									'Accept' : 'application/json',
 									'Content-type' : undefined
@@ -263,4 +263,8 @@ fileItApp.factory('FORMATTED_DATE', function() {
 
 fileItApp.value('BINDER_NAME', {
 	name : ''
+});
+
+fileItApp.value('IMAGE_URLS', {
+	url : ''
 });

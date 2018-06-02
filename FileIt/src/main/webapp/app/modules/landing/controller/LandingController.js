@@ -12,10 +12,69 @@ fileItApp
 						'BINDER_NAME',
 						'rfc4122',
 						'$route',
+						'IMAGE_URLS',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder,
 								LandingOperationsSvc, BINDER_NAME, rfc4122,
-								$route) {
+								$route, IMAGE_URLS) {
+
+							$scope.getData = function() {
+								LandingOperationsSvc
+										.treeList(BINDER_NAME.name)
+										.then(
+												function(result) {
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														var resultObj = result.data;
+														var a = resultObj.map.body.topicref.topic;
+														if (angular.isArray(a)) {
+															for (var x = 0; x < a.length; x++) {
+																var nodeObj = {
+																	'id' : a[x].id,
+																	'title' : a[x].name,
+																	'path' : a[x].path
+																}
+																$scope.nodearray
+																		.push(nodeObj);
+															}
+														} else {
+															var nodeObj = {
+																'id' : a.id,
+																'title' : a.name,
+																'path' : a.path
+															}
+															$scope.nodearray
+																	.push(nodeObj);
+														}
+
+														var nodeObjMaster = {
+															'id' : resultObj.map.id,
+															'title' : resultObj.map.body.topicref.navtitle,
+															'nodes' : $scope.nodearray
+														};
+														$scope.data = [];
+														$scope.data
+																.push(nodeObjMaster);
+													}
+												});
+							};
+
+							$scope.getImage = function() {
+													for (var n = 0; n < IMAGE_URLS.url.length; n++) {
+														var text1 = '<div><img src="'
+																+ IMAGE_URLS.url[n]
+																+ '"style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;" /></div>';
+														$(text1).appendTo(
+																".b-load");
+													}
+								$scope.getData();
+							};
+							$scope.getImage();
+
 							$scope.remove = function(scope) {
 								scope.remove();
 							};
@@ -146,58 +205,11 @@ fileItApp
 								$scope.$broadcast('angular-ui-tree:expand-all');
 							};
 
+							$scope.testArray = [ "1", "2" ];
+
+							$scope.pageCount = 0;
+
 							$scope.nodearray = [];
-							$scope.getData = function() {
-								var text1 = '<div><img src="http://localhost:8080/static/Adi/Images/4.jpg" alt=""style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;" /></div>';
-								$(text1).appendTo(".b-load");
-								$scope.pdf = {
-									src : 'Test.pdf',
-								};
-								LandingOperationsSvc
-										.treeList(BINDER_NAME.name)
-										.then(
-												function(result) {
-													if (result.data.errorId !== undefined) {
-														$rootScope
-																.$broadcast(
-																		'error',
-																		result.data.description);
-													} else {
-														var resultObj = result.data;
-														var a = resultObj.map.body.topicref.topic;
-														if (angular.isArray(a)) {
-															for (var x = 0; x < a.length; x++) {
-																var nodeObj = {
-																	'id' : a[x].id,
-																	'title' : a[x].name,
-																	'path' : a[x].path
-																}
-																$scope.nodearray
-																		.push(nodeObj);
-															}
-														} else {
-															var nodeObj = {
-																'id' : a.id,
-																'title' : a.name,
-																'path' : a.path
-															}
-															$scope.nodearray
-																	.push(nodeObj);
-														}
-
-														var nodeObjMaster = {
-															'id' : resultObj.map.id,
-															'title' : resultObj.map.body.topicref.navtitle,
-															'nodes' : $scope.nodearray
-														};
-														$scope.data = [];
-														$scope.data
-																.push(nodeObjMaster);
-													}
-												});
-							};
-
-							$scope.getData();
 
 							$(function() {
 								var $mybook = $('#mybook');
