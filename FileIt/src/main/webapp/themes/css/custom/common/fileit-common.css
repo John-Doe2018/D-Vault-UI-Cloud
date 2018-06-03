@@ -159,6 +159,14 @@ body {
 	margin-bottom: 10px;
 	margin-top: 20px;
 	transition: transform 0.4s ease;
+	cursor: pointer;
+}
+
+.file-delete{
+	width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .book-tilted {
@@ -231,6 +239,7 @@ body {
 	border-radius:50px;
 	text-align:center;
 	box-shadow: 2px 2px 3px #999;
+	cursor: pointer;
 }
 
 .my-float{

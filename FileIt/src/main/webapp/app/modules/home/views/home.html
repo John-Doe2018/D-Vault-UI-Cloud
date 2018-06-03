@@ -48,7 +48,7 @@
 											</md-input-container>
 										</div>
 										<div layout-gt-sm="row" layout-align="space-around center">
-											<md-checkbox ng-model="uploadFIleValue"
+											<md-checkbox ng-model="$parent.uploadFIleValue"
 												aria-label="Checkbox 1"
 												ng-change="showButton(uploadFIleValue)" required>
 											Upload File</md-checkbox>
@@ -85,6 +85,7 @@
 														<tr>
 															<th>File Name</th>
 															<th>File Type</th>
+															<th></th>
 														</tr>
 													</thead>
 													<tbody>
@@ -92,6 +93,7 @@
 
 															<td>{{file.name}}</td>
 															<td>{{file.type}}</td>
+															<td class="glyphicon glyphicon-trash file-delete" ng-click="deleteFile($index);"></td>
 														</tr>
 													</tbody>
 												</table>
@@ -107,16 +109,16 @@
 			<div class="modal-footer">
 				<div class="clearfix"></div>
 				<ul class="pager pull-left">
-					<li class="" ng-class="{disabled: !hasPreviousStep()}"><a
+					<li class="" ng-class="{'disabled': !hasPreviousStep()}"><a
 						href="javascript:void(0);" ng-click="decrementStep()">&larr;
 							Previous Step</a></li>
-					<li class="" ng-class="{disabled: !hasNextStep()}"><a
+					<li class="" ng-class="{'disabled': !hasNextStep() || !enableNext()}"><a
 						href="javascript:void(0);" ng-click="incrementStep()">Next
 							Step &rarr;</a></li>
 				</ul>
 				<div class="pull-right">
 					<md-button class="md-raised md-primary md-hue-2"
-						ng-disabled="!showSubmitButton" style="margin: 20px 0;"
+						ng-disabled="!showSubmitButton || binderName == null" style="margin: 20px 0;"
 						data-dismiss="modal" aria-hidden="true" ng-click="onSubmitClick()">{{'SUBMIT'
 					| translate}}</md-button>
 					<md-button style="margin: 20px 0;"

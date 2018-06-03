@@ -16,3 +16,30 @@
 		</div>
 	</div>
 </div>
+<div class="modal fade" id="confirmationModal" tabindex="-1"
+	role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
+	data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-lg" style="width: 90%">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">Confirmation Modal</h4>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure? Do you want to continue?</p>
+			</div>
+			<div class="modal-footer">
+				<div class="clearfix"></div>
+				<div class="pull-right">
+					<md-button class="md-raised md-primary md-hue-2"
+						style="margin: 20px 0;" data-dismiss="modal" aria-hidden="true"
+						ng-click="yesClicked()">{{'YES' | translate}}</md-button>
+					<md-button style="margin: 20px 0;"
+						class="md-warn md-raised md-hue-2" data-dismiss="modal"
+						aria-hidden="true" ng-click="noCicked()">{{'NO' |
+					translate}}</md-button>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+</div>

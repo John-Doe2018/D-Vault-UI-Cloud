@@ -28,6 +28,14 @@
 								$scope.errorMessage = errorMsg;
 								$('#errorModal').modal('show');
 							});
+							$rootScope.$on('showConfirmModal', function() {
+
+								$('#confirmationModal').modal('show');
+							});
+
+							$scope.yesClicked = function() {
+								$scope.$broadcast('confirmAgreed');
+							}
 							$location.path('/login');
 							$scope.loginState = false;
 							$scope.headerPath = "app/modules/header/views/header.html";
