@@ -11,6 +11,7 @@
 						'LoadingService',
 						function($rootScope, $scope, $location, $window,
 								$translate, $interval, LoadingService) {
+							console.log = function(){};
 							LoadingService.showLoad();
 							var locale;
 							$translate.use("en_US");
