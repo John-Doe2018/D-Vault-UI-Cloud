@@ -150,6 +150,25 @@ body {
 	<script src="app/modules/landing/controller/LandingController.js"></script>
 	<script src="app/modules/landing/service/LandingOperationSvc.js"></script>
 	<script type="text/javascript">
+		document.onmousedown = disableclick;
+		status = "Right Click Disabled";
+		function disableclick(e) {
+			if (event.button == 2) {
+				alert(status);
+				return false;
+			}
+		}
+	</script>
+	<script type="text/javascript">
+		$(document).keydown(function(event) {
+			if (event.keyCode == 123) { // Prevent F12
+				return false;
+			} else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I        
+				return false;
+			}
+		});
+	</script>
+	<script type="text/javascript">
 		Cufon.replace('h1,p,.b-counter');
 		Cufon.replace('.book_wrapper a', {
 			hover : true
