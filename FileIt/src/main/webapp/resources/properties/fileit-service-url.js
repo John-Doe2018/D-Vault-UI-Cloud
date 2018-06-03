@@ -7,5 +7,6 @@ fileItApp.constant('BINDER_SVC', {
 	search : '/binder/searchBook',
 	convertImg : '/binder/imageConvert',
 	getImage : '/binder/getImage',
-	login : '/auth/login'
+	login : '/auth/login',
+	advancedSearch : '/binder/advancedSearch'
 });

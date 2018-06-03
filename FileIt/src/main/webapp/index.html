@@ -43,6 +43,8 @@ body {
 	rel="stylesheet">
 <link href="themes/css/angular-material/angular-ui-tree.min.css"
 	rel="stylesheet">
+<link href="themes/css/angular-material/angucomplete-alt.css"
+	rel="stylesheet">
 <link href="themes/css/jquery/jquery.booklet.1.1.0.css" rel="stylesheet">
 <link href="themes/css/custom/common/fileit-common.css" rel="stylesheet">
 <link href="themes/css/custom/common/util.css" rel="stylesheet">
@@ -94,6 +96,7 @@ body {
 	<script src="libraries/angular/angular-messages.min.js"></script>
 	<script src="libraries/angular/angular-material.min.js"></script>
 	<script src="libraries/angular/angular-ui-tree.min.js"></script>
+	<script src="libraries/angular/angucomplete-alt.js"></script>
 	<script src="libraries/jquery/jquery.min.js"></script>
 	<script src="libraries/jquery/jquery-ui.min.js"></script>
 	<script src="libraries/jquery/jquery.easing.1.3.js"></script>
@@ -190,6 +193,19 @@ body {
 			fontFamily : 'ChunkFive'
 		});
 	</script>
+	<script type="text/ng-template" id="color-item-template">
+        <table class='auto-complete'>
+            <tbody>
+                <tr>
+                    <td style='width: 55%;'>
+                        <span ng-bind-html="entry.item.name | uppercase | highlight:entry.searchText"></span>
+                    </td>
+                    <td style='width: 15%; background-color:{{entry.item.code}}'></td>
+                    <td style='width: 30%; padding-left: 10px'></td>
+                </tr>
+            </tbody>
+        </table>
+    </script>
 	<script type="text/javascript">
 		$(function() {
 			var $mybook = $('#mybook');
