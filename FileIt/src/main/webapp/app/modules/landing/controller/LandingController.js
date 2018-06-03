@@ -64,13 +64,12 @@ fileItApp
 							};
 
 							$scope.getImage = function() {
-													for (var n = 0; n < IMAGE_URLS.url.length; n++) {
-														var text1 = '<div><img src="'
-																+ IMAGE_URLS.url[n]
-																+ '"style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;" /></div>';
-														$(text1).appendTo(
-																".b-load");
-													}
+								for (var n = 0; n < IMAGE_URLS.url.length; n++) {
+									var text1 = '<div><img src="'
+											+ IMAGE_URLS.url[n]
+											+ '"style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;" /></div>';
+									$(text1).appendTo(".b-load");
+								}
 								$scope.getData();
 							};
 							$scope.getImage();

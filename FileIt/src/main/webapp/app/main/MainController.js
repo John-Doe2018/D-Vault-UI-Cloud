@@ -11,10 +11,11 @@
 						'LoadingService',
 						function($rootScope, $scope, $location, $window,
 								$translate, $interval, LoadingService) {
-							console.log = function(){};
+							console.log = function() {
+							};
 							LoadingService.showLoad();
 							var locale;
-							$translate.use("en_US");
+							$translate.use("en");
 							$scope.onnodeclick = function(node) {
 								$rootScope.$broadcast('onNodeClick', node);
 							}
@@ -23,6 +24,10 @@
 								$rootScope.$broadcast('onRemoveBookClick',
 										bookname);
 							}
+							$scope.$on('error', function(event, errorMsg) {
+								$scope.errorMessage = errorMsg;
+								$('#errorModal').modal('show');
+							});
 							$location.path('/login');
 							$scope.loginState = false;
 							$scope.headerPath = "app/modules/header/views/header.html";
@@ -50,21 +55,6 @@
 									current) {
 								// $translate.use(OMNI_PROP.locale);
 								$scope.fitScreen();
-							});
-
-							$scope.$on('ErrorData', function(event, args) {
-								$scope.errorData = args.errStatus;
-								$('#bizErrorModal').modal('show');
-							});
-
-							$scope.$on('SuccessModal', function(event, args) {
-								$scope.sucessMessage = args.sucessMsg;
-								$('#successMsgModal').modal('show');
-							});
-							$scope.$on('WarningModal', function(event, args) {
-
-								$scope.warningMessage = args.sucessMsg;
-								$('#warningMsgModal').modal('show');
 							});
 
 							/**
