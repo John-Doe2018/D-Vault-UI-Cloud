@@ -39,11 +39,21 @@
 						id="prev_page_button"></a>
 					<div id="loading" class="loading">Loading pages...</div>
 					<div id="mybook" style="display: none;">
-						<div class="b-load">
-						</div>
+						<div class="b-load"></div>
 					</div>
 				</div>
 				<br />
+				<nav mfb-menu position="br" effect="zoomin" active-icon="ion-close"
+					resting-icon="ion-grid" toggling-method="click" class="app-menu"
+					menu-state="menuState"
+					ng-class="{'fadeOut' : menuState === 'closed'}">
+					<button mfb-button label="Add" icon="ion-plus-round"
+						ng-click="addFlieClick()"></button>
+					<button mfb-button label="Update" icon="ion-ios-paper"></button>
+					<button mfb-button label="Delete" icon="ion-ios-trash"
+						ng-click="removeBook()"></button>
+					<button mfb-button label="Publish" icon="ion-folder"></button>
+				</nav>
 			</div>
 
 		</div>
