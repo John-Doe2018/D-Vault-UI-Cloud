@@ -123,6 +123,7 @@ fileItApp
 								fd.append('path', $scope.binderName
 										+ "/Images/");
 								fd.append('type', files[0].type);
+								LoadingService.showLoad();
 								$http
 										.post(
 												FILEIT_CONFIG.apiUrl
@@ -134,6 +135,7 @@ fileItApp
 														'Content-Type' : undefined
 													}
 												}).then(function() {
+											LoadingService.hideLoad();
 										});
 							}
 
@@ -172,6 +174,15 @@ fileItApp
 								return $scope.steps.indexOf($scope.selection);
 							};
 
+							$scope.onBookNameChange = function(bookName) {
+								if (bookName !== undefined
+										&& ($scope.uploadFIleValue === undefined || $scope.uploadFIleValue === false)) {
+									$scope.showSubmitButton = true;
+								} else {
+									$scope.showSubmitButton = false;
+								}
+							}
+
 							$scope.onCancelClick = function() {
 								$scope.fileCHoosed = undefined;
 								$scope.fileCHoosedName = undefined;
@@ -183,6 +194,7 @@ fileItApp
 								$scope.classification = '';
 								$scope.fileList = [];
 								$scope.uploadFIleValue = false;
+								$scope.showSubmitButton = false;
 							};
 
 							$scope.goToStep = function(index) {

@@ -15,7 +15,7 @@
 					<h3>
 						<md-icon md-svg-src="images/tag.svg" aria-label="Add Book"
 							style="margin-right: 5px;width: 30px;height: 30px;"></md-icon>
-						Add Binder
+						Add Book
 					</h3>
 					<p ng-if="fileCHoosed !== undefined"
 						style="font-size: 14px; margin-top: 5px" class="animationIf">
@@ -40,7 +40,7 @@
 									<div class="parentDirective">
 										<div layout-gt-sm="row" layout-align="space-around center">
 											<md-input-container flex="60"> <label>Book
-												Name</label> <input name="binderName" ng-model="$parent.binderName"
+												Name</label> <input name="binderName" ng-model="$parent.binderName" ng-change="onBookNameChange($parent.binderName)"
 												required>
 											<div ng-messages="createVersionForm.binderName.$error"
 												ng-if="createVersionForm.binderName.$invalid && !createVersionForm.binderName.$pristine"

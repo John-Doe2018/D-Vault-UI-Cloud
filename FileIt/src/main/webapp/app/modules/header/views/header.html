@@ -2,23 +2,24 @@
 	<md-toolbar>
 	<div class="md-toolbar-tools"
 		style="background-image: linear-gradient(to bottom right, #54290C, #E9967A);">
+		<md-button>
 		<md-icon md-svg-src="images/d vault.svg" aria-label="Home"
 			ng-click="backtoHome()"
-			style="height: 67px;width: 132px;margin-left: -3%;"></md-icon>
+			style="height: 67px;width: 132px;margin-left: -3%;"></md-icon></md-button>
 		<md-truncate
-			style="position: absolute;left: 79px;right: 170px;top: 18px;bottom: 13px;color: cornsilk;font-size: 24px;">D-</md-truncate>
+			style="position: absolute;left: 119px;right: 170px;top: 18px;bottom: 13px;color: cornsilk;font-size: 24px;">D-</md-truncate>
 		<md-truncate
-			style="position: absolute;left: 118px;right: 170px;top: 18px;bottom: 13px;color: red;font-size: 24px;font-style: oblique;">Vault</md-truncate>
+			style="position: absolute;left: 147px;right: 170px;top: 18px;bottom: 13px;color: red;font-size: 24px;font-style: oblique;">Vault</md-truncate>
 		<span flex></span>
 		<div angucomplete-alt id="ex2" placeholder="Search Book" pause="300"
 			selected-object="selectedBook" local-data="people"
 			local-search="localSearch" title-field="bookname"
 			description-field="twitter" image-field="pic" minlength="1"
 			input-class="form-control form-control-small" match-class="highlight"></div>
-		<md-button class="md-fab md-mini" aria-label="Search"
+		<!-- <md-button class="md-fab md-mini" aria-label="Search"
 			style="background-color: #54290C;" ng-click="onSearch()">
 		<md-icon md-svg-src="images/search.svg" aria-label="Search"></md-icon>
-		</md-button>
+		</md-button> -->
 		<md-button class="md-fab md-mini" aria-label="Profile"
 			style="background-color: #54290C;"> <md-icon
 			md-svg-src="images/user.svg" aria-label="User"></md-icon> </md-button>
