@@ -40,11 +40,15 @@
 									<div class="parentDirective">
 										<div layout-gt-sm="row" layout-align="space-around center">
 											<md-input-container flex="60"> <label>Book
-												Name</label> <input name="binderName" ng-model="$parent.binderName" ng-change="onBookNameChange($parent.binderName)"
-												required>
+												Name</label> <input name="binderName" ng-model="$parent.binderName"
+												ng-change="onBookNameChange($parent.binderName)"
+												data-ng-pattern="/^\S*$/" required>
 											<div ng-messages="createVersionForm.binderName.$error"
 												ng-if="createVersionForm.binderName.$invalid && !createVersionForm.binderName.$pristine"
 												ng-messages-include="resources/common_views/message.html"></div>
+											<div
+												data-ng-show="createVersionForm.binderName.$error.pattern"
+												style="color: red;">White Space not allowed</div>
 											</md-input-container>
 										</div>
 										<div layout-gt-sm="row" layout-align="space-around center">
@@ -93,7 +97,8 @@
 
 															<td>{{file.name}}</td>
 															<td>{{file.type}}</td>
-															<td class="glyphicon glyphicon-trash file-delete" ng-click="deleteFile($index);"></td>
+															<td class="glyphicon glyphicon-trash file-delete"
+																ng-click="deleteFile($index);"></td>
 														</tr>
 													</tbody>
 												</table>
@@ -112,15 +117,16 @@
 					<li class="" ng-class="{'disabled': !hasPreviousStep()}"><a
 						href="javascript:void(0);" ng-click="decrementStep()">&larr;
 							Previous Step</a></li>
-					<li class="" ng-class="{'disabled': !hasNextStep() || !enableNext()}"><a
+					<li class=""
+						ng-class="{'disabled': !hasNextStep() || !enableNext()}"><a
 						href="javascript:void(0);" ng-click="incrementStep()">Next
 							Step &rarr;</a></li>
 				</ul>
 				<div class="pull-right">
 					<md-button class="md-raised md-primary md-hue-2"
-						ng-disabled="!showSubmitButton || binderName == null" style="margin: 20px 0;"
-						data-dismiss="modal" aria-hidden="true" ng-click="onSubmitClick()">{{'SUBMIT'
-					| translate}}</md-button>
+						ng-disabled="!showSubmitButton || binderName == null"
+						style="margin: 20px 0;" data-dismiss="modal" aria-hidden="true"
+						ng-click="onSubmitClick()">{{'SUBMIT' | translate}}</md-button>
 					<md-button style="margin: 20px 0;"
 						class="md-warn md-raised md-hue-2" data-dismiss="modal"
 						aria-hidden="true" ng-click="onCancelClick()">{{'CANCEL'

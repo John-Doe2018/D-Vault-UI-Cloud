@@ -119,6 +119,8 @@ fileItApp
 							$scope.convertImage = function(files) {
 								var fd = new FormData();
 								fd.append('file', files[0]);
+								fd.append('filename', files[0].name.substring(
+										0, files[0].name.lastIndexOf('.')));
 								fd.append('bookName', $scope.binderName);
 								fd.append('path', $scope.binderName
 										+ "/Images/");
@@ -165,6 +167,13 @@ fileItApp
 								}
 								element.files = null;
 							}
+
+							$scope.deleteFile = function(index) {
+								$scope.fileList.splice(index, 1);
+								if ($scope.fileList.length < 1) {
+									$scope.showSubmitButton = false;
+								}
+							}
 							$scope.showSubmitButton = true;
 							$scope.steps = [ 'Binder Name', 'Classification',
 									'Upload' ];
@@ -195,6 +204,9 @@ fileItApp
 								$scope.fileList = [];
 								$scope.uploadFIleValue = false;
 								$scope.showSubmitButton = false;
+								$scope.createVersionForm.$setValidity();
+								$scope.createVersionForm.$setPristine();
+								$scope.createVersionForm.$setUntouched();
 							};
 
 							$scope.goToStep = function(index) {
@@ -228,8 +240,7 @@ fileItApp
 							}
 
 							$scope.incrementStep = function() {
-								if ($scope.hasNextStep()
-										&& $scope.createVersionForm.$valid) {
+								if ($scope.hasNextStep()) {
 									var stepIndex = $scope
 											.getCurrentStepIndex();
 									var nextStep = stepIndex + 1;
@@ -249,6 +260,9 @@ fileItApp
 							$scope.fileCHoosed = undefined;
 
 							$scope.onSubmitClick = function() {
+								$scope.createVersionForm.$setValidity();
+								$scope.createVersionForm.$setPristine();
+								$scope.createVersionForm.$setUntouched();
 								if ($scope.selection === "Binder Name") {
 									$scope.onAddBinder();
 								} else {
