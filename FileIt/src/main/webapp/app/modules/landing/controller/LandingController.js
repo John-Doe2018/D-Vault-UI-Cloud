@@ -76,15 +76,38 @@ fileItApp
 
 							var bookScope;
 
-							$scope.removeFile = function(scope) {
+							$scope.removeFile = function(scope, fileName) {
 								$rootScope.$broadcast('showConfirmModal');
+								$scope.deleteFileName = fileName;
 								bookScope = scope;
 							};
 
-							$scope.$on('confirmAgreed', function() {
-								bookScope.remove(this);
-								bookScope = null;
-							});
+							$scope
+									.$on(
+											'confirmAgreed',
+											function() {
+												var requestObj = {
+													'bookName' : BINDER_NAME.name,
+													'fileName' : $scope.deleteFileName
+												}
+												LandingOperationsSvc
+														.deleteFile(requestObj)
+														.then(
+																function(result) {
+																	if (result.data.Success !== undefined) {
+																		bookScope
+																				.remove(this);
+																		bookScope = null;
+																		$route
+																				.reload();
+																	} else {
+																		$rootScope
+																				.$broadcast(
+																						'error',
+																						result.data.description);
+																	}
+																});
+											});
 
 							$scope.closeModal = function() {
 								$scope.fileList = [];

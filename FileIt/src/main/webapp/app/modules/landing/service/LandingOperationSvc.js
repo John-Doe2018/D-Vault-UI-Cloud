@@ -28,6 +28,10 @@ fileItApp.factory('LandingOperationsSvc', [ 'RestSvc', 'EncoderSvc',
 				advSearch : function() {
 
 					return RestSvc.postData(BINDER_SVC.advancedSearch);
+				},
+				deleteFile : function(reqObj) {
+
+					return RestSvc.postData(BINDER_SVC.deleteFile, reqObj);
 				}
 			};
 		} ]);
