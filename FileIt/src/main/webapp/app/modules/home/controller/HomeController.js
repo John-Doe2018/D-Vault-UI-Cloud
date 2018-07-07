@@ -119,8 +119,7 @@ fileItApp
 							$scope.convertImage = function(files) {
 								var fd = new FormData();
 								fd.append('file', files[0]);
-								fd.append('filename', files[0].name.substring(
-										0, files[0].name.lastIndexOf('.')));
+								fd.append('filename', files[0].name);
 								fd.append('bookName', $scope.binderName);
 								fd.append('path', $scope.binderName
 										+ "/Images/");
