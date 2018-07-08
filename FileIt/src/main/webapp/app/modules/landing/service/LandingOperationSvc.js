@@ -32,6 +32,10 @@ fileItApp.factory('LandingOperationsSvc', [ 'RestSvc', 'EncoderSvc',
 				deleteFile : function(reqObj) {
 
 					return RestSvc.postData(BINDER_SVC.deleteFile, reqObj);
+				},
+				downloadFile : function(reqObj) {
+
+					return RestSvc.postData(BINDER_SVC.downloadFile, reqObj);
 				}
 			};
 		} ]);

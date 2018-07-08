@@ -74,6 +74,34 @@ fileItApp
 							};
 							$scope.getImage();
 
+							$scope.onFileDownload = function() {
+								var reqObj = {
+									"bookName" : BINDER_NAME.name
+								}
+								LandingOperationsSvc
+										.downloadFile(reqObj)
+										.then(
+												function(result) {
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														console.log(result.data.URL);
+														var a = document.createElement("a");
+														a.href = result.data.URL;
+														fileName = result.data.URL.split("/").pop();
+														a.download = fileName;
+														document.body.appendChild(a);
+														a.click();
+														window.URL.revokeObjectURL(result.data.URL);
+														a.remove();
+													}
+												});
+
+							}
+
 							var bookScope;
 
 							$scope.removeFile = function(scope, fileName) {

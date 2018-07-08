@@ -9,5 +9,6 @@ fileItApp.constant('BINDER_SVC', {
 	getImage : '/binder/getImage',
 	login : '/auth/login',
 	advancedSearch : '/binder/advancedSearch',
-	deleteFile : '/binder/deleteFile'
+	deleteFile : '/binder/deleteFile',
+	downloadFile : '/binder/download'
 });

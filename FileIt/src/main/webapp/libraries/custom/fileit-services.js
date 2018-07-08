@@ -102,7 +102,7 @@ fileItApp
 									'Accept' : 'application/json',
 									'Content-type' : undefined
 								};
-							} else {
+							}else {
 								config.headers = {
 									'Accept' : 'application/json',
 									'Content-type' : 'application/json'
