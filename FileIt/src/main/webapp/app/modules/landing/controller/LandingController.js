@@ -88,14 +88,20 @@ fileItApp
 																		'error',
 																		result.data.description);
 													} else {
-														console.log(result.data.URL);
-														var a = document.createElement("a");
+														console
+																.log(result.data.URL);
+														var a = document
+																.createElement("a");
 														a.href = result.data.URL;
-														fileName = result.data.URL.split("/").pop();
+														fileName = result.data.URL
+																.split("/")
+																.pop();
 														a.download = fileName;
-														document.body.appendChild(a);
+														document.body
+																.appendChild(a);
 														a.click();
-														window.URL.revokeObjectURL(result.data.URL);
+														window.URL
+																.revokeObjectURL(result.data.URL);
 														a.remove();
 													}
 												});
@@ -158,17 +164,31 @@ fileItApp
 							$scope.setFile = function(element) {
 								// get the files
 								var files = element.files;
+								var validFile = false;
+								var allowedFiles = [ ".pptx", ".docx", ".pdf", ".txt" ];
 								for (var i = 0; i < files.length; i++) {
-									$scope.showSubmitButton = true;
-									$scope.ImageProperty.name = files[i].name;
-									$scope.ImageProperty.path = document
-											.getElementById("file").value;
-									$scope.ImageProperty.type = files[i].type;
+									var regex = new RegExp(
+											"([a-zA-Z0-9\s_\\.\-:])+("
+													+ allowedFiles.join('|')
+													+ ")$");
+									if (regex.test(files[i].name.toLowerCase())) {
+										validFile = true;
+									}
+								}
+								if (validFile) {
+									for (var i = 0; i < files.length; i++) {
+										$scope.showSubmitButton = true;
+										$scope.ImageProperty.name = files[i].name;
+										$scope.ImageProperty.path = document
+												.getElementById("file").value;
+										$scope.ImageProperty.type = files[i].type;
 
-									$scope.fileList.push($scope.ImageProperty);
-									$scope.ImageProperty = {};
-									$scope.$apply();
+										$scope.fileList
+												.push($scope.ImageProperty);
+										$scope.ImageProperty = {};
+										$scope.$apply();
 
+									}
 								}
 							};
 

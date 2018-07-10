@@ -68,6 +68,8 @@
 										<div ng-messages="createVersionForm.classification.$error"
 											ng-if="createVersionForm.classification.$invalid && !createVersionForm.classification.$pristine"
 											ng-messages-include="resources/common_views/message.html"></div>
+										<div ng-if="!validFile" style="color: red;">Upload valid
+											file</div>
 										</md-input-container>
 									</div>
 								</div>

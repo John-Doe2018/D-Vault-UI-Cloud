@@ -143,25 +143,38 @@ fileItApp
 							$scope.setFile = function(element) {
 								// get the files
 								var files = element.files;
+								var validFile = true;
+								var allowedFiles = [ ".pptx", ".docx", ".pdf" ];
 								for (var i = 0; i < files.length; i++) {
-									var fileFound = false;
-									for (var j = 0; j < $scope.fileList.length; j++) {
-										if ($scope.fileList[j].name == files[i].name) {
-											fileFound = true;
-										}
+									var regex = new RegExp(
+											"([a-zA-Z0-9\s_\\.\-:])+("
+													+ allowedFiles.join('|')
+													+ ")$");
+									if (regex.test(files[i].name.toLowerCase())) {
+										validFile = false;
 									}
-									if (!fileFound) {
-										$scope.convertImage(files);
-										$scope.showSubmitButton = true;
-										$scope.ImageProperty.name = files[i].name;
-										$scope.ImageProperty.path = $scope.binderName
-												+ "/Images/";
-										$scope.ImageProperty.type = files[i].type;
+								}
+								if (validFile) {
+									for (var i = 0; i < files.length; i++) {
+										var fileFound = false;
+										for (var j = 0; j < $scope.fileList.length; j++) {
+											if ($scope.fileList[j].name == files[i].name) {
+												fileFound = true;
+											}
+										}
+										if (!fileFound) {
+											$scope.convertImage(files);
+											$scope.showSubmitButton = true;
+											$scope.ImageProperty.name = files[i].name;
+											$scope.ImageProperty.path = $scope.binderName
+													+ "/Images/";
+											$scope.ImageProperty.type = files[i].type;
 
-										$scope.fileList
-												.push($scope.ImageProperty);
-										$scope.ImageProperty = {};
-										$scope.$apply();
+											$scope.fileList
+													.push($scope.ImageProperty);
+											$scope.ImageProperty = {};
+											$scope.$apply();
+										}
 									}
 								}
 								element.files = null;
