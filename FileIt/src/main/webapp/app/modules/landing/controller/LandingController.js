@@ -13,10 +13,15 @@ fileItApp
 						'rfc4122',
 						'$route',
 						'IMAGE_URLS',
+						'LoadingService',
+						'$http',
+						'FILEIT_CONFIG',
+						'BINDER_SVC',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder,
 								LandingOperationsSvc, BINDER_NAME, rfc4122,
-								$route, IMAGE_URLS) {
+								$route, IMAGE_URLS, LoadingService, $http,
+								FILEIT_CONFIG, BINDER_SVC) {
 
 							$scope.getData = function() {
 								LandingOperationsSvc
@@ -161,11 +166,36 @@ fileItApp
 								note : "NA"
 							};
 
+							$scope.convertImage = function(files) {
+								var fd = new FormData();
+								fd.append('file', files[0]);
+								fd.append('filename', files[0].name);
+								fd.append('bookName', BINDER_NAME.name);
+								fd.append('path', $scope.binderName
+										+ "/Images/");
+								fd.append('type', files[0].type);
+								LoadingService.showLoad();
+								$http
+										.post(
+												FILEIT_CONFIG.apiUrl
+														+ BINDER_SVC.convertImg,
+												fd,
+												{
+													transformRequest : angular.identity,
+													headers : {
+														'Content-Type' : undefined
+													}
+												}).then(function() {
+											LoadingService.hideLoad();
+										});
+							}
+
 							$scope.setFile = function(element) {
 								// get the files
 								var files = element.files;
 								var validFile = false;
-								var allowedFiles = [ ".pptx", ".docx", ".pdf", ".txt" ];
+								var allowedFiles = [ ".pptx", ".docx", ".pdf",
+										".txt" ];
 								for (var i = 0; i < files.length; i++) {
 									var regex = new RegExp(
 											"([a-zA-Z0-9\s_\\.\-:])+("
@@ -177,6 +207,7 @@ fileItApp
 								}
 								if (validFile) {
 									for (var i = 0; i < files.length; i++) {
+										$scope.convertImage(files);
 										$scope.showSubmitButton = true;
 										$scope.ImageProperty.name = files[i].name;
 										$scope.ImageProperty.path = document
@@ -194,7 +225,7 @@ fileItApp
 
 							$scope.onAddFileClick = function() {
 								var addFileObj = {
-									binderName : BINDER_NAME.name,
+									bookName : BINDER_NAME.name,
 									oBookRequests : $scope.fileList
 								};
 								LandingOperationsSvc
@@ -212,6 +243,11 @@ fileItApp
 												});
 
 							};
+
+							$scope.onAddfileCancel = function() {
+								$('#addFileModal').modal('hide');
+								$scope.fileList = undefined;
+							}
 
 							$scope.openSideBar = function() {
 								document.getElementById("main").style.marginLeft = "20%";
