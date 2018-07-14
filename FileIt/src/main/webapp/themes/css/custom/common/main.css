@@ -174,7 +174,7 @@ iframe {
   background-position: center;
   background-size: cover;
   position: relative;
-  z-index: 1;  
+ /*  z-index: 1; */  
 }
 
 .container-login100::before {

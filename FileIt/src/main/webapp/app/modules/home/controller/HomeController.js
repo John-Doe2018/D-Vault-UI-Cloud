@@ -260,11 +260,13 @@ fileItApp
 							}
 
 							$scope.incrementStep = function() {
-								if ($scope.hasNextStep()) {
-									var stepIndex = $scope
-											.getCurrentStepIndex();
-									var nextStep = stepIndex + 1;
-									$scope.selection = $scope.steps[nextStep];
+								if($scope.uploadFIleValue){
+									if ($scope.hasNextStep()) {
+										var stepIndex = $scope
+												.getCurrentStepIndex();
+										var nextStep = stepIndex + 1;
+										$scope.selection = $scope.steps[nextStep];
+									}
 								}
 
 							};
