@@ -42,7 +42,7 @@
 											<md-input-container flex="60"> <label>Book
 												Name</label> <input name="binderName" ng-model="$parent.binderName"
 												ng-change="onBookNameChange($parent.binderName)"
-												data-ng-pattern="/^\S*$/" required>
+												data-ng-pattern="/^\S*$/" maxlength="10" required>
 											<div ng-messages="createVersionForm.binderName.$error"
 												ng-if="createVersionForm.binderName.$invalid && !createVersionForm.binderName.$pristine"
 												ng-messages-include="resources/common_views/message.html"></div>
