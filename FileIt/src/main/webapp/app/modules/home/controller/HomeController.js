@@ -19,12 +19,18 @@ fileItApp
 						'$http',
 						'IMAGE_URLS',
 						'LandingOperationsSvc',
+						'$interval',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder, BINDER_NAME,
 								HomeSvc, rfc4122, $compile, LoadingService,
 								$route, FILEIT_CONFIG, BINDER_SVC, $http,
-								IMAGE_URLS, LandingOperationsSvc) {
-
+								IMAGE_URLS, LandingOperationsSvc, $interval) {
+							function adceSearch() {
+								$rootScope.$broadcast('advSaerch');
+							}
+							;
+							$interval(adceSearch(), 1000);
+							$scope.validFile = true;
 							$scope.noBookPresent = true;
 							$scope.initialize = function() {
 
@@ -143,7 +149,7 @@ fileItApp
 							$scope.setFile = function(element) {
 								// get the files
 								var files = element.files;
-								var validFile = true;
+								$scope.validFile = true;
 								var allowedFiles = [ ".pptx", ".docx", ".pdf" ];
 								for (var i = 0; i < files.length; i++) {
 									var regex = new RegExp(
@@ -151,10 +157,12 @@ fileItApp
 													+ allowedFiles.join('|')
 													+ ")$");
 									if (regex.test(files[i].name.toLowerCase())) {
-										validFile = false;
+										$scope.validFile = true;
+									} else {
+										$scope.validFile = false;
 									}
 								}
-								if (validFile) {
+								if ($scope.validFile) {
 									for (var i = 0; i < files.length; i++) {
 										var fileFound = false;
 										for (var j = 0; j < $scope.fileList.length; j++) {

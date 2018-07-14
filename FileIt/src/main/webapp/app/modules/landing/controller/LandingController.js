@@ -22,7 +22,7 @@ fileItApp
 								LandingOperationsSvc, BINDER_NAME, rfc4122,
 								$route, IMAGE_URLS, LoadingService, $http,
 								FILEIT_CONFIG, BINDER_SVC) {
-
+							$scope.validFile = true;
 							$scope.getData = function() {
 								LandingOperationsSvc
 										.treeList(BINDER_NAME.name)
@@ -171,7 +171,7 @@ fileItApp
 								fd.append('file', files[0]);
 								fd.append('filename', files[0].name);
 								fd.append('bookName', BINDER_NAME.name);
-								fd.append('path', $scope.binderName
+								fd.append('path', BINDER_NAME.name
 										+ "/Images/");
 								fd.append('type', files[0].type);
 								LoadingService.showLoad();
@@ -193,19 +193,20 @@ fileItApp
 							$scope.setFile = function(element) {
 								// get the files
 								var files = element.files;
-								var validFile = false;
-								var allowedFiles = [ ".pptx", ".docx", ".pdf",
-										".txt" ];
+								$scope.validFile = true;
+								var allowedFiles = [ ".pptx", ".docx", ".pdf" ];
 								for (var i = 0; i < files.length; i++) {
 									var regex = new RegExp(
 											"([a-zA-Z0-9\s_\\.\-:])+("
 													+ allowedFiles.join('|')
 													+ ")$");
 									if (regex.test(files[i].name.toLowerCase())) {
-										validFile = true;
+										$scope.validFile = true;
+									} else {
+										$scope.validFile = false;
 									}
 								}
-								if (validFile) {
+								if ($scope.validFile) {
 									for (var i = 0; i < files.length; i++) {
 										$scope.convertImage(files);
 										$scope.showSubmitButton = true;
@@ -238,7 +239,7 @@ fileItApp
 																		'error',
 																		result.data.description);
 													} else {
-														$route.reload();
+														$location.path('\home');
 													}
 												});
 

@@ -68,8 +68,6 @@
 										<div ng-messages="createVersionForm.classification.$error"
 											ng-if="createVersionForm.classification.$invalid && !createVersionForm.classification.$pristine"
 											ng-messages-include="resources/common_views/message.html"></div>
-										<div ng-if="!validFile" style="color: red;">Upload valid
-											file</div>
 										</md-input-container>
 									</div>
 								</div>
@@ -82,7 +80,8 @@
 												onchange="angular.element(this).scope().setFile(this)"
 												class="btn btn-warning" />
 										</div>
-
+										<div ng-if="!validFile" style="color: red;">Upload valid
+											file</div>
 										<div class="col-md-12" style="padding-top: 10px;">
 
 											<div class="col-md-7">
@@ -126,7 +125,7 @@
 				</ul>
 				<div class="pull-right">
 					<md-button class="md-raised md-primary md-hue-2"
-						ng-disabled="!showSubmitButton || binderName == null"
+						ng-disabled="!showSubmitButton || binderName == null || !validFile"
 						style="margin: 20px 0;" data-dismiss="modal" aria-hidden="true"
 						ng-click="onSubmitClick()">{{'SUBMIT' | translate}}</md-button>
 					<md-button style="margin: 20px 0;"
