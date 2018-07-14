@@ -64,7 +64,8 @@
 									<div layout-gt-sm="row" layout-align="space-around center">
 										<md-input-container flex="60"> <label>Classification
 										</label> <input name="classification"
-											ng-model="$parent.classification" required>
+											ng-model="$parent.classification"
+											ng-pattern-restrict="^$|^[A-Za-z0-9]+$" required>
 										<div ng-messages="createVersionForm.classification.$error"
 											ng-if="createVersionForm.classification.$invalid && !createVersionForm.classification.$pristine"
 											ng-messages-include="resources/common_views/message.html"></div>
@@ -118,7 +119,7 @@
 					<li class="" ng-class="{'disabled': !hasPreviousStep()}"><a
 						href="javascript:void(0);" ng-click="decrementStep()">&larr;
 							Previous Step</a></li>
-					<li class="" 
+					<li class=""
 						ng-class="{'disabled': !hasNextStep() || !enableNext()}"><a
 						href="javascript:void(0);" ng-click="incrementStep()">Next
 							Step &rarr;</a></li>
