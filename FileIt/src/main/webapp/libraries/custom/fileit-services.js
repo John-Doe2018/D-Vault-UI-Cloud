@@ -9,6 +9,17 @@ fileItApp.service('LoadingService', function($rootScope) {
 	};
 });
 
+fileItApp.service('LoginLoadingService', function($rootScope) {
+	this.showLoad = function() {
+		$('#loginloadingScreen').addClass('display-flex');
+		$('#loginloadingScreen').removeClass('display-none');
+	};
+	this.hideLoad = function() {
+		$('#loginloadingScreen').removeClass('display-flex');
+		$('#loginloadingScreen').addClass('display-none');
+	};
+});
+
 fileItApp.factory("rfc4122", function() {
 	return {
 		newuuid : function() {
@@ -54,7 +65,9 @@ fileItApp.factory('RestSvc', [
 				},
 
 				postData : function(relURL, data) {
-					LoadingService.showLoad();
+					if (!relURL.includes("login")) {
+						LoadingService.showLoad();
+					}
 					var appPostUrl = FILEIT_CONFIG.apiUrl + relURL;
 					return $http.post(appPostUrl, data).then(
 							function(response) {
@@ -64,7 +77,9 @@ fileItApp.factory('RestSvc', [
 								console.log('Error : ' + error.status);
 								return $q.reject(error.data);
 							})['finally'](function() {
-						LoadingService.hideLoad();
+						if (!relURL.includes("login")) {
+							LoadingService.hideLoad();
+						}
 					});
 				},
 
@@ -102,7 +117,7 @@ fileItApp
 									'Accept' : 'application/json',
 									'Content-type' : undefined
 								};
-							}else {
+							} else {
 								config.headers = {
 									'Accept' : 'application/json',
 									'Content-type' : 'application/json'

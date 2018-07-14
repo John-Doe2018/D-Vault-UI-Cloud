@@ -9,9 +9,12 @@ fileItApp
 						'Idle',
 						'AesEncoder',
 						'UserOperationsSvc',
+						'LoginLoadingService',
+						'LoadingService',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder,
-								UserOperationsSvc) {
+								UserOperationsSvc, LoginLoadingService,
+								LoadingService) {
 
 							(function($) {
 								"use strict";
@@ -109,6 +112,7 @@ fileItApp
 							})(jQuery);
 
 							$scope.onLoginClick = function() {
+								LoginLoadingService.showLoad();
 								var loginObj = {
 									userName : $scope.uName,
 									password : $scope.pwd
@@ -117,6 +121,8 @@ fileItApp
 										.login(loginObj)
 										.then(
 												function(result) {
+													LoginLoadingService
+															.hideLoad();
 													if (result.data.successMsg !== undefined) {
 														$location.path('\home');
 													} else {
