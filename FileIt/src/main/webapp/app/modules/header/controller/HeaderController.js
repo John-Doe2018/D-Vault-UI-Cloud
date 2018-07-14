@@ -11,13 +11,14 @@ fileItApp
 						function($rootScope, $scope, $location,
 								$sessionStorage, LandingOperationsSvc,
 								BINDER_NAME) {
-							
+
 							function adavnceSearch() {
 								LandingOperationsSvc.advSearch().then(
 										function(result) {
 											$scope.people = result.data;
 										});
-							};
+							}
+							;
 							adavnceSearch();
 							$scope.$on('advSaerch', function() {
 								adavnceSearch();
@@ -36,6 +37,11 @@ fileItApp
 											}
 										});
 								return matches;
+							};
+
+							$scope.logout = function() {
+								$rootScope.$broadcast('LogoutSucess');
+								$location.path('/login');
 							};
 							$scope.backtoHome = function() {
 								$location.path('/home');

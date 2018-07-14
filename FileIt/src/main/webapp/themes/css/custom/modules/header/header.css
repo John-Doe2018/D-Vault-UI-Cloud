@@ -4,3 +4,15 @@
     background: #fff;
     box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1);
 }
+
+.dropdown{
+	margin-right : 3%; 
+}
+
+.user-bottom{
+	background-color: #54290C !important; 
+	margin-left: 1.7vw !important;
+}
+.dropdown-menu{
+	min-width : 0 !important;
+}

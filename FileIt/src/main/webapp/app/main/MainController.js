@@ -120,6 +120,11 @@
 								$scope.loginState = true;
 							});
 
+							$scope.$on('LogoutSucess', function() {
+								$scope.headerPath = null;
+								$scope.footerPath = null;
+							});
+
 							$scope.$on('fullWidth', function() {
 								$scope.loginState = false;
 							});
