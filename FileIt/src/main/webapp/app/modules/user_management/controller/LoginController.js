@@ -124,7 +124,8 @@ fileItApp
 													LoginLoadingService
 															.hideLoad();
 													if (result.data.successMsg !== undefined) {
-														$location.path('\home');
+														//$location.path('\home');
+														$location.path('\dashboard');
 													} else {
 														$rootScope
 																.$broadcast(

@@ -12,6 +12,9 @@ fileItApp.config([ '$routeProvider', function($routeProvider) {
 	}).when('/landingPage', {
 		templateUrl : 'app/modules/landing/views/landingpage.html',
 		controller : 'LandingController'
+	}).when('/dashboard', {
+		templateUrl : 'app/modules/dashboard/views/dashboard.html',
+		controller : 'DashboardController'
 	}).otherwise({
 		redirectTo : '/'
 	});

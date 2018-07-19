@@ -1,14 +1,89 @@
 <div ng-controller="HeaderController" class="header" ng-cloak>
+	<div id="mySidenav" class="sidenav">
+		<div class="card-body">
+			<div class="row">
+				<div class="col-sm-12">
+					<a class="confirm text-danger" title="View Profile"
+						ng-click="goTOHome()"> View Shelf </a>
+				</div>
+				<div class="col-sm-12">
+					<a class="confirm text-danger"
+						confirmationmessage="Are you sure you want to logout?"
+						title="Logout">Document Classes</a>
+				</div>
+				<div class="col-sm-12">
+					<a class="confirm text-danger"
+						confirmationmessage="Are you sure you want to logout?"
+						title="Logout">Manager Users <i
+						class="fa fa-sign-out  text-primary"></i></a>
+				</div>
+				<div class="col-sm-12">
+					<a class="confirm text-danger"
+						confirmationmessage="Are you sure you want to logout?"
+						title="Logout">Recycle Bin</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="profilenav" class="sidenavPro">
+		<div class="card mb-3 text-white border border-light">
+			<div class="card-header bg-danger text-center"
+				style="background-color: black;">
+				<img src="images/icons8-administrator-male-96.png"
+					class="align-self-center rounded-circle p-2">
+				<h4>Welcome Admin User !</h4>
+			</div>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item list-group-item-action text-danger"
+					style="background-color: floralwhite;">
+					<h6>
+						<i class="fa fa-lg fa-globe"></i> Current Domain : Accounts
+						Department
+					</h6>
+				</li>
+				<li class="list-group-item  list-group-item-action text-primary"
+					style="background-color: aliceblue;">
+					<h6>
+						<i class="fa fa-lg fa-clock-o"></i> Last login : 19-Jul-2018 23:35
+					</h6>
+				</li>
+			</ul>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-sm-12">
+						<a class="confirm text-danger" title="View Profile"> View
+							Profile<i class="fa fa-user text-primary"></i>
+						</a>
+					</div>
+					<div class="col-sm-12">
+						<a class="confirm text-danger"
+							confirmationmessage="Are you sure you want to logout?"
+							title="Logout">Settings <i class="fa fa-cog  text-primary"></i></a>
+					</div>
+					<div class="col-sm-12">
+						<a class="confirm text-danger"
+							confirmationmessage="Are you sure you want to logout?"
+							title="Logout">Logout <i class="fa fa-sign-out  text-primary"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<md-toolbar>
 	<div class="md-toolbar-tools"
 		style="background-image: linear-gradient(to bottom right, #54290C, #E9967A);">
 		<md-button> <md-icon md-svg-src="images/d vault.svg"
 			aria-label="Home" ng-click="backtoHome()"
-			style="height: 67px;width: 132px;margin-left: -3%; outline: none;"></md-icon></md-button>
-		<md-truncate
-			style="position: absolute;left: 119px;right: 170px;top: 18px;bottom: 13px;color: cornsilk;font-size: 24px;">D-</md-truncate>
-		<md-truncate
-			style="position: absolute;left: 147px;right: 170px;top: 18px;bottom: 13px;color: red;font-size: 24px;font-style: oblique;">Vault</md-truncate>
+			style="height: 67px;width: 132px;margin-left: -79%; outline: none;"></md-icon></md-button>
+		<label
+			style="position: absolute; left: 63px; width: 10%; top: 18px; bottom: 13px; color: cornsilk; font-size: 24px;">D-</label>
+		<label
+			style="position: absolute; left: 91px; top: 18px; bottom: 13px; color: red; font-size: 24px; font-style: oblique;">Vault</label>
+		<md-button aria-label="Side Panel" ng-click="openNav()" tabindex="0">
+		<md-icon md-svg-src="images/icons8-menu-filled.svg"
+			class="md-default-theme ng-scope ng-isolate-scope material-icons"></md-icon>
+		<div class="md-ripple-container"></div>
+		</md-button>
 		<span flex></span>
 		<div angucomplete-alt id="ex2" placeholder="Search Book" pause="300"
 			selected-object="selectedBook" local-data="people"
@@ -19,16 +94,8 @@
 			style="background-color: #54290C;" ng-click="onSearch()">
 		<md-icon md-svg-src="images/search.svg" aria-label="Search"></md-icon>
 		</md-button> -->
-		<div class="dropdown">
-			<md-button class="md-fab md-mini dropdown-toggle user-bottom"
-				data-toggle="dropdown" aria-label="Profile"> <md-icon
-				md-svg-src="images/user.svg" aria-label="User"></md-icon></md-button>
-			<ul class="dropdown-menu">
-				<li><a>Profile</a></li>
-				<li><a>Setting</a></li>
-				<li class="divider"></li>
-				<li><a ng-click="logout()" style="color: red;">Logout</a></li>
-			</ul>
-		</div>
+		<md-button class="md-fab md-mini dropdown-toggle user-bottom"
+			data-toggle="dropdown" aria-label="Profile" ng-click="profileNav()">
+		<md-icon md-svg-src="images/user.svg" aria-label="User"></md-icon></md-button>
 	</div>
 </div>

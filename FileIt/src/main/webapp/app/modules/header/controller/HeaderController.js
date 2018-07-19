@@ -8,9 +8,31 @@ fileItApp
 						'$sessionStorage',
 						'LandingOperationsSvc',
 						'BINDER_NAME',
+						'$mdSidenav',
 						function($rootScope, $scope, $location,
 								$sessionStorage, LandingOperationsSvc,
-								BINDER_NAME) {
+								BINDER_NAME, $mdSidenav) {
+							$scope.openNav = function() {
+								if (document.getElementById("profilenav").style.width === "250px") {
+									document.getElementById("profilenav").style.width = "0";
+								}
+								if (document.getElementById("mySidenav").style.width === "250px") {
+									document.getElementById("mySidenav").style.width = "0";
+								} else {
+									document.getElementById("mySidenav").style.width = "250px";
+								}
+							};
+
+							$scope.profileNav = function() {
+								if (document.getElementById("mySidenav").style.width === "250px") {
+									document.getElementById("mySidenav").style.width = "0";
+								}
+								if (document.getElementById("profilenav").style.width === "250px") {
+									document.getElementById("profilenav").style.width = "0";
+								} else {
+									document.getElementById("profilenav").style.width = "250px";
+								}
+							};
 
 							function adavnceSearch() {
 								LandingOperationsSvc.advSearch().then(
@@ -44,6 +66,16 @@ fileItApp
 								$location.path('/login');
 							};
 							$scope.backtoHome = function() {
+								$location.path('/dashboard');
+							};
+
+							$scope.goTOHome = function() {
+								if (document.getElementById("profilenav").style.width === "250px") {
+									document.getElementById("profilenav").style.width = "0";
+								}
+								if (document.getElementById("mySidenav").style.width === "250px") {
+									document.getElementById("mySidenav").style.width = "0";
+								}
 								$location.path('/home');
 							}
 
