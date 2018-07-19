@@ -8,10 +8,11 @@ fileItApp
 						'$sessionStorage',
 						'LandingOperationsSvc',
 						'BINDER_NAME',
-						'$mdSidenav',
+						'LOGGED_USER',
 						function($rootScope, $scope, $location,
 								$sessionStorage, LandingOperationsSvc,
-								BINDER_NAME, $mdSidenav) {
+								BINDER_NAME, LOGGED_USER) {
+							$scope.loggeduser = LOGGED_USER.name;
 							$scope.openNav = function() {
 								if (document.getElementById("profilenav").style.width === "250px") {
 									document.getElementById("profilenav").style.width = "0";

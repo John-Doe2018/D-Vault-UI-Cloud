@@ -11,10 +11,11 @@ fileItApp
 						'UserOperationsSvc',
 						'LoginLoadingService',
 						'LoadingService',
+						'LOGGED_USER',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder,
 								UserOperationsSvc, LoginLoadingService,
-								LoadingService) {
+								LoadingService, LOGGED_USER) {
 
 							(function($) {
 								"use strict";
@@ -124,7 +125,7 @@ fileItApp
 													LoginLoadingService
 															.hideLoad();
 													if (result.data.successMsg !== undefined) {
-														//$location.path('\home');
+														LOGGED_USER.name = $scope.uName;
 														$location.path('\dashboard');
 													} else {
 														$rootScope

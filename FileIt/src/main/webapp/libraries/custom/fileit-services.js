@@ -283,3 +283,7 @@ fileItApp.value('BINDER_NAME', {
 fileItApp.value('IMAGE_URLS', {
 	url : ''
 });
+
+fileItApp.value('LOGGED_USER', {
+	name : ''
+});
