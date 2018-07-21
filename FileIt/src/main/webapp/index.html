@@ -39,6 +39,8 @@ body {
 <link href="themes/fonts/roboto/font.css" rel="stylesheet">
 <link href="themes/css/angular-material/angular-material.min.css"
 	rel="stylesheet">
+<link href="themes/css/angular-material/angular-chart.css"
+	rel="stylesheet">
 <link href="themes/css/angular-material/material-datetimepicker.min.css"
 	rel="stylesheet">
 <link href="themes/css/angular-material/angular-ui-tree.min.css"
@@ -80,6 +82,7 @@ body {
 			style="background-color: white; padding-left: 0px; padding-right: 0px; height: inherit !important;"
 			ng-class="{'col-sm-12': loginState}"></div>
 	</div>
+	<div ng-include="footerPath" ng-if="loginState"></div>
 
 	<div class="site-wrapper">
 		<div ng-include="fileName" class="full-height"></div>
@@ -118,6 +121,8 @@ body {
 	<script src="libraries/angular/ngStorage.min.js"></script>
 	<script src="libraries/angular/spin.min.js"></script>
 	<script src="libraries/cordova/cordova-2.5.0.js"></script>
+	<script src="libraries/angular/Chart.min.js"></script>
+	<script src="libraries/angular/angular-charts.min.js"></script>
 	<!-- <script src="libraries/angular/ng-device-detector.min.js"></script> -->
 	<!-- 	<script src="libraries/angular/re-tree.js"></script> -->
 	<script src="libraries/angular/angular-idle.min.js"></script>

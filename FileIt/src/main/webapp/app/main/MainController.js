@@ -63,7 +63,7 @@
 							$scope.$on('$routeChangeSuccess', function(next,
 									current) {
 								// $translate.use(OMNI_PROP.locale);
-								$scope.fitScreen();
+							//	$scope.fitScreen();
 							});
 
 							/**
@@ -72,7 +72,7 @@
 							 */
 							var windowObj = angular.element($window);
 							windowObj.bind('resize', function() {
-								$scope.fitScreen();
+							//	$scope.fitScreen();
 							});
 
 							/**
@@ -102,9 +102,9 @@
 							};
 
 							// call fit screen when App loads for the first time
-							$scope.fitScreen();
+							//$scope.fitScreen();
 							$scope.$on('FitScreen', function() {
-								$scope.fitScreen();
+							//	$scope.fitScreen();
 							});
 
 							/**
