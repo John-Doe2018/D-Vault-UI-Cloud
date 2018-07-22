@@ -69,6 +69,11 @@ fileItApp
 							$scope.backtoHome = function() {
 								$location.path('/dashboard');
 							};
+							
+							$scope.goTOCreateBook = function() {
+								document.getElementById("mySidenav").style.width = "0";
+								$location.path('/createBook');
+							};
 
 							$scope.goTOHome = function() {
 								if (document.getElementById("profilenav").style.width === "250px") {
