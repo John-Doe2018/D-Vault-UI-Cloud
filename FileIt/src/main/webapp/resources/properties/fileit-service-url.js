@@ -11,5 +11,6 @@ fileItApp.constant('BINDER_SVC', {
 	advancedSearch : '/binder/advancedSearch',
 	deleteFile : '/binder/deleteFile',
 	downloadFile : '/binder/download',
-	addfile : '/binder/addFile'
+	addfile : '/binder/addFile',
+	classifiedData : '/binder/classifiedData'
 });

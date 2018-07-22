@@ -12,10 +12,13 @@ fileItApp
 						'LoginLoadingService',
 						'LoadingService',
 						'LOGGED_USER',
+						'DashboardSvc',
+						'DASHBOARD_DETALS',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder,
 								UserOperationsSvc, LoginLoadingService,
-								LoadingService, LOGGED_USER) {
+								LoadingService, LOGGED_USER, DashboardSvc,
+								DASHBOARD_DETALS) {
 
 							(function($) {
 								"use strict";
@@ -111,7 +114,54 @@ fileItApp
 										});
 
 							})(jQuery);
+							$scope.labels = [];
+							$scope.data = [];
+							$scope.colorArray = [];
+							$scope.records = [];
+							var dynamicColors = function() {
+								var r = Math.floor(Math.random() * 255);
+								var g = Math.floor(Math.random() * 255);
+								var b = Math.floor(Math.random() * 255);
+								return "rgb(" + r + "," + g + "," + b + ")";
+							};
 
+							$scope.getDashboard = function() {
+								DashboardSvc
+										.classifiedData()
+										.then(
+												function(result) {
+													$scope.docCount = 0;
+													var keys = Object
+															.keys(result.data);
+													for (var i = 0; i < keys.length; i++) {
+														if (keys[i] !== "BlankArray") {
+															var recObj = {
+																'no' : i + 1,
+																'classification' : keys[i],
+																'count' : result.data[keys[i]].length
+															};
+															$scope.records
+																	.push(recObj);
+															$scope.colorArray
+																	.push(dynamicColors());
+															$scope.labels
+																	.push(keys[i]);
+															$scope.docCount += result.data[keys[i]].length;
+															$scope.data
+																	.push(result.data[keys[i]].length);
+														}
+													}
+													DASHBOARD_DETALS.colors = $scope.colorArray;
+													DASHBOARD_DETALS.data = $scope.data;
+													DASHBOARD_DETALS.lable = $scope.labels;
+													DASHBOARD_DETALS.records = $scope.records;
+													$rootScope.records = $scope.records;
+													DASHBOARD_DETALS.doccount = $scope.docCount;
+													DASHBOARD_DETALS.classcount = $scope.labels.length;
+													$location
+															.path('\dashboard');
+												});
+							}
 							$scope.onLoginClick = function() {
 								LoginLoadingService.showLoad();
 								var loginObj = {
@@ -126,7 +176,7 @@ fileItApp
 															.hideLoad();
 													if (result.data.successMsg !== undefined) {
 														LOGGED_USER.name = $scope.uName;
-														$location.path('\dashboard');
+														$scope.getDashboard();
 													} else {
 														$rootScope
 																.$broadcast(

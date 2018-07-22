@@ -20,6 +20,17 @@ fileItApp.service('LoginLoadingService', function($rootScope) {
 	};
 });
 
+fileItApp.directive('testTable', function($timeout) {
+	return {
+		restrict : 'A',
+		link : function() {
+			$timeout(function() {
+				$('#example').DataTable();
+			});
+		}
+	}
+});
+
 fileItApp.factory("rfc4122", function() {
 	return {
 		newuuid : function() {
@@ -286,4 +297,14 @@ fileItApp.value('IMAGE_URLS', {
 
 fileItApp.value('LOGGED_USER', {
 	name : ''
+});
+
+fileItApp.value('DASHBOARD_DETALS', {
+	colors : '',
+	data : '',
+	lable : '',
+	records : '',
+	doccount : '',
+	classcount : '',
+	booklist : ''
 });

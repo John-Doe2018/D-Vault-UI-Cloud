@@ -20,11 +20,14 @@ fileItApp
 						'IMAGE_URLS',
 						'LandingOperationsSvc',
 						'$interval',
+						'DASHBOARD_DETALS',
+						'DashboardSvc',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder, BINDER_NAME,
 								HomeSvc, rfc4122, $compile, LoadingService,
 								$route, FILEIT_CONFIG, BINDER_SVC, $http,
-								IMAGE_URLS, LandingOperationsSvc, $interval) {
+								IMAGE_URLS, LandingOperationsSvc, $interval,
+								DASHBOARD_DETALS, DashboardSvc) {
 							function adceSearch() {
 								$rootScope.$broadcast('advSaerch');
 							}
@@ -33,68 +36,76 @@ fileItApp
 							$scope.validFile = true;
 							$scope.noBookPresent = true;
 							$scope.initialize = function() {
-
-								HomeSvc
-										.shelfBook()
+								DashboardSvc
+										.classifiedData()
 										.then(
 												function(result) {
-													if (result.data.Error !== undefined) {
-														$scope.noBookPresent = false;
-													} else {
-														$scope.noBookPresent = true;
-														var ob = result.data;
-														for (var i = 0; i < ob.BookList.length; i++) {
-															$scope.h2name = Object
-																	.keys(ob.BookList[i])[0];
-															var text1;
-															if (i % 5 == 0) {
-																text1 = "<div class='book-tilted'><div class='book' id='"
-																		+ $scope.h2name
-																		+ "'><h2>"
-																		+ $scope.h2name
-																		+ "</h2></div></div>";
+													var keys = Object
+															.keys(result.data);
+													for (var i = 0; i < keys.length; i++) {
+														if (keys[i] === DASHBOARD_DETALS.booklist) {
+															if (result.data[keys[i]].length === 0) {
+																$scope.noBookPresent = false;
 															} else {
-																text1 = "<div class='book' id='"
-																		+ $scope.h2name
-																		+ "'><h2>"
-																		+ $scope.h2name
-																		+ "</h2></div>";
-															}
-															var id = '#'
-																	+ $scope.h2name;
-															$(text1)
-																	.appendTo(
-																			".bookshelf");
-															var array = [
-																	"book-green",
-																	"book-blue",
-																	"book-umber",
-																	"book-springer" ];
-															var colorNumber = Math
-																	.round((Math
-																			.random() * (array.length - 1)));
-															$(id)
-																	.addClass(
-																			array[colorNumber]);
+																$scope.noBookPresent = true;
+																for (var j = 0; j < result.data[keys[i]].length; j++) {
+																	$scope.h2name = result.data[keys[i]][j];
+																	var text1;
+																	if (j % 5 == 0) {
+																		text1 = "<div class='book-tilted'><div class='book' id='"
+																				+ $scope.h2name
+																				+ "'><h2>"
+																				+ $scope.h2name
+																				+ "</h2></div></div>";
+																	} else {
+																		text1 = "<div class='book' id='"
+																				+ $scope.h2name
+																				+ "'><h2>"
+																				+ $scope.h2name
+																				+ "</h2></div>";
+																	}
+																	var id = '#'
+																			+ $scope.h2name;
+																	$(text1)
+																			.appendTo(
+																					".bookshelf");
+																	var array = [
+																			"book-green",
+																			"book-blue",
+																			"book-umber",
+																			"book-springer" ];
+																	var colorNumber = Math
+																			.round((Math
+																					.random() * (array.length - 1)));
+																	$(id)
+																			.addClass(
+																					array[colorNumber]);
 
-															$(id).replaceWith(
-																	$(id));
-															$(id)
-																	.attr(
-																			'ng-click',
-																			"onBinderClick('"
-																					+ $scope.h2name
-																					+ "')");
-															$compile($(id))(
-																	$scope);
+																	$(id)
+																			.replaceWith(
+																					$(id));
+																	$(id)
+																			.attr(
+																					'ng-click',
+																					"onBinderClick('"
+																							+ $scope.h2name
+																							+ "')");
+																	$compile(
+																			$(id))
+																			(
+																					$scope);
+																}
+
+															}
+															break;
 														}
 													}
 												});
 
 							};
-							$scope.initialize();
 
 							$rootScope.$broadcast('loginSuccess');
+							$scope.initialize();
 							$scope.openModal = function() {
 								$('#createNew').modal('show');
 							}
@@ -260,7 +271,7 @@ fileItApp
 							}
 
 							$scope.incrementStep = function() {
-								if($scope.uploadFIleValue){
+								if ($scope.uploadFIleValue) {
 									if ($scope.hasNextStep()) {
 										var stepIndex = $scope
 												.getCurrentStepIndex();
@@ -333,5 +344,6 @@ fileItApp
 							};
 
 							$scope.fileCHoosedName = undefined;
+							// code here
 
 						} ]);

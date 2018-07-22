@@ -4,23 +4,22 @@ fileItApp.controller('DashboardController', [
 		'$location',
 		'$sessionStorage',
 		'Idle',
-		function($rootScope, $scope, $location, $sessionStorage, Idle) {
+		'DASHBOARD_DETALS',
+		function($rootScope, $scope, $location, $sessionStorage, Idle,
+				DASHBOARD_DETALS) {
 			$rootScope.$broadcast('loginSuccess');
-			$scope.initialize = function() {
-				setTimeout(function() {
-					//odometer1.innerHTML = 456;
-					$('#odometer1').html('10');
-				}, 1000);
+			$scope.records = DASHBOARD_DETALS.records;
+			$scope.docCount = DASHBOARD_DETALS.doccount;
+			$scope.classCount = DASHBOARD_DETALS.classcount;
+			$scope.getData = function() {
 				new Chart(document.getElementById("chart-area"), {
 					type : 'pie',
 					data : {
-						labels : [ "Education", "Invoice", "Health Care",
-								"Movies", "Office Docs" ],
+						labels : DASHBOARD_DETALS.lable,
 						datasets : [ {
-							label : "Population (millions)",
-							backgroundColor : [ "#3e95cd", "#8e5ea2",
-									"#3cba9f", "#e8c3b9", "#c45850" ],
-							data : [ 20, 4, 14, 9, 23 ]
+							label : "Documents",
+							backgroundColor : DASHBOARD_DETALS.colors,
+							data : DASHBOARD_DETALS.data
 						} ]
 					},
 					options : {
@@ -31,8 +30,9 @@ fileItApp.controller('DashboardController', [
 					}
 				});
 			};
-			$scope.initialize();
-			$scope.onClickSlice = function(points, evt) {
-				console.log(points);
+			$scope.getData();
+			$scope.shelfView = function(bookList) {
+				DASHBOARD_DETALS.booklist = bookList;
+				$location.path('/home');
 			};
 		} ]);
