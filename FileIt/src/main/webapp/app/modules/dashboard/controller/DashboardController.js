@@ -8,6 +8,7 @@ fileItApp.controller('DashboardController', [
 		function($rootScope, $scope, $location, $sessionStorage, Idle,
 				DASHBOARD_DETALS) {
 			$rootScope.$broadcast('loginSuccess');
+			$rootScope.$broadcast('dbData');
 			$scope.records = DASHBOARD_DETALS.records;
 			$scope.docCount = DASHBOARD_DETALS.doccount;
 			$scope.classCount = DASHBOARD_DETALS.classcount;

@@ -11,7 +11,7 @@
 						'LoadingService',
 						function($rootScope, $scope, $location, $window,
 								$translate, $interval, LoadingService) {
-							
+
 							console.log = function() {
 							};
 							LoadingService.showLoad();
@@ -63,7 +63,7 @@
 							$scope.$on('$routeChangeSuccess', function(next,
 									current) {
 								// $translate.use(OMNI_PROP.locale);
-								$scope.fitScreen();
+							//	$scope.fitScreen();
 							});
 
 							/**
@@ -72,7 +72,7 @@
 							 */
 							var windowObj = angular.element($window);
 							windowObj.bind('resize', function() {
-								$scope.fitScreen();
+							//	$scope.fitScreen();
 							});
 
 							/**
@@ -84,17 +84,14 @@
 								var fitScreenDelay = $interval(function() {
 									$interval.cancel(fitScreenDelay);
 									var windowHeight = $(window).height();
-									var headerHeight = $('.header').height();
-									/*
-									 * var footerHeight = $('.loginFooter')
-									 * .height();
-									 */
-									/*
-									 * var appPageContainer = windowHeight -
-									 * headerHeight - footerHeight;
-									 */
+									var headerHeight = $('#pageHeader').height();
+
+									var footerHeight = $('#pageFooter')
+											.height();
+
 									var appPageContainer = windowHeight
-											- headerHeight;
+											- headerHeight - footerHeight;
+
 									$('.app-page-container').height(
 											appPageContainer + 'px');
 								}, 50);
@@ -102,9 +99,9 @@
 							};
 
 							// call fit screen when App loads for the first time
-							$scope.fitScreen();
+						//	$scope.fitScreen();
 							$scope.$on('FitScreen', function() {
-								$scope.fitScreen();
+								//$scope.fitScreen();
 							});
 
 							/**

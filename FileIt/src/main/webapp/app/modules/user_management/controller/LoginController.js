@@ -161,7 +161,12 @@ fileItApp
 													$location
 															.path('\dashboard');
 												});
-							}
+							};
+							
+							$scope.$on('dbData', function() {
+								$scope.getDashboard();
+							});
+
 							$scope.onLoginClick = function() {
 								LoginLoadingService.showLoad();
 								var loginObj = {

@@ -20,12 +20,13 @@ fileItApp.service('LoginLoadingService', function($rootScope) {
 	};
 });
 
-fileItApp.directive('testTable', function($timeout) {
+fileItApp.directive('testTable', function($timeout, $rootScope) {
 	return {
 		restrict : 'A',
 		link : function() {
 			$timeout(function() {
 				$('#example').DataTable();
+				$rootScope.$broadcast('FitSideMenu');
 			});
 		}
 	}
