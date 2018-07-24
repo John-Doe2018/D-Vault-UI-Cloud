@@ -80,10 +80,9 @@ body {
 	<div ng-include="headerPath" ng-if="loginState"></div>
 	<div class="row">
 		<div ng-view class="app-page-container no-padding"
-			style="background-color: white; padding-left: 0px; padding-right: 0px; height: inherit !important;"
+			style="background-color: white !important; padding-left: 0px; padding-right: 0px; height: inherit !important;"
 			ng-class="{'col-sm-12': loginState}"></div>
 	</div>
-	<div ng-include="footerPath" ng-if="loginState"></div>
 
 	<div class="site-wrapper">
 		<div ng-include="fileName" class="full-height"></div>
