@@ -18,6 +18,9 @@ fileItApp.config([ '$routeProvider', function($routeProvider) {
 	}).when('/createBook', {
 		templateUrl : 'app/modules/home/views/createBook.html',
 		controller : 'CreateBookController'
+	}).when('/profile', {
+		templateUrl : 'app/modules/home/views/profile.html',
+		controller : 'ProfileController'
 	}).otherwise({
 		redirectTo : '/'
 	});

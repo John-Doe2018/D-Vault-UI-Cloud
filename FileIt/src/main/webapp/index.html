@@ -48,7 +48,8 @@ body {
 <link href="themes/css/angular-material/angucomplete-alt.css"
 	rel="stylesheet">
 <link href="themes/css/jquery/jquery.booklet.1.1.0.css" rel="stylesheet">
-<link href="themes/css/jquery/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="themes/css/jquery/dataTables.bootstrap.min.css"
+	rel="stylesheet">
 <link href="themes/css/custom/common/fileit-common.css" rel="stylesheet">
 <link href="themes/css/custom/common/util.css" rel="stylesheet">
 <link href="themes/css/custom/common/main.css" rel="stylesheet">
@@ -79,9 +80,34 @@ body {
 
 	<div ng-include="headerPath" ng-if="loginState"></div>
 	<div class="row">
-		<div ng-view class="app-page-container no-padding"
-			style="background-color: white !important; padding-left: 0px; padding-right: 0px; height: inherit !important;"
-			ng-class="{'col-sm-12': loginState}"></div>
+		<div class="w3-sidebar w3-bar-block w3-card w3-animate-left"
+			style="display: none" id="mySidebar">
+			<button class="w3-bar-item w3-button w3-large" ng-click="w3_close()">Close
+				&times;</button>
+			<div class="row" style="margin: 2%;">
+				<div class="col-sm-12">
+					<a class="confirm text-danger" title="View Profile"
+						ng-click="goTOCreateBook()"> Create Book </a>
+				</div>
+				<div class="col-sm-12">
+					<a class="confirm text-danger"
+						confirmationmessage="Are you sure you want to logout?"
+						title="Logout">Document Classes</a>
+				</div>
+				<div class="col-sm-12">
+					<a class="confirm text-danger"
+						confirmationmessage="Are you sure you want to logout?"
+						title="Logout">Manager Users</a>
+				</div>
+				<div class="col-sm-12">
+					<a class="confirm text-danger"
+						confirmationmessage="Are you sure you want to logout?"
+						title="Logout">Recycle Bin</a>
+				</div>
+			</div>
+		</div>
+		<div ng-view class="w3-container no-padding" id="mainPage"
+			style="background-color: white !important; padding-left: 0px; padding-right: 0px; height: inherit !important;"></div>
 	</div>
 
 	<div class="site-wrapper">
@@ -164,6 +190,7 @@ body {
 	<script src="app/modules/user_management/controller/LoginController.js"></script>
 	<script src="app/modules/home/controller/HomeController.js"></script>
 	<script src="app/modules/home/controller/CreateBookController.js"></script>
+	<script src="app/modules/home/controller/ProfileController.js"></script>
 	<script src="app/modules/home/service/HomeSvc.js"></script>
 	<script src="app/modules/configurations/controller/EventsCtrl.js"></script>
 	<script src="app/modules/user_management/service/UserOperationsSvc.js"></script>

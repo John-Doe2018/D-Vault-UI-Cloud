@@ -14,28 +14,13 @@ fileItApp
 								BINDER_NAME, LOGGED_USER) {
 							
 							$scope.loggeduser = LOGGED_USER.name;
-							$scope.openNav = function() {
-								if (document.getElementById("profilenav").style.width === "250px") {
-									document.getElementById("profilenav").style.width = "0";
-								}
-								if (document.getElementById("mySidenav").style.width === "250px") {
-									document.getElementById("mySidenav").style.width = "0";
-								} else {
-									document.getElementById("mySidenav").style.width = "250px";
-								}
-							};
 
-							$scope.profileNav = function() {
-								if (document.getElementById("mySidenav").style.width === "250px") {
-									document.getElementById("mySidenav").style.width = "0";
+							$scope.w3_open = function() {
+								  document.getElementById("mainPage").style.marginLeft = "25%";
+								  document.getElementById("mySidebar").style.width = "25%";
+								  document.getElementById("mySidebar").style.display = "block";
 								}
-								if (document.getElementById("profilenav").style.width === "250px") {
-									document.getElementById("profilenav").style.width = "0";
-								} else {
-									document.getElementById("profilenav").style.width = "250px";
-								}
-							};
-
+								
 							function adavnceSearch() {
 								LandingOperationsSvc.advSearch().then(
 										function(result) {
@@ -67,15 +52,14 @@ fileItApp
 								$rootScope.$broadcast('LogoutSucess');
 								$location.path('/login');
 							};
+							
+							$scope.gotoProfile = function() {
+								$location.path('/profile');
+							}
 							$scope.backtoHome = function() {
 								$location.path('/dashboard');
 							};
 							
-							$scope.goTOCreateBook = function() {
-								document.getElementById("mySidenav").style.width = "0";
-								$location.path('/createBook');
-							};
-
 							$scope.goTOHome = function() {
 								if (document.getElementById("profilenav").style.width === "250px") {
 									document.getElementById("profilenav").style.width = "0";

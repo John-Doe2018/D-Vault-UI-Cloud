@@ -14,6 +14,14 @@
 
 							console.log = function() {
 							};
+							$scope.w3_close = function() {
+								document.getElementById("mainPage").style.marginLeft = "0%";
+								document.getElementById("mySidebar").style.display = "none";
+							};
+							$scope.goTOCreateBook = function() {
+								$scope.w3_close();
+								$location.path('/createBook');
+							};
 							LoadingService.showLoad();
 							var locale;
 							$translate.use("en");
@@ -63,7 +71,7 @@
 							$scope.$on('$routeChangeSuccess', function(next,
 									current) {
 								// $translate.use(OMNI_PROP.locale);
-							//	$scope.fitScreen();
+								// $scope.fitScreen();
 							});
 
 							/**
@@ -72,7 +80,7 @@
 							 */
 							var windowObj = angular.element($window);
 							windowObj.bind('resize', function() {
-							//	$scope.fitScreen();
+								// $scope.fitScreen();
 							});
 
 							/**
@@ -84,7 +92,8 @@
 								var fitScreenDelay = $interval(function() {
 									$interval.cancel(fitScreenDelay);
 									var windowHeight = $(window).height();
-									var headerHeight = $('#pageHeader').height();
+									var headerHeight = $('#pageHeader')
+											.height();
 
 									var footerHeight = $('#pageFooter')
 											.height();
@@ -99,9 +108,9 @@
 							};
 
 							// call fit screen when App loads for the first time
-						//	$scope.fitScreen();
+							// $scope.fitScreen();
 							$scope.$on('FitScreen', function() {
-								//$scope.fitScreen();
+								// $scope.fitScreen();
 							});
 
 							/**
