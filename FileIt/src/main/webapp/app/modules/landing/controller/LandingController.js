@@ -24,6 +24,8 @@ fileItApp
 								FILEIT_CONFIG, BINDER_SVC) {
 							$scope.validFile = true;
 							$scope.getData = function() {
+								//$("#myCanvas").annotate(options);
+								//$("#myCanvas").annotate("push", "https://d30y9cdsu7xlg0.cloudfront.net/png/17241-200.png");
 								LandingOperationsSvc
 										.treeList(BINDER_NAME.name)
 										.then(
@@ -171,8 +173,9 @@ fileItApp
 								fd.append('file', files[0]);
 								fd.append('filename', files[0].name);
 								fd.append('bookName', BINDER_NAME.name);
-								fd.append('path', BINDER_NAME.name
-										+ "/Images/");
+								fd
+										.append('path', BINDER_NAME.name
+												+ "/Images/");
 								fd.append('type', files[0].type);
 								LoadingService.showLoad();
 								$http
@@ -265,7 +268,8 @@ fileItApp
 
 							$scope.$on('onNodeClick', function(event, node) {
 								console.log(node);
-								$('#pdfModal').modal('show');
+							//	$('#pdfModal').modal('show');
+								$location.path('/docView')
 							});
 
 							$scope.deletebook = function(bookname) {

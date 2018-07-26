@@ -1,3 +1,31 @@
+#list{
+   margin-left:260px
+}
+#tool{
+  top:0px;
+}
+#push{
+  margin-left:350px;
+}
+.annotate-container{
+	position: relative;
+}
+
+.annotate-container > [id^=baseLayer]{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 0;
+	background: grey;
+}
+
+.annotate-container > [id^=drawingLayer]{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	background: transparent;
+}
 .stats {
   text-align:center;
   text-shadow:1px 1px 0px #fff;

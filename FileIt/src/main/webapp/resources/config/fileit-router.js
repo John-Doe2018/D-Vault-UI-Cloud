@@ -21,8 +21,10 @@ fileItApp.config([ '$routeProvider', function($routeProvider) {
 	}).when('/profile', {
 		templateUrl : 'app/modules/home/views/profile.html',
 		controller : 'ProfileController'
+	}).when('/docView', {
+		templateUrl : 'app/modules/landing/views/docView.html',
+		controller : 'DocViewController'
 	}).otherwise({
 		redirectTo : '/'
 	});
-
 } ]);
