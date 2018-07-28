@@ -14,10 +14,17 @@ fileItApp
 						'FILEIT_CONFIG',
 						'BINDER_SVC',
 						'$route',
+						'DASHBOARD_DETALS',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, rfc4122, HomeSvc,
 								LoadingService, $http, FILEIT_CONFIG,
-								BINDER_SVC, $route) {
+								BINDER_SVC, $route, DASHBOARD_DETALS) {
+							$scope.classfound = false;
+							if (DASHBOARD_DETALS.classname !== '') {
+								$scope.classfound = true;
+								$scope.classificationName = DASHBOARD_DETALS.classname;
+							}
+							DASHBOARD_DETALS.classname = '';
 							$rootScope.$broadcast('loginSuccess');
 							$scope.fileList = [];
 							$scope.ImageProperty = {
