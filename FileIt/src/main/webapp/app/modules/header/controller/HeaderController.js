@@ -12,15 +12,15 @@ fileItApp
 						function($rootScope, $scope, $location,
 								$sessionStorage, LandingOperationsSvc,
 								BINDER_NAME, LOGGED_USER) {
-							
+
 							$scope.loggeduser = LOGGED_USER.name;
 
 							$scope.w3_open = function() {
-								  document.getElementById("mainPage").style.marginLeft = "25%";
-								  document.getElementById("mySidebar").style.width = "25%";
-								  document.getElementById("mySidebar").style.display = "block";
-								}
-								
+								document.getElementById("mainPage").style.marginLeft = "25%";
+								document.getElementById("mySidebar").style.width = "25%";
+								document.getElementById("mySidebar").style.display = "block";
+							}
+
 							function adavnceSearch() {
 								LandingOperationsSvc.advSearch().then(
 										function(result) {
@@ -52,14 +52,14 @@ fileItApp
 								$rootScope.$broadcast('LogoutSucess');
 								$location.path('/login');
 							};
-							
+
 							$scope.gotoProfile = function() {
 								$location.path('/profile');
 							}
 							$scope.backtoHome = function() {
 								$location.path('/dashboard');
 							};
-							
+
 							$scope.goTOHome = function() {
 								if (document.getElementById("profilenav").style.width === "250px") {
 									document.getElementById("profilenav").style.width = "0";
@@ -86,7 +86,7 @@ fileItApp
 																			'error',
 																			result.data.description);
 														} else {
-															BINDER_NAME.name = result.data.jsonObject[selectedbook].Name;
+															BINDER_NAME.name = result.data.jsonObject.BookName;
 															$location
 																	.path('/landingPage');
 														}

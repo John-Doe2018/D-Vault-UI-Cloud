@@ -40,12 +40,14 @@
 					<h4>Enter book name:</h4>
 					<div class="form-group">
 						<label class="sr-only" for="f1-first-name">Book Name</label> <input
-							type="text" name="f1-first-name" placeholder="Book name..."
+							type="text" name="bookName" placeholder="Book name..."
 							ng-model="bookName" class="f1-first-name form-control"
-							id="f1-first-name">
+							id="f1-first-name" data-ng-pattern="/^\S*$/" maxlength="10"
+							ng-pattern-restrict="^$|^[A-Za-z0-9]+$" required>
 					</div>
 					<div class="f1-buttons">
-						<button type="button" class="btn btn-next">Next</button>
+						<button type="button" class="btn btn-next"
+							ng-disabled="createBookForm.bookName.$invalid && !createBookForm.bookName.$pristine">Next</button>
 					</div>
 				</fieldset>
 
@@ -53,13 +55,16 @@
 					<h4>Enter Document Classes:</h4>
 					<div class="form-group">
 						<label class="sr-only" for="f1-email">Classfication Name</label> <input
-							type="text" name="f1-email" placeholder="Classification..."
+							type="text" name="classname" placeholder="Classification..."
 							ng-disabled="classfound" ng-model="classificationName"
-							class="f1-email form-control" id="f1-email">
+							class="f1-email form-control" id="f1-email"
+							data-ng-pattern="/^\S*$/" maxlength="10"
+							ng-pattern-restrict="^$|^[A-Za-z0-9]+$" required>
 					</div>
 					<div class="f1-buttons">
 						<button type="button" class="btn btn-previous">Previous</button>
-						<button type="button" class="btn btn-next">Next</button>
+						<button type="button" class="btn btn-next"
+							ng-disabled="createBookForm.classname.$invalid && !createBookForm.classname.$pristine">Next</button>
 					</div>
 				</fieldset>
 

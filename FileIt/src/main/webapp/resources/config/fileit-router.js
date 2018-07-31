@@ -24,6 +24,9 @@ fileItApp.config([ '$routeProvider', function($routeProvider) {
 	}).when('/docView', {
 		templateUrl : 'app/modules/landing/views/docView.html',
 		controller : 'DocViewController'
+	}).when('/allDocs', {
+		templateUrl : 'app/modules/dashboard/views/alldocs.html',
+		controller : 'AllDocsController'
 	}).otherwise({
 		redirectTo : '/'
 	});

@@ -20,10 +20,10 @@ fileItApp.controller('DashboardController', [
 				var b = Math.floor(Math.random() * 255);
 				return "rgb(" + r + "," + g + "," + b + ")";
 			};
-			// $rootScope.$broadcast('dbData');
-			// $scope.records = DASHBOARD_DETALS.records;
-			// $scope.docCount = DASHBOARD_DETALS.doccount;
-			// $scope.classCount = DASHBOARD_DETALS.classcount;
+
+			$scope.gotoAllDocs = function() {
+				$location.path('/allDocs');
+			}
 			$scope.createBooks = function(classification) {
 				DASHBOARD_DETALS.classname = classification;
 				$location.path('/createBook');
