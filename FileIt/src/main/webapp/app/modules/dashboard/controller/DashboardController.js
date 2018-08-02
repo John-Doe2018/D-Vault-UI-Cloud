@@ -65,12 +65,6 @@ fileItApp.controller('DashboardController', [
 							$scope.data.push(result.data[keys[i]].length);
 						}
 					}
-					// DASHBOARD_DETALS.colors = $scope.colorArray;
-					// DASHBOARD_DETALS.data = $scope.data;
-					// DASHBOARD_DETALS.lable = $scope.labels;
-					// DASHBOARD_DETALS.records = $scope.records;
-					// $rootScope.records = $scope.records;
-					// DASHBOARD_DETALS.doccount = $scope.docCount;
 					$scope.classCount = $scope.labels.length;
 					$scope.getData();
 				});

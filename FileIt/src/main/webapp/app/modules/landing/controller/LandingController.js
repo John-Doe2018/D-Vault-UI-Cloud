@@ -17,15 +17,14 @@ fileItApp
 						'$http',
 						'FILEIT_CONFIG',
 						'BINDER_SVC',
+						'DASHBOARD_DETALS',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder,
 								LandingOperationsSvc, BINDER_NAME, rfc4122,
 								$route, IMAGE_URLS, LoadingService, $http,
-								FILEIT_CONFIG, BINDER_SVC) {
+								FILEIT_CONFIG, BINDER_SVC, DASHBOARD_DETALS) {
 							$scope.validFile = true;
 							$scope.getData = function() {
-								//$("#myCanvas").annotate(options);
-								//$("#myCanvas").annotate("push", "https://d30y9cdsu7xlg0.cloudfront.net/png/17241-200.png");
 								LandingOperationsSvc
 										.treeList(BINDER_NAME.name)
 										.then(
@@ -268,13 +267,14 @@ fileItApp
 
 							$scope.$on('onNodeClick', function(event, node) {
 								console.log(node);
-							//	$('#pdfModal').modal('show');
+								// $('#pdfModal').modal('show');
 								$location.path('/docView')
 							});
 
 							$scope.deletebook = function(bookname) {
 								var deleteObj = {
-									bookName : bookname
+									bookName : bookname,
+									classificationName : DASHBOARD_DETALS.booklist
 								}
 								LandingOperationsSvc
 										.deleteBook(deleteObj)
@@ -286,7 +286,8 @@ fileItApp
 																		'error',
 																		result.data.description);
 													} else {
-														$location.path('/home');
+														$location
+																.path('/dashboard');
 													}
 												});
 							}

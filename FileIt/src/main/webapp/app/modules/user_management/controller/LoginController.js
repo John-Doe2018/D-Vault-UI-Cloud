@@ -114,7 +114,7 @@ fileItApp
 										});
 
 							})(jQuery);
-							
+
 							$scope.onLoginClick = function() {
 								LoginLoadingService.showLoad();
 								var loginObj = {
@@ -128,8 +128,11 @@ fileItApp
 													LoginLoadingService
 															.hideLoad();
 													if (result.data.successMsg !== undefined) {
+														$rootScope
+																.$broadcast('loginSuccess');
 														LOGGED_USER.name = $scope.uName;
-														$location.path('/dashboard');
+														$location
+																.path('/dashboard');
 													} else {
 														$rootScope
 																.$broadcast(

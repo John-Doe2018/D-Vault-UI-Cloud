@@ -46,7 +46,6 @@
 								$scope.$broadcast('confirmAgreed');
 							}
 							$location.path('/login');
-							$scope.loginState = false;
 							$scope.headerPath = "app/modules/header/views/header.html";
 							$scope.footerPath = "app/modules/header/views/footer.html";
 							// below field controls the currency position
@@ -117,27 +116,12 @@
 							 * Successful login callback
 							 */
 
-							$scope.$on('OnLogOut', function() {
-								RESOURCE_SVC.setResourceList([]);
-								$scope.sideMenuPath = '';
-								$scope.loginState = false;
-							});
-
 							$scope.$on('loginSuccess', function() {
 								$scope.loginState = true;
 							});
 
 							$scope.$on('LogoutSucess', function() {
-								$scope.headerPath = null;
-								$scope.footerPath = null;
-							});
-
-							$scope.$on('fullWidth', function() {
 								$scope.loginState = false;
-							});
-
-							$scope.$on('partialWidth', function() {
-								$scope.loginState = true;
 							});
 
 							/**
