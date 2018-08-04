@@ -29,10 +29,11 @@
 				data-toggle="dropdown" aria-label="Profile"> <md-icon
 				md-svg-src="images/user.svg" aria-label="User"></md-icon></md-button>
 			<ul class="dropdown-menu">
-				<li><a ng-click="gotoProfile()">Profile</a></li>
-				<li><a>Settings</a></li>
+				<li><a ng-click="gotoProfile()" href="javascript:void(0)">Profile</a></li>
+				<li><a href="javascript:void(0)">Settings</a></li>
 				<li class="divider"></li>
-				<li><a ng-click="logout()" style="color: red;">Logout</a></li>
+				<li><a ng-click="logout()" style="color: red;"
+					href="javascript:void(0)">Logout</a></li>
 			</ul>
 		</div>
 	</div>

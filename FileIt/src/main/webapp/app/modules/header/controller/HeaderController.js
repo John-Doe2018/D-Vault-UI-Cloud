@@ -16,8 +16,8 @@ fileItApp
 							$scope.loggeduser = LOGGED_USER.name;
 
 							$scope.w3_open = function() {
-								document.getElementById("mainPage").style.marginLeft = "25%";
-								document.getElementById("mySidebar").style.width = "25%";
+								document.getElementById("mainPage").style.marginLeft = "20%";
+								document.getElementById("mySidebar").style.width = "20%";
 								document.getElementById("mySidebar").style.display = "block";
 							}
 

@@ -19,6 +19,9 @@ fileItApp
 								$sessionStorage, Idle, rfc4122, HomeSvc,
 								LoadingService, $http, FILEIT_CONFIG,
 								BINDER_SVC, $route, DASHBOARD_DETALS) {
+							var newheight = $(window).height()
+									- $('#pageHeader').height();
+							$("#createBookPage").height(newheight);
 							$scope.classfound = false;
 							if (DASHBOARD_DETALS.classname !== '') {
 								$scope.classfound = true;

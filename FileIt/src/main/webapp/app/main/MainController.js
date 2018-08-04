@@ -22,6 +22,12 @@
 								$scope.w3_close();
 								$location.path('/createBook');
 							};
+
+							$scope.createClassification = function() {
+								$scope.w3_close();
+								$location.path('/createClassification');
+							};
+
 							LoadingService.showLoad();
 							var locale;
 							$translate.use("en");

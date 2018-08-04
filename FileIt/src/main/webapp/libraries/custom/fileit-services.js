@@ -26,7 +26,6 @@ fileItApp.directive('testTable', function($timeout, $rootScope) {
 		link : function() {
 			$timeout(function() {
 				$('#example').DataTable();
-				$rootScope.$broadcast('FitSideMenu');
 			});
 		}
 	}

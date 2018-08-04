@@ -81,30 +81,30 @@ body {
 
 	<div ng-include="headerPath" ng-if="loginState"></div>
 	<div class="row">
-		<div class="w3-sidebar w3-bar-block w3-card w3-animate-left"
-			style="display: none" id="mySidebar">
-			<button class="w3-bar-item w3-button w3-large" ng-click="w3_close()">Close
-				&times;</button>
-			<div class="row" style="margin: 2%;">
-				<div class="col-sm-12">
-					<a class="confirm text-danger" title="View Profile"
-						ng-click="goTOCreateBook()"> Create Book </a>
+		<div class="w3-sidebar w3-light-grey w3-animate-left"
+			style="display: none;" id="mySidebar">
+			<div class="w3-bar w3-dark-grey" style="margin-left: 3%;">
+				<span class="w3-bar-item w3-padding-16">Menu</span>
+				<button ng-click="w3_close()"
+					class="w3-bar-item w3-button w3-right w3-padding-16"
+					title="close Sidebar">×</button>
+			</div>
+			<div class="w3-bar-block" style="margin-left: 5%;">
+				<a class="w3-bar-item w3-button" href="javascript:void(0)"
+					ng-click="goTOCreateBook()">Create Book</a> <a
+					class="w3-bar-item w3-button" href="javascript:void(0)"
+					ng-click="createClassification()">Document Classes</a>
+				<!-- <div class="w3-dropdown-hover">
+					<a class="w3-button" href="javascript:void(0)">Dropdown <i
+						class="fa fa-caret-down"></i></a>
+					<div class="w3-dropdown-content w3-bar-block w3-card-4">
+						<a class="w3-bar-item w3-button" href="javascript:void(0)">Link
+							1</a> <a class="w3-bar-item w3-button" href="javascript:void(0)">Link
+							2</a> <a class="w3-bar-item w3-button" href="javascript:void(0)">Link
+							3</a>
+					</div>
 				</div>
-				<div class="col-sm-12">
-					<a class="confirm text-danger"
-						confirmationmessage="Are you sure you want to logout?"
-						title="Logout">Document Classes</a>
-				</div>
-				<div class="col-sm-12">
-					<a class="confirm text-danger"
-						confirmationmessage="Are you sure you want to logout?"
-						title="Logout">Manager Users</a>
-				</div>
-				<div class="col-sm-12">
-					<a class="confirm text-danger"
-						confirmationmessage="Are you sure you want to logout?"
-						title="Logout">Recycle Bin</a>
-				</div>
+				<a class="w3-bar-item w3-button" href="javascript:void(0)">Support</a> -->
 			</div>
 		</div>
 		<div ng-view class="w3-container no-padding" id="mainPage"
@@ -191,6 +191,8 @@ body {
 	<script src="app/modules/user_management/controller/LoginController.js"></script>
 	<script src="app/modules/home/controller/HomeController.js"></script>
 	<script src="app/modules/home/controller/CreateBookController.js"></script>
+	<script
+		src="app/modules/home/controller/CreateClassificationController.js"></script>
 	<script src="app/modules/home/controller/ProfileController.js"></script>
 	<script src="app/modules/home/service/HomeSvc.js"></script>
 	<script src="app/modules/configurations/controller/EventsCtrl.js"></script>

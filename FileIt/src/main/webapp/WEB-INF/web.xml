@@ -7,7 +7,7 @@
 
 	<filter>
 		<filter-name>ResponseHeaderFilter</filter-name>
-		<filter-class>com.kirat.solutions.security.ResponseHeaderFilter</filter-class>
+		<filter-class>com.tranfode.security.ResponseHeaderFilter</filter-class>
 	</filter>
 
 	<filter-mapping>

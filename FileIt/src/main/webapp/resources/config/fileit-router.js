@@ -27,6 +27,9 @@ fileItApp.config([ '$routeProvider', function($routeProvider) {
 	}).when('/allDocs', {
 		templateUrl : 'app/modules/dashboard/views/alldocs.html',
 		controller : 'AllDocsController'
+	}).when('/createClassification', {
+		templateUrl : 'app/modules/home/views/createClassification.html',
+		controller : 'CreateClassificationController'
 	}).otherwise({
 		redirectTo : '/'
 	});

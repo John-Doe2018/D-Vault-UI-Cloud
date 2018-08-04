@@ -1,4 +1,4 @@
-package com.kirat.solutions.security;
+package com.tranfode.security;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kirat.solutions.util.WebConfigReader;
+import com.tranfode.util.WebConfigReader;
 
 public class ResponseHeaderFilter implements Filter {
 
