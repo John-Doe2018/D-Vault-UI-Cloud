@@ -115,6 +115,12 @@ fileItApp
 									} else {
 										$scope.validFile = false;
 									}
+									if (files[i].size < 5242880) {
+										$scope.validFile = true;
+									} else {
+										$scope.validFile = false;
+										alert("file must be select < 5 MB");
+									}
 								}
 								if ($scope.validFile) {
 									for (var i = 0; i < files.length; i++) {
