@@ -1,4 +1,4 @@
-com\kirat\solutions\security\ResponseHeaderFilter.class
-com\kirat\solutions\util\WebConfigReader$1.class
-com\kirat\solutions\util\WebConfigReader.class
-com\kirat\solutions\util\WebConfigReader$LazyLoader.class
+com\tranfode\util\WebConfigReader$1.class
+com\tranfode\util\WebConfigReader$LazyLoader.class
+com\tranfode\util\WebConfigReader.class
+com\tranfode\security\ResponseHeaderFilter.class

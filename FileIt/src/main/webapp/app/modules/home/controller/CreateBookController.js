@@ -23,9 +23,36 @@ fileItApp
 									- $('#pageHeader').height();
 							$("#createBookPage").height(newheight);
 							$scope.classfound = false;
+							$scope.classlist = [];
 							if (DASHBOARD_DETALS.classname !== '') {
 								$scope.classfound = true;
-								$scope.classificationName = DASHBOARD_DETALS.classname;
+								var dataObj = {
+									'name' : DASHBOARD_DETALS.classname,
+									'selected' : true
+								}
+								$scope.classlist.push(dataObj);
+							} else {
+								HomeSvc
+										.getClassification()
+										.then(
+												function(result) {
+													if (result.data.description !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														for (var i = 0; i < result.data.length; i++) {
+															var dataObj = {
+																'name' : result.data[i],
+																'selected' : false
+															}
+															$scope.classlist
+																	.push(dataObj);
+														}
+
+													}
+												});
 							}
 							DASHBOARD_DETALS.classname = '';
 							$rootScope.$broadcast('loginSuccess');

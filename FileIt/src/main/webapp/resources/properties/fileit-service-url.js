@@ -13,5 +13,6 @@ fileItApp.constant('BINDER_SVC', {
 	downloadFile : '/binder/download',
 	addfile : '/binder/addFile',
 	classifiedData : '/binder/classifiedData',
-	addClassification : '/binder/addClassification'
+	addClassification : '/binder/addClassification',
+	getClassification : '/binder/getClassification'
 });

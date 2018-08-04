@@ -16,6 +16,10 @@ fileItApp.factory('HomeSvc', [
 				addClassification : function(reqObj) {
 					return RestSvc.postData(BINDER_SVC.addClassification,
 							reqObj);
+				},
+
+				getClassification : function() {
+					return RestSvc.getData(BINDER_SVC.getClassification);
 				}
 			};
 		} ]);
