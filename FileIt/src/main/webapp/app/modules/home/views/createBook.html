@@ -8,7 +8,7 @@
 	<div class="row" id="createBookPage">
 		<div
 			class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box">
-			<form class="f1" name="createBookForm" method="post" novalidate>
+			<form class="f1" name="createBookForm" novalidate>
 
 				<h3>Create your Book</h3>
 				<div class="f1-steps">
@@ -36,7 +36,7 @@
 					</div>
 				</div>
 
-				<fieldset>
+				<fieldset id="firstFieldset" style="display: block;">
 					<h4>Enter book name:</h4>
 					<div class="form-group">
 						<label class="sr-only" for="f1-first-name">Book Name</label> <input
@@ -53,7 +53,7 @@
 
 				<fieldset>
 					<h4>Select Document Classification:</h4>
-					<div class="form-group">
+					<div class="form-group col-sm-8">
 						<md-input-container> <md-select
 							ng-model="classificationName" placeholder="Classification List"
 							md-no-asterisk="false"> <md-option

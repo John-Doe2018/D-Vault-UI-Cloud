@@ -210,10 +210,6 @@ fileItApp
 											function() {
 
 												/*
-												 * Fullscreen background
-												 */
-
-												/*
 												 * Form
 												 */
 												$('.f1 fieldset:first').fadeIn(
