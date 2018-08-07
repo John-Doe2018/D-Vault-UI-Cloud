@@ -1,15 +1,21 @@
 <div ui-tree-handle class="tree-node tree-node-content">
 	<a class="btn btn-xs" ng-if="node.nodes && node.nodes.length > 0"
-		data-nodrag ng-click="toggle(this)"><span class="glyphicon"
+		data-nodrag><span class="glyphicon"
 		ng-class="{
           'glyphicon-chevron-right': collapsed,
           'glyphicon-chevron-down': !collapsed
         }"></span></a>
-	{{node.title}} <a class="pull-right btn  btn-xs" data-nodrag
-		ng-click="removeFile(this, node.title); deleteFile(node.title);"><span class="glyphicon glyphicon-remove"></span></a><a
+	<label> {{node.title}}</label> <a class="pull-right btn  btn-xs"
+		data-nodrag
+		ng-click="removeFile(this, node.title); deleteFile(node.title);"><span
+		class="glyphicon glyphicon-remove"></span></a><a
 		class="pull-right btn  btn-xs" data-nodrag
 		ng-click="onnodeclick(node) "><span
-		class="glyphicon glyphicon-hand-right"></span></a>
+		class="glyphicon glyphicon-hand-right"></span></a><a
+		class="pull-right btn  btn-xs" data-nodrag
+		ng-click="downloadFile(node.title);"><span
+		class="glyphicon glyphicon-download-alt"></span></a> <input
+		type="checkbox" value="node.title" name="filelist">
 </div>
 <ol ui-tree-nodes="" ng-model="node.nodes"
 	ng-class="{hidden: collapsed}">

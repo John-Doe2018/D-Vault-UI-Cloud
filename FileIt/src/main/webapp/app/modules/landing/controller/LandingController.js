@@ -69,6 +69,50 @@ fileItApp
 												});
 							};
 
+							$scope.downloadFile = function(name) {
+								$scope.filelist = [];
+								if (name === 'multiple') {
+									$.each($("input[name='sport']:checked"),
+											function() {
+												$scope.filelist.push($(this)
+														.val());
+											});
+								} else {
+									$scope.filelist.push(name);
+								}
+
+								var reqObj = {
+									"bookName" : BINDER_NAME.name,
+									"fileName" : $scope.filelist
+								}
+								LandingOperationsSvc
+										.downloadFile(reqObj)
+										.then(
+												function(result) {
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														var a = document
+																.createElement("a");
+														a.href = result.data.URL;
+														fileName = result.data.URL
+																.split("/")
+																.pop();
+														a.download = fileName;
+														document.body
+																.appendChild(a);
+														a.click();
+														window.URL
+																.revokeObjectURL(result.data.URL);
+														a.remove();
+													}
+												});
+
+							}
+
 							$scope.getImage = function() {
 								for (var n = 0; n < IMAGE_URLS.url.length; n++) {
 									var text1 = '<div><img src="'

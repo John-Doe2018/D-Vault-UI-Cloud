@@ -14,11 +14,18 @@
 				all</md-button>
 			</div>
 		</div> -->
+
 		<div class="w3-sidebar w3-bar-block w3-card w3-animate-left"
-			style="display: none; height: 582px; overflow-y: auto; background-color: #54290C;"
+			style="display: none; height: 582px; overflow-y: auto;"
 			id="mySidebar1">
-			<button class="w3-bar-item w3-button w3-large"
-				ng-click="closeSideBar()">&times;</button>
+			<div class="w3-bar w3-dark-grey" style="margin-left: 3%;">
+				<button ng-click="closeSideBar()"
+					class="w3-bar-item w3-button w3-right w3-padding-16"
+					title="close Sidebar">X</button>
+				<a class="pull-right btn  btn-xs" data-nodrag
+					ng-click="downloadFile('multiple');"><span
+					class="glyphicon glyphicon-download-alt"></span></a>
+			</div>
 			<div ui-tree id="tree-root">
 				<ol ui-tree-nodes ng-model="data">
 					<li ng-repeat="node in data" ui-tree-node

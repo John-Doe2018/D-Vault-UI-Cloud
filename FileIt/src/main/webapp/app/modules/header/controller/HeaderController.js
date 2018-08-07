@@ -9,10 +9,20 @@ fileItApp
 						'LandingOperationsSvc',
 						'BINDER_NAME',
 						'LOGGED_USER',
+						'$timeout',
+						'dateFilter',
 						function($rootScope, $scope, $location,
 								$sessionStorage, LandingOperationsSvc,
-								BINDER_NAME, LOGGED_USER) {
+								BINDER_NAME, LOGGED_USER, $timeout, dateFilter) {
+							$scope.updateTime = function() {
+								$timeout(function() {
+									$scope.theclock = (dateFilter(new Date(),
+											'hh:mm:ss'));
+									$scope.updateTime();
+								}, 1000);
+							};
 
+							$scope.updateTime();
 							$scope.loggeduser = LOGGED_USER.name;
 
 							$scope.w3_open = function() {
