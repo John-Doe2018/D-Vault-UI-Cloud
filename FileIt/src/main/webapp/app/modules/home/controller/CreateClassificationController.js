@@ -26,11 +26,11 @@ fileItApp
 											.addClassification(reqObj)
 											.then(
 													function(result) {
-														if (result.data.description !== undefined) {
+														if (result.data.businessErrorData.description !== undefined) {
 															$rootScope
 																	.$broadcast(
 																			'error',
-																			result.data.description);
+																			result.data.businessErrorData.description);
 														} else {
 															$route.reload();
 														}
