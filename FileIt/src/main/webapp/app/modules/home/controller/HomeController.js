@@ -22,12 +22,13 @@ fileItApp
 						'$interval',
 						'DASHBOARD_DETALS',
 						'DashboardSvc',
+						'LOGGED_USER',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder, BINDER_NAME,
 								HomeSvc, rfc4122, $compile, LoadingService,
 								$route, FILEIT_CONFIG, BINDER_SVC, $http,
 								IMAGE_URLS, LandingOperationsSvc, $interval,
-								DASHBOARD_DETALS, DashboardSvc) {
+								DASHBOARD_DETALS, DashboardSvc, LOGGED_USER) {
 							function adceSearch() {
 								$rootScope.$broadcast('advSaerch');
 							}
@@ -151,6 +152,26 @@ fileItApp
 								$('#myModal').modal('show');
 							};
 
+							$scope.addTag = function() {
+								var reqObj = {
+									'userName' : LOGGED_USER.name,
+									'bookName' : BINDER_NAME.name,
+									'classificationName' : DASHBOARD_DETALS.booklist
+								}
+								HomeSvc
+										.tag(reqObj)
+										.then(
+												function(result) {
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													}
+
+												});
+							}
+
 							$('input[type=radio]').click(function() {
 								$scope.optselect = $(this).val();
 								$scope.fileList = [];
@@ -158,7 +179,6 @@ fileItApp
 									$scope.addFiles = false;
 								} else if ($scope.optselect === 'bookmark') {
 									$scope.addFiles = false;
-
 								} else if ($scope.optselect === 'delete') {
 									$scope.addFiles = false;
 								} else if ($scope.optselect === 'add') {
@@ -291,7 +311,7 @@ fileItApp
 									$scope.gotolandingPage();
 								} else if ($scope.optselect === 'bookmark') {
 									$scope.addFiles = false;
-
+									$scope.addTag();
 								} else if ($scope.optselect === 'delete') {
 									$scope.deletebook();
 								} else if ($scope.optselect === 'add') {

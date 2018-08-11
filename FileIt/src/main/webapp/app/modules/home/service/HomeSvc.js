@@ -20,6 +20,9 @@ fileItApp.factory('HomeSvc', [
 
 				getClassification : function() {
 					return RestSvc.getData(BINDER_SVC.getClassification);
+				},
+				tag : function(reqObj) {
+					return RestSvc.postData(BINDER_SVC.bookmark, reqObj);
 				}
 			};
 		} ]);

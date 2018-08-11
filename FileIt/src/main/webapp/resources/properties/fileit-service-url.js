@@ -14,5 +14,6 @@ fileItApp.constant('BINDER_SVC', {
 	addfile : '/binder/addFile',
 	classifiedData : '/binder/classifiedData',
 	addClassification : '/binder/addClassification',
-	getClassification : '/binder/getClassification'
+	getClassification : '/binder/getClassification',
+	bookmark : '/binder/tagBook'
 });

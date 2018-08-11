@@ -193,6 +193,15 @@ fileItApp
 																});
 											});
 
+							$scope.closeModal = function() {
+								$scope.fileList = [];
+							}
+
+							$scope.fileList = [];
+
+							$scope.addFlieClick = function() {
+								$('#addFileModal').modal('show');
+							}
 							$scope.ImageProperty = {
 								id : rfc4122.newuuid(),
 								name : "",
@@ -201,6 +210,91 @@ fileItApp
 								version : "1.0 ",
 								note : "NA"
 							};
+
+							$scope.convertImage = function(files) {
+								var fd = new FormData();
+								fd.append('file', files[0]);
+								fd.append('filename', files[0].name);
+								fd.append('bookName', BINDER_NAME.name);
+								fd
+										.append('path', BINDER_NAME.name
+												+ "/Images/");
+								fd.append('type', files[0].type);
+								LoadingService.showLoad();
+								$http
+										.post(
+												FILEIT_CONFIG.apiUrl
+														+ BINDER_SVC.convertImg,
+												fd,
+												{
+													transformRequest : angular.identity,
+													headers : {
+														'Content-Type' : undefined
+													}
+												}).then(function() {
+											LoadingService.hideLoad();
+										});
+							}
+
+							$scope.setFile = function(element) {
+								// get the files
+								var files = element.files;
+								$scope.validFile = true;
+								var allowedFiles = [ ".pptx", ".docx", ".pdf" ];
+								for (var i = 0; i < files.length; i++) {
+									var regex = new RegExp(
+											"([a-zA-Z0-9\s_\\.\-:])+("
+													+ allowedFiles.join('|')
+													+ ")$");
+									if (regex.test(files[i].name.toLowerCase())) {
+										$scope.validFile = true;
+									} else {
+										$scope.validFile = false;
+									}
+								}
+								if ($scope.validFile) {
+									for (var i = 0; i < files.length; i++) {
+										$scope.convertImage(files);
+										$scope.showSubmitButton = true;
+										$scope.ImageProperty.name = files[i].name;
+										$scope.ImageProperty.path = document
+												.getElementById("file").value;
+										$scope.ImageProperty.type = files[i].type;
+
+										$scope.fileList
+												.push($scope.ImageProperty);
+										$scope.ImageProperty = {};
+										$scope.$apply();
+
+									}
+								}
+							};
+
+							$scope.onAddFileClick = function() {
+								var addFileObj = {
+									bookName : BINDER_NAME.name,
+									oBookRequests : $scope.fileList
+								};
+								LandingOperationsSvc
+										.addfile(addFileObj)
+										.then(
+												function(result) {
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														$location.path('\home');
+													}
+												});
+
+							};
+
+							$scope.onAddfileCancel = function() {
+								$('#addFileModal').modal('hide');
+								$scope.fileList = undefined;
+							}
 
 							$scope.openSideBar = function() {
 								document.getElementById("main").style.marginLeft = "20%";
@@ -221,6 +315,30 @@ fileItApp
 								$location.path('/docView')
 							});
 
+							$scope.deletebook = function(bookname) {
+								var deleteObj = {
+									bookName : bookname,
+									classificationName : DASHBOARD_DETALS.booklist
+								}
+								LandingOperationsSvc
+										.deleteBook(deleteObj)
+										.then(
+												function(result) {
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														$location
+																.path('/dashboard');
+													}
+												});
+							}
+
+							$scope.removeBook = function() {
+								$scope.deletebook(BINDER_NAME.name);
+							}
 
 							$scope.toggle = function(scope) {
 								scope.toggle();
