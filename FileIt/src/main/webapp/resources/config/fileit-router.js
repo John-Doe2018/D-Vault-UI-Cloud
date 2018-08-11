@@ -30,6 +30,9 @@ fileItApp.config([ '$routeProvider', function($routeProvider) {
 	}).when('/createClassification', {
 		templateUrl : 'app/modules/home/views/createClassification.html',
 		controller : 'CreateClassificationController'
+	}).when('/bookmarks', {
+		templateUrl : 'app/modules/home/views/bookmarks.html',
+		controller : 'BookMarkController'
 	}).otherwise({
 		redirectTo : '/'
 	});

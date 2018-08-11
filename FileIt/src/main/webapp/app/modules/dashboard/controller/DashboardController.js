@@ -8,6 +8,9 @@ fileItApp.controller('DashboardController', [
 		'DashboardSvc',
 		function($rootScope, $scope, $location, $sessionStorage, Idle,
 				DASHBOARD_DETALS, DashboardSvc) {
+			$scope.onViewBookmark = function() {
+				$location.path('/bookmarks');
+			}
 			DASHBOARD_DETALS.classname = '';
 			$scope.records = [];
 			$scope.colorArray = [];
