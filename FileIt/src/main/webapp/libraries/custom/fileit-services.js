@@ -307,5 +307,6 @@ fileItApp.value('DASHBOARD_DETALS', {
 	doccount : '',
 	classcount : '',
 	booklist : '',
-	classname : ''
+	classname : '',
+	bookmarklist : ''
 });

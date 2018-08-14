@@ -5,6 +5,10 @@ fileItApp.factory('DashboardSvc', [ 'RestSvc', 'EncoderSvc', '$sessionStorage',
 				classifiedData : function() {
 
 					return RestSvc.postData(BINDER_SVC.classifiedData);
+				},
+				getbookmark : function(reqObj) {
+
+					return RestSvc.postData(BINDER_SVC.getbookmark, reqObj);
 				}
 			};
 		} ]);

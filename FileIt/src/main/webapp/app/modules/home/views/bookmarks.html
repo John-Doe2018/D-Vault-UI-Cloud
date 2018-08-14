@@ -9,19 +9,18 @@
 		<div class="card-header">
 			<i class="fa fa-lg fa-bookmark text-primary"></i> Bookmarks
 		</div>
-		<ul class="list-group list-group-flush">
+		<ul class="list-group list-group-flush" ng-repeat="x in records">
 			<li class="list-group-item list-group-item-action"><a
-				href="/console/viewdocument?documentid=41&amp;revisionid=1.0"
 				title="View Document">
 					<h5 class="text-primary">
-						testbookmark <small>Document ID : 41 , Revision ID : 1.0</small>
+						{{x.bookName}} <small>Classification :
+							{{x.classification}} , User : {{x.userName}}</small>
 					</h5>
-			</a> <a href="/console/viewdocument?documentid=41&amp;revisionid=1.0"
-				title="View Document">View Document</a> | <a
-				href="/console/deletebookmark?bookmarkid=1&amp;_CSRF_=AQPWACMZNRXVHNBC2A7XZ3DG59AJUIOZB6GOUJRZ5CXDPIKM0R1VYMAPSPKB9JCQ"
-				class="confirm"
-				confirmationmessage="Are you sure you want to delete testbookmark ?"
-				title="Delete">Delete</a></li>
+			</a>
+				<button title="View Document">View Document</button> |
+				<button class="confirm"
+					confirmationmessage="Are you sure you want to delete testbookmark ?"
+					title="Delete">Delete</button></li>
 		</ul>
 	</div>
 </body>

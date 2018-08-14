@@ -15,6 +15,7 @@
 		</div>
 		<div class="row col-sm-12" style="margin-top: 2%; margin-left: 0%;">
 			<div class="col-lg-3 col-md-6">
+
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<div class="row">
@@ -152,10 +153,11 @@
 							</div>
 						</div>
 					</div>
-					<div class="list-group list-group-flush">
+					<div class="list-group list-group-flush"
+						ng-repeat="y in bookmarkList">
 						<a href="javascript:void(0)"
 							class="list-group-item  list-group-item-action"> <i
-							class="fa fa-bookmark fa-lg text-danger"></i> testbookmark
+							class="fa fa-bookmark fa-lg text-danger"></i> {{y.bookName}}
 						</a>
 					</div>
 				</div>
