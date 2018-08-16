@@ -23,12 +23,14 @@ fileItApp
 						'DASHBOARD_DETALS',
 						'DashboardSvc',
 						'LOGGED_USER',
+						'$mdToast',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder, BINDER_NAME,
 								HomeSvc, rfc4122, $compile, LoadingService,
 								$route, FILEIT_CONFIG, BINDER_SVC, $http,
 								IMAGE_URLS, LandingOperationsSvc, $interval,
-								DASHBOARD_DETALS, DashboardSvc, LOGGED_USER) {
+								DASHBOARD_DETALS, DashboardSvc, LOGGED_USER,
+								$mdToast) {
 							function adceSearch() {
 								$rootScope.$broadcast('advSaerch');
 							}
@@ -84,6 +86,7 @@ fileItApp
 																$scope.noBookPresent = false;
 															} else {
 																$scope.noBookPresent = true;
+																$scope.booklength = result.data[keys[i]].length;
 																for (var j = 0; j < result.data[keys[i]].length; j++) {
 																	$scope.h2name = result.data[keys[i]][j];
 																	var text1;
@@ -167,6 +170,14 @@ fileItApp
 																.$broadcast(
 																		'error',
 																		result.data.description);
+													} else {
+														$mdToast
+																.show($mdToast
+																		.simple()
+																		.textContent(
+																				"Bookmark Added Successfully !!!")
+																		.hideDelay(
+																				3000));
 													}
 
 												});
@@ -204,7 +215,20 @@ fileItApp
 																		'error',
 																		result.data.description);
 													} else {
-														$route.reload();
+														$mdToast
+																.show($mdToast
+																		.simple()
+																		.textContent(
+																				"Book Deleted Successfully !!!")
+																		.hideDelay(
+																				3000));
+														if ($scope.booklength === 1) {
+															$location
+																	.path('/dashboard');
+														} else {
+															$route.reload();
+														}
+
 													}
 												});
 							};

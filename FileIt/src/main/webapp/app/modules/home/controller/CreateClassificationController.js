@@ -9,8 +9,10 @@ fileItApp
 						'Idle',
 						'HomeSvc',
 						'$route',
+						'$mdToast',
 						function($rootScope, $scope, $location,
-								$sessionStorage, Idle, HomeSvc, $route) {
+								$sessionStorage, Idle, HomeSvc, $route,
+								$mdToast) {
 							var newheight = $(window).height()
 									- $('#pageHeader').height();
 							$("#createClassPage").height(newheight);
@@ -26,12 +28,20 @@ fileItApp
 											.addClassification(reqObj)
 											.then(
 													function(result) {
-														if (result.data.businessErrorData.description !== undefined) {
+														if (result.data.businessErrorData !== null) {
 															$rootScope
 																	.$broadcast(
 																			'error',
 																			result.data.businessErrorData.description);
 														} else {
+
+															$mdToast
+																	.show($mdToast
+																			.simple()
+																			.textContent(
+																					result.data.successMsg)
+																			.hideDelay(
+																					3000));
 															$route.reload();
 														}
 													});

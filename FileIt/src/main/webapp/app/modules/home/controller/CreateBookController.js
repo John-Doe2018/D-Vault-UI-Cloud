@@ -15,10 +15,11 @@ fileItApp
 						'BINDER_SVC',
 						'$route',
 						'DASHBOARD_DETALS',
+						'$mdToast',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, rfc4122, HomeSvc,
 								LoadingService, $http, FILEIT_CONFIG,
-								BINDER_SVC, $route, DASHBOARD_DETALS) {
+								BINDER_SVC, $route, DASHBOARD_DETALS, $mdToast) {
 							var newheight = $(window).height()
 									- $('#pageHeader').height();
 							$("#createBookPage").height(newheight);
@@ -99,6 +100,13 @@ fileItApp
 																		'error',
 																		result.data.description);
 													} else {
+														$mdToast
+																.show($mdToast
+																		.simple()
+																		.textContent(
+																				'Book Created Successfully !!')
+																		.hideDelay(
+																				3000));
 														$route.reload();
 													}
 												});
