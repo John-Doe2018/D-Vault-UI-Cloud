@@ -19,7 +19,7 @@ fileItApp
 								UserOperationsSvc, LoginLoadingService,
 								LoadingService, LOGGED_USER, DashboardSvc,
 								DASHBOARD_DETALS) {
-
+							$rootScope.$broadcast('LogoutSucess');
 							(function($) {
 								"use strict";
 
