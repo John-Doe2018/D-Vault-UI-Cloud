@@ -9,7 +9,8 @@
 	<div layout="row" layout-align="start start">
 		<div flex="100">
 			<md-card> <md-card-header> <md-card-header-text>
-			<span class="md-title" style="font-size: 25px; color: blue;">BookMarks</span>
+			<span class="md-title" style="font-size: 25px; color: blue;"><md-icon
+					md-svg-src="images/bookmarks.svg" aria-label="Delete"></md-icon>BookMarks</span>
 			<span class="md-subhead">Total Count : {{count}} </span> </md-card-header-text> </md-card-header> </md-card>
 		</div>
 	</div>
@@ -18,11 +19,11 @@
 			<md-card> <md-card-header> <md-card-header-text>
 			<span class="md-title">{{x.bookName}}</span> <span class="md-subhead">Classification
 				: {{x.classification}} </span> </md-card-header-text> </md-card-header> <md-card-actions layout="row"
-				layout-align="start center">
-			<md-divider></md-divider> <md-button md-no-ink class="md-primary">
-			<md-icon md-svg-src="images/visibility.svg" aria-label="User"></md-icon></md-button>
+				layout-align="start center"> <md-divider></md-divider>
+			<md-button md-no-ink class="md-primary"> <md-icon
+				md-svg-src="images/visibility.svg" aria-label="View Document"></md-icon></md-button>
 			<md-button class="md-warn"> <md-icon
-				md-svg-src="images/delete.svg" aria-label="User"></md-icon></md-button> <md-card-icon-actions>
+				md-svg-src="images/delete.svg" aria-label="Delete"></md-icon></md-button> <md-card-icon-actions>
 			</md-card-icon-actions> </md-card-actions></md-card>
 		</div>
 	</div>
