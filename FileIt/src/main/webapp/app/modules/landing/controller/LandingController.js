@@ -18,11 +18,13 @@ fileItApp
 						'FILEIT_CONFIG',
 						'BINDER_SVC',
 						'DASHBOARD_DETALS',
+						'$mdDialog',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder,
 								LandingOperationsSvc, BINDER_NAME, rfc4122,
 								$route, IMAGE_URLS, LoadingService, $http,
-								FILEIT_CONFIG, BINDER_SVC, DASHBOARD_DETALS) {
+								FILEIT_CONFIG, BINDER_SVC, DASHBOARD_DETALS,
+								$mdDialog) {
 							$scope.validFile = true;
 							$scope.getData = function() {
 								LandingOperationsSvc
@@ -336,8 +338,27 @@ fileItApp
 												});
 							}
 
-							$scope.removeBook = function() {
-								$scope.deletebook(BINDER_NAME.name);
+							$scope.removeBook = function(ev) {
+								var confirm = $mdDialog
+										.confirm()
+										.title(
+												'Would you like to delete the book?')
+										.textContent(
+												'All documents uploaded will be deleted...')
+										.ariaLabel('Lucky day').targetEvent(ev)
+										.ok('Yes').cancel('No');
+
+								$mdDialog
+										.show(confirm)
+										.then(
+												function() {
+													$scope
+															.deletebook(BINDER_NAME.name);
+												},
+												function() {
+													$scope.status = 'You decided to keep your debt.';
+												});
+
 							}
 
 							$scope.toggle = function(scope) {
