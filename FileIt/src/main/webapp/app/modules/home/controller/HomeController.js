@@ -76,6 +76,17 @@ fileItApp
 																.$broadcast(
 																		'error',
 																		result.data.Error);
+													} else {
+														$scope.showSubmitButton = true;
+														$scope.ImageProperty.name = files[i].name;
+														$scope.ImageProperty.path = document
+																.getElementById("file").value;
+														$scope.ImageProperty.type = files[i].type;
+
+														$scope.fileList
+																.push($scope.ImageProperty);
+														$scope.ImageProperty = {};
+														$scope.$apply();
 													}
 													LoadingService.hideLoad();
 												});
@@ -264,16 +275,6 @@ fileItApp
 								if ($scope.validFile) {
 									for (var i = 0; i < files.length; i++) {
 										$scope.convertImage(files);
-										$scope.showSubmitButton = true;
-										$scope.ImageProperty.name = files[i].name;
-										$scope.ImageProperty.path = document
-												.getElementById("file").value;
-										$scope.ImageProperty.type = files[i].type;
-
-										$scope.fileList
-												.push($scope.ImageProperty);
-										$scope.ImageProperty = {};
-										$scope.$apply();
 
 									}
 								}
