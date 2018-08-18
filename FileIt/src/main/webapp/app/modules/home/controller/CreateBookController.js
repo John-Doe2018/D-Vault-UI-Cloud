@@ -16,10 +16,13 @@ fileItApp
 						'$route',
 						'DASHBOARD_DETALS',
 						'$mdToast',
+						'LandingOperationsSvc',
+						'BINDER_NAME',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, rfc4122, HomeSvc,
 								LoadingService, $http, FILEIT_CONFIG,
-								BINDER_SVC, $route, DASHBOARD_DETALS, $mdToast) {
+								BINDER_SVC, $route, DASHBOARD_DETALS, $mdToast,
+								LandingOperationsSvc, BINDER_NAME) {
 							var newheight = $(window).height()
 									- $('#pageHeader').height();
 							$("#createBookPage").height(newheight);
@@ -67,11 +70,31 @@ fileItApp
 								note : "NA"
 							};
 
-							$scope.deleteFile = function(index) {
-								$scope.fileList.splice(index, 1);
-								if ($scope.fileList.length < 1) {
-									$scope.showSubmitButton = false;
+							$scope.deleteFile = function(index, filename) {
+
+								var requestObj = {
+									'bookName' : $scope.bookName,
+									'fileName' : filename,
+									'bookcreated' : false
 								}
+								LandingOperationsSvc
+										.deleteFile(requestObj)
+										.then(
+												function(result) {
+													if (result.data.Success !== undefined) {
+														$scope.fileList.splice(
+																index, 1);
+														if ($scope.fileList.length < 1) {
+															$scope.showSubmitButton = false;
+														}
+													} else {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													}
+												});
+
 							};
 
 							$scope.onSubmitClick = function() {
@@ -163,6 +186,7 @@ fileItApp
 										for (var j = 0; j < $scope.fileList.length; j++) {
 											if ($scope.fileList[j].name == files[i].name) {
 												fileFound = true;
+												break;
 											}
 										}
 										if (!fileFound) {
@@ -177,6 +201,8 @@ fileItApp
 													.push($scope.ImageProperty);
 											$scope.ImageProperty = {};
 											$scope.$apply();
+										} else {
+											alert("Cannot upload same file twice !!");
 										}
 									}
 								}

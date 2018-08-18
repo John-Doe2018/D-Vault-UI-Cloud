@@ -174,7 +174,8 @@ fileItApp
 											function() {
 												var requestObj = {
 													'bookName' : BINDER_NAME.name,
-													'fileName' : $scope.deleteFileName
+													'fileName' : $scope.deleteFileName,
+													'bookcreated' : true
 												}
 												LandingOperationsSvc
 														.deleteFile(requestObj)
