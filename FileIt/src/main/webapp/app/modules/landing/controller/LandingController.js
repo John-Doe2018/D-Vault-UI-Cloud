@@ -234,9 +234,17 @@ fileItApp
 													headers : {
 														'Content-Type' : undefined
 													}
-												}).then(function() {
-											LoadingService.hideLoad();
-										});
+												})
+										.then(
+												function(result) {
+													if (result.data.Error !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.Error);
+													}
+													LoadingService.hideLoad();
+												});
 							}
 
 							$scope.setFile = function(element) {
@@ -314,8 +322,7 @@ fileItApp
 
 							$scope.$on('onNodeClick', function(event, node) {
 								console.log(node);
-								// $('#pdfModal').modal('show');
-								$location.path('/docView')
+								$location.path('/docView');
 							});
 
 							$scope.deletebook = function(bookname) {

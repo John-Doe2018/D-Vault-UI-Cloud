@@ -68,9 +68,17 @@ fileItApp
 													headers : {
 														'Content-Type' : undefined
 													}
-												}).then(function() {
-											LoadingService.hideLoad();
-										});
+												})
+										.then(
+												function(result) {
+													if (result.data.Error !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.Error);
+													}
+													LoadingService.hideLoad();
+												});
 							}
 							$scope.noBookPresent = true;
 							$scope.initialize = function() {
