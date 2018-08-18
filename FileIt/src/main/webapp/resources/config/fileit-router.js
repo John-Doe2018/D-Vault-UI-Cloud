@@ -33,6 +33,9 @@ fileItApp.config([ '$routeProvider', function($routeProvider) {
 	}).when('/bookmarks', {
 		templateUrl : 'app/modules/home/views/bookmarks.html',
 		controller : 'BookMarkController'
+	}).when('/classification', {
+		templateUrl : 'app/modules/dashboard/views/allClassification.html',
+		controller : 'AllClassificationController'
 	}).otherwise({
 		redirectTo : '/'
 	});

@@ -15,8 +15,12 @@ fileItApp
 								DashboardSvc, LOGGED_USER) {
 							$scope.onViewBookmark = function() {
 								$location.path('/bookmarks');
-							}
-							
+							};
+
+							$scope.gotoClassification = function() {
+								$location.path('/classification');
+							};
+
 							DASHBOARD_DETALS.classname = '';
 							$scope.records = [];
 							$scope.colorArray = [];
@@ -111,6 +115,7 @@ fileItApp
 																	.push(result.data[keys[i]].length);
 														}
 													}
+													DASHBOARD_DETALS.classificationlist = $scope.records;
 													$scope.classCount = $scope.labels.length;
 													$scope.getData();
 												});
