@@ -40,6 +40,8 @@ fileItApp
 																			.simple()
 																			.textContent(
 																					result.data.successMsg)
+																			.position(
+																					'top right')
 																			.hideDelay(
 																					3000));
 															$route.reload();

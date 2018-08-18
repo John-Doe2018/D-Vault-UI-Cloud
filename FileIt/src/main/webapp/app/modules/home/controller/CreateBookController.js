@@ -18,11 +18,12 @@ fileItApp
 						'$mdToast',
 						'LandingOperationsSvc',
 						'BINDER_NAME',
+						'$mdDialog',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, rfc4122, HomeSvc,
 								LoadingService, $http, FILEIT_CONFIG,
 								BINDER_SVC, $route, DASHBOARD_DETALS, $mdToast,
-								LandingOperationsSvc, BINDER_NAME) {
+								LandingOperationsSvc, BINDER_NAME, $mdDialog) {
 							var newheight = $(window).height()
 									- $('#pageHeader').height();
 							$("#createBookPage").height(newheight);
@@ -70,29 +71,46 @@ fileItApp
 								note : "NA"
 							};
 
-							$scope.deleteFile = function(index, filename) {
+							$scope.deleteFile = function(index, filename, ev) {
 
-								var requestObj = {
-									'bookName' : $scope.bookName,
-									'fileName' : filename,
-									'bookcreated' : false
-								}
-								LandingOperationsSvc
-										.deleteFile(requestObj)
+								var confirm = $mdDialog.confirm().title(
+										'Would you like to delete the file?')
+										.ariaLabel('Lucky day').targetEvent(ev)
+										.ok('Yes').cancel('No');
+
+								$mdDialog
+										.show(confirm)
 										.then(
-												function(result) {
-													if (result.data.Success !== undefined) {
-														$scope.fileList.splice(
-																index, 1);
-														if ($scope.fileList.length < 1) {
-															$scope.showSubmitButton = false;
-														}
-													} else {
-														$rootScope
-																.$broadcast(
-																		'error',
-																		result.data.description);
+												function() {
+													var requestObj = {
+														'bookName' : $scope.bookName,
+														'fileName' : filename,
+														'bookcreated' : false
 													}
+													LandingOperationsSvc
+															.deleteFile(
+																	requestObj)
+															.then(
+																	function(
+																			result) {
+																		if (result.data.Success !== undefined) {
+																			$scope.fileList
+																					.splice(
+																							index,
+																							1);
+																			if ($scope.fileList.length < 1) {
+																				$scope.showSubmitButton = false;
+																			}
+																		} else {
+																			$rootScope
+																					.$broadcast(
+																							'error',
+																							result.data.description);
+																		}
+																	});
+												},
+												function() {
+													$scope.status = 'You decided to keep your debt.';
 												});
 
 							};
@@ -128,6 +146,8 @@ fileItApp
 																		.simple()
 																		.textContent(
 																				'Book Created Successfully !!')
+																		.position(
+																				'top right')
 																		.hideDelay(
 																				3000));
 														$route.reload();
