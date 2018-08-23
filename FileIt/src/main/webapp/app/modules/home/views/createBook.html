@@ -71,7 +71,54 @@
 
 				<fieldset>
 					<h4>Upload Files:</h4>
-					<div class="col-md-12"
+					<div class="dropzone" ngf-drop ngf-select ng-model="gFiles"
+						ngf-pattern="'.pdf, .pptx, .docx'" ngf-multiple="true"
+						ngf-drag-over-class="'dragover'">
+						<div class="sm-hidden">
+							<h3>Drag files here</h3>
+							<h3>or</h3>
+						</div>
+						<p>
+							<span class="btn btn-primary">Select files from your
+								computer</span>
+						</p>
+						<p ngf-no-file-drop>File Drag/Drop is not supported for this
+							browser</p>
+						<p>
+							<small>Accepts files up to 5MB each</small>
+						</p>
+
+					</div>
+					<div ng-if="progressvisible">
+						<div class="progress" style="background-color: blue;">
+							<div class="progress-bar" role="progressbar"
+								aria-valuenow="{{progress}}" aria-valuemin="0"
+								aria-valuemax="100" style="width: {{progress">
+								{{progress}}</div>
+						</div>
+						<hr>
+						<div class="col-md-12" style="padding-top: 10px;">
+							<table class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th>File Name</th>
+										<th>File Type</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="file in fileList">
+
+										<td>{{file.name}}</td>
+										<td>{{file.type}}</td>
+										<td class="glyphicon glyphicon-trash file-delete"
+											ng-click="deleteFile($index, file.name, $event);"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!-- <div class="col-md-12"
 						style="text-align: center; margin-bottom: 10px;">
 						<input type="file" id="file" name="file" multiple
 							onchange="angular.element(this).scope().setFile(this)"
@@ -98,7 +145,7 @@
 								</tbody>
 							</table>
 						</div>
-					</div>
+					</div> -->
 					<div class="f1-buttons">
 						<button type="button" class="btn btn-previous">Previous</button>
 						<button type="submit" class="btn btn-submit"
