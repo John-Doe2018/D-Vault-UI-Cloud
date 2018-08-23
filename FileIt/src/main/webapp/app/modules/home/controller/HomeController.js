@@ -78,15 +78,15 @@ fileItApp
 																		result.data.Error);
 													} else {
 														$scope.showSubmitButton = true;
-														$scope.ImageProperty.name = files[i].name;
+														$scope.ImageProperty.name = files[0].name;
 														$scope.ImageProperty.path = document
 																.getElementById("file").value;
-														$scope.ImageProperty.type = files[i].type;
+														$scope.ImageProperty.type = files[0].type;
 
 														$scope.fileList
 																.push($scope.ImageProperty);
 														$scope.ImageProperty = {};
-														$scope.$apply();
+														//$scope.$apply();
 													}
 													LoadingService.hideLoad();
 												});
