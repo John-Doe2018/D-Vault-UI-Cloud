@@ -41,6 +41,8 @@
 					</div>
 				</div>
 				<br />
+				<button class="btn btn-primary btn-modal" data-toggle="modal"
+					ng-click="showZoom()">View Fullscreen Modal</button>
 				<nav mfb-menu position="br" effect="zoomin" active-icon="ion-close"
 					resting-icon="ion-grid" toggling-method="click" class="app-menu"
 					menu-state="menuState"
@@ -168,6 +170,36 @@
 			</div>
 
 		</div>
+	</div>
+	<div id="fsModal" class="modal animated bounceIn" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+		<!-- dialog -->
+		<div class="modal-dialog" style="width: 98%; height: 92%; padding: 0;">
+
+			<!-- content -->
+			<div class="modal-content">
+
+				<!-- header -->
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<!-- header -->
+
+				<!-- body -->
+				<div class="modal-body" id="bookViewModel"></div>
+				<!-- body -->
+
+				<!-- footer -->
+				<div class="modal-footer"></div>
+				<!-- footer -->
+
+			</div>
+			<!-- content -->
+
+		</div>
+		<!-- dialog -->
+
 	</div>
 </body>
 </html>

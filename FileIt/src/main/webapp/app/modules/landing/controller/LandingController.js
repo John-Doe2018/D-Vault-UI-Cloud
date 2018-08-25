@@ -126,6 +126,12 @@ fileItApp
 							};
 							$scope.getImage();
 
+							$scope.showZoom = function() {
+								$(".book_wrapper").clone(true).appendTo(
+										"#bookViewModel");
+								$('#fsModal').modal('show');
+							}
+
 							$scope.onFileDownload = function() {
 								var reqObj = {
 									"bookName" : BINDER_NAME.name
