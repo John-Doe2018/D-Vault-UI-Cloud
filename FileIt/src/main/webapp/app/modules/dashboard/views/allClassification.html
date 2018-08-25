@@ -13,19 +13,18 @@
 			<span class="md-subhead">Total Count : {{count}} </span> </md-card-header-text> </md-card-header> </md-card>
 		</div>
 	</div>
-	<div layout="row" layout-align="space-around center">
-		<div flex="20" ng-repeat="x in records">
-			<md-card> <md-card-header> <md-card-header-text>
-			<span class="md-title">{{x.classification}}</span> <span
-				class="md-subhead">Book Count : {{x.count}} </span> </md-card-header-text> </md-card-header> <md-card-actions
-				layout="row" layout-align="start center"> <md-divider></md-divider>
+	<div class='md-padding' layout="row" layout-wrap>
+		<md-card style="width: 250px;" ng-repeat="x in records"> <md-card-header>
+		<md-card-header-text> <span class="md-title">{{x.classification}}</span>
+		<span class="md-subhead">Book Count : {{x.count}} </span> </md-card-header-text> </md-card-header>
+		<div class="md-actions" layout="row" layout-align="end center">
 			<md-button md-no-ink class="md-primary"
 				ng-click="shelfView(x.classification)"> <md-icon
 				md-svg-src="images/visibility.svg" aria-label="View Document"></md-icon></md-button>
 			<md-button class="md-warn" ng-click="createBooks(x.classification)">
-			<i class="fa fa-plus"></i></md-button> <md-card-icon-actions>
-			</md-card-icon-actions> </md-card-actions></md-card>
+			<i class="fa fa-plus"></i></md-button>
 		</div>
+		</md-card>
 	</div>
 </body>
 </html>

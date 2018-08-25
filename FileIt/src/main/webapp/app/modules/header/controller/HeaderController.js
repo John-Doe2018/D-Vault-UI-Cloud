@@ -11,18 +11,47 @@ fileItApp
 						'LOGGED_USER',
 						'$timeout',
 						'dateFilter',
+						'$q',
 						function($rootScope, $scope, $location,
 								$sessionStorage, LandingOperationsSvc,
-								BINDER_NAME, LOGGED_USER, $timeout, dateFilter) {
-							$scope.updateTime = function() {
-								$timeout(function() {
-									$scope.theclock = (dateFilter(new Date(),
-											'hh:mm:ss'));
-									$scope.updateTime();
-								}, 1000);
-							};
+								BINDER_NAME, LOGGED_USER, $timeout, dateFilter,
+								$q) {
+							function adavnceSearch() {
+								LandingOperationsSvc.advSearch().then(
+										function(result) {
+											$scope.people = result.data;
+										});
+							}
+							$scope.getMatches = function(searchText) {
+								var deferred = $q.defer();
+								adavnceSearch();
+								$timeout(
+										function() {
+											var states = $scope.people
+													.filter(function(state) {
+														return (state
+																.toUpperCase()
+																.indexOf(
+																		searchText
+																				.toUpperCase()) !== -1 || state
+																.toUpperCase()
+																.indexOf(
+																		searchText
+																				.toUpperCase()) !== -1);
+													});
+											deferred.resolve(states);
+										}, 1500);
 
-							$scope.updateTime();
+								return deferred.promise;
+							}
+
+							var myVar = setInterval(myTimer, 1000);
+
+							function myTimer() {
+								var d = new Date();
+								document.getElementById("demo").innerHTML = d
+										.toLocaleTimeString();
+							}
 							$scope.loggeduser = LOGGED_USER.name;
 
 							$scope.w3_open = function() {
@@ -30,33 +59,6 @@ fileItApp
 								document.getElementById("mySidebar").style.width = "20%";
 								document.getElementById("mySidebar").style.display = "block";
 							}
-
-							function adavnceSearch() {
-								LandingOperationsSvc.advSearch().then(
-										function(result) {
-											$scope.people = result.data;
-										});
-							}
-							;
-							adavnceSearch();
-							$scope.$on('advSaerch', function() {
-								adavnceSearch();
-							});
-							$scope.localSearch = function(str, people) {
-								var matches = [];
-								$scope.people
-										.forEach(function(person) {
-											if ((person.toLowerCase().indexOf(
-													str.toString()
-															.toLowerCase()) >= 0)) {
-												var obj = {
-													"bookname" : person
-												}
-												matches.push(obj);
-											}
-										});
-								return matches;
-							};
 
 							$scope.logout = function() {
 								$rootScope.$broadcast('LogoutSucess');
@@ -81,10 +83,9 @@ fileItApp
 							}
 
 							$scope.selectedBook = function(selected) {
-								if (selected) {
-									var selectedbook = selected.title;
+								if ($scope.selectedItem) {
 									var reqObj = {
-										bookName : selectedbook
+										bookName : $scope.selectedItem
 									}
 									LandingOperationsSvc
 											.searchBook(reqObj)

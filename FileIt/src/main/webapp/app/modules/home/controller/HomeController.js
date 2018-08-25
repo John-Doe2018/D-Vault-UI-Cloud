@@ -31,11 +31,6 @@ fileItApp
 								IMAGE_URLS, LandingOperationsSvc, $interval,
 								DASHBOARD_DETALS, DashboardSvc, LOGGED_USER,
 								$mdToast) {
-							function adceSearch() {
-								$rootScope.$broadcast('advSaerch');
-							}
-							;
-							$interval(adceSearch(), 1000);
 							$scope.validFile = true;
 							$scope.fileList = [];
 							$scope.curFile;
@@ -46,51 +41,103 @@ fileItApp
 								type : "",
 								version : "1.0 ",
 								note : "NA"
+							};
+							$scope.convertImage = function() {
+								if ($scope.gFiles && $scope.gFiles.length) {
+									for (var i = 0; i < $scope.gFiles.length; i++) {
+										var file = $scope.gFiles[i];
+										if (!file.$error) {
+											var fd = new FormData();
+											fd.append('file', file);
+											fd.append('filename', file.name);
+											fd.append('bookName',
+													$scope.bookName);
+											fd.append('path', $scope.bookName
+													+ "/Images/");
+											fd.append('type', file.type);
+											$scope.progressvisible = true
+											var xhr = new XMLHttpRequest()
+											xhr.upload.onprogress = function(
+													evt) {
+
+												$scope
+														.$apply(function() {
+															if (evt.lengthComputable) {
+																var progressPercentage = parseInt(100.0
+																		* evt.loaded
+																		/ evt.total);
+																$scope.progress = progressPercentage
+																		+ '% ';
+															}
+
+														})
+											};
+											xhr.addEventListener("load",
+													uploadComplete, false)
+											xhr.addEventListener("error",
+													uploadFailed, false)
+											xhr.addEventListener("abort",
+													uploadCanceled, false)
+											xhr
+													.open(
+															"POST",
+															FILEIT_CONFIG.apiUrl
+																	+ BINDER_SVC.convertImg)
+											xhr.send(fd)
+
+										}
+									}
+								}
+							};
+
+							function uploadComplete(evt) {
+								$scope.resize();
 							}
 
-							$scope.convertImage = function(files) {
-								var fd = new FormData();
-								fd.append('file', files[0]);
-								fd.append('filename', files[0].name);
-								fd.append('bookName', BINDER_NAME.name);
-								fd
-										.append('path', BINDER_NAME.name
-												+ "/Images/");
-								fd.append('type', files[0].type);
-								LoadingService.showLoad();
-								$http
-										.post(
-												FILEIT_CONFIG.apiUrl
-														+ BINDER_SVC.convertImg,
-												fd,
-												{
-													transformRequest : angular.identity,
-													headers : {
-														'Content-Type' : undefined
-													}
-												})
-										.then(
-												function(result) {
-													if (result.data.Error !== undefined) {
-														$rootScope
-																.$broadcast(
-																		'error',
-																		result.data.Error);
-													} else {
-														$scope.showSubmitButton = true;
-														$scope.ImageProperty.name = files[0].name;
-														$scope.ImageProperty.path = document
-																.getElementById("file").value;
-														$scope.ImageProperty.type = files[0].type;
-
-														$scope.fileList
-																.push($scope.ImageProperty);
-														$scope.ImageProperty = {};
-														//$scope.$apply();
-													}
-													LoadingService.hideLoad();
-												});
+							function uploadFailed(evt) {
+								alert("There was an error attempting to upload the file.")
 							}
+
+							function uploadCanceled(evt) {
+								scope.$apply(function() {
+									$scope.progressvisible = false
+								})
+								alert("The upload has been canceled by the user or the browser dropped the connection.")
+							}
+							$scope
+									.$watch(
+											'gFiles',
+											function() {
+												var files = $scope.gFiles;
+												$scope.validFile = true;
+												if ($scope.validFile) {
+													for (var i = 0; i < files.length; i++) {
+														var fileFound = false;
+														for (var j = 0; j < $scope.fileList.length; j++) {
+															if ($scope.fileList[j].name == files[i].name) {
+																fileFound = true;
+																break;
+															}
+														}
+														if (!fileFound) {
+															$scope.showSubmitButton = true;
+															$scope.ImageProperty.name = files[i].name;
+															$scope.ImageProperty.path = $scope.binderName
+																	+ "/Images/";
+															$scope.ImageProperty.type = files[i].type;
+
+															$scope.fileList
+																	.push($scope.ImageProperty);
+															$scope.ImageProperty = {};
+														} else {
+															alert("Cannot upload same file twice !!");
+														}
+													}
+													$scope.convertImage();
+												}
+
+											});
+
 							$scope.noBookPresent = true;
 							$scope.initialize = function() {
 								DashboardSvc
@@ -254,30 +301,6 @@ fileItApp
 
 													}
 												});
-							};
-
-							$scope.setFile = function(element) {
-								// get the files
-								var files = element.files;
-								$scope.validFile = true;
-								var allowedFiles = [ ".pptx", ".docx", ".pdf" ];
-								for (var i = 0; i < files.length; i++) {
-									var regex = new RegExp(
-											"([a-zA-Z0-9\s_\\.\-:])+("
-													+ allowedFiles.join('|')
-													+ ")$");
-									if (regex.test(files[i].name.toLowerCase())) {
-										$scope.validFile = true;
-									} else {
-										$scope.validFile = false;
-									}
-								}
-								if ($scope.validFile) {
-									for (var i = 0; i < files.length; i++) {
-										$scope.convertImage(files);
-
-									}
-								}
 							};
 
 							$scope.onAddFileClick = function() {

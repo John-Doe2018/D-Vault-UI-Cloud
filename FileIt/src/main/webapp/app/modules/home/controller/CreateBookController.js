@@ -96,58 +96,39 @@ fileItApp
 								})
 								alert("The upload has been canceled by the user or the browser dropped the connection.")
 							}
-							$scope.$watch('gFiles', function() {
-								
+							$scope
+									.$watch(
+											'gFiles',
+											function() {
+												var files = $scope.gFiles;
+												$scope.validFile = true;
+												if ($scope.validFile) {
+													for (var i = 0; i < files.length; i++) {
+														var fileFound = false;
+														for (var j = 0; j < $scope.fileList.length; j++) {
+															if ($scope.fileList[j].name == files[i].name) {
+																fileFound = true;
+																break;
+															}
+														}
+														if (!fileFound) {
+															$scope.showSubmitButton = true;
+															$scope.ImageProperty.name = files[i].name;
+															$scope.ImageProperty.path = $scope.binderName
+																	+ "/Images/";
+															$scope.ImageProperty.type = files[i].type;
 
-								// get the files
-								var files = $scope.gFiles;
-								$scope.validFile = true;
-							//	var allowedFiles = [ ".pptx", ".docx", ".pdf" ];
-								/*for (var i = 0; i < files.length; i++) {
-									var regex = new RegExp(
-											"([a-zA-Z0-9\s_\\.\-:])+("
-													+ allowedFiles.join('|')
-													+ ")$");
-									if (regex.test(files[i].name.toLowerCase())) {
-										$scope.validFile = true;
-									} else {
-										$scope.validFile = false;
-									}
-									if (files[i].size < 5242880) {
-										$scope.validFile = true;
-									} else {
-										$scope.validFile = false;
-										alert("file must be select < 5 MB");
-									}
-								}*/
-								if ($scope.validFile) {
-									for (var i = 0; i < files.length; i++) {
-										var fileFound = false;
-										for (var j = 0; j < $scope.fileList.length; j++) {
-											if ($scope.fileList[j].name == files[i].name) {
-												fileFound = true;
-												break;
-											}
-										}
-										if (!fileFound) {
-											$scope.convertImage();
-											$scope.showSubmitButton = true;
-											$scope.ImageProperty.name = files[i].name;
-											$scope.ImageProperty.path = $scope.binderName
-													+ "/Images/";
-											$scope.ImageProperty.type = files[i].type;
+															$scope.fileList
+																	.push($scope.ImageProperty);
+															$scope.ImageProperty = {};
+														} else {
+															alert("Cannot upload same file twice !!");
+														}
+													}
+													$scope.convertImage();
+												}
 
-											$scope.fileList
-													.push($scope.ImageProperty);
-											$scope.ImageProperty = {};
-											$scope.$apply();
-										} else {
-											alert("Cannot upload same file twice !!");
-										}
-									}
-								}
-							
-							});
+											});
 
 							$scope.classfound = false;
 							$scope.classlist = [];
@@ -277,70 +258,6 @@ fileItApp
 												});
 
 							};
-							/*
-							 * $scope.convertImage = function(files) { var fd =
-							 * new FormData(); fd.append('file', files[0]);
-							 * fd.append('filename', files[0].name);
-							 * fd.append('bookName', $scope.bookName);
-							 * fd.append('path', $scope.bookName + "/Images/");
-							 * fd.append('type', files[0].type);
-							 * LoadingService.showLoad(); $http .post(
-							 * FILEIT_CONFIG.apiUrl + BINDER_SVC.convertImg, fd, {
-							 * transformRequest : angular.identity, headers : {
-							 * 'Content-Type' : undefined } }).then(function() {
-							 * LoadingService.hideLoad(); }); };
-							 */
-
-							$scope.setFile = function(element) {
-								// get the files
-								var files = element.files;
-								$scope.validFile = true;
-								var allowedFiles = [ ".pptx", ".docx", ".pdf" ];
-								for (var i = 0; i < files.length; i++) {
-									var regex = new RegExp(
-											"([a-zA-Z0-9\s_\\.\-:])+("
-													+ allowedFiles.join('|')
-													+ ")$");
-									if (regex.test(files[i].name.toLowerCase())) {
-										$scope.validFile = true;
-									} else {
-										$scope.validFile = false;
-									}
-									if (files[i].size < 5242880) {
-										$scope.validFile = true;
-									} else {
-										$scope.validFile = false;
-										alert("file must be select < 5 MB");
-									}
-								}
-								if ($scope.validFile) {
-									for (var i = 0; i < files.length; i++) {
-										var fileFound = false;
-										for (var j = 0; j < $scope.fileList.length; j++) {
-											if ($scope.fileList[j].name == files[i].name) {
-												fileFound = true;
-												break;
-											}
-										}
-										if (!fileFound) {
-											$scope.convertImage(files);
-											$scope.showSubmitButton = true;
-											$scope.ImageProperty.name = files[i].name;
-											$scope.ImageProperty.path = $scope.binderName
-													+ "/Images/";
-											$scope.ImageProperty.type = files[i].type;
-
-											$scope.fileList
-													.push($scope.ImageProperty);
-											$scope.ImageProperty = {};
-											$scope.$apply();
-										} else {
-											alert("Cannot upload same file twice !!");
-										}
-									}
-								}
-								element.files = null;
-							}
 
 							function scroll_to_class(element_class,
 									removed_height) {

@@ -6,15 +6,6 @@
 </head>
 <body>
 	<div class="header" ng-cloak>
-		<!-- <div class="row">
-			<div class="col-sm-12">
-				<md-button class="md-raised md-primary" ng-click="expandAll()">Expand
-				all</md-button>
-				<md-button class="md-raised md-primary" ng-click="collapseAll()">Collapse
-				all</md-button>
-			</div>
-		</div> -->
-
 		<div class="w3-sidebar w3-bar-block w3-card w3-animate-left"
 			style="display: none; height: 582px; overflow-y: auto;"
 			id="mySidebar1">
@@ -75,7 +66,7 @@
 		</div>
 		<div class="col-sm-9"
 			style="text-align: right !important; margin-top: 2%;">
-			<a href="http://www.primeleaf.in" target="_new" class="text-white">©
+			<a href="http://tranfode.com/" target="_new" class="text-white">©
 				Tranfode Technologies (P) Ltd.</a>
 		</div>
 	</div>
@@ -113,16 +104,33 @@
 				</div>
 				<div class="modal-body">
 					<div>
-						<div class="col-md-12"
-							style="text-align: center; margin-bottom: 10px;">
-							<input type="file" id="file" name="file" multiple
-								onchange="angular.element(this).scope().setFile(this)"
-								class="btn btn-warning" />
+						<div class="dropzone" ngf-drop ngf-select ng-model="gFiles"
+							ngf-pattern="'.pdf, .pptx, .docx'" ngf-multiple="true"
+							ngf-drag-over-class="'dragover'">
+							<div class="sm-hidden">
+								<h3>Drag files here</h3>
+								<h3>or</h3>
+							</div>
+							<p>
+								<span class="btn btn-primary">Select files from your
+									computer</span>
+							</p>
+							<p ngf-no-file-drop>File Drag/Drop is not supported for this
+								browser</p>
+							<p>
+								<small>Accepts files up to 5MB each</small>
+							</p>
+
 						</div>
-
-						<div class="col-md-12" style="padding-top: 10px;">
-
-							<div class="col-md-7">
+						<div ng-if="progressvisible">
+							<div class="progress" style="background-color: blue;">
+								<div class="progress-bar" role="progressbar"
+									aria-valuenow="{{progress}}" aria-valuemin="0"
+									aria-valuemax="100" style="width: {{progress">
+									{{progress}}</div>
+							</div>
+							<hr>
+							<div class="col-md-12" style="padding-top: 10px;">
 								<table class="table table-bordered table-striped">
 									<thead>
 										<tr>
@@ -137,7 +145,7 @@
 											<td>{{file.name}}</td>
 											<td>{{file.type}}</td>
 											<td class="glyphicon glyphicon-trash file-delete"
-												ng-click="deleteFile($index);"></td>
+												ng-click="deleteFile($index, file.name, $event);"></td>
 										</tr>
 									</tbody>
 								</table>

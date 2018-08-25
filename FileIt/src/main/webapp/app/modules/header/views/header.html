@@ -15,14 +15,17 @@
 		<div class="md-ripple-container"></div>
 		</md-button>
 		<span flex></span>
-		<div
-			style="height: 67px !important; margin: 2% !important; color: cornsilk !important;"
-			class="text-center clock">{{theclock}}</div>
-		<div angucomplete-alt id="ex2" placeholder="Search Book" pause="300"
-			selected-object="selectedBook" local-data="people"
-			local-search="localSearch" title-field="bookname"
-			description-field="twitter" image-field="pic" minlength="1"
-			input-class="form-control form-control-small" match-class="highlight"></div>
+		<p id="demo" style="margin: 2%; color: aliceblue;"></p>
+		<md-autocomplete md-selected-item="selectedItem" style="color: black;"
+			md-search-text="searchText" md-items="item in getMatches(searchText)"
+			md-item-text="item" placeholder="Search books" md-no-cache="true">
+		<md-item-template> <span
+			md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
+		</md-item-template> <md-not-found> No matches found. </md-not-found> </md-autocomplete>
+		<md-button class="md-fab md-mini" aria-label="Search"
+			style="background-color: #54290C;" ng-click="selectedBook()">
+		<md-icon md-svg-src="images/search.svg" aria-label="Search"></md-icon>
+		</md-button>
 		<div class="dropdown">
 			<md-button class="md-fab md-mini dropdown-toggle user-bottom"
 				data-toggle="dropdown" aria-label="Profile"> <md-icon

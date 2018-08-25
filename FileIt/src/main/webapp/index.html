@@ -25,6 +25,8 @@ body {
 <link href="images/fav.ico" rel="icon">
 
 <!-- Library CSS -->
+<link href="themes/css/angular-material/angular-material.min.css"
+	rel="stylesheet">
 <link href="themes/css/bootstrap/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet"
 	href="themes/fonts/font-awesome-4.4.0/css/font-awesome.min.css">
@@ -35,13 +37,9 @@ body {
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-<!-- Application CSS files required -->
 <link href="themes/fonts/roboto/font.css" rel="stylesheet">
-<link href="themes/css/angular-material/angular-material.min.css"
-	rel="stylesheet">
-<link href="themes/css/angular-material/angular-chart.css"
-	rel="stylesheet">
-<link href="themes/css/angular-material/material-datetimepicker.min.css"
+
+ <link href="themes/css/angular-material/angular-chart.css"
 	rel="stylesheet">
 <link href="themes/css/angular-material/angular-ui-tree.min.css"
 	rel="stylesheet">
@@ -72,7 +70,7 @@ body {
 	rel="stylesheet">
 <link href="themes/css/custom/modules/header/header-mediaquery.css"
 	rel="stylesheet">
-<script src="libraries/iecompatibility/ie-emulation-modes-warning.js"></script>
+<script src="libraries/iecompatibility/ie-emulation-modes-warning.js"></script> 
 
 </head>
 
@@ -207,7 +205,7 @@ body {
 		src="app/modules/dashboard/controller/AllClassificationController.js"></script>
 	<script src="app/modules/dashboard/service/DashboardSvc.js"></script>
 	<script src="app/modules/landing/service/LandingOperationSvc.js"></script>
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		document.onmousedown = disableclick;
 		status = "Right Click Disabled";
 		function disableclick(e) {
@@ -216,7 +214,7 @@ body {
 				return false;
 			}
 		}
-	</script>
+	</script> -->
 	<!-- <script type="text/javascript">
 		$(document).keydown(function(event) {
 			if (event.keyCode == 123) { // Prevent F12
