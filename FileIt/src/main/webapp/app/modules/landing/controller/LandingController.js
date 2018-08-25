@@ -127,10 +127,15 @@ fileItApp
 							$scope.getImage();
 
 							$scope.showZoom = function() {
-								$(".book_wrapper").clone(true).appendTo(
-										"#bookViewModel");
+								for (var n = 0; n < IMAGE_URLS.url.length; n++) {
+										var text1 = '<div class="item active"><img src="'
+												+ IMAGE_URLS.url[n]
+												+ '" alt="strawberries"></div>';
+										$(text1).appendTo(".carousel-inner");
+
+								}
 								$('#fsModal').modal('show');
-							}
+							};
 
 							$scope.onFileDownload = function() {
 								var reqObj = {

@@ -41,8 +41,6 @@
 					</div>
 				</div>
 				<br />
-				<button class="btn btn-primary btn-modal" data-toggle="modal"
-					ng-click="showZoom()">View Fullscreen Modal</button>
 				<nav mfb-menu position="br" effect="zoomin" active-icon="ion-close"
 					resting-icon="ion-grid" toggling-method="click" class="app-menu"
 					menu-state="menuState"
@@ -54,6 +52,8 @@
 						ng-click="removeBook($event)"></button>
 					<button mfb-button label="Download" icon="ion-ios-download"
 						ng-click="onFileDownload()"></button>
+					<button mfb-button label="Zoom" icon="ion-ios-search"
+						ng-click="showZoom()"></button>
 				</nav>
 			</div>
 
@@ -188,18 +188,28 @@
 
 				<!-- body -->
 				<div class="modal-body" id="bookViewModel"></div>
-				<!-- body -->
+				<div id="carousel-modal-demo" class="carousel slide"
+					data-ride="carousel">
 
-				<!-- footer -->
-				<div class="modal-footer"></div>
-				<!-- footer -->
+
+
+					<!-- Sliding images statring here -->
+					<div class="carousel-inner"></div>
+					<!-- Next / Previous controls here -->
+					<a class="left carousel-control" href="javascript:void(0)"
+						data-slide="prev"> <span
+						class="glyphicon glyphicon-chevron-left"></span>
+					</a> <a class="right carousel-control" href="javascript:void(0)"
+						data-slide="next"> <span
+						class="glyphicon glyphicon-chevron-right"></span>
+					</a>
+
+				</div>
+				<!-- content -->
 
 			</div>
-			<!-- content -->
+			<!-- dialog -->
 
 		</div>
-		<!-- dialog -->
-
-	</div>
 </body>
 </html>
