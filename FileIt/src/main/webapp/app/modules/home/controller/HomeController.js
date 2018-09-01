@@ -330,7 +330,8 @@ fileItApp
 
 							$scope.gotolandingPage = function() {
 								var reqObj1 = {
-									"bookName" : BINDER_NAME.name
+									"bookName" : BINDER_NAME.name,
+									"classification" : DASHBOARD_DETALS.booklist
 								}
 								LandingOperationsSvc.getImage(reqObj1).then(
 										function(result) {

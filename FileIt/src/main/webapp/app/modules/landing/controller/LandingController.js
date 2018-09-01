@@ -27,8 +27,12 @@ fileItApp
 								$mdDialog) {
 							$scope.validFile = true;
 							$scope.getData = function() {
+								var reqObj = {
+									'bookname' : BINDER_NAME.name,
+									'classificationname' : DASHBOARD_DETALS.booklist
+								}
 								LandingOperationsSvc
-										.treeList(BINDER_NAME.name)
+										.treeList(reqObj)
 										.then(
 												function(result) {
 													if (result.data.errorId !== undefined) {
@@ -140,7 +144,8 @@ fileItApp
 
 							$scope.onFileDownload = function() {
 								var reqObj = {
-									"bookName" : BINDER_NAME.name
+									"bookName" : BINDER_NAME.name,
+									'classificationname' : DASHBOARD_DETALS.booklist,
 								}
 								LandingOperationsSvc
 										.downloadFile(reqObj)
@@ -238,8 +243,8 @@ fileItApp
 											fd.append('classification',
 													DASHBOARD_DETALS.booklist);
 											fd.append('bookName',
-													$scope.bookName);
-											fd.append('path', $scope.bookName
+													BINDER_NAME.name);
+											fd.append('path', BINDER_NAME.name
 													+ "/Images/");
 											fd.append('type', file.type);
 											$scope.progressvisible = true
