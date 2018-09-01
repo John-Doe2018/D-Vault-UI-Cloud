@@ -52,6 +52,8 @@ fileItApp
 											fd.append('filename', file.name);
 											fd.append('bookName',
 													$scope.bookName);
+											fd.append('classification',
+													DASHBOARD_DETALS.booklist);
 											fd.append('path', $scope.bookName
 													+ "/Images/");
 											fd.append('type', file.type);
@@ -339,7 +341,8 @@ fileItApp
 
 							$scope.onFileDownload = function() {
 								var reqObj = {
-									"bookName" : BINDER_NAME.name
+									"bookName" : BINDER_NAME.name,
+									'classificationname' : DASHBOARD_DETALS.booklist
 								}
 								LandingOperationsSvc
 										.downloadFile(reqObj)

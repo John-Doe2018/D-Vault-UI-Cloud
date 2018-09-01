@@ -85,6 +85,7 @@ fileItApp
 
 								var reqObj = {
 									"bookName" : BINDER_NAME.name,
+									'classificationname' : DASHBOARD_DETALS.booklist,
 									"fileName" : $scope.filelist
 								}
 								LandingOperationsSvc
@@ -128,10 +129,10 @@ fileItApp
 
 							$scope.showZoom = function() {
 								for (var n = 0; n < IMAGE_URLS.url.length; n++) {
-										var text1 = '<div class="item active"><img src="'
-												+ IMAGE_URLS.url[n]
-												+ '" alt="strawberries"></div>';
-										$(text1).appendTo(".carousel-inner");
+									var text1 = '<div class="item active"><img src="'
+											+ IMAGE_URLS.url[n]
+											+ '" alt="strawberries"></div>';
+									$(text1).appendTo(".carousel-inner");
 
 								}
 								$('#fsModal').modal('show');
@@ -186,7 +187,8 @@ fileItApp
 												var requestObj = {
 													'bookName' : BINDER_NAME.name,
 													'fileName' : $scope.deleteFileName,
-													'bookcreated' : true
+													'bookcreated' : true,
+													'classificationName' : DASHBOARD_DETALS.booklist
 												}
 												LandingOperationsSvc
 														.deleteFile(requestObj)
@@ -233,6 +235,8 @@ fileItApp
 											var fd = new FormData();
 											fd.append('file', file);
 											fd.append('filename', file.name);
+											fd.append('classification',
+													DASHBOARD_DETALS.booklist);
 											fd.append('bookName',
 													$scope.bookName);
 											fd.append('path', $scope.bookName

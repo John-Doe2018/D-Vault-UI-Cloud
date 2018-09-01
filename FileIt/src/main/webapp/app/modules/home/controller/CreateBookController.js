@@ -42,6 +42,8 @@ fileItApp
 											var fd = new FormData();
 											fd.append('file', file);
 											fd.append('filename', file.name);
+											fd.append('classification',
+													$scope.classificationName);
 											fd.append('bookName',
 													$scope.bookName);
 											fd.append('path', $scope.bookName
@@ -188,7 +190,8 @@ fileItApp
 													var requestObj = {
 														'bookName' : $scope.bookName,
 														'fileName' : filename,
-														'bookcreated' : false
+														'bookcreated' : false,
+														'classificationName' : $scope.classificationName
 													}
 													LandingOperationsSvc
 															.deleteFile(
