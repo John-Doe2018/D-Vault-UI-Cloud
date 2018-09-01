@@ -23,6 +23,10 @@
 								$location.path('/createBook');
 							};
 
+							$scope.$on('closesidebar', function(event) {
+								$scope.w3_close();
+							});
+
 							$scope.createClassification = function() {
 								$scope.w3_close();
 								$location.path('/createClassification');

@@ -243,7 +243,9 @@ fileItApp
 																		.textContent(
 																				"Bookmark Added Successfully !!!")
 																		.position(
-																				'top right')
+																				'bottom')
+																		.theme(
+																				'success-toast')
 																		.hideDelay(
 																				3000));
 													}
@@ -289,7 +291,9 @@ fileItApp
 																		.textContent(
 																				"Book Deleted Successfully !!!")
 																		.position(
-																				'top right')
+																				'bottom')
+																		.theme(
+																				'success-toast')
 																		.hideDelay(
 																				3000));
 														if ($scope.booklength === 1) {

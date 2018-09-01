@@ -6,7 +6,7 @@
 </head>
 <body>
 	<div>
-		<div class="col-sm-12">
+		<div class="col-sm-12" style="margin-left: 1%;">
 			<span class="text-uppercase page-subtitle"
 				style="letter-spacing: .125rem; color: #818ea3; font-size: .625rem;">Dashboard</span>
 			<h3
@@ -122,10 +122,13 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="x in records">
-										<td style="text-align: center;" class="font-weight-medium">{{x.no}}</td>
+										<td style="text-align: center;" class="font-weight-medium"><a
+											href="javascript:void(0)"
+											ng-click="shelfView(x.classification)">{{x.no}}</a></td>
 										<td
 											style="text-align: center; word-wrap: break-word; max-width: 150px;"
-											class="text-success">{{x.classification}}</td>
+											class="text-success"><a href="javascript:void(0)"
+											ng-click="shelfView(x.classification)">{{x.classification}}</a></td>
 										<td><a style="margin-left: 47%;" class="text-danger"
 											href="javascript:void(0)"
 											ng-click="shelfView(x.classification)">{{x.count}}</a></td>
@@ -171,7 +174,7 @@
 		</div>
 	</div>
 	<div class="row col-sm-12"
-		style="background-color: steelblue; bottom: 0;">
+		style="background-color: blueviolet; bottom: 0;">
 		<div class="col-sm-3">
 			<a href="http://tranfode.com/" target="_new"><img
 				src="images/tranfode.png"></a>

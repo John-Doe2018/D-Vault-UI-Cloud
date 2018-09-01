@@ -41,7 +41,9 @@ fileItApp
 																			.textContent(
 																					result.data.successMsg)
 																			.position(
-																					'top right')
+																					'bottom')
+																			.theme(
+																					'success-toast')
 																			.hideDelay(
 																					3000));
 															$route.reload();

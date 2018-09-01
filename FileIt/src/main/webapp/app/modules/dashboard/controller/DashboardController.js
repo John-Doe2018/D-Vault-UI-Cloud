@@ -13,11 +13,14 @@ fileItApp
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, DASHBOARD_DETALS,
 								DashboardSvc, LOGGED_USER) {
+							$rootScope.$broadcast('closesidebar');
 							$scope.onViewBookmark = function() {
+								$rootScope.$broadcast('closesidebar');
 								$location.path('/bookmarks');
 							};
 
 							$scope.gotoClassification = function() {
+								$rootScope.$broadcast('closesidebar');
 								$location.path('/classification');
 							};
 
@@ -65,6 +68,7 @@ fileItApp
 								$location.path('/allDocs');
 							}
 							$scope.createBooks = function(classification) {
+								$rootScope.$broadcast('closesidebar');
 								DASHBOARD_DETALS.classname = classification;
 								$location.path('/createBook');
 							};
@@ -72,7 +76,7 @@ fileItApp
 								new Chart(
 										document.getElementById("chart-area"),
 										{
-											type : 'pie',
+											type : 'doughnut',
 											data : {
 												labels : $scope.labels,
 												datasets : [ {
@@ -85,7 +89,19 @@ fileItApp
 												title : {
 													display : true,
 													text : 'Active Documents'
-												}
+												},
+												segmentShowStroke : true,
+												segmentStrokeColor : "#fff",
+												segmentStrokeWidth : 2,
+												percentageInnerCutout : 50,
+												animationSteps : 100,
+												animationEasing : "easeOutBounce",
+												animateRotate : true,
+												animateScale : false,
+												responsive : true,
+												maintainAspectRatio : true,
+												showScale : true,
+												animateScale : true
 											}
 										});
 							};
@@ -122,6 +138,7 @@ fileItApp
 							};
 							$scope.getDashboard();
 							$scope.shelfView = function(bookList) {
+								$rootScope.$broadcast('closesidebar');
 								DASHBOARD_DETALS.booklist = bookList;
 								$location.path('/home');
 							};
