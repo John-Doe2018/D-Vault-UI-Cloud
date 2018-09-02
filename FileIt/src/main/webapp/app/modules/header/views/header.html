@@ -18,10 +18,11 @@
 		<p id="demo" style="margin: 2%; color: aliceblue;"></p>
 		<md-autocomplete md-selected-item="selectedItem" style="color: black;"
 			md-search-text="searchText" md-items="item in getMatches(searchText)"
-			md-item-text="item" placeholder="Search books" md-no-cache="true">
-		<md-item-template> <span
-			md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
-		</md-item-template> <md-not-found> No matches found. </md-not-found> </md-autocomplete>
+			md-item-text="item.bookname" placeholder="Search books"
+			md-no-cache="true"> <md-item-template>
+		<span>{{item.bookname}} - </span> <span md-highlight-text="searchText"
+			md-highlight-flags="^i">{{item.classname}}</span> </md-item-template> <md-not-found>
+		No matches found. </md-not-found> </md-autocomplete>
 		<md-button class="md-fab md-mini" aria-label="Search"
 			style="background-color: blueviolet;" ng-click="selectedBook()">
 		<md-icon md-svg-src="images/search.svg" aria-label="Search"></md-icon>

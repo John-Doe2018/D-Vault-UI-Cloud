@@ -12,15 +12,35 @@ fileItApp
 						'$timeout',
 						'dateFilter',
 						'$q',
+						'DashboardSvc',
+						'IMAGE_URLS',
 						function($rootScope, $scope, $location,
 								$sessionStorage, LandingOperationsSvc,
 								BINDER_NAME, LOGGED_USER, $timeout, dateFilter,
-								$q) {
+								$q, DashboardSvc, IMAGE_URLS) {
+							$scope.people = [];
 							function adavnceSearch() {
-								LandingOperationsSvc.advSearch().then(
-										function(result) {
-											$scope.people = result.data;
-										});
+								$scope.people = [];
+								DashboardSvc
+										.classifiedData()
+										.then(
+												function(result) {
+													var keys = Object
+															.keys(result.data);
+													for (var i = 0; i < keys.length; i++) {
+														if (keys[i] !== "BlankArray") {
+															for (var m = 0; m < result.data[keys[i]].length; m++) {
+																var obj = {
+																	'bookname' : result.data[keys[i]][m],
+																	'classname' : keys[i]
+																}
+																$scope.people
+																		.push(obj);
+															}
+														}
+													}
+												});
+
 							}
 							$scope.getMatches = function(searchText) {
 								var deferred = $q.defer();
@@ -29,11 +49,11 @@ fileItApp
 										function() {
 											var states = $scope.people
 													.filter(function(state) {
-														return (state
+														return (state.bookname
 																.toUpperCase()
 																.indexOf(
 																		searchText
-																				.toUpperCase()) !== -1 || state
+																				.toUpperCase()) !== -1 || state.bookname
 																.toUpperCase()
 																.indexOf(
 																		searchText
@@ -85,7 +105,7 @@ fileItApp
 							$scope.selectedBook = function(selected) {
 								if ($scope.selectedItem) {
 									var reqObj = {
-										bookName : $scope.selectedItem
+										bookName : $scope.selectedItem.bookname
 									}
 									LandingOperationsSvc
 											.searchBook(reqObj)
@@ -97,9 +117,21 @@ fileItApp
 																			'error',
 																			result.data.description);
 														} else {
-															BINDER_NAME.name = result.data.jsonObject.BookName;
-															$location
-																	.path('/landingPage');
+															BINDER_NAME.name = $scope.selectedItem.bookname;
+															var reqObj1 = {
+																"bookName" : $scope.selectedItem.bookname,
+																"classification" : $scope.selectedItem.classname
+															}
+															LandingOperationsSvc
+																	.getImage(
+																			reqObj1)
+																	.then(
+																			function(
+																					result) {
+																				IMAGE_URLS.url = result.data;
+																				$location
+																						.path('/landingPage');
+																			});
 														}
 													});
 
