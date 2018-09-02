@@ -247,7 +247,7 @@ fileItApp
 																	.push(result.data[keys[i]].length);
 														}
 													}
-													DASHBOARD_DETALS.classificationlist = $scope.records;
+													DASHBOARD_DETALS.classificationlist = $scope.items;
 													$scope.classCount = $scope.labels.length;
 													$scope.getData();
 												});
