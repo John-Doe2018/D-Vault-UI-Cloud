@@ -6,14 +6,14 @@
 </head>
 <body>
 	<div>
-		<div class="col-sm-12" style="margin-left: 1%;">
+		<div class="col-sm-12" style="margin-left: 2%;">
 			<span class="text-uppercase page-subtitle"
 				style="letter-spacing: .125rem; color: #818ea3; font-size: .625rem;">Dashboard</span>
 			<h3
 				style="font-size: 1.625rem; font-weight: 500; line-height: 1; margin: 0; padding: 0;">Vault
 				Overview</h3>
 		</div>
-		<div class="row col-sm-12" style="margin-top: 2%; margin-left: 0%;">
+		<div class="row col-sm-12" style="margin-top: 2%; margin-left: 1%;">
 			<div class="col-lg-3 col-md-6">
 
 				<div class="panel panel-primary">
@@ -109,37 +109,60 @@
 				<div class="card">
 					<div class="card-body">
 						<h4 class="card-title">Document Classes</h4>
-						<div class="table-responsive">
-							<table id="example" test-table
-								class="table table-striped table-bordered" style="width: 100%">
-								<thead>
-									<tr>
-										<th style="text-align: center;">#</th>
-										<th style="text-align: center;">Classification</th>
-										<th style="text-align: center;">Book Count</th>
-										<th style="text-align: center;">Add</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat="x in records">
-										<td style="text-align: center;" class="font-weight-medium"><a
-											href="javascript:void(0)"
-											ng-click="shelfView(x.classification)">{{x.no}}</a></td>
-										<td
-											style="text-align: center; word-wrap: break-word; max-width: 150px;"
-											class="text-success"><a href="javascript:void(0)"
-											ng-click="shelfView(x.classification)">{{x.classification}}</a></td>
-										<td><a style="margin-left: 47%;" class="text-danger"
-											href="javascript:void(0)"
-											ng-click="shelfView(x.classification)">{{x.count}}</a></td>
-										<td><a style="margin-left: 47%;" class="text-danger"
-											href="javascript:void(0)"
-											ng-click="createBooks(x.classification)"><i
-												class="fa fa-plus"></i></a></td>
-									</tr>
-								</tbody>
-							</table>
+						<div class="input-append">
+							<input type="text" ng-model="query" ng-change="search()"
+								class="input-large search-query" placeholder="Search">
 						</div>
+						<table class="table table-striped table-condensed table-hover">
+							<thead>
+								<tr>
+									<th class="no">Sl&nbsp;<a
+										style="color: #0088cc; text-decoration: none;"
+										ng-click="sort_by('no')"><i class="fa fa-sort"></i></a></th>
+									<th class="classification">Classification&nbsp;<a
+										style="color: #0088cc; text-decoration: none;"
+										ng-click="sort_by('classification')"><i class="fa fa-sort"></i></a></th>
+									<th class="count">Book Count&nbsp;<a
+										style="color: #0088cc; text-decoration: none;"
+										ng-click="sort_by('count')"><i class="fa fa-sort"></i></a></th>
+									<th class="Add">Add</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<td colspan="6">
+									<div class="pagination pull-right">
+										<ul>
+											<li ng-class="{disabled: currentPage == 0}"><a href
+												ng-click="prevPage()"><< Prev</a></li>
+											<li ng-repeat="n in range(pagedItems.length)"
+												ng-class="{active: n == currentPage}" ng-click="setPage()">
+												<a href ng-bind="n + 1">1</a>
+											</li>
+											<li
+												ng-class="{disabled: currentPage == pagedItems.length - 1}">
+												<a href ng-click="nextPage()">Next >></a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tfoot>
+							<tbody>
+								<tr
+									ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse">
+									<td><a href="javascript:void(0)"
+										ng-click="shelfView(item.classification)">{{item.no}}</a></td>
+									<td><a href="javascript:void(0)"
+										ng-click="shelfView(item.classification)">{{item.classification}}</a></td>
+									<td><a class="text-danger" href="javascript:void(0)"
+										ng-click="shelfView(item.classification)">{{item.count}}</a></td>
+									<td><a class="text-danger" href="javascript:void(0)"
+										ng-click="createBooks(item.classification)"><i
+											class="fa fa-plus"></i></a></td>
+								</tr>
+							</tbody>
+						</table>
+
+
 					</div>
 				</div>
 				<div class="card col-sm-5"
