@@ -141,5 +141,9 @@ fileItApp
 													}
 												});
 
+							};
+
+							$scope.signUp = function() {
+								$location.path('/signup');
 							}
 						} ]);

@@ -2,6 +2,10 @@ md-toast.md-success-toast-theme .md-toast-content {
     background-color: green;
 }
 
+md-toast.md-error-toast-theme .md-toast-content {
+    background-color: red;
+}
+
 .pagination{height:40px;margin:20px 0;}
 .pagination ul{display:inline-block;*display:inline;*zoom:1;margin-left:0;margin-bottom:0;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 2px rgba(0, 0, 0, 0.05);-moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.05);box-shadow:0 1px 2px rgba(0, 0, 0, 0.05);}
 .pagination ul>li{display:inline;}
