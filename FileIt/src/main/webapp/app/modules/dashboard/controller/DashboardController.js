@@ -58,17 +58,20 @@ fileItApp
 										.getbookmark(reqObj)
 										.then(
 												function(result) {
-													DASHBOARD_DETALS.bookmarklist = result.data.bookmarkDetailsList;
-													var length = 0;
-													if (DASHBOARD_DETALS.bookmarklist.length < 5) {
-														length = DASHBOARD_DETALS.bookmarklist.length;
-													} else {
-														length = 5;
+													if (result.data.errorMessage === undefined) {
+														DASHBOARD_DETALS.bookmarklist = result.data.bookmarkDetailsList;
+														var length = 0;
+														if (DASHBOARD_DETALS.bookmarklist.length < 5) {
+															length = DASHBOARD_DETALS.bookmarklist.length;
+														} else {
+															length = 5;
+														}
+														for (var k = 0; k < length; k++) {
+															$scope.bookmarkList
+																	.push(DASHBOARD_DETALS.bookmarklist[k]);
+														}
 													}
-													for (var k = 0; k < length; k++) {
-														$scope.bookmarkList
-																.push(DASHBOARD_DETALS.bookmarklist[k]);
-													}
+
 												});
 
 							};
