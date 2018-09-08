@@ -39,8 +39,9 @@
 				<fieldset id="firstFieldset" style="display: block;">
 					<h4>Enter book name:</h4>
 					<md-input-container class="md-block" flex-gt-sm>
-					<label>Book Name</label> <input ng-model="bookName" maxlength="20"
-						ng-pattern-restrict="/^[-\w\s]+$/" required> </md-input-container>
+					<label>Book Name</label> <input ng-model="bookName"
+						data-ng-pattern="/^\S*$/" maxlength="20"
+						ng-pattern-restrict="^$|^[A-Za-z0-9]+$" required> </md-input-container>
 					<div class="f1-buttons">
 						<button type="button" class="btn btn-next"
 							ng-disabled="createBookForm.bookName.$invalid && !createBookForm.bookName.$pristine">Next</button>
