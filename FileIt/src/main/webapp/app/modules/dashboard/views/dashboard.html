@@ -106,6 +106,7 @@
 		</div>
 		<div class="row col-sm-12" style="margin-top: 2%; margin-left: 1%;">
 			<div class="col-sm-8 grid-margin">
+				<md-card>
 				<div class="card">
 					<div class="card-body">
 						<h4 class="card-title">Document Classes</h4>
@@ -165,6 +166,8 @@
 
 					</div>
 				</div>
+				</md-card>
+				<md-card>
 				<div class="card col-sm-5"
 					style="border: 1px solid rgba(0, 0, 0, 0.125); border-radius: 0; margin-top: 2%;">
 					<div class="card-header">
@@ -180,13 +183,15 @@
 						</div>
 					</div>
 					<div class="list-group list-group-flush"
-						ng-repeat="y in bookmarkList">
+						ng-repeat="y in bookmarkList"
+						ng-click="gotoBookView(y.bookName, y.classification)">
 						<a href="javascript:void(0)"
 							class="list-group-item  list-group-item-action"> <i
 							class="fa fa-bookmark fa-lg text-danger"></i> {{y.bookName}}
 						</a>
 					</div>
 				</div>
+				</md-card>
 			</div>
 			<div class="col-sm-4">
 				<md-card>

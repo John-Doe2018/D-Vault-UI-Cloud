@@ -11,9 +11,11 @@ fileItApp
 						'DashboardSvc',
 						'LOGGED_USER',
 						'$filter',
+						'LandingOperationsSvc',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, DASHBOARD_DETALS,
-								DashboardSvc, LOGGED_USER, $filter) {
+								DashboardSvc, LOGGED_USER, $filter,
+								LandingOperationsSvc) {
 							var sortingOrder = 'classification';
 							$rootScope.$broadcast('closesidebar');
 							$scope.onViewBookmark = function() {
@@ -48,6 +50,18 @@ fileItApp
 							};
 							$scope.bookmarkList = [];
 
+							$scope.gotoBookView = function(bookName, className) {
+								var reqObj1 = {
+									"bookName" : bookName,
+									"classification" : className
+								}
+								LandingOperationsSvc.getImage(reqObj1).then(
+										function(result) {
+											IMAGE_URLS.url = result.data;
+											$location.path('/landingPage');
+										});
+							}
+
 							$scope.getBookMarks = function() {
 								var reqObj = {
 									'userName' : LOGGED_USER.name,
@@ -58,7 +72,7 @@ fileItApp
 										.getbookmark(reqObj)
 										.then(
 												function(result) {
-													if (result.data.errorMessage === undefined) {
+													if (result.data.errorMessage === null) {
 														DASHBOARD_DETALS.bookmarklist = result.data.bookmarkDetailsList;
 														var length = 0;
 														if (DASHBOARD_DETALS.bookmarklist.length < 5) {

@@ -22,4 +22,15 @@ fileItApp.controller('BookMarkController', [
 
 			$scope.init();
 
+			$scope.gotoBookView = function(bookName, className) {
+				var reqObj1 = {
+					"bookName" : bookName,
+					"classification" : className
+				}
+				LandingOperationsSvc.getImage(reqObj1).then(function(result) {
+					IMAGE_URLS.url = result.data;
+					$location.path('/landingPage');
+				});
+			}
+
 		} ]);

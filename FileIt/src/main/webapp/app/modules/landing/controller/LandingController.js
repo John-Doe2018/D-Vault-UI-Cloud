@@ -453,6 +453,20 @@ fileItApp
 
 							$scope.nodearray = [];
 
+							$('#next_page_button')
+									.click(
+											function(e) {
+												e.preventDefault();
+												for (var n = 0; n < IMAGE_URLS.url.length; n++) {
+													var text1 = '<div><img src="'
+															+ IMAGE_URLS.url[n]
+															+ '"style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;" /></div>';
+													$('#mybook').booklet("add",
+															"end", text1);
+												}
+
+											});
+
 							$(function() {
 								var $mybook = $('#mybook');
 								var $bttn_next = $('#next_page_button');

@@ -19,7 +19,8 @@
 		<span class="md-subhead">Classification : {{x.classification}}
 		</span> </md-card-header-text> </md-card-header>
 		<div class="md-actions" layout="row" layout-align="end center">
-			<md-button md-no-ink class="md-primary"> <md-icon
+			<md-button md-no-ink class="md-primary"
+				ng-click="gotoBookView(x.bookName,x.classification)"> <md-icon
 				md-svg-src="images/visibility.svg" aria-label="View Document"></md-icon></md-button>
 			<md-button class="md-warn"> <md-icon
 				md-svg-src="images/delete.svg" aria-label="Delete"></md-icon></md-button>
