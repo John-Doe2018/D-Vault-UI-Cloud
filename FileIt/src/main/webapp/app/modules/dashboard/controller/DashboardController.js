@@ -51,9 +51,11 @@ fileItApp
 							$scope.bookmarkList = [];
 
 							$scope.gotoBookView = function(bookName, className) {
+								$scope.range = [ 0 ];
 								var reqObj1 = {
 									"bookName" : bookName,
-									"classification" : className
+									"classification" : className,
+									"rangeList" : $scope.range
 								}
 								LandingOperationsSvc.getImage(reqObj1).then(
 										function(result) {

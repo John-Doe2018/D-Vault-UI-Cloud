@@ -118,9 +118,11 @@ fileItApp
 																			result.data.description);
 														} else {
 															BINDER_NAME.name = $scope.selectedItem.bookname;
+															$scope.range = [ 0 ];
 															var reqObj1 = {
 																"bookName" : $scope.selectedItem.bookname,
-																"classification" : $scope.selectedItem.classname
+																"classification" : $scope.selectedItem.classname,
+																"rangeList" : $scope.range
 															}
 															LandingOperationsSvc
 																	.getImage(

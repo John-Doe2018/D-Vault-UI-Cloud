@@ -329,9 +329,11 @@ fileItApp
 							};
 
 							$scope.gotolandingPage = function() {
+								$scope.range = [ 0 ];
 								var reqObj1 = {
 									"bookName" : BINDER_NAME.name,
-									"classification" : DASHBOARD_DETALS.booklist
+									"classification" : DASHBOARD_DETALS.booklist,
+									"rangeList" : $scope.range
 								}
 								LandingOperationsSvc.getImage(reqObj1).then(
 										function(result) {
