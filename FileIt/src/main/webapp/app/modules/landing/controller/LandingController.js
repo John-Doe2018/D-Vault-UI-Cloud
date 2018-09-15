@@ -135,7 +135,7 @@ fileItApp
 								for (var n = 0; n < IMAGE_URLS.url.length; n++) {
 									var text1 = '<div class="item active"><img src="data:image/jpeg;base64,'
 											+ IMAGE_URLS.url[n]
-											+ '" alt="strawberries"></div>';
+											+ '"style="margin-left: 27%" alt="strawberries"></div>';
 									$(text1).appendTo(".carousel-inner");
 
 								}
