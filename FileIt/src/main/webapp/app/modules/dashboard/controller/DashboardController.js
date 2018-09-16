@@ -51,7 +51,7 @@ fileItApp
 							$scope.bookmarkList = [];
 
 							$scope.gotoBookView = function(bookName, className) {
-								$scope.range = [ 0 ];
+								$scope.range = [ 1, 2 ];
 								var reqObj1 = {
 									"bookName" : bookName,
 									"classification" : className,

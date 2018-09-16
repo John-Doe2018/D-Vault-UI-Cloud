@@ -329,7 +329,7 @@ fileItApp
 							};
 
 							$scope.gotolandingPage = function() {
-								$scope.range = [ 0 ];
+								$scope.range = [ 1, 2 ];
 								var reqObj1 = {
 									"bookName" : BINDER_NAME.name,
 									"classification" : DASHBOARD_DETALS.booklist,

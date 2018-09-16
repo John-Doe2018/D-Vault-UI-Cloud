@@ -458,8 +458,8 @@ fileItApp
 
 									});
 
-							$scope.servicecounter = 0;
-							$scope.actualcounter = 0;
+							$scope.servicecounter = 1;
+							$scope.actualcounter = 1;
 
 							$('#prev_page_button')
 									.click(
