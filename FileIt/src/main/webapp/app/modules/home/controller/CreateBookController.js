@@ -27,6 +27,12 @@ fileItApp
 								BINDER_SVC, $route, DASHBOARD_DETALS, $mdToast,
 								LandingOperationsSvc, BINDER_NAME, $mdDialog,
 								Upload, $timeout) {
+							$('form input').keydown(function(e) {
+								if (e.keyCode == 13) {
+									e.preventDefault();
+									return false;
+								}
+							});
 							$scope.resize = function() {
 								var newheight = $(window).height()
 										- $('#pageHeader').height();

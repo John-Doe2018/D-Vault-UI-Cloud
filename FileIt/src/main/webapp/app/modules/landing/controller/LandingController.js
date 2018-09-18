@@ -531,9 +531,9 @@ fileItApp
 												// display in
 												// the document
 												// title bar
-												width : 800, // container
+												width : 1200, // container
 												// width
-												height : 500, // container
+												height : 800, // container
 												// height
 												speed : 600, // speed of the
 												// transition
