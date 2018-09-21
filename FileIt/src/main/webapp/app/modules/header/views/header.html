@@ -9,6 +9,11 @@
 			style="position: absolute; left: 63px; width: 10%; top: 18px; bottom: 13px; color: cornsilk; font-size: 24px;">D-</label>
 		<label
 			style="position: absolute; left: 91px; top: 18px; bottom: 13px; color: red; font-size: 24px; font-style: oblique;">Vault</label>
+		<md-button aria-label="Side Panel" ng-click="w3_open()" tabindex="0">
+		<md-icon md-svg-src="images/icons8-menu-filled.svg"
+			class="md-default-theme ng-scope ng-isolate-scope material-icons"></md-icon>
+		<div class="md-ripple-container"></div>
+		</md-button>
 		<span flex></span>
 		<p id="demo" style="margin: 2%; color: aliceblue;"></p>
 		<md-autocomplete md-selected-item="selectedItem" style="color: black;"
@@ -27,9 +32,12 @@
 			data-toggle="dropdown" aria-label="Profile" ng-click="$mdOpenMenu()">
 		<md-icon md-svg-src="images/user.svg" aria-label="User"></md-icon></md-button> <md-menu-content>
 		<md-menu-item> <md-menu> <md-button
-			ng-click="gotoProfile()">Profile</md-button> </md-menu> </md-menu-item> <md-menu-item>
-		<md-menu> <md-button ng-click="$mdOpenMenu()">Settings</md-button>
-		</md-menu> </md-menu-item> <md-menu-item> <md-menu> <md-button
-			ng-click="logout()">Logout</md-button> </md-menu> </md-menu-item> </md-menu-content> </md-menu>
+			ng-click="gotoProfile()"> <md-icon
+			md-svg-src="images/profile.svg" aria-label="Profile"></md-icon></md-button> </md-menu> </md-menu-item> <md-menu-item>
+		<md-menu> <md-button ng-click="$mdOpenMenu()"> <md-icon
+			md-svg-src="images/settings.svg" aria-label="Settings"></md-icon></md-button> </md-menu> </md-menu-item> <md-menu-item>
+		<md-menu> <md-button ng-click="logout()">
+		<md-icon md-svg-src="images/logout.svg" aria-label="Logout"></md-icon></md-button>
+		</md-menu> </md-menu-item> </md-menu-content> </md-menu>
 	</div>
 </div>
