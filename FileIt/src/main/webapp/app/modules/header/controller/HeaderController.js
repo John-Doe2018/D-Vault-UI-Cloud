@@ -78,6 +78,7 @@ fileItApp
 								document.getElementById("mainPage").style.marginLeft = "20%";
 								document.getElementById("mySidebar").style.width = "20%";
 								document.getElementById("mySidebar").style.display = "block";
+								$rootScope.$broadcast('closesidebarLanding');
 							}
 
 							$scope.logout = function() {

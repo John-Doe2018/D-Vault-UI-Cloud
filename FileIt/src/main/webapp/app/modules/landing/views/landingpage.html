@@ -30,6 +30,11 @@
 				<button id="openNav" class="w3-button w3-teal w3-xlarge"
 					style="background-color: #54290C !important;"
 					ng-click="openSideBar()">&#9776;</button>
+				<md-button class="md-fab md-mini" aria-label="Zoom"
+					class="w3-bar-item w3-button w3-right w3-padding-16"
+					style="background-color: #54290C !important;" ng-click="showZoom()">
+				<md-icon md-svg-src="images/search.svg" aria-label="Zoom"></md-icon>
+				</md-button>
 			</div>
 
 			<div class="w3-container">
@@ -45,7 +50,8 @@
 				<nav mfb-menu position="br" effect="zoomin" active-icon="ion-close"
 					resting-icon="ion-grid" toggling-method="click" class="app-menu"
 					menu-state="menuState"
-					ng-class="{'fadeOut' : menuState === 'closed'}">
+					ng-class="{'fadeOut' : menuState === 'closed'}"
+					style="margin-bottom: 17% !important;">
 					<button mfb-button label="Add" icon="ion-plus-round"
 						ng-click="addFlieClick()"></button>
 					<button mfb-button label="Update" icon="ion-ios-paper"></button>
@@ -53,8 +59,6 @@
 						ng-click="removeBook($event)"></button>
 					<button mfb-button label="Download" icon="ion-ios-download"
 						ng-click="onFileDownload()"></button>
-					<button mfb-button label="Zoom" icon="ion-ios-search"
-						ng-click="showZoom()"></button>
 				</nav>
 			</div>
 

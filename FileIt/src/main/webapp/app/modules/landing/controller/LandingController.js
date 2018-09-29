@@ -361,13 +361,18 @@ fileItApp
 								document.getElementById("mySidebar1").style.width = "20%";
 								document.getElementById("mySidebar1").style.display = "block";
 								document.getElementById("openNav").style.display = 'none';
+								$rootScope.$broadcast('closesidebar');
 							};
-
+							
 							$scope.closeSideBar = function() {
 								document.getElementById("main").style.marginLeft = "0%";
 								document.getElementById("mySidebar1").style.display = "none";
 								document.getElementById("openNav").style.display = "inline-block";
 							}
+							
+							$scope.$on('closesidebarLanding', function(event) {
+								$scope.closeSideBar();
+							});
 
 							$scope.$on('onNodeClick', function(event, node) {
 								console.log(node);
@@ -533,7 +538,7 @@ fileItApp
 												// title bar
 												width : 1200, // container
 												// width
-												height : 800, // container
+												height : 735, // container
 												// height
 												speed : 600, // speed of the
 												// transition
