@@ -135,7 +135,7 @@ fileItApp
 								for (var n = 0; n < IMAGE_URLS.url.length; n++) {
 									var text1 = '<div class="item active"><img src="data:image/jpeg;base64,'
 											+ IMAGE_URLS.url[n]
-											+ '"style="margin-left: 27%" alt="strawberries"></div>';
+											+ '"style="margin-left: 27%;border: 2px solid black; margin-top: 1%;" alt="strawberries"></div>';
 									$(text1).appendTo(".carousel-inner");
 
 								}
@@ -363,13 +363,13 @@ fileItApp
 								document.getElementById("openNav").style.display = 'none';
 								$rootScope.$broadcast('closesidebar');
 							};
-							
+
 							$scope.closeSideBar = function() {
 								document.getElementById("main").style.marginLeft = "0%";
 								document.getElementById("mySidebar1").style.display = "none";
 								document.getElementById("openNav").style.display = "inline-block";
 							}
-							
+
 							$scope.$on('closesidebarLanding', function(event) {
 								$scope.closeSideBar();
 							});

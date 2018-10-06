@@ -15,7 +15,8 @@ fileItApp
 								$mdToast) {
 							var newheight = $(window).height()
 									- $('#pageHeader').height();
-							$("#createClassPage").height(newheight);
+							document.getElementById("createClassPage").style.height = newheight
+									+ "px";
 							$scope.onCreateClassification = function() {
 								if ($scope.classificationName === undefined) {
 									$rootScope.$broadcast('error',

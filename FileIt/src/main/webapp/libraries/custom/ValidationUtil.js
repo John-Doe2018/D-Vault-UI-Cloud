@@ -91,6 +91,28 @@
 						}
 					})
 
+			.directive(
+					'alphanumericwithspl',
+					function() {
+						return {
+							restrict : 'A',
+							require : 'ngModel',
+							link : function(scope, element, attrs, ctrl) {
+
+								var regEx = new RegExp('/^[a-z\d\-_\s]+$/i');
+
+								ctrl.$validators.alphanumeric = function(
+										modelValue, viewValue) {
+									var isValid = true;
+									if (viewValue != undefined) {
+										isValid = regEx.test(viewValue);
+									}
+									return isValid;
+								}
+							}
+						}
+					})
+
 			/**
 			 * Validation For Special Characters. Allows alphanumeric characters
 			 * with space only.

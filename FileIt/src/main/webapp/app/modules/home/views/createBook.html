@@ -5,10 +5,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="row" id="createBookPage">
-		<div
-			class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box">
-			<form class="f1" name="createBookForm" novalidate>
+	<form class="f1" name="createBookForm" novalidate>
+		<div class="row" id="createBookPage">
+			<div
+				class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 
 				<h3>Create your Book</h3>
 				<div class="f1-steps">
@@ -40,8 +40,12 @@
 					<h4>Enter book name:</h4>
 					<md-input-container class="md-block" flex-gt-sm>
 					<label>Book Name</label> <input ng-model="bookName"
-						data-ng-pattern="/^\S*$/" maxlength="20"
-						ng-pattern-restrict="^$|^[A-Za-z0-9]+$" required> </md-input-container>
+						name="bookName" maxlength="20" ng-pattern="/^[-\w\s]+$/" required> </md-input-container>
+					<span style="color: red"
+						ng-if="createBookForm.bookName.$dirty && createBookForm.bookName.$invalid">
+						<span ng-if="createBookForm.bookName.$error">Maximum 20
+							alphanumeric characters allowed with whitespace,'_','-'.</span>
+					</span>
 					<div class="f1-buttons">
 						<button type="button" class="btn btn-next"
 							ng-disabled="createBookForm.bookName.$invalid && !createBookForm.bookName.$pristine">Next</button>
@@ -94,7 +98,8 @@
 								{{progress}}</div>
 						</div>
 						<hr>
-						<div class="col-md-12" style="padding-top: 10px;">
+						<div class="col-md-12"
+							style="padding-top: 10px; overflow-y: auto; height: 150px;">
 							<table class="table table-bordered table-striped">
 								<thead>
 									<tr>
@@ -122,21 +127,21 @@
 					</div>
 				</fieldset>
 
-			</form>
+			</div>
 		</div>
-	</div>
-	<div class="row col-sm-12"
-		style="background-color: blueviolet; bottom: 0; position: fixed; width: 103%;"
-		id="pageFooter">
-		<div class="col-sm-3">
-			<a href="http://tranfode.com/" target="_new"><img
-				src="images/tranfode.png"></a>
+		<div class="row col-sm-12"
+			style="background-color: blueviolet; bottom: 0; position: fixed; width: 103%;"
+			id="pageFooter">
+			<div class="col-sm-3">
+				<a href="http://tranfode.com/" target="_new"><img
+					src="images/tranfode.png"></a>
+			</div>
+			<div class="col-sm-9"
+				style="text-align: right !important; margin-top: 2%;">
+				<a href="http://tranfode.com/" target="_new" class="text-white">©
+					Tranfode Technologies (P) Ltd.</a>
+			</div>
 		</div>
-		<div class="col-sm-9"
-			style="text-align: right !important; margin-top: 2%;">
-			<a href="http://tranfode.com/" target="_new" class="text-white">©
-				Tranfode Technologies (P) Ltd.</a>
-		</div>
-	</div>
+	</form>
 </body>
 </html>
