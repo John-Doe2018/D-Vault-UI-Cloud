@@ -25,6 +25,7 @@ fileItApp
 								$route, IMAGE_URLS, LoadingService, $http,
 								FILEIT_CONFIG, BINDER_SVC, DASHBOARD_DETALS,
 								$mdDialog) {
+							$scope.zoomUrls = [];
 							$scope.validFile = true;
 							$scope.getData = function() {
 								var reqObj = {
@@ -122,6 +123,7 @@ fileItApp
 
 							$scope.getImage = function() {
 								for (var n = 0; n < IMAGE_URLS.url.length; n++) {
+									$scope.zoomUrls.push(IMAGE_URLS.url[n]);
 									var text1 = '<div><img src="data:image/jpeg;base64,'
 											+ IMAGE_URLS.url[n]
 											+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;" /></div>';
@@ -132,9 +134,9 @@ fileItApp
 							$scope.getImage();
 
 							$scope.showZoom = function() {
-								for (var n = 0; n < IMAGE_URLS.url.length; n++) {
+								for (var n = 0; n < $scope.zoomUrls.length; n++) {
 									var text1 = '<div class="item active"><img src="data:image/jpeg;base64,'
-											+ IMAGE_URLS.url[n]
+											+ $scope.zoomUrls[n]
 											+ '"style="margin-left: 18%;border: 2px solid black; margin-top: 1%;" alt="strawberries"></div>';
 									$(text1).appendTo(".carousel-inner");
 
@@ -357,8 +359,8 @@ fileItApp
 							}
 
 							$scope.openSideBar = function() {
-								document.getElementById("main").style.marginLeft = "20%";
-								document.getElementById("mySidebar1").style.width = "20%";
+								document.getElementById("main").style.marginLeft = "15%";
+								document.getElementById("mySidebar1").style.width = "15%";
 								document.getElementById("mySidebar1").style.display = "block";
 								document.getElementById("openNav").style.display = 'none';
 								$rootScope.$broadcast('closesidebar');
@@ -493,6 +495,8 @@ fileItApp
 																			result) {
 																		IMAGE_URLS.url = result.data;
 																		for (var n = 0; n < IMAGE_URLS.url.length; n++) {
+																			$scope.zoomUrls
+																					.push(IMAGE_URLS.url[n]);
 																			$(
 																					'#mybook')
 																					.booklet(

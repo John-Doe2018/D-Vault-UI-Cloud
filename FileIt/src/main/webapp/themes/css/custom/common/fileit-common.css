@@ -1841,11 +1841,11 @@ tr.angular-ui-tree-empty {
 	opacity:0.8;
 }
 .book_wrapper{
-	margin:0 auto;
-	padding-top:50px;
-	width:1200px;
-	height:800px;
-	position:relative;
+	width: 1200px;
+    height: 735px;
+    position: relative;
+    margin-left: 3%;
+    margin-top: -4%;
 	background:transparent url(../../../../images/bg.png) no-repeat 9px 27px;
 }
 .book_wrapper h1{

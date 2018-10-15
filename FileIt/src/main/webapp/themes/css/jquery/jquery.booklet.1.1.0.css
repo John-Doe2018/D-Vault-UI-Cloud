@@ -10,7 +10,7 @@
  *	1) Charles Mangin (http://clickheredammit.com/pageflip/)
  */
 	.booklet         {width:1200px; height:735px; position:relative; margin:0 auto 10px; overflow:visible !important;}
-	.booklet .b-page {left:0; top:0; position:absolute; overflow:hidden; padding:0; outline:1px solid rgba(0,0,0,0);}
+	.booklet .b-page {left:0; top:52px; position:absolute; overflow:hidden; padding:0; outline:1px solid rgba(0,0,0,0);}
 	
 	.booklet .b-pN  {}
 	.booklet .b-p0  {}
