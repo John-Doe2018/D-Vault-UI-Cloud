@@ -7,7 +7,7 @@
 <body>
 	<div class="header" ng-cloak>
 		<div class="w3-sidebar w3-bar-block w3-card w3-animate-left"
-			style="display: none; height: 582px; overflow-y: auto; width: 15% !important;"
+			style="display: none; height: 582px; overflow-y: auto;"
 			id="mySidebar1">
 			<div class="w3-bar"
 				style="margin-left: 3%; color: #fff !important; background-color: blueviolet;">
@@ -30,15 +30,15 @@
 				<button id="openNav" class="w3-button w3-teal w3-xlarge"
 					style="background-color: #54290C !important;"
 					ng-click="openSideBar()">&#9776;</button>
-				<md-button class="md-fab md-mini" aria-label="Zoom"
+				<!-- <md-button class="md-fab md-mini" aria-label="Zoom"
 					class="w3-bar-item w3-button w3-right w3-padding-16"
 					style="background-color: #54290C !important;" ng-click="showZoom()">
 				<md-icon md-svg-src="images/search.svg" aria-label="Zoom"></md-icon>
-				</md-button>
+				</md-button> -->
 			</div>
 
 			<div class="w3-container">
-				<div class="book_wrapper">
+				<div class="book_wrapper" id="bookContainer">
 					<a id="next_page_button" ng-click="nextButtonClick();"></a> <a
 						id="prev_page_button"></a>
 					<div id="loading" class="loading">Loading pages...</div>
@@ -51,6 +51,8 @@
 					resting-icon="ion-grid" toggling-method="click" class="app-menu"
 					menu-state="menuState"
 					ng-class="{'fadeOut' : menuState === 'closed'}">
+					<button mfb-button label="Zoom" icon="ion-ios-search"
+						ng-click="showZoom()"></button>
 					<button mfb-button label="Add" icon="ion-plus-round"
 						ng-click="addFlieClick()"></button>
 					<button mfb-button label="Update" icon="ion-ios-paper"></button>
@@ -182,6 +184,10 @@
 		<div class="modal-dialog" style="width: 98%; height: 92%; padding: 0;">
 			<div class="modal-content">
 				<div class="modal-header">
+					<a style="background-color: #f1f1f1; color: black;"
+						href="javascript:void(0)" ng-click="previousZoom()">&laquo;
+						Previous</a> <a style="background-color: #f1f1f1; color: black;"
+						href="javascript:void(0)" ng-click="nextZoom()">Next &raquo;</a>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body" id="bookViewModel"></div>

@@ -1844,9 +1844,9 @@ tr.angular-ui-tree-empty {
 	width: 1200px;
     height: 735px;
     position: relative;
-    margin-left: 3%;
+    margin-left: 2%;
     margin-top: -4%;
-	background:transparent url(../../../../images/bg.png) no-repeat 9px 27px;
+	background:transparent url(../../../../images/bg.png) no-repeat 0px 0px;
 }
 .book_wrapper h1{
 	color:#13386a;

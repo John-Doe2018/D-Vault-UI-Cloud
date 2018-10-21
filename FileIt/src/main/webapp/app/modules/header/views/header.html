@@ -1,14 +1,15 @@
 <div ng-controller="HeaderController" class="header" id="pageHeader"
 	ng-cloak>
-	<md-toolbar>
-	<div class="md-toolbar-tools" style="background-color: blueviolet;">
+	<md-toolbar style="min-height: 50px !important;">
+	<div class="md-toolbar-tools"
+		style="background-color: blueviolet; height: 50px !important;">
 		<md-button> <md-icon md-svg-src="images/d vault.svg"
 			aria-label="Home" ng-click="backtoHome()"
 			style="height: 67px;width: 132px;margin-left: -79%; outline: none;"></md-icon></md-button>
 		<label
-			style="position: absolute; left: 63px; width: 10%; top: 18px; bottom: 13px; color: cornsilk; font-size: 24px;">D-</label>
+			style="position: absolute; left: 63px; width: 10%; top: 7px; bottom: 13px; color: cornsilk; font-size: 24px;">D-</label>
 		<label
-			style="position: absolute; left: 91px; top: 18px; bottom: 13px; color: red; font-size: 24px; font-style: oblique;">Vault</label>
+			style="position: absolute; left: 91px; top: 7px; bottom: 13px; color: red; font-size: 24px; font-style: oblique;">Vault</label>
 		<md-button aria-label="Side Panel" ng-click="w3_open()" tabindex="0">
 		<md-icon md-svg-src="images/icons8-menu-filled.svg"
 			class="md-default-theme ng-scope ng-isolate-scope material-icons"></md-icon>
@@ -36,8 +37,7 @@
 			md-svg-src="images/profile.svg" aria-label="Profile"></md-icon></md-button> </md-menu> </md-menu-item> <md-menu-item>
 		<md-menu> <md-button ng-click="$mdOpenMenu()"> <md-icon
 			md-svg-src="images/settings.svg" aria-label="Settings"></md-icon></md-button> </md-menu> </md-menu-item> <md-menu-item>
-		<md-menu> <md-button ng-click="logout()">
-		<md-icon md-svg-src="images/logout.svg" aria-label="Logout"></md-icon></md-button>
-		</md-menu> </md-menu-item> </md-menu-content> </md-menu>
+		<md-menu> <md-button ng-click="logout()"> <md-icon
+			md-svg-src="images/logout.svg" aria-label="Logout"></md-icon></md-button> </md-menu> </md-menu-item> </md-menu-content> </md-menu>
 	</div>
 </div>

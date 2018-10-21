@@ -358,11 +358,17 @@ fileItApp
 								$scope.fileList = undefined;
 							}
 
+							window.setInterval(function() {
+								var elem = document.getElementById('mybook');
+								elem.scrollTop = elem.scrollHeight;
+							}, 5000);
+
 							$scope.openSideBar = function() {
 								document.getElementById("main").style.marginLeft = "15%";
 								document.getElementById("mySidebar1").style.width = "15%";
 								document.getElementById("mySidebar1").style.display = "block";
 								document.getElementById("openNav").style.display = 'none';
+								$("#bookContainer").css("margin-top", "-1%");
 								$rootScope.$broadcast('closesidebar');
 							};
 
@@ -370,6 +376,7 @@ fileItApp
 								document.getElementById("main").style.marginLeft = "0%";
 								document.getElementById("mySidebar1").style.display = "none";
 								document.getElementById("openNav").style.display = "inline-block";
+								$("#bookContainer").css("margin-top", "-4%");
 							}
 
 							$scope.$on('closesidebarLanding', function(event) {
@@ -467,6 +474,10 @@ fileItApp
 
 							$scope.servicecounter = 1;
 							$scope.actualcounter = 1;
+
+							$scope.nextZoom = function() {
+
+							};
 
 							$('#prev_page_button')
 									.click(
