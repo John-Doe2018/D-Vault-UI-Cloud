@@ -132,17 +132,51 @@ fileItApp
 								$scope.getData();
 							};
 							$scope.getImage();
+							$scope.zoomcount = 0;
 
 							$scope.showZoom = function() {
-								for (var n = 0; n < $scope.zoomUrls.length; n++) {
-									var text1 = '<div class="item active"><img src="data:image/jpeg;base64,'
-											+ $scope.zoomUrls[n]
-											+ '"style="margin-left: 18%;border: 2px solid black; margin-top: 1%;" alt="strawberries"></div>';
-									$(text1).appendTo(".carousel-inner");
+								$( ".carousel-inner" ).empty();
+								// for (var n = 0; n < $scope.zoomUrls.length;
+								// n++) {
+								var text1 = '<div class="item active"><img src="data:image/jpeg;base64,'
+										+ $scope.zoomUrls[0]
+										+ ' "alt="Los Angeles" style="width: 100%;"></div>';
+								$(text1).appendTo(".carousel-inner");
+								/*
+								 * if (n == 0) { text1 = '<div class="item
+								 * active"><img src="data:image/jpeg;base64,' +
+								 * $scope.zoomUrls[n] + ' "alt="Los Angeles"
+								 * style="width: 100%;"></div>'; } else { text1 = '<div
+								 * class="item"><img
+								 * src="data:image/jpeg;base64,' +
+								 * $scope.zoomUrls[n] + ' "alt="Los Angeles"
+								 * style="width: 100%;"></div>'; }
+								 */
 
-								}
+								// }
 								$('#fsModal').modal('show');
 							};
+
+							$('.carousel-control.left').click(function() {
+								$('#myCarousel').carousel('prev');
+							});
+
+							$('.carousel-control.right')
+									.click(
+											function() {
+												$scope.zoomcount += 1;
+												if ($scope.zoomcount >= $scope.zoomUrls.length) {
+
+												} else {
+													var text1 = '<div class="item"><img src="data:image/jpeg;base64,'
+															+ $scope.zoomUrls[$scope.zoomcount]
+															+ ' "alt="Los Angeles" style="width: 100%;"></div>';
+													$(text1).appendTo(
+															".carousel-inner");
+													$('#myCarousel').carousel(
+															'next');
+												}
+											});
 
 							$scope.onFileDownload = function() {
 								var reqObj = {

@@ -190,11 +190,27 @@
 						href="javascript:void(0)" ng-click="nextZoom()">Next &raquo;</a>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
-				<div class="modal-body" id="bookViewModel"></div>
-				<div id="carousel-modal-demo" class="carousel slide"
+				<div class="modal-body" id="bookViewModel">
+					<div id="myCarousel" class="carousel slide" data-ride="carousel"
+						data-interval="false">
+						<!-- Indicators -->
+						<ol class="carousel-indicators">
+							<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+						</ol>
+
+						<!-- Wrapper for slides -->
+						<div class="carousel-inner"></div>
+						<span class="left carousel-control" data-target="#myCarousel">
+							<span class="glyphicon glyphicon-chevron-left"></span>
+						</span> <span class="right carousel-control" data-target="#myCarousel">
+							<span class="glyphicon glyphicon-chevron-right"></span>
+						</span>
+					</div>
+				</div>
+				<!-- <div id="carousel-modal-demo" class="carousel slide"
 					data-ride="carousel">
 					<div class="carousel-inner"></div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 </body>
