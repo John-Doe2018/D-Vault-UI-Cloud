@@ -1788,15 +1788,7 @@ tr.angular-ui-tree-empty {
   margin-right: 8px;
 }
 
-/* Booklet jQuery Plugin Style*/
-.booklet{
-	-moz-box-shadow:0px 0px 1px #fff;
-	-webkit-box-shadow:0px 0px 1px #fff;
-	box-shadow:0px 0px 1px #fff;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	border-radius:10px;
-}
+
 .booklet .b-wrap-left  {
 	/* background:#fff url(../../../../images/left_bg.jpg) no-repeat top left; */
 	-webkit-border-top-left-radius: 10px;

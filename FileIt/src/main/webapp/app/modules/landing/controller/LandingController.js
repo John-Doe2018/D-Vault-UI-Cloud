@@ -135,7 +135,7 @@ fileItApp
 							$scope.zoomcount = 0;
 
 							$scope.showZoom = function() {
-								$( ".carousel-inner" ).empty();
+								$(".carousel-inner").empty();
 								// for (var n = 0; n < $scope.zoomUrls.length;
 								// n++) {
 								var text1 = '<div class="item active"><img src="data:image/jpeg;base64,'
@@ -166,11 +166,44 @@ fileItApp
 											function() {
 												$scope.zoomcount += 1;
 												if ($scope.zoomcount >= $scope.zoomUrls.length) {
+													$scope.range = [
+															$scope.zoomcount,
+															$scope.zoomcount + 2 ];
+													var reqObj1 = {
+														"bookName" : BINDER_NAME.name,
+														"classification" : DASHBOARD_DETALS.booklist,
+														"rangeList" : $scope.range
+													}
+													LandingOperationsSvc
+															.getImage(reqObj1)
+															.then(
+																	function(
+																			result) {
+																		IMAGE_URLS.url = result.data;
+																		for (var n = 0; n < IMAGE_URLS.url.length; n++) {
+																			$scope.zoomUrls
+																					.push(IMAGE_URLS.url[n]);
+
+																			var text1 = '<div class="item"><img src="data:image/jpeg;base64,'
+																					+ IMAGE_URLS.url[n]
+																					+ ' "alt="Page" style="width: 100%;"></div>';
+																			$(
+																					text1)
+																					.appendTo(
+																							".carousel-inner");
+																			$(
+																					'#myCarousel')
+																					.carousel(
+																							'next');
+
+																		}
+
+																	});
 
 												} else {
 													var text1 = '<div class="item"><img src="data:image/jpeg;base64,'
 															+ $scope.zoomUrls[$scope.zoomcount]
-															+ ' "alt="Los Angeles" style="width: 100%;"></div>';
+															+ ' "alt="Page" style="width: 100%;"></div>';
 													$(text1).appendTo(
 															".carousel-inner");
 													$('#myCarousel').carousel(
@@ -508,10 +541,6 @@ fileItApp
 
 							$scope.servicecounter = 1;
 							$scope.actualcounter = 1;
-
-							$scope.nextZoom = function() {
-
-							};
 
 							$('#prev_page_button')
 									.click(
