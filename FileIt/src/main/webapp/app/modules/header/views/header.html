@@ -3,27 +3,28 @@
 	<md-toolbar style="min-height: 50px !important;">
 	<div class="md-toolbar-tools"
 		style="background-color: blueviolet; height: 50px !important;">
-		<md-button> <md-icon md-svg-src="images/d vault.svg"
-			aria-label="Home" ng-click="backtoHome()"
-			style="height: 67px;width: 132px;margin-left: -79%; outline: none;"></md-icon></md-button>
-		<label
-			style="position: absolute; left: 63px; width: 10%; top: 7px; bottom: 13px; color: cornsilk; font-size: 24px;">D-</label>
-		<label
-			style="position: absolute; left: 91px; top: 7px; bottom: 13px; color: red; font-size: 24px; font-style: oblique;">Vault</label>
 		<md-button aria-label="Side Panel" ng-click="w3_open()" tabindex="0">
 		<md-icon md-svg-src="images/icons8-menu-filled.svg"
 			class="md-default-theme ng-scope ng-isolate-scope material-icons"></md-icon>
 		<div class="md-ripple-container"></div>
 		</md-button>
-		<span flex></span>
-		<p id="demo" style="margin: 2%; color: aliceblue;"></p>
+		<span flex></span> <label class="font-style"
+			style="position: absolute; left: 620px; width: 10%; top: 7px; bottom: 13px; color: cornsilk; font-size: 24px;">D-</label>
+		<label class="font-style"
+			style="position: absolute; left: 648px; top: 7px; bottom: 13px; color: red; font-size: 24px; font-style: oblique;">Vault</label>
+		<md-button style="left: -170px;"> <md-icon
+			md-svg-src="images/d vault.svg" aria-label="Home"
+			ng-click="backtoHome()"
+			style="height: 67px;width: 132px;margin-left: -79%; outline: none;"></md-icon></md-button>
+		<p id="demo" style="margin: 2%; color: aliceblue; width: 76px;"></p>
 		<md-autocomplete md-selected-item="selectedItem" style="color: black;"
 			md-search-text="searchText" md-items="item in getMatches(searchText)"
 			md-item-text="item.bookname" placeholder="Search books"
 			md-no-cache="true"> <md-item-template>
-		<span>{{item.bookname}} - </span> <span md-highlight-text="searchText"
-			md-highlight-flags="^i">{{item.classname}}</span> </md-item-template> <md-not-found>
-		No matches found. </md-not-found> </md-autocomplete>
+		<span class="font-style">{{item.bookname}} - </span> <span
+			md-highlight-text="searchText" class="font-style"
+			md-highlight-flags="^i">{{item.classname}}</span> </md-item-template> <md-not-found
+			class="font-style"> No matches found. </md-not-found> </md-autocomplete>
 		<md-button class="md-fab md-mini" aria-label="Search"
 			style="background-color: blueviolet;" ng-click="selectedBook()">
 		<md-icon md-svg-src="images/search.svg" aria-label="Search"></md-icon>
@@ -39,5 +40,22 @@
 			md-svg-src="images/settings.svg" aria-label="Settings"></md-icon></md-button> </md-menu> </md-menu-item> <md-menu-item>
 		<md-menu> <md-button ng-click="logout()"> <md-icon
 			md-svg-src="images/logout.svg" aria-label="Logout"></md-icon></md-button> </md-menu> </md-menu-item> </md-menu-content> </md-menu>
+	</div>
+	<div class="w3-sidebar w3-light-grey w3-animate-left"
+		style="display: none;" id="mySidebar">
+		<div class="w3-bar w3-dark-grey"
+			style="background-color: blueviolet !important; color: whitesmoke !important;">
+			<span class="w3-bar-item w3-padding-16 font-style">Menu</span>
+			<button ng-click="w3_close()"
+				class="w3-bar-item w3-button w3-right w3-padding-16"
+				title="close Sidebar">×</button>
+		</div>
+		<div class="w3-bar-block" style="margin-left: 5%;">
+			<a class="w3-bar-item w3-button font-style" href="javascript:void(0)"
+				style="color: blueviolet;" ng-click="goTOCreateBook()">Create
+				Book</a> <a class="w3-bar-item w3-button font-style"
+				href="javascript:void(0)" style="color: blueviolet;"
+				ng-click="createClassification()">Create Classes</a>
+		</div>
 	</div>
 </div>

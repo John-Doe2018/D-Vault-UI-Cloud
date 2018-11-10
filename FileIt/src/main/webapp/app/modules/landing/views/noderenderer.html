@@ -1,6 +1,7 @@
 <div ui-tree-handle class="tree-node tree-node-content">
-	<a class="btn btn-xs" ng-if="node.nodes && node.nodes.length > 0"
-		data-nodrag ng-click="toggle(this)"><span class="glyphicon"
+	<a class="btn btn-xs font-style"
+		ng-if="node.nodes && node.nodes.length > 0" data-nodrag
+		ng-click="toggle(this)"><span class="glyphicon"
 		ng-class="{
           'glyphicon-chevron-right': collapsed,
           'glyphicon-chevron-down': !collapsed
@@ -12,8 +13,8 @@
 	style="border: 1px solid #dae2ea; background: #f8faff; height: 49px;">
 	<li ng-repeat="node in node.nodes">
 		<div>
-			<label><input type="checkbox" value="{{node.title}}"
-				name="sport"> {{node.title}}</label>
+			<label class="font-style"><input type="checkbox"
+				value="{{node.title}}" name="sport"> {{node.title}}</label>
 		</div>
 		<div>
 			<a class="btn  btn-xs" data-nodrag

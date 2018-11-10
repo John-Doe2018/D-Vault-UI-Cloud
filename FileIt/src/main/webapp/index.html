@@ -19,12 +19,13 @@ body {
 <script src="libraries/custom/anticlickjack.js"></script>
 
 
-<title>FileIt</title>
+<title>D-Vault</title>
 
 <!-- Favorite icon -->
 <link href="images/fav.ico" rel="icon">
 
 <!-- Library CSS -->
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 <link href="themes/css/angular-material/angular-material.min.css"
 	rel="stylesheet">
 <link href="themes/css/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -74,33 +75,12 @@ body {
 
 <body ng-controller="MainController" ondragstart="return false;"
 	onselectstart="return false;" ng-cloak>
-
 	<div ng-include="headerPath" ng-if="loginState"></div>
 	<div class="row">
-		<div class="w3-sidebar w3-light-grey w3-animate-left"
-			style="display: none;" id="mySidebar">
-			<div class="w3-bar w3-dark-grey"
-				style="margin-left: 3%; background-color: blueviolet !important; color: whitesmoke !important;">
-				<span class="w3-bar-item w3-padding-16">Menu</span>
-				<button ng-click="w3_close()"
-					class="w3-bar-item w3-button w3-right w3-padding-16"
-					title="close Sidebar">×</button>
-			</div>
-			<div class="w3-bar-block" style="margin-left: 5%;">
-				<a class="w3-bar-item w3-button" href="javascript:void(0)"
-					style="color: blueviolet;" ng-click="goTOCreateBook()">Create
-					Book</a> <a class="w3-bar-item w3-button" href="javascript:void(0)"
-					style="color: blueviolet;" ng-click="createClassification()">Create
-					Classes</a>
-			</div>
-		</div>
 		<div ng-view class="w3-container no-padding" id="mainPage"
 			style="background-color: white !important; padding-left: 0px; padding-right: 0px; height: inherit !important;"></div>
 	</div>
 
-	<div class="site-wrapper">
-		<div ng-include="fileName" class="full-height"></div>
-	</div>
 	<div ng-include="'resources/common_views/loadingScreen.html'"></div>
 	<div ng-include="'resources/common_views/login-loading.html'"></div>
 	<div ng-include="'resources/common_views/dialog.html'"></div>

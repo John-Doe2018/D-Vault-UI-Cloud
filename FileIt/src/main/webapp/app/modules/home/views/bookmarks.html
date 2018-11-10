@@ -8,16 +8,19 @@
 	<div layout="row" layout-align="start start">
 		<div flex="100">
 			<md-card> <md-card-header> <md-card-header-text>
-			<span class="md-title" style="font-size: 25px; color: blue;"><md-icon
+			<span class="md-title font-style"
+				style="font-size: 25px; color: blue;"><md-icon
 					md-svg-src="images/bookmarks.svg" aria-label="Delete"></md-icon>BookMarks</span>
-			<span class="md-subhead">Total Count : {{count}} </span> </md-card-header-text> </md-card-header> </md-card>
+			<span class="md-subhead font-style">Total Count : {{count}} </span> </md-card-header-text>
+			</md-card-header> </md-card>
 		</div>
 	</div>
 	<div class='md-padding' layout="row" layout-wrap>
 		<md-card style="width: 250px;" ng-repeat="x in records"> <md-card-header>
-		<md-card-header-text> <span class="md-title">{{x.bookName}}</span>
-		<span class="md-subhead">Classification : {{x.classification}}
-		</span> </md-card-header-text> </md-card-header>
+		<md-card-header-text> <span
+			class="md-title font-style">{{x.bookName}}</span> <span
+			class="md-subhead font-style">Classification :
+			{{x.classification}} </span> </md-card-header-text> </md-card-header>
 		<div class="md-actions" layout="row" layout-align="end center">
 			<md-button md-no-ink class="md-primary"
 				ng-click="gotoBookView(x.bookName,x.classification)"> <md-icon
@@ -35,8 +38,8 @@
 		</div>
 		<div class="col-sm-9"
 			style="text-align: right !important; margin-top: 2%;">
-			<a href="http://tranfode.com/" target="_new" class="text-white">©
-				Tranfode Technologies (P) Ltd.</a>
+			<a href="http://tranfode.com/" target="_new"
+				class="text-white font-style">© Tranfode Technologies (P) Ltd.</a>
 		</div>
 	</div>
 </body>

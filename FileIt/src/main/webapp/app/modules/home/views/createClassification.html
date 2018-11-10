@@ -10,20 +10,21 @@
 			<div
 				class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box">
 				<div>
-					<h3>CREATE CLASSIFICATION</h3>
+					<h3 class="font-style">CREATE CLASSIFICATION</h3>
 					<fieldset>
-						<h4>Enter Classification Name:</h4>
+						<h4 class="font-style">Enter Classification Name:</h4>
 						<md-input-container class="md-block" flex-gt-sm>
-						<label>Classification</label> <input ng-disabled="classfound"
-							name="classificationName" ng-model="classificationName"
-							maxlength="20" ng-pattern="/^[-\w\s]+$/" required> </md-input-container>
-						<span style="color: red"
+						<label class="font-style">Classification</label> <input
+							ng-disabled="classfound" name="classificationName"
+							ng-model="classificationName" maxlength="20"
+							ng-pattern="/^[-\w\s]+$/" required> </md-input-container>
+						<span style="color: red" class="font-style"
 							ng-if="createClassForm.classificationName.$dirty && createClassForm.classificationName.$invalid">
 							<span ng-if="createClassForm.classificationName.$error">Maximum
 								20 alphanumeric characters allowed with whitespace,'_','-'.</span>
 						</span>
 						<div class="f1-buttons">
-							<button type="button" class="btn btn-next"
+							<button type="button" class="btn btn-next font-style"
 								ng-click="onCreateClassification()"
 								ng-disabled="createClassForm.$invalid">Submit</button>
 						</div>
@@ -40,8 +41,8 @@
 			</div>
 			<div class="col-sm-9"
 				style="text-align: right !important; margin-top: 2%;">
-				<a href="http://tranfode.com/" target="_new" class="text-white">©
-					Tranfode Technologies (P) Ltd.</a>
+				<a href="http://tranfode.com/" target="_new"
+					class="text-white font-style">© Tranfode Technologies (P) Ltd.</a>
 			</div>
 		</div>
 	</form>

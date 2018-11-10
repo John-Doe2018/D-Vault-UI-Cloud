@@ -7,15 +7,14 @@
 <body>
 	<div>
 		<div class="col-sm-12" style="margin-left: 2%;">
-			<span class="text-uppercase page-subtitle"
+			<span class="text-uppercase page-subtitle font-style"
 				style="letter-spacing: .125rem; color: #818ea3; font-size: .625rem;">Dashboard</span>
-			<h3
+			<h3 class="font-style"
 				style="font-size: 1.625rem; font-weight: 500; line-height: 1; margin: 0; padding: 0;">Vault
 				Overview</h3>
 		</div>
 		<div class="row col-sm-12" style="margin-top: 1%; margin-left: 1%;">
 			<div class="col-lg-3 col-md-6">
-
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<div class="row">
@@ -23,13 +22,13 @@
 								<i class="fa fa-file-text fa-5x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
-								<div class="huge">{{docCount}}</div>
-								<div>Documents!</div>
+								<div class="huge font-style">{{docCount}}</div>
+								<div class="font-style">Documents!</div>
 							</div>
 						</div>
 					</div>
 					<div class="panel-footer">
-						<span class="pull-left">View Details</span>
+						<span class="pull-left font-style">View Details</span>
 						<button class="pull-right">
 							<i class="fa fa-arrow-circle-right"></i>
 						</button>
@@ -45,13 +44,13 @@
 								<i class="fa fa-tasks fa-5x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
-								<div class="huge">{{classCount}}</div>
-								<div>Classifications!</div>
+								<div class="huge font-style">{{classCount}}</div>
+								<div class="font-style">Classifications!</div>
 							</div>
 						</div>
 					</div>
 					<div class="panel-footer">
-						<span class="pull-left">View Details</span>
+						<span class="pull-left font-style">View Details</span>
 						<button class="pull-right" ng-click="gotoClassification()">
 							<i class="fa fa-arrow-circle-right"></i>
 						</button>
@@ -67,13 +66,13 @@
 								<i class="fa fa-comments fa-5x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
-								<div class="huge">124</div>
-								<div>New Comments!</div>
+								<div class="huge font-style">124</div>
+								<div class="font-style">New Comments!</div>
 							</div>
 						</div>
 					</div>
 					<div class="panel-footer">
-						<span class="pull-left">View Details</span>
+						<span class="pull-left font-style">View Details</span>
 						<button class="pull-right">
 							<i class="fa fa-arrow-circle-right"></i>
 						</button>
@@ -89,13 +88,13 @@
 								<i class="fa fa-user fa-5x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
-								<div class="huge">13</div>
-								<div>Active Users!</div>
+								<div class="huge font-style">13</div>
+								<div class="font-style">Active Users!</div>
 							</div>
 						</div>
 					</div>
 					<div class="panel-footer">
-						<span class="pull-left">View Details</span>
+						<span class="pull-left font-style">View Details</span>
 						<button class="pull-right">
 							<i class="fa fa-arrow-circle-right"></i>
 						</button>
@@ -109,24 +108,25 @@
 				<md-card>
 				<div class="card">
 					<div class="card-body">
-						<h4 class="card-title">Document Classes</h4>
+						<h4 class="card-title font-style">Document Classes</h4>
 						<div class="input-append">
 							<input type="text" ng-model="query" ng-change="search()"
 								class="input-large search-query" placeholder="Search">
 						</div>
-						<table class="table table-striped table-condensed table-hover">
-							<thead>
+						<table class="table table-striped table-condensed table-hover"
+							style="margin-top: 1%;">
+							<thead style="background-color: lightgrey !important;">
 								<tr>
-									<th class="no">Sl&nbsp;<a
+									<th class="no font-style">Sl&nbsp;<a
 										style="color: #0088cc; text-decoration: none;"
 										ng-click="sort_by('no')"><i class="fa fa-sort"></i></a></th>
-									<th class="classification">Classification&nbsp;<a
+									<th class="classification font-style">Classification&nbsp;<a
 										style="color: #0088cc; text-decoration: none;"
 										ng-click="sort_by('classification')"><i class="fa fa-sort"></i></a></th>
-									<th class="count">Book Count&nbsp;<a
+									<th class="count font-style">Book Count&nbsp;<a
 										style="color: #0088cc; text-decoration: none;"
 										ng-click="sort_by('count')"><i class="fa fa-sort"></i></a></th>
-									<th class="Add">Add</th>
+									<th class="Add font-style">Add</th>
 								</tr>
 							</thead>
 							<tfoot>
@@ -134,14 +134,14 @@
 									<div class="pagination pull-right">
 										<ul>
 											<li ng-class="{disabled: currentPage == 0}"><a href
-												ng-click="prevPage()"><< Prev</a></li>
+												ng-click="prevPage()" class="font-style"><< Prev</a></li>
 											<li ng-repeat="n in range(pagedItems.length)"
-												ng-class="{active: n == currentPage}" ng-click="setPage()">
-												<a href ng-bind="n + 1">1</a>
-											</li>
+												class="font-style" ng-class="{active: n == currentPage}"
+												ng-click="setPage()" class="font-style"><a href
+												ng-bind="n + 1">1</a></li>
 											<li
 												ng-class="{disabled: currentPage == pagedItems.length - 1}">
-												<a href ng-click="nextPage()">Next >></a>
+												<a href ng-click="nextPage()" class="font-style">Next >></a>
 											</li>
 										</ul>
 									</div>
@@ -150,12 +150,12 @@
 							<tbody>
 								<tr
 									ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse">
+									<th scope="row"><a href="javascript:void(0)"
+										ng-click="shelfView(item.classification)" class="font-style">{{item.no}}</a></th>
 									<td><a href="javascript:void(0)"
-										ng-click="shelfView(item.classification)">{{item.no}}</a></td>
-									<td><a href="javascript:void(0)"
-										ng-click="shelfView(item.classification)">{{item.classification}}</a></td>
+										ng-click="shelfView(item.classification)" class="font-style">{{item.classification}}</a></td>
 									<td><a class="text-danger" href="javascript:void(0)"
-										ng-click="shelfView(item.classification)">{{item.count}}</a></td>
+										ng-click="shelfView(item.classification)" class="font-style">{{item.count}}</a></td>
 									<td><a class="text-danger" href="javascript:void(0)"
 										ng-click="createBooks(item.classification)"><i
 											class="fa fa-plus"></i></a></td>
@@ -172,11 +172,11 @@
 					style="border: 1px solid rgba(0, 0, 0, 0.125); border-radius: 0; margin-top: 2%;">
 					<div class="card-header">
 						<div class="row">
-							<div class="col-md-8">
+							<div class="col-md-8 font-style">
 								<i class="fa fa-bookmark fa-lg text-primary"></i> Bookmarks
 							</div>
 							<div class="col-md-4 text-right">
-								<button ng-click="onViewBookmark()">
+								<button ng-click="onViewBookmark()" class="font-style">
 									View All <i class="fa fa-arrow-circle-right text-primary"></i>
 								</button>
 							</div>
@@ -186,18 +186,16 @@
 						ng-repeat="y in bookmarkList"
 						ng-click="gotoBookView(y.bookName, y.classification)">
 						<a href="javascript:void(0)"
-							class="list-group-item  list-group-item-action"> <i
+							class="list-group-item  list-group-item-action font-style"> <i
 							class="fa fa-bookmark fa-lg text-danger"></i> {{y.bookName}}
 						</a>
 					</div>
 				</div>
 				</md-card>
 			</div>
-			<div class="col-sm-4">
-				<md-card>
+			<div class="col-sm-4 card">
 				<canvas id="chart-area" width="300 !important"
 					height="300 !important"></canvas>
-				</md-card>
 			</div>
 		</div>
 	</div>
@@ -209,8 +207,8 @@
 		</div>
 		<div class="col-sm-9"
 			style="text-align: right !important; margin-top: 2%;">
-			<a href="http://tranfode.com/" target="_new" class="text-white">©
-				Tranfode Technologies (P) Ltd.</a>
+			<a href="http://tranfode.com/" target="_new"
+				class="text-white font-style">© Tranfode Technologies (P) Ltd.</a>
 		</div>
 	</div>
 </body>

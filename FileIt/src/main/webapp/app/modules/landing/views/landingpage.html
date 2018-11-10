@@ -41,7 +41,7 @@
 				<div class="book_wrapper" id="bookContainer">
 					<a id="next_page_button" ng-click="nextButtonClick();"></a> <a
 						id="prev_page_button"></a>
-					<div id="loading" class="loading">Loading pages...</div>
+					<div id="loading" class="loading font-style">Loading pages...</div>
 					<div id="mybook" style="display: none;">
 						<div class="b-load"></div>
 					</div>
@@ -74,8 +74,8 @@
 		</div>
 		<div class="col-sm-9"
 			style="text-align: right !important; margin-top: 2%;">
-			<a href="http://tranfode.com/" target="_new" class="text-white">©
-				Tranfode Technologies (P) Ltd.</a>
+			<a href="http://tranfode.com/" target="_new"
+				class="text-white font-style">© Tranfode Technologies (P) Ltd.</a>
 		</div>
 	</div>
 	<div id="pdfModal" class="modal fade" role="dialog">
@@ -85,7 +85,7 @@
 			<div class="modal-content" style="margin-left: -58%; width: 218%;">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">PDF</h4>
+					<h4 class="modal-title font-style">PDF</h4>
 				</div>
 				<div class="modal-body">
 					<!-- <embed src="Test.pdf" type="application/pdf" height="400px"
@@ -95,7 +95,8 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-default font-style"
+						data-dismiss="modal">Close</button>
 				</div>
 			</div>
 
@@ -108,7 +109,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Add Files</h4>
+					<h4 class="modal-title font-style">Add Files</h4>
 				</div>
 				<div class="modal-body">
 					<div>
@@ -116,23 +117,23 @@
 							ngf-pattern="'.pdf, .pptx, .docx'" ngf-multiple="true"
 							ngf-drag-over-class="'dragover'">
 							<div class="sm-hidden">
-								<h3>Drag files here</h3>
-								<h3>or</h3>
+								<h3 class="font-style">Drag files here</h3>
+								<h3 class="font-style">or</h3>
 							</div>
 							<p>
-								<span class="btn btn-primary">Select files from your
-									computer</span>
+								<span class="btn btn-primary font-style">Select files
+									from your computer</span>
 							</p>
-							<p ngf-no-file-drop>File Drag/Drop is not supported for this
-								browser</p>
-							<p>
+							<p ngf-no-file-drop class="font-style">File Drag/Drop is not
+								supported for this browser</p>
+							<p class="font-style">
 								<small>Accepts files up to 5MB each</small>
 							</p>
 
 						</div>
 						<div ng-if="progressvisible">
 							<div class="progress" style="background-color: blue;">
-								<div class="progress-bar" role="progressbar"
+								<div class="progress-bar font-style" role="progressbar"
 									aria-valuenow="{{progress}}" aria-valuemin="0"
 									aria-valuemax="100" style="width: {{progress">
 									{{progress}}</div>
@@ -143,16 +144,16 @@
 								<table class="table table-bordered table-striped">
 									<thead>
 										<tr>
-											<th>File Name</th>
-											<th>File Type</th>
+											<th class="font-style">File Name</th>
+											<th class="font-style">File Type</th>
 											<th></th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr ng-repeat="file in fileList">
 
-											<td>{{file.name}}</td>
-											<td>{{file.type}}</td>
+											<td class="font-style">{{file.name}}</td>
+											<td class="font-style">{{file.type}}</td>
 											<td class="glyphicon glyphicon-trash file-delete"
 												ng-click="deleteFile($index, file.name, $event);"></td>
 										</tr>
@@ -164,13 +165,13 @@
 				</div>
 				<div class="modal-footer">
 					<div class="pull-right">
-						<md-button class="md-raised md-primary md-hue-2"
+						<md-button class="md-raised md-primary md-hue-2 font-style"
 							style="margin: 20px 0;" data-dismiss="modal" aria-hidden="true"
 							ng-click="onAddFileClick()">{{'SUBMIT' | translate}}</md-button>
 						<md-button style="margin: 20px 0;"
-							class="md-warn md-raised md-hue-2" data-dismiss="modal"
-							aria-hidden="true" ng-click="onCancelClick()">{{'CANCEL'
-						| translate}}</md-button>
+							class="md-warn md-raised md-hue-2 font-style"
+							data-dismiss="modal" aria-hidden="true"
+							ng-click="onCancelClick()">{{'CANCEL' | translate}}</md-button>
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -185,9 +186,11 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<a style="background-color: #f1f1f1; color: black;"
-						href="javascript:void(0)" ng-click="previousZoom()">&laquo;
-						Previous</a> <a style="background-color: #f1f1f1; color: black;"
-						href="javascript:void(0)" ng-click="nextZoom()">Next &raquo;</a>
+						class="font-style" href="javascript:void(0)"
+						ng-click="previousZoom()">&laquo; Previous</a> <a
+						style="background-color: #f1f1f1; color: black;"
+						class="font-style" href="javascript:void(0)" ng-click="nextZoom()">Next
+						&raquo;</a>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body" id="bookViewModel">

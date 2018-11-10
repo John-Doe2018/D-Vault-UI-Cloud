@@ -12,8 +12,8 @@
 	</div>
 	<div class="col-sm-9"
 		style="text-align: right !important; margin-top: 2%;">
-		<a href="http://tranfode.com/" target="_new" class="text-white">©
-			Tranfode Technologies (P) Ltd.</a>
+		<a href="http://tranfode.com/" target="_new"
+			class="text-white font-style">© Tranfode Technologies (P) Ltd.</a>
 	</div>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -25,22 +25,25 @@
 					aria-label="Close">
 					<span aria-hidden="true">X</span>
 				</button>
-				<h4 class="modal-title" id="myModalLabel">Choose Option</h4>
+				<h4 class="modal-title font-style" id="myModalLabel">Choose
+					Option</h4>
 			</div>
 			<div class="modal-body">
-				<label class="radio-inline"> <input type="radio"
+				<label class="radio-inline font-style"> <input type="radio"
 					name="inlineRadioOptions" id="inlineRadio1" value="landing">
 					BookView
-				</label> <label class="radio-inline"> <input type="radio"
+				</label> <label class="radio-inline font-style"> <input type="radio"
 					name="inlineRadioOptions" id="inlineRadio2" value="bookmark">
 					Add BookMark
-				</label> <label class="radio-inline"> <input type="radio"
+				</label> <label class="radio-inline font-style"> <input type="radio"
 					name="inlineRadioOptions" id="inlineRadio3" value="delete">
 					Delete
-				</label><!-- <label class="radio-inline"> <input type="radio"
+				</label>
+				<!-- <label class="radio-inline"> <input type="radio"
 					name="inlineRadioOptions" id="inlineRadio1" value="add">
 					Add Files
-				</label> --><label class="radio-inline"> <input type="radio"
+				</label> -->
+				<label class="radio-inline font-style"> <input type="radio"
 					name="inlineRadioOptions" id="inlineRadio1" value="download">
 					Download
 				</label>
@@ -49,23 +52,23 @@
 						ngf-pattern="'.pdf, .pptx, .docx'" ngf-multiple="true"
 						ngf-drag-over-class="'dragover'">
 						<div class="sm-hidden">
-							<h3>Drag files here</h3>
-							<h3>or</h3>
+							<h3 class="font-style">Drag files here</h3>
+							<h3 class="font-style">or</h3>
 						</div>
 						<p>
-							<span class="btn btn-primary">Select files from your
-								computer</span>
+							<span class="btn btn-primary font-style">Select files from
+								your computer</span>
 						</p>
-						<p ngf-no-file-drop>File Drag/Drop is not supported for this
-							browser</p>
-						<p>
+						<p ngf-no-file-drop class="font-style">File Drag/Drop is not
+							supported for this browser</p>
+						<p class="font-style">
 							<small>Accepts files up to 5MB each</small>
 						</p>
 
 					</div>
 					<div ng-if="progressvisible">
 						<div class="progress" style="background-color: blue;">
-							<div class="progress-bar" role="progressbar"
+							<div class="progress-bar font-style" role="progressbar"
 								aria-valuenow="{{progress}}" aria-valuemin="0"
 								aria-valuemax="100" style="width: {{progress">{{progress}}</div>
 						</div>
@@ -74,16 +77,16 @@
 							<table class="table table-bordered table-striped">
 								<thead>
 									<tr>
-										<th>File Name</th>
-										<th>File Type</th>
+										<th class="font-style">File Name</th>
+										<th class="font-style">File Type</th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr ng-repeat="file in fileList">
 
-										<td>{{file.name}}</td>
-										<td>{{file.type}}</td>
+										<td class="font-style">{{file.name}}</td>
+										<td class="font-style">{{file.type}}</td>
 										<td class="glyphicon glyphicon-trash file-delete"
 											ng-click="deleteFile($index, file.name, $event);"></td>
 									</tr>
@@ -94,11 +97,11 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<md-button class="md-raised md-primary md-hue-2"
+				<md-button class="md-raised md-primary md-hue-2 font-style"
 					style="margin: 20px 0;" data-dismiss="modal" aria-hidden="true"
 					ng-click="onOptionClick()">{{'SUBMIT' | translate}}</md-button>
-				<md-button style="margin: 20px 0;"
-					class="md-warn md-raised md-hue-2" data-dismiss="modal"
+				<md-button style="margin: 20px 0; "
+					class="md-warn md-raised md-hue-2 font-style" data-dismiss="modal"
 					aria-hidden="true">{{'CANCEL' | translate}}</md-button>
 			</div>
 		</div>
