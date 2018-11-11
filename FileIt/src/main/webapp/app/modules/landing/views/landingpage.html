@@ -6,65 +6,71 @@
 </head>
 <body>
 	<div class="header" ng-cloak>
-		<div class="w3-sidebar w3-bar-block w3-card w3-animate-left"
-			style="display: none; height: 582px; overflow-y: auto;"
-			id="mySidebar1">
-			<div class="w3-bar"
-				style="margin-left: 3%; color: #fff !important; background-color: blueviolet;">
-				<button ng-click="closeSideBar()"
-					class="w3-bar-item w3-button w3-right w3-padding-16"
-					title="close Sidebar">X</button>
-				<a class="pull-right btn  btn-xs" data-nodrag
-					ng-click="downloadFile('multiple');"><span
-					class="glyphicon glyphicon-download-alt"></span></a>
-			</div>
-			<div ui-tree id="tree-root">
-				<ol ui-tree-nodes ng-model="data">
-					<li ng-repeat="node in data" ui-tree-node
-						ng-include="'app/modules/landing/views/noderenderer.html'"></li>
-				</ol>
+		<div class="col-sm-10">
+			<div id='cssmenu' class="col-sm-8">
+				<ul>
+					<li class='active has-sub' ng-repeat="node in data"
+						style="height: 32px;"><span class="font-style"
+						style="margin-left: 25px; width: 140px; word-break: break-all;">{{node.title}}<a
+							class="pull-right btn  btn-xs" data-nodrag
+							ng-click="downloadFile('multiple');"><span
+								class="glyphicon glyphicon-download-alt"></span></a></span>
+						<ul>
+							<li class='has-sub' style="border-bottom: 1px solid #CCC;"
+								ng-repeat="nodearray in node.nodes"><label
+								class="font-style font-size16"
+								style="width: 140px; word-break: break-all;"><input
+									type="checkbox" value="{{node.title}}" name="sport">
+									{{nodearray.title}}</label>
+								<ul>
+									<li><a class="btn  btn-xs" data-nodrag
+										ng-click="removeFile(this, node.title); deleteFile(nodearray.title);"><span
+											class="glyphicon glyphicon-remove"></span></a></li>
+									<li><a class="btn  btn-xs" data-nodrag
+										ng-click="onnodeclick(nodearray) "><span
+											class="glyphicon glyphicon-hand-right"></span></a></li>
+									<li class='last'><a class="btn  btn-xs" data-nodrag
+										ng-click="downloadFile(nodearray.title);"><span
+											class="glyphicon glyphicon-download-alt"></span></a></li>
+								</ul></li>
+						</ul></li>
+				</ul>
 			</div>
 		</div>
-		<div id="main">
-			<div>
-				<button id="openNav" class="w3-button w3-teal w3-xlarge"
-					style="background-color: #54290C !important;"
-					ng-click="openSideBar()">&#9776;</button>
-				<!-- <md-button class="md-fab md-mini" aria-label="Zoom"
-					class="w3-bar-item w3-button w3-right w3-padding-16"
-					style="background-color: #54290C !important;" ng-click="showZoom()">
-				<md-icon md-svg-src="images/search.svg" aria-label="Zoom"></md-icon>
-				</md-button> -->
-			</div>
-
-			<div class="w3-container">
-				<div class="book_wrapper" id="bookContainer">
-					<a id="next_page_button" ng-click="nextButtonClick();"></a> <a
-						id="prev_page_button"></a>
-					<div id="loading" class="loading font-style">Loading pages...</div>
-					<div id="mybook" style="display: none;">
-						<div class="b-load"></div>
-					</div>
+		<div class="col-sm-1 form-group">
+			<input type="text" class="form-control" id="usr"
+				placeholder="Go to.." style="height: 32px; width: 100px;">
+		</div>
+		<div class="col-sm-1">
+			<md-button aria-label="Side Panel"
+				style="margin-top: -1%; margin-left: -27%;"> <md-icon
+				md-svg-src="images/forward.svg"></md-icon></md-button>
+		</div>
+		<div class="w3-container">
+			<div class="book_wrapper" id="bookContainer">
+				<a id="next_page_button" ng-click="nextButtonClick();"></a> <a
+					id="prev_page_button"></a>
+				<div id="loading" class="loading font-style">Loading pages...</div>
+				<div id="mybook" style="display: none;">
+					<div class="b-load"></div>
 				</div>
-				<br />
-				<nav mfb-menu position="br" effect="zoomin" active-icon="ion-close"
-					resting-icon="ion-grid" toggling-method="hover" class="app-menu"
-					menu-state="menuState"
-					ng-class="{'fadeOut' : menuState === 'closed'}">
-					<button mfb-button label="Zoom" icon="ion-ios-search"
-						ng-click="showZoom()"></button>
-					<button mfb-button label="Add" icon="ion-plus-round"
-						ng-click="addFlieClick()"></button>
-					<button mfb-button label="Update" icon="ion-ios-paper"></button>
-					<button mfb-button label="Delete" icon="ion-ios-trash"
-						ng-click="removeBook($event)"></button>
-					<button mfb-button label="Download" icon="ion-ios-download"
-						ng-click="onFileDownload()"></button>
-				</nav>
 			</div>
-
+			<br />
+			<nav mfb-menu position="br" effect="zoomin" active-icon="ion-close"
+				resting-icon="ion-grid" toggling-method="hover" class="app-menu"
+				menu-state="menuState"
+				ng-class="{'fadeOut' : menuState === 'closed'}">
+				<button mfb-button label="Zoom" icon="ion-ios-search"
+					ng-click="showZoom()"></button>
+				<button mfb-button label="Add" icon="ion-plus-round"
+					ng-click="addFlieClick()"></button>
+				<button mfb-button label="Update" icon="ion-ios-paper"></button>
+				<button mfb-button label="Delete" icon="ion-ios-trash"
+					ng-click="removeBook($event)"></button>
+				<button mfb-button label="Download" icon="ion-ios-download"
+					ng-click="onFileDownload()"></button>
+			</nav>
 		</div>
-
 	</div>
 	<div class="row col-sm-12"
 		style="background-color: blueviolet; bottom: 0;" id="pageFooter">

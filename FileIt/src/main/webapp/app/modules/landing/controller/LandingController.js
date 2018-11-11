@@ -126,7 +126,7 @@ fileItApp
 									$scope.zoomUrls.push(IMAGE_URLS.url[n]);
 									var text1 = '<div><img src="data:image/jpeg;base64,'
 											+ IMAGE_URLS.url[n]
-											+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;" /></div>';
+											+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>';
 									$(text1).appendTo(".b-load");
 								}
 								$scope.getData();
@@ -140,7 +140,7 @@ fileItApp
 								// n++) {
 								var text1 = '<div class="item active"><img src="data:image/jpeg;base64,'
 										+ $scope.zoomUrls[0]
-										+ ' "alt="Los Angeles" style="width: 100%;"></div>';
+										+ ' "alt="Los Angeles" style="width: 100%;border: 3px solid blueviolet;"></div>';
 								$(text1).appendTo(".carousel-inner");
 								/*
 								 * if (n == 0) { text1 = '<div class="item
@@ -186,7 +186,7 @@ fileItApp
 
 																			var text1 = '<div class="item"><img src="data:image/jpeg;base64,'
 																					+ IMAGE_URLS.url[n]
-																					+ ' "alt="Page" style="width: 100%;"></div>';
+																					+ ' "alt="Page" style="width: 100%;border: 3px solid blueviolet;"></div>';
 																			$(
 																					text1)
 																					.appendTo(
@@ -203,7 +203,7 @@ fileItApp
 												} else {
 													var text1 = '<div class="item"><img src="data:image/jpeg;base64,'
 															+ $scope.zoomUrls[$scope.zoomcount]
-															+ ' "alt="Page" style="width: 100%;"></div>';
+															+ ' "alt="Page" style="width: 100%;border: 3px solid blueviolet;"></div>';
 													$(text1).appendTo(
 															".carousel-inner");
 													$('#myCarousel').carousel(
@@ -578,7 +578,7 @@ fileItApp
 																							"end",
 																							'<div><img src="data:image/jpeg;base64,'
 																									+ IMAGE_URLS.url[n]
-																									+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;" /></div>');
+																									+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
 
 																		}
 																		$scope.servicecounter += 2;

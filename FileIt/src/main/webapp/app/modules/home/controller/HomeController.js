@@ -149,6 +149,7 @@ fileItApp
 													var keys = Object
 															.keys(result.data);
 													for (var i = 0; i < keys.length; i++) {
+														$scope.bookshelfcount = 0;
 														if (keys[i] === DASHBOARD_DETALS.booklist) {
 															if (result.data[keys[i]].length === 0) {
 																$scope.noBookPresent = false;
@@ -156,6 +157,7 @@ fileItApp
 																$scope.noBookPresent = true;
 																$scope.booklength = result.data[keys[i]].length;
 																for (var j = 0; j < result.data[keys[i]].length; j++) {
+																	$scope.bookshelfcount += 1;
 																	$scope.h2name = result.data[keys[i]][j];
 																	var text1;
 																	if (j % 5 == 0) {
@@ -203,6 +205,17 @@ fileItApp
 																					$scope);
 																}
 
+															}
+															if ($scope.bookshelfcount <= 60) {
+																$('.bookshelf')
+																		.css(
+																				'height',
+																				'534px');
+															} else {
+																$('.bookshelf')
+																		.css(
+																				'height',
+																				'100%');
 															}
 															break;
 														}

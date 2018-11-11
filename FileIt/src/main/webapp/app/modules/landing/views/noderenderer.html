@@ -1,4 +1,4 @@
-<div ui-tree-handle class="tree-node tree-node-content">
+<!-- <div ui-tree-handle class="tree-node tree-node-content">
 	<a class="btn btn-xs font-style"
 		ng-if="node.nodes && node.nodes.length > 0" data-nodrag
 		ng-click="toggle(this)"><span class="glyphicon"
@@ -7,11 +7,12 @@
           'glyphicon-chevron-down': !collapsed
         }"></span></a>
 	{{node.title}}
-</div>
+</div> -->
 <ol ui-tree-nodes="" ng-model="node.nodes"
 	ng-class="{hidden: collapsed}"
 	style="border: 1px solid #dae2ea; background: #f8faff; height: 49px;">
 	<li ng-repeat="node in node.nodes">
+	
 		<div>
 			<label class="font-style"><input type="checkbox"
 				value="{{node.title}}" name="sport"> {{node.title}}</label>
@@ -21,8 +22,8 @@
 				ng-click="removeFile(this, node.title); deleteFile(node.title);"><span
 				class="glyphicon glyphicon-remove"></span></a><a class="btn  btn-xs"
 				data-nodrag ng-click="onnodeclick(node) "><span
-				class="glyphicon glyphicon-hand-right"></span></a><a class="btn  btn-xs"
-				data-nodrag ng-click="downloadFile(node.title);"><span
+				class="glyphicon glyphicon-hand-right"></span></a><a
+				class="btn  btn-xs" data-nodrag ng-click="downloadFile(node.title);"><span
 				class="glyphicon glyphicon-download-alt"></span></a>
 		</div>
 	</li>
