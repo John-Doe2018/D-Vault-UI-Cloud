@@ -7,33 +7,32 @@
 <body>
 	<div class="header" ng-cloak>
 		<div class="col-sm-10">
-			<div id='cssmenu' class="col-sm-8">
+			<div class="navigation">
 				<ul>
-					<li class='active has-sub' ng-repeat="node in data"
-						style="height: 32px;"><span class="font-style"
-						style="margin-left: 25px; width: 140px; word-break: break-all;">{{node.title}}<a
-							class="pull-right btn  btn-xs" data-nodrag
-							ng-click="downloadFile('multiple');"><span
-								class="glyphicon glyphicon-download-alt"></span></a></span>
+					<li class="has-sub" ng-repeat="node in data"><a
+						class="btn  btn-xs" data-nodrag
+						ng-click="downloadFile('multiple');"><span
+							class="glyphicon glyphicon-download-alt"></span></a>
 						<ul>
-							<li class='has-sub' style="border-bottom: 1px solid #CCC;"
-								ng-repeat="nodearray in node.nodes"><label
-								class="font-style font-size16"
-								style="width: 140px; word-break: break-all;"><input
-									type="checkbox" value="{{node.title}}" name="sport">
-									{{nodearray.title}}</label>
+							<li class="has-sub" ng-repeat="nodearray in node.nodes"><a
+								href="javascript:void(0)"><label
+									class="font-style font-size16"
+									style="width: 140px; word-break: break-all;"><input
+										type="checkbox" value="{{node.title}}" name="sport">
+										{{nodearray.title}}</label></a>
 								<ul>
-									<li><a class="btn  btn-xs" data-nodrag
+									<li><a data-nodrag href="javascript:void(0)"
 										ng-click="removeFile(this, node.title); deleteFile(nodearray.title);"><span
 											class="glyphicon glyphicon-remove"></span></a></li>
-									<li><a class="btn  btn-xs" data-nodrag
+									<li><a href="javascript:void(0)" data-nodrag
 										ng-click="onnodeclick(nodearray) "><span
 											class="glyphicon glyphicon-hand-right"></span></a></li>
-									<li class='last'><a class="btn  btn-xs" data-nodrag
+									<li><a data-nodrag href="javascript:void(0)"
 										ng-click="downloadFile(nodearray.title);"><span
-											class="glyphicon glyphicon-download-alt"></span></a></li>
-								</ul></li>
+											class="glyphicon glyphicon-download-alt"></span></a></li></li>
 						</ul></li>
+				</ul>
+				</li>
 				</ul>
 			</div>
 		</div>
