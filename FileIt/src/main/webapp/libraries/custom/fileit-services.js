@@ -84,7 +84,7 @@ fileItApp.factory('RestSvc', [
 				},
 
 				postData : function(relURL, data) {
-					if (!relURL.includes("login")) {
+					if (!relURL.includes("login") && !relURL.includes("getImage")) {
 						LoadingService.showLoad();
 					}
 					var appPostUrl = FILEIT_CONFIG.apiUrl + relURL;

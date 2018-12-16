@@ -65,7 +65,6 @@
 
 .navigation {
   width: 5em;
-  background: #333333;
   font-family: 'roboto', Tahoma, Arial, sans-serif;
   zoom: 1;
 }
@@ -89,7 +88,7 @@
   text-transform: uppercase;
 }
 
-.navigation > ul { width: 5em;}
+.navigation > ul { width: 5em;background: #333333;}
 
 .navigation ul ul { width: 10em; }
 
