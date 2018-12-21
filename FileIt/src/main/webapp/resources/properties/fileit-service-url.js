@@ -16,5 +16,6 @@ fileItApp.constant('BINDER_SVC', {
 	addClassification : '/binder/addClassification',
 	getClassification : '/binder/getClassification',
 	bookmark : '/binder/tagBook',
-	getbookmark : '/binder/getBookMarks'
+	getbookmark : '/binder/getBookMarks',
+	getPageIndex : '/binder/getBookPageDetails'
 });

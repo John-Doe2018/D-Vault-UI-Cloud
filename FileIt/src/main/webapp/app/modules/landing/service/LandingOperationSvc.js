@@ -7,6 +7,11 @@ fileItApp.factory('LandingOperationsSvc', [ 'RestSvc', 'EncoderSvc',
 					return RestSvc.postData(BINDER_SVC.listview, reqObj);
 				},
 
+				getPageIndex : function(reqObj) {
+
+					return RestSvc.postData(BINDER_SVC.getPageIndex, reqObj);
+				},
+
 				deleteBook : function(reqObj) {
 
 					return RestSvc.postData(BINDER_SVC.deleteBook, reqObj);

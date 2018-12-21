@@ -27,6 +27,107 @@ fileItApp
 								$mdDialog) {
 							$scope.zoomUrls = [];
 							$scope.validFile = true;
+							$scope.totalpages = 0;
+
+							var myVar = setInterval(addImage, 3000);
+							$scope.rangestart = 2;
+							function addImage() {
+								if (($scope.rangestart + 2) <= $scope.totalpages) {
+									$scope.range = [ $scope.rangestart + 1,
+											$scope.rangestart + 2 ];
+									var reqObj1 = {
+										"bookName" : BINDER_NAME.name,
+										"classification" : DASHBOARD_DETALS.booklist,
+										"rangeList" : $scope.range
+									}
+									LandingOperationsSvc
+											.getImage(reqObj1)
+											.then(
+													function(result) {
+														LoadingService
+																.hideLoad();
+														IMAGE_URLS.url = result.data;
+														if (IMAGE_URLS.url.length === 0) {
+															clearInterval(myVar);
+														} else {
+															for (var n = 0; n < IMAGE_URLS.url.length; n++) {
+																$scope.zoomUrls
+																		.push(IMAGE_URLS.url[n]);
+																$('#mybook')
+																		.booklet(
+																				"add",
+																				"end",
+																				'<div><img src="data:image/jpeg;base64,'
+																						+ IMAGE_URLS.url[n]
+																						+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
+
+															}
+															$scope.rangestart += 2;
+														}
+
+													});
+								}
+
+							}
+
+							$scope.onnodeclick = function(nodearray) {
+								var reqObj = {
+									'bookName' : BINDER_NAME.name,
+									'fileName' : nodearray.title
+								}
+
+								LandingOperationsSvc
+										.getPageIndex(reqObj)
+										.then(
+												function(result) {
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														if ($scope.rangestart < result.data.firstIndex) {
+															$rootScope
+																	.$broadcast(
+																			'error',
+																			"Page is loading.. Please wait..");
+														} else {
+															$('#mybook')
+																	.booklet(
+																			"gotopage",
+																			result.data.firstIndex);
+														}
+
+													}
+												});
+							};
+							$scope.totalgetPageDetails = function() {
+								for (var r = 0; r < $scope.nodearray.length; r++) {
+									var reqObj = {
+										'bookName' : BINDER_NAME.name,
+										'fileName' : $scope.nodearray[r].title
+									}
+
+									LandingOperationsSvc
+											.getPageIndex(reqObj)
+											.then(
+													function(result) {
+														if (result.data.errorId !== undefined) {
+															$rootScope
+																	.$broadcast(
+																			'error',
+																			result.data.description);
+														} else {
+															$scope.nodearray[r - 1].firstIndex = result.data.firstIndex;
+															$scope.nodearray[r - 1].lastIndex = result.data.lastIndex;
+															if (r === $scope.nodearray.length) {
+																$scope.totalpages = result.data.lastIndex;
+															}
+														}
+													});
+
+								}
+							};
 							$scope.getData = function() {
 								var reqObj = {
 									'bookname' : BINDER_NAME.name,
@@ -49,7 +150,9 @@ fileItApp
 																var nodeObj = {
 																	'id' : a[x].id,
 																	'title' : a[x].name,
-																	'path' : a[x].path
+																	'path' : a[x].path,
+																	'firstIndex' : '',
+																	'lastIndex' : ''
 																}
 																$scope.nodearray
 																		.push(nodeObj);
@@ -58,7 +161,9 @@ fileItApp
 															var nodeObj = {
 																'id' : a.id,
 																'title' : a.name,
-																'path' : a.path
+																'path' : a.path,
+																'firstIndex' : '',
+																'lastIndex' : ''
 															}
 															$scope.nodearray
 																	.push(nodeObj);
@@ -72,6 +177,9 @@ fileItApp
 														$scope.data = [];
 														$scope.data
 																.push(nodeObjMaster);
+														$scope
+																.totalgetPageDetails();
+
 													}
 												});
 							};
@@ -282,45 +390,6 @@ fileItApp
 																	}
 																});
 											});
-
-							var myVar = setInterval(addImage, 3000);
-							$scope.rangestart = 2;
-							function addImage() {
-
-								$scope.range = [ $scope.rangestart + 1,
-										$scope.rangestart + 2 ];
-								var reqObj1 = {
-									"bookName" : BINDER_NAME.name,
-									"classification" : DASHBOARD_DETALS.booklist,
-									"rangeList" : $scope.range
-								}
-								LandingOperationsSvc
-										.getImage(reqObj1)
-										.then(
-												function(result) {
-													LoadingService.hideLoad();
-													IMAGE_URLS.url = result.data;
-													if (IMAGE_URLS.url.length === 0) {
-														clearInterval(myVar);
-													} else {
-														for (var n = 0; n < IMAGE_URLS.url.length; n++) {
-															$scope.zoomUrls
-																	.push(IMAGE_URLS.url[n]);
-															$('#mybook')
-																	.booklet(
-																			"add",
-																			"end",
-																			'<div><img src="data:image/jpeg;base64,'
-																					+ IMAGE_URLS.url[n]
-																					+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
-
-														}
-														$scope.rangestart += 2;
-													}
-
-												});
-
-							}
 
 							$scope.closeModal = function() {
 								$scope.fileList = [];

@@ -36,7 +36,8 @@
 				</ul>
 			</div>
 		</div>
-		<div class="col-sm-2">Page loaded : {{rangestart}}</div>
+		<div class="col-sm-2">Page loaded :
+			{{rangestart - 1}}/{{totalpages}}</div>
 		<div class="col-sm-1 form-group">
 			<input type="text" class="form-control" id="goto" ng-model="pageNo"
 				placeholder="Go to.." style="height: 32px; width: 100px;">
