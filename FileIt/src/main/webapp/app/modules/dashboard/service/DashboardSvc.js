@@ -4,7 +4,7 @@ fileItApp.factory('DashboardSvc', [ 'RestSvc', 'EncoderSvc', '$sessionStorage',
 			return {
 				classifiedData : function(reqObj) {
 
-					return RestSvc.postData(BINDER_SVC.classifiedData, reqObj);
+					return RestSvc.postData(BINDER_SVC.classifiedData);
 				},
 				getbookmark : function(reqObj) {
 

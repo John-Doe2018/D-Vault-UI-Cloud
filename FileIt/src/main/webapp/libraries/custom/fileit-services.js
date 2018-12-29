@@ -130,17 +130,20 @@ fileItApp
 							if (config.url.includes == undefined) {
 								config.headers = {
 									'Accept' : 'application/json',
-									'Content-type' : 'application/json'
+									'Content-type' : 'application/json',
+									'UserName' : ACL.username
 								};
 							} else if (config.url.includes("imageConvert")) {
 								config.headers = {
 									'Accept' : 'application/json',
-									'Content-type' : undefined
+									'Content-type' : undefined,
+									'UserName' : ACL.username
 								};
 							} else {
 								config.headers = {
 									'Accept' : 'application/json',
-									'Content-type' : 'application/json'
+									'Content-type' : 'application/json',
+									'UserName' : ACL.username
 								};
 							}
 
