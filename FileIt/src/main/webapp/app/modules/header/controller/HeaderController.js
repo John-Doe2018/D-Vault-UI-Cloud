@@ -14,15 +14,25 @@ fileItApp
 						'$q',
 						'DashboardSvc',
 						'IMAGE_URLS',
+						'ACL',
 						function($rootScope, $scope, $location,
 								$sessionStorage, LandingOperationsSvc,
 								BINDER_NAME, LOGGED_USER, $timeout, dateFilter,
-								$q, DashboardSvc, IMAGE_URLS) {
+								$q, DashboardSvc, IMAGE_URLS, ACL) {
 							$scope.people = [];
 							function adavnceSearch() {
 								$scope.people = [];
+								var reqObj = {
+									'userName' : ACL.username,
+									'role' : ACL.role,
+									'group' : ACL.group
+								}
+
+								var reqObj1 = {
+									'customHeader' : reqObj
+								}
 								DashboardSvc
-										.classifiedData()
+										.classifiedData(reqObj1)
 										.then(
 												function(result) {
 													var keys = Object

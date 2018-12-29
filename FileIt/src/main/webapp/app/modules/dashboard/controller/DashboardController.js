@@ -12,10 +12,11 @@ fileItApp
 						'LOGGED_USER',
 						'$filter',
 						'LandingOperationsSvc',
+						'ACL',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, DASHBOARD_DETALS,
 								DashboardSvc, LOGGED_USER, $filter,
-								LandingOperationsSvc) {
+								LandingOperationsSvc, ACL) {
 							var sortingOrder = 'classification';
 							$rootScope.$broadcast('closesidebar');
 							$scope.onViewBookmark = function() {

@@ -24,13 +24,14 @@ fileItApp
 						'DashboardSvc',
 						'LOGGED_USER',
 						'$mdToast',
+						'ACL',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder, BINDER_NAME,
 								HomeSvc, rfc4122, $compile, LoadingService,
 								$route, FILEIT_CONFIG, BINDER_SVC, $http,
 								IMAGE_URLS, LandingOperationsSvc, $interval,
 								DASHBOARD_DETALS, DashboardSvc, LOGGED_USER,
-								$mdToast) {
+								$mdToast, ACL) {
 							$scope.validFile = true;
 							$scope.fileList = [];
 							$scope.curFile;

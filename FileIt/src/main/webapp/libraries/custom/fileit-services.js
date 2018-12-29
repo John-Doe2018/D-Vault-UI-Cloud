@@ -84,7 +84,8 @@ fileItApp.factory('RestSvc', [
 				},
 
 				postData : function(relURL, data) {
-					if (!relURL.includes("login") && !relURL.includes("getImage")) {
+					if (!relURL.includes("login")
+							&& !relURL.includes("getImage")) {
 						LoadingService.showLoad();
 					}
 					var appPostUrl = FILEIT_CONFIG.apiUrl + relURL;
@@ -121,7 +122,7 @@ fileItApp.factory('RestSvc', [
 fileItApp
 		.factory(
 				'authInterceptor',
-				function($rootScope, $q, $sessionStorage) {
+				function($rootScope, $q, $sessionStorage, ACL) {
 					return {
 						request : function(config) {
 							config.headers = config.headers || {};
@@ -129,17 +130,26 @@ fileItApp
 							if (config.url.includes == undefined) {
 								config.headers = {
 									'Accept' : 'application/json',
-									'Content-type' : 'application/json'
+									'Content-type' : 'application/json',
+									'group' : ACL.group,
+									'role' : ACL.role,
+									'userName' : ACL.username
 								};
 							} else if (config.url.includes("imageConvert")) {
 								config.headers = {
 									'Accept' : 'application/json',
-									'Content-type' : undefined
+									'Content-type' : undefined,
+									'group' : ACL.group,
+									'role' : ACL.role,
+									'userName' : ACL.username
 								};
 							} else {
 								config.headers = {
 									'Accept' : 'application/json',
-									'Content-type' : 'application/json'
+									'Content-type' : 'application/json',
+									'group' : ACL.group,
+									'role' : ACL.role,
+									'userName' : ACL.username
 								};
 							}
 
@@ -318,4 +328,10 @@ fileItApp.value('DASHBOARD_DETALS', {
 	classname : '',
 	bookmarklist : '',
 	classificationlist : ''
+});
+
+fileItApp.value('ACL', {
+	group : '',
+	role : '',
+	username : ''
 });

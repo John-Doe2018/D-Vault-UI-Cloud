@@ -14,11 +14,12 @@ fileItApp
 						'LOGGED_USER',
 						'DashboardSvc',
 						'DASHBOARD_DETALS',
+						'ACL',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder,
 								UserOperationsSvc, LoginLoadingService,
 								LoadingService, LOGGED_USER, DashboardSvc,
-								DASHBOARD_DETALS) {
+								DASHBOARD_DETALS, ACL) {
 							$rootScope.$broadcast('LogoutSucess');
 							(function($) {
 								"use strict";
@@ -128,6 +129,9 @@ fileItApp
 													LoginLoadingService
 															.hideLoad();
 													if (result.data.successMsg !== undefined) {
+														ACL.group = result.data.customHeader.group;
+														ACL.role = result.data.customHeader.role;
+														ACL.username = result.data.customHeader.userName;
 														$rootScope
 																.$broadcast('loginSuccess');
 														LOGGED_USER.name = $scope.uName;
