@@ -23,16 +23,16 @@ fileItApp
 							function adavnceSearch() {
 								$scope.people = [];
 								var reqObj = {
-									'userName' : ACL.username,
-									'role' : ACL.role,
-									'group' : ACL.group
-								}
-
-								var reqObj1 = {
-									'customHeader' : reqObj
+									'GetBookClassificationRequest' : {
+										'customHeader' : {
+											'userName' : ACL.username,
+											'role' : ACL.role,
+											'group' : ACL.group
+										}
+									}
 								}
 								DashboardSvc
-										.classifiedData(reqObj1)
+										.classifiedData(reqObj)
 										.then(
 												function(result) {
 													var keys = Object

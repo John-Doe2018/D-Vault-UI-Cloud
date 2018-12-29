@@ -242,8 +242,17 @@ fileItApp
 								$scope.search();
 							};
 							$scope.getDashboard = function() {
+								var reqObj = {
+										'GetBookClassificationRequest' : {
+											'customHeader' : {
+												'userName' : ACL.username,
+												'role' : ACL.role,
+												'group' : ACL.group
+											}
+										}
+								}
 								DashboardSvc
-										.classifiedData()
+										.classifiedData(reqObj)
 										.then(
 												function(result) {
 													$scope.docCount = 0;
