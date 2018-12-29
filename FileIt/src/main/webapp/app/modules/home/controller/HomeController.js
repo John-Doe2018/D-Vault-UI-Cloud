@@ -143,8 +143,17 @@ fileItApp
 
 							$scope.noBookPresent = true;
 							$scope.initialize = function() {
+								var reqObj = {
+									'GetBookClassificationRequest' : {
+										'customHeader' : {
+											'userName' : ACL.username,
+											'role' : ACL.role,
+											'group' : ACL.group
+										}
+									}
+								}
 								DashboardSvc
-										.classifiedData()
+										.classifiedData(reqObj)
 										.then(
 												function(result) {
 													var keys = Object
