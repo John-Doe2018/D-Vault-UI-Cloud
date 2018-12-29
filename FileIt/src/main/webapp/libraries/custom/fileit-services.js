@@ -130,26 +130,17 @@ fileItApp
 							if (config.url.includes == undefined) {
 								config.headers = {
 									'Accept' : 'application/json',
-									'Content-type' : 'application/json',
-									'group' : ACL.group,
-									'role' : ACL.role,
-									'userName' : ACL.username
+									'Content-type' : 'application/json'
 								};
 							} else if (config.url.includes("imageConvert")) {
 								config.headers = {
 									'Accept' : 'application/json',
-									'Content-type' : undefined,
-									'group' : ACL.group,
-									'role' : ACL.role,
-									'userName' : ACL.username
+									'Content-type' : undefined
 								};
 							} else {
 								config.headers = {
 									'Accept' : 'application/json',
-									'Content-type' : 'application/json',
-									'group' : ACL.group,
-									'role' : ACL.role,
-									'userName' : ACL.username
+									'Content-type' : 'application/json'
 								};
 							}
 
