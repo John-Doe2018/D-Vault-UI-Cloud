@@ -26,10 +26,6 @@ fileItApp.factory('LandingOperationsSvc', [ 'RestSvc', 'EncoderSvc',
 					return RestSvc.postData(BINDER_SVC.getImage, reqObj);
 				},
 
-				getFileCount : function(reqObj) {
-
-					return RestSvc.postData(BINDER_SVC.getFileCount, reqObj);
-				},
 				advSearch : function() {
 
 					return RestSvc.postData(BINDER_SVC.advancedSearch);

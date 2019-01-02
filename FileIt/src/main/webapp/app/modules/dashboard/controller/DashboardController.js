@@ -54,6 +54,11 @@ fileItApp
 							$scope.gotoBookView = function(bookName, className) {
 								$scope.range = [ 1, 2 ];
 								var reqObj1 = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
 									"bookName" : bookName,
 									"classification" : className,
 									"rangeList" : $scope.range
@@ -67,6 +72,11 @@ fileItApp
 
 							$scope.getBookMarks = function() {
 								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
 									'userName' : LOGGED_USER.name,
 									'bookName' : "",
 									'classificationName' : ""
@@ -243,12 +253,10 @@ fileItApp
 							};
 							$scope.getDashboard = function() {
 								var reqObj = {
-									'GetBookClassificationRequest' : {
-										'customHeader' : {
-											'userName' : ACL.username,
-											'role' : ACL.role,
-											'group' : ACL.group
-										}
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
 									}
 								}
 								DashboardSvc

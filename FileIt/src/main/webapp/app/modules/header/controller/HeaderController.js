@@ -23,12 +23,10 @@ fileItApp
 							function adavnceSearch() {
 								$scope.people = [];
 								var reqObj = {
-									'GetBookClassificationRequest' : {
-										'customHeader' : {
-											'userName' : ACL.username,
-											'role' : ACL.role,
-											'group' : ACL.group
-										}
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
 									}
 								}
 								DashboardSvc
@@ -116,6 +114,11 @@ fileItApp
 							$scope.selectedBook = function(selected) {
 								if ($scope.selectedItem) {
 									var reqObj = {
+										'customHeader' : {
+											'userName' : ACL.username,
+											'role' : ACL.role,
+											'group' : ACL.group
+										},
 										bookName : $scope.selectedItem.bookname
 									}
 									LandingOperationsSvc
@@ -132,6 +135,11 @@ fileItApp
 															$scope.range = [ 1,
 																	2 ];
 															var reqObj1 = {
+																'customHeader' : {
+																	'userName' : ACL.username,
+																	'role' : ACL.role,
+																	'group' : ACL.group
+																},
 																"bookName" : $scope.selectedItem.bookname,
 																"classification" : $scope.selectedItem.classname,
 																"rangeList" : $scope.range

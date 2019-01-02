@@ -119,80 +119,73 @@ fileItApp.factory('RestSvc', [
 			};
 		} ]);
 
-fileItApp
-		.factory(
-				'authInterceptor',
-				function($rootScope, $q, $sessionStorage, ACL) {
-					return {
-						request : function(config) {
-							config.headers = config.headers || {};
+fileItApp.factory('authInterceptor', function($rootScope, $q, $sessionStorage,
+		ACL) {
+	return {
+		request : function(config) {
+			config.headers = config.headers || {};
 
-							if (config.url.includes == undefined) {
-								config.headers = {
-									'Accept' : 'application/json',
-									'Content-type' : 'application/json',
-									'UserName' : ACL.username
-								};
-							} else if (config.url.includes("imageConvert")) {
-								config.headers = {
-									'Accept' : 'application/json',
-									'Content-type' : undefined,
-									'UserName' : ACL.username
-								};
-							} else {
-								config.headers = {
-									'Accept' : 'application/json',
-									'Content-type' : 'application/json',
-									'UserName' : ACL.username
-								};
-							}
+			if (config.url.includes == undefined) {
+				config.headers = {
+					'Accept' : 'application/json',
+					'Content-type' : 'application/json',
+					'UserName' : ACL.username
+				};
+			} else if (config.url.includes("imageConvert")) {
+				config.headers = {
+					'Accept' : 'application/json',
+					'Content-type' : undefined,
+					'UserName' : ACL.username
+				};
+			} else {
+				config.headers = {
+					'Accept' : 'application/json',
+					'Content-type' : 'application/json',
+					'UserName' : ACL.username
+				};
+			}
 
-							console.log(config);
-							return config;
-						},
+			console.log(config);
+			return config;
+		},
 
-						requestError : function(rejection) {
+		requestError : function(rejection) {
 
-							console.log('Request Error - ' + rejection.status);
-							console.log(rejection.data);
-							console.log(rejection.statusText);
-							return $q.reject(rejection);
-						},
+			console.log('Request Error - ' + rejection.status);
+			console.log(rejection.data);
+			console.log(rejection.statusText);
+			return $q.reject(rejection);
+		},
 
-						responseError : function(rejection) {
+		responseError : function(rejection) {
 
-							var rejectionData;
+			var rejectionData;
 
-							if (rejection.status == 0) {
-								rejectionData = 888;
-							} else if (rejection.status == 401) {
-								if (rejection.data.AuthenticationDetails.ErrorMessage == "Password Expired") {
-									$('#chngePwdModal').modal('show');
-								} else {
-									rejectionData = rejection.data.AuthenticationDetails.ErrorMessage;
-								}
-							} else {
+			if (rejection.status == 0) {
+				rejectionData = 888;
+			} else if (rejection.status == 401) {
+				$rootScope.$broadcast('error', rejection.data.message);
+			} else {
+				if (rejection.data.BusinessError != undefined) {
+					rejectionData = rejection.data.BusinessError.Code;
+				} else {
+					rejectionData = 888;
+				}
 
-								if (rejection.data.BusinessError != undefined) {
-									rejectionData = rejection.data.BusinessError.Code;
-								} else {
-									rejectionData = 888;
-								}
+			}
 
-							}
+			console.log('Rejection Status : ' + rejectionData);
 
-							console.log('Rejection Status : ' + rejectionData);
-
-							if (rejectionData != undefined) {
-								$rootScope.$broadcast('ErrorData', {
-									errStatus : rejectionData
-								});
-
-							}
-							return $q.reject(rejection);
-						}
-					};
+			if (rejectionData != undefined) {
+				$rootScope.$broadcast('ErrorData', {
+					errStatus : rejectionData
 				});
+
+			}
+			return $q.reject(rejection);
+		}
+	};
+});
 
 fileItApp.config(function($httpProvider) {
 	$httpProvider.interceptors.push('authInterceptor');

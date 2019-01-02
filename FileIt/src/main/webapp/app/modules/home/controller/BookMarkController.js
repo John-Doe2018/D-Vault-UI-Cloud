@@ -12,9 +12,10 @@ fileItApp.controller('BookMarkController', [
 		'$http',
 		'FILEIT_CONFIG',
 		'DASHBOARD_DETALS',
+		'ACL',
 		function($rootScope, $scope, $location, $sessionStorage, Idle,
 				AesEncoder, LandingOperationsSvc, BINDER_NAME, $route,
-				LoadingService, $http, FILEIT_CONFIG, DASHBOARD_DETALS) {
+				LoadingService, $http, FILEIT_CONFIG, DASHBOARD_DETALS, ACL) {
 			$scope.init = function() {
 				$scope.count = DASHBOARD_DETALS.bookmarklist.length;
 				$scope.records = DASHBOARD_DETALS.bookmarklist;
@@ -25,6 +26,11 @@ fileItApp.controller('BookMarkController', [
 			$scope.gotoBookView = function(bookName, className) {
 				$scope.range = [ 1, 2 ];
 				var reqObj1 = {
+					'customHeader' : {
+						'userName' : ACL.username,
+						'role' : ACL.role,
+						'group' : ACL.group
+					},
 					"bookName" : bookName,
 					"classification" : className,
 					"rangeList" : $scope.range

@@ -10,9 +10,10 @@ fileItApp
 						'HomeSvc',
 						'$route',
 						'$mdToast',
+						'ACL',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, HomeSvc, $route,
-								$mdToast) {
+								$mdToast, ACL) {
 							var newheight = $(window).height()
 									- $('#pageHeader').height();
 							document.getElementById("createClassPage").style.height = newheight
@@ -23,6 +24,11 @@ fileItApp
 											"Blank Classification Name");
 								} else {
 									var reqObj = {
+										'customHeader' : {
+											'userName' : ACL.username,
+											'role' : ACL.role,
+											'group' : ACL.group
+										},
 										'classificationName' : $scope.classificationName
 									}
 									HomeSvc

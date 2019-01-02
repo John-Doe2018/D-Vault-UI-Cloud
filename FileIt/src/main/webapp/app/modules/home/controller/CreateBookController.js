@@ -21,12 +21,13 @@ fileItApp
 						'$mdDialog',
 						'Upload',
 						'$timeout',
+						'ACL',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, rfc4122, HomeSvc,
 								LoadingService, $http, FILEIT_CONFIG,
 								BINDER_SVC, $route, DASHBOARD_DETALS, $mdToast,
 								LandingOperationsSvc, BINDER_NAME, $mdDialog,
-								Upload, $timeout) {
+								Upload, $timeout, ACL) {
 							$('form input').keydown(function(e) {
 								if (e.keyCode == 13) {
 									e.preventDefault();
@@ -194,6 +195,11 @@ fileItApp
 										.then(
 												function() {
 													var requestObj = {
+														'customHeader' : {
+															'userName' : ACL.username,
+															'role' : ACL.role,
+															'group' : ACL.group
+														},
 														'bookName' : $scope.bookName,
 														'fileName' : filename,
 														'bookcreated' : false,
@@ -238,6 +244,11 @@ fileItApp
 								var str = angular.toJson(reqObj).replace(
 										'/"/g', '\"');
 								var reqObj1 = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
 									"htmlContent" : str
 								}
 								var str1 = angular.toJson(reqObj1);

@@ -19,12 +19,13 @@ fileItApp
 						'BINDER_SVC',
 						'DASHBOARD_DETALS',
 						'$mdDialog',
+						'ACL',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder,
 								LandingOperationsSvc, BINDER_NAME, rfc4122,
 								$route, IMAGE_URLS, LoadingService, $http,
 								FILEIT_CONFIG, BINDER_SVC, DASHBOARD_DETALS,
-								$mdDialog) {
+								$mdDialog, ACL) {
 							$scope.zoomUrls = [];
 							$scope.validFile = true;
 							$scope.totalpages = 0;
@@ -36,6 +37,11 @@ fileItApp
 									$scope.range = [ $scope.rangestart + 1,
 											$scope.rangestart + 2 ];
 									var reqObj1 = {
+										'customHeader' : {
+											'userName' : ACL.username,
+											'role' : ACL.role,
+											'group' : ACL.group
+										},
 										"bookName" : BINDER_NAME.name,
 										"classification" : DASHBOARD_DETALS.booklist,
 										"rangeList" : $scope.range
@@ -72,6 +78,11 @@ fileItApp
 
 							$scope.onnodeclick = function(nodearray) {
 								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
 									'bookName' : BINDER_NAME.name,
 									'fileName' : nodearray.title
 								}
@@ -104,6 +115,11 @@ fileItApp
 							$scope.totalgetPageDetails = function() {
 								for (var r = 0; r < $scope.nodearray.length; r++) {
 									var reqObj = {
+										'customHeader' : {
+											'userName' : ACL.username,
+											'role' : ACL.role,
+											'group' : ACL.group
+										},
 										'bookName' : BINDER_NAME.name,
 										'fileName' : $scope.nodearray[r].title
 									}
@@ -130,6 +146,11 @@ fileItApp
 							};
 							$scope.getData = function() {
 								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
 									'bookname' : BINDER_NAME.name,
 									'classificationname' : DASHBOARD_DETALS.booklist
 								}
@@ -197,6 +218,11 @@ fileItApp
 								}
 
 								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
 									"bookName" : BINDER_NAME.name,
 									'classificationname' : DASHBOARD_DETALS.booklist,
 									"fileName" : $scope.filelist
@@ -278,6 +304,11 @@ fileItApp
 															$scope.zoomcount,
 															$scope.zoomcount + 2 ];
 													var reqObj1 = {
+														'customHeader' : {
+															'userName' : ACL.username,
+															'role' : ACL.role,
+															'group' : ACL.group
+														},
 														"bookName" : BINDER_NAME.name,
 														"classification" : DASHBOARD_DETALS.booklist,
 														"rangeList" : $scope.range
@@ -321,6 +352,11 @@ fileItApp
 
 							$scope.onFileDownload = function() {
 								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
 									"bookName" : BINDER_NAME.name,
 									'classificationname' : DASHBOARD_DETALS.booklist,
 								}
@@ -367,6 +403,11 @@ fileItApp
 											'confirmAgreed',
 											function() {
 												var requestObj = {
+													'customHeader' : {
+														'userName' : ACL.username,
+														'role' : ACL.role,
+														'group' : ACL.group
+													},
 													'bookName' : BINDER_NAME.name,
 													'fileName' : $scope.deleteFileName,
 													'bookcreated' : true,
@@ -509,6 +550,11 @@ fileItApp
 
 							$scope.onAddFileClick = function() {
 								var addFileObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
 									bookName : BINDER_NAME.name,
 									oBookRequests : $scope.fileList
 								};
@@ -565,6 +611,11 @@ fileItApp
 
 							$scope.deletebook = function(bookname) {
 								var deleteObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
 									bookName : bookname,
 									classificationName : DASHBOARD_DETALS.booklist
 								}
@@ -666,6 +717,11 @@ fileItApp
 															$scope.servicecounter + 1,
 															$scope.servicecounter + 2 ];
 													var reqObj1 = {
+														'customHeader' : {
+															'userName' : ACL.username,
+															'role' : ACL.role,
+															'group' : ACL.group
+														},
 														"bookName" : BINDER_NAME.name,
 														"classification" : DASHBOARD_DETALS.booklist,
 														"rangeList" : $scope.range

@@ -144,12 +144,10 @@ fileItApp
 							$scope.noBookPresent = true;
 							$scope.initialize = function() {
 								var reqObj = {
-									'GetBookClassificationRequest' : {
-										'customHeader' : {
-											'userName' : ACL.username,
-											'role' : ACL.role,
-											'group' : ACL.group
-										}
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
 									}
 								}
 								DashboardSvc
@@ -248,6 +246,11 @@ fileItApp
 
 							$scope.addTag = function() {
 								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
 									'userName' : LOGGED_USER.name,
 									'bookName' : BINDER_NAME.name,
 									'classificationName' : DASHBOARD_DETALS.booklist
@@ -297,6 +300,11 @@ fileItApp
 
 							$scope.deletebook = function() {
 								var deleteObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
 									bookName : BINDER_NAME.name,
 									classificationName : DASHBOARD_DETALS.booklist
 								}
@@ -334,6 +342,11 @@ fileItApp
 
 							$scope.onAddFileClick = function() {
 								var addFileObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
 									bookName : BINDER_NAME.name,
 									oBookRequests : $scope.fileList
 								};
@@ -354,6 +367,11 @@ fileItApp
 							$scope.gotolandingPage = function() {
 								$scope.range = [ 1, 2 ];
 								var reqObj1 = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
 									"bookName" : BINDER_NAME.name,
 									"classification" : DASHBOARD_DETALS.booklist,
 									"rangeList" : $scope.range
@@ -367,6 +385,11 @@ fileItApp
 
 							$scope.onFileDownload = function() {
 								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
 									"bookName" : BINDER_NAME.name,
 									'classificationname' : DASHBOARD_DETALS.booklist
 								}
@@ -532,6 +555,11 @@ fileItApp
 								var str = angular.toJson(reqObj).replace(
 										'/"/g', '\"');
 								var reqObj1 = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
 									"htmlContent" : str
 								}
 								var str1 = angular.toJson(reqObj1);
