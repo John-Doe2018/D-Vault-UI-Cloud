@@ -57,7 +57,7 @@ fileItApp
 													+ "/Images/");
 											fd.append('type', file.type);
 											$scope.progressvisible = true
-											var xhr = new XMLHttpRequest()
+											var xhr = new XMLHttpRequest();
 											xhr.upload.onprogress = function(
 													evt) {
 
@@ -83,7 +83,9 @@ fileItApp
 													.open(
 															"POST",
 															FILEIT_CONFIG.apiUrl
-																	+ BINDER_SVC.convertImg)
+																	+ BINDER_SVC.convertImg);
+											xhr.setRequestHeader("UserName",
+													ACL.username);
 											xhr.send(fd)
 
 										}
