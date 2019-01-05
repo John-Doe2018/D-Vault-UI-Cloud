@@ -20,6 +20,9 @@ fileItApp
 								BINDER_NAME, LOGGED_USER, $timeout, dateFilter,
 								$q, DashboardSvc, IMAGE_URLS, ACL) {
 							$scope.people = [];
+							$scope.gotoSettings = function() {
+								$location.path('/settings');
+							};
 							function adavnceSearch() {
 								$scope.people = [];
 								var reqObj = {

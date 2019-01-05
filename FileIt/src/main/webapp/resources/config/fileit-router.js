@@ -9,6 +9,9 @@ fileItApp.config([ '$routeProvider', function($routeProvider) {
 	}).when('/signup', {
 		templateUrl : 'app/modules/user_management/views/signup.html',
 		controller : 'SignUpController'
+	}).when('/settings', {
+		templateUrl : 'app/modules/header/views/settings.html',
+		controller : 'SettingController'
 	}).when('/home', {
 		templateUrl : 'app/modules/home/views/home.html',
 		controller : 'HomeController'
