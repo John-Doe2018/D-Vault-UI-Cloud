@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form name="settings" novalidate="">
+		<div layout="row" layout-wrap style="height: 593px;">
+			<div flex="100" flex-gt-sm="100" layout="column">
+				<div>
+					<fieldset class="standard">
+						<div layout="row" layout-wrap flex>
+							<div flex="5"></div>
+							<div flex="15" style="color: blueviolet;">Admin :</div>
+							<div flex="15" ng-repeat="item in adminitems">
+								<md-checkbox ng-checked="item.selected"
+									ng-click="toggleAdmin(item.name)"> {{ item.name
+								}} </md-checkbox>
+							</div>
+							<div flex="5"></div>
+						</div>
+						<div layout="row" layout-wrap flex>
+							<div flex="5"></div>
+							<div flex="15" style="color: blueviolet;">Moderator :</div>
+							<div flex="15" ng-repeat="item in moderatoritems">
+								<md-checkbox ng-checked="item.selected"
+									ng-click="toggleModerator(item.name)"> {{
+								item.name }} </md-checkbox>
+							</div>
+							<div flex="5"></div>
+						</div>
+						<div layout="row" layout-wrap flex>
+							<div flex="5"></div>
+							<div flex="15" style="color: blueviolet;">Tester :</div>
+							<div flex="15" ng-repeat="item in testeritems">
+								<md-checkbox ng-checked="item.selected"
+									ng-click="toggleTester(item.name)"> {{ item.name
+								}} </md-checkbox>
+							</div>
+							<div flex="5"></div>
+						</div>
+						<div layout="row" layout-wrap flex>
+							<div flex="5"></div>
+							<div flex="15" style="color: blueviolet;">Developer :</div>
+							<div flex="15" ng-repeat="item in developeritems">
+								<md-checkbox ng-checked="item.selected"
+									ng-click="toggleDeveloper(item.name)"> {{
+								item.name }} </md-checkbox>
+							</div>
+							<div flex="5"></div>
+						</div>
+						<div layout="row" layout-wrap flex>
+							<div flex="5"></div>
+							<div flex="15" style="color: blueviolet;">Manager :</div>
+							<div flex="15" ng-repeat="item in manageritems">
+								<md-checkbox ng-checked="item.selected"
+									ng-click="toggleManager(item.name)"> {{ item.name
+								}} </md-checkbox>
+							</div>
+							<div flex="5"></div>
+						</div>
+						<div layout="row" layout-wrap flex>
+							<div flex="40"></div>
+							<div flex="20">
+								<button type="button" class="btn btn-next font-style"
+									ng-click="onCreateClassification()"
+									ng-disabled="createClassForm.$invalid">Submit</button>
+							</div>
+							<div flex="40"></div>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+</html>

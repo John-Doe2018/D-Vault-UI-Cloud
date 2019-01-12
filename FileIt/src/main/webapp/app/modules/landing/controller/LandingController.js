@@ -33,7 +33,7 @@ fileItApp
 							var myVar = setInterval(addImage, 3000);
 							$scope.rangestart = 2;
 							function addImage() {
-								if (($scope.rangestart + 2) <= $scope.totalpages) {
+								if (($scope.rangestart + 1) <= $scope.totalpages) {
 									$scope.range = [ $scope.rangestart + 1,
 											$scope.rangestart + 2 ];
 									var reqObj1 = {
@@ -68,10 +68,10 @@ fileItApp
 																						+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
 
 															}
-															$scope.rangestart += 2;
 														}
 
 													});
+									$scope.rangestart += 2;
 								}
 
 							}
@@ -757,8 +757,6 @@ fileItApp
 									$('#mybook').booklet("gotopage",
 											$scope.pageNo);
 								} else {
-									$scope.addpagerange();
-									$scope.tgb();
 									$('#mybook').booklet("gotopage",
 											$scope.pageNo);
 									$scope.actualcounter = $scope.pageNo;
