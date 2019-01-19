@@ -42,13 +42,16 @@
 							required> <span class="focus-input100"
 							data-placeholder="&#xf191;"></span>
 					</div>
-					<div class="wrap-input100 validate-input"
-						data-validate="Enter role">
-						<input class="input100 font-style" type="text" name="role"
-							ng-model="role" autocomplete="off" placeholder="Role" required>
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+					<div layout="row" layout-align="start" flex>
+						<md-input-container flex="50"> <label
+							style="color: white;">Role</label> <md-select ng-model="role">
+						<md-option ng-repeat="roles in roleArray" ng-value="roles.code">
+						{{roles.name}} </md-option> </md-select> </md-input-container>
+						<md-input-container flex="50"> <label
+							style="color: white;">Group</label> <md-select ng-model="group">
+						<md-option ng-repeat="groups in groupArray" ng-value="groups.code">
+						{{groups.name}} </md-option> </md-select> </md-input-container>
 					</div>
-
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn font-style"
 							ng-disabled="signUpForm.$invalid" ng-click="onSignUpClick()">Sign

@@ -320,5 +320,6 @@ fileItApp.value('DASHBOARD_DETALS', {
 fileItApp.value('ACL', {
 	group : '',
 	role : '',
-	username : ''
+	username : '',
+	rolelist : ''
 });

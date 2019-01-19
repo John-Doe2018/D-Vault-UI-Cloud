@@ -7,6 +7,14 @@ fileItApp.factory('UserOperationsSvc', [ 'RestSvc', 'EncoderSvc',
 				},
 				signup : function(reqObj) {
 					return RestSvc.postData(BINDER_SVC.signup, reqObj);
+				},
+
+				getAllRoles : function() {
+					return RestSvc.getData(BINDER_SVC.getAllRoles);
+				},
+
+				getAllGroups : function() {
+					return RestSvc.getData(BINDER_SVC.getAllGroups);
 				}
 			};
 		} ]);
