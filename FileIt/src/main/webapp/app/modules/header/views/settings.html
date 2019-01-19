@@ -11,63 +11,22 @@
 				<div>
 					<fieldset class="standard">
 						<div layout="row" layout-wrap flex>
-							<div flex="5"></div>
-							<div flex="15" style="color: blueviolet;">Admin :</div>
-							<div flex="15" ng-repeat="item in adminitems">
+							<div flex="40"></div>
+							<md-input-container flex="20"> <label
+								style="color: white;">Role</label> <md-select ng-model="role"
+								ng-change="onChange(role)"> <md-option
+								ng-repeat="roles in roleArray" ng-value="roles.code">
+							{{roles.name}} </md-option> </md-select> </md-input-container>
+							<div flex="40"></div>
+						</div>
+						<div layout="row" layout-wrap flex>
+							<div flex="20"></div>
+							<div flex="10" ng-repeat="item in adminitems">
 								<md-checkbox ng-checked="item.selected"
 									ng-click="toggleAdmin(item.name)"> {{ item.name
 								}} </md-checkbox>
 							</div>
-							<div flex="5"></div>
-						</div>
-						<div layout="row" layout-wrap flex>
-							<div flex="5"></div>
-							<div flex="15" style="color: blueviolet;">Moderator :</div>
-							<div flex="15" ng-repeat="item in moderatoritems">
-								<md-checkbox ng-checked="item.selected"
-									ng-click="toggleModerator(item.name)"> {{
-								item.name }} </md-checkbox>
-							</div>
-							<div flex="5"></div>
-						</div>
-						<div layout="row" layout-wrap flex>
-							<div flex="5"></div>
-							<div flex="15" style="color: blueviolet;">Tester :</div>
-							<div flex="15" ng-repeat="item in testeritems">
-								<md-checkbox ng-checked="item.selected"
-									ng-click="toggleTester(item.name)"> {{ item.name
-								}} </md-checkbox>
-							</div>
-							<div flex="5"></div>
-						</div>
-						<div layout="row" layout-wrap flex>
-							<div flex="5"></div>
-							<div flex="15" style="color: blueviolet;">Developer :</div>
-							<div flex="15" ng-repeat="item in developeritems">
-								<md-checkbox ng-checked="item.selected"
-									ng-click="toggleDeveloper(item.name)"> {{
-								item.name }} </md-checkbox>
-							</div>
-							<div flex="5"></div>
-						</div>
-						<div layout="row" layout-wrap flex>
-							<div flex="5"></div>
-							<div flex="15" style="color: blueviolet;">Manager :</div>
-							<div flex="15" ng-repeat="item in manageritems">
-								<md-checkbox ng-checked="item.selected"
-									ng-click="toggleManager(item.name)"> {{ item.name
-								}} </md-checkbox>
-							</div>
-							<div flex="5"></div>
-						</div>
-						<div layout="row" layout-wrap flex>
-							<div flex="40"></div>
-							<div flex="20">
-								<button type="button" class="btn btn-next font-style"
-									ng-click="onCreateClassification()"
-									ng-disabled="createClassForm.$invalid">Submit</button>
-							</div>
-							<div flex="40"></div>
+							<div flex="20"></div>
 						</div>
 					</fieldset>
 				</div>
