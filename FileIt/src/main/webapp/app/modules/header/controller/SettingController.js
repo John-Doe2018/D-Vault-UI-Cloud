@@ -9,9 +9,18 @@ fileItApp
 						'UserOperationsSvc',
 						'$mdToast',
 						'$route',
+						'ACL',
 						function($rootScope, $scope, $location,
 								$sessionStorage, UserOperationsSvc, $mdToast,
-								$route) {
+								$route, ACL) {
+							$scope.gotoDashboardPage = function() {
+								$location.path('/dashboard');
+							}
+							if (ACL.role === 'RL001') {
+								$scope.showPage = true;
+							} else {
+								$scope.showPage = false;
+							}
 							$scope.roleArray = [];
 							$scope.getRole = function() {
 								UserOperationsSvc

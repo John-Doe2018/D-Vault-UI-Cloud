@@ -6,7 +6,7 @@
 </head>
 <body>
 	<form name="settings" novalidate="">
-		<div layout="row" layout-wrap style="height: 593px;">
+		<div layout="row" layout-wrap style="height: 593px;" ng-if="showPage">
 			<div flex="100" flex-gt-sm="100" layout="column">
 				<div>
 					<fieldset class="standard">
@@ -38,6 +38,16 @@
 						</div>
 					</fieldset>
 				</div>
+			</div>
+		</div>
+		<div id="notfound" ng-if="!showPage">
+			<div class="notfound">
+				<div class="notfound-404">
+					<h1>Oops!</h1>
+					<h2>You don't have access to this page !!!</h2>
+				</div>
+				<a href="javascript:void(0)" ng-click="gotoDashboardPage()">Go
+					TO Homepage</a>
 			</div>
 		</div>
 	</form>
