@@ -44,7 +44,9 @@ fileItApp
 							$scope.adminitems = [];
 							$scope.roleSelected = false;
 							$scope.onChange = function(rolenew) {
+								$scope.adminitems = [];
 								console.log(rolenew);
+								$scope.role = rolenew;
 								var reqObj = {
 									role : rolenew
 								}
