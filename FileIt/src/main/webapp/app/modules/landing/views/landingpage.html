@@ -13,26 +13,14 @@
 						class="btn  btn-xs" data-nodrag
 						ng-click="downloadFile('multiple');"><span
 							class="glyphicon glyphicon-download-alt"></span></a>
-						<ul>
+						<ul style="overflow-x: hidden; overflow-y: scroll;">
 							<li class="has-sub" ng-repeat="nodearray in node.nodes"><a
-								href="javascript:void(0)"><label
-									class="font-style font-size16"
-									style="width: 140px; word-break: break-all;"><input
-										type="checkbox" value="{{node.title}}" name="sport">
-										{{nodearray.title}}</label></a>
-								<ul>
-									<li><a data-nodrag href="javascript:void(0)"
-										ng-click="removeFile(this, node.title); deleteFile(nodearray.title);"><span
-											class="glyphicon glyphicon-remove"></span></a></li>
-									<li><a href="javascript:void(0)" data-nodrag
-										ng-click="onnodeclick(nodearray) "><span
-											class="glyphicon glyphicon-hand-right"></span></a></li>
-									<li><a data-nodrag href="javascript:void(0)"
-										ng-click="downloadFile(nodearray.title);"><span
-											class="glyphicon glyphicon-download-alt"></span></a></li></li>
+								href="javascript:void(0)" ng-click="openBookPopUp(nodearray)"><p
+										class="font-style font-size16"
+										style="width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+										<input type="checkbox" value="{{node.title}}" name="sport">{{nodearray.title}}
+									</p></a></li>
 						</ul></li>
-				</ul>
-				</li>
 				</ul>
 			</div>
 		</div>
@@ -107,6 +95,41 @@
 				</div>
 			</div>
 
+		</div>
+	</div>
+	<div class="modal fade" id="fileModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">X</span>
+					</button>
+					<h4 class="modal-title font-style" id="myModalLabel">Choose
+						Option</h4>
+				</div>
+				<div class="modal-body">
+					<label class="radio-inline font-style"> <input type="radio"
+						name="inlineRadioOptions" id="inlineRadio1" value="delete">
+						Remove/Delete
+					</label> <label class="radio-inline font-style"> <input
+						type="radio" name="inlineRadioOptions" id="inlineRadio2"
+						value="view"> View
+					</label> <label class="radio-inline font-style"> <input
+						type="radio" name="inlineRadioOptions" id="inlineRadio3"
+						value="download"> Download
+					</label>
+				</div>
+				<div class="modal-footer">
+					<md-button class="md-raised md-primary md-hue-2 font-style"
+						style="margin: 20px 0;" data-dismiss="modal" aria-hidden="true"
+						ng-click="onOptionClick()">{{'SUBMIT' | translate}}</md-button>
+					<md-button style="margin: 20px 0; "
+						class="md-warn md-raised md-hue-2 font-style" data-dismiss="modal"
+						aria-hidden="true">{{'CANCEL' | translate}}</md-button>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div id="addFileModal" class="modal fade" role="dialog">

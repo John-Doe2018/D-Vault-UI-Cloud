@@ -29,7 +29,11 @@ fileItApp
 							$scope.zoomUrls = [];
 							$scope.validFile = true;
 							$scope.totalpages = 0;
-
+							$scope.openBookPopUp = function(nodeName) {
+								$scope.optselect = undefined;
+								$scope.nodeNaME = nodeName;
+								$('#fileModal').modal('show');
+							};
 							var myVar = setInterval(addImage, 3000);
 							$scope.rangestart = 2;
 							function addImage() {
@@ -237,13 +241,14 @@ fileItApp
 																		'error',
 																		result.data.description);
 													} else {
+
 														var a = document
 																.createElement("a");
 														a.href = result.data.URL;
 														fileName = result.data.URL
 																.split("/")
 																.pop();
-														a.download = fileName;
+														a.target = "_blank";
 														document.body
 																.appendChild(a);
 														a.click();
@@ -762,6 +767,21 @@ fileItApp
 									$scope.actualcounter = $scope.pageNo;
 								}
 							}
+							$('input[type=radio]').click(function() {
+								$scope.optselect = $(this).val();
+
+							});
+
+							$scope.onOptionClick = function() {
+								if ($scope.optselect === 'view') {
+									$scope.onnodeclick($scope.nodeNaME);
+								} else if ($scope.optselect === 'delete') {
+									$scope.removeFile(this,
+											$scope.nodeNaME.title);
+								} else if ($scope.optselect === 'download') {
+									$scope.downloadFile($scope.nodeNaME.title);
+								}
+							};
 
 							$(function() {
 								var $mybook = $('#mybook');

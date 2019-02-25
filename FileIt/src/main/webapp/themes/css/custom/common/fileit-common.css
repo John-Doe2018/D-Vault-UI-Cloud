@@ -231,7 +231,7 @@
 
 .navigation > ul { width: 5em;background: #333333;}
 
-.navigation ul ul { width: 10em; }
+.navigation ul ul { width: 13em; }
 
 .navigation > ul > li > a {
   border-right: 0.3em solid #34A65F;
