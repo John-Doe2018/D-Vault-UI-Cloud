@@ -24,6 +24,10 @@
 				</ul>
 			</div>
 		</div>
+		<div class="col-sm-2">
+			<md-switch ng-model="viewSwitch" aria-label="Switch View"
+				ng-change="onViewChange()"> {{ viewSwitch }} </md-switch>
+		</div>
 		<div class="col-sm-2">Page loaded :
 			{{rangestart}}/{{totalpages+1}}</div>
 		<div class="col-sm-1 form-group">

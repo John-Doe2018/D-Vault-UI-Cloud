@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout="row" layout-xs="column">
+		<div flex="20">
+			<div class="bg-light border-right" id="sidebar-wrapper"
+				ng-repeat="node in data">
+				<div ng-repeat="nodearray in node.nodes">
+					<a href="javascript:void(0)" ng-click="showPdf(nodearray.title)"
+						class="list-group-item list-group-item-action bg-light"
+						style="margin-bottom: 0px !important">{{nodearray.title}}</a>
+				</div>
+			</div>
+		</div>
+		<div flex="80" class="blue box">
+			<div layout="row" layout-xs="column">
+				<div flex="80"></div>
+				<div flex="20">
+					<md-switch ng-model="viewSwitch" aria-label="Switch View"
+						ng-change="onViewChange()"> {{ viewSwitch }} </md-switch>
+				</div>
+			</div>
+			<div layout="row" layout-xs="column">
+				<object ng-show="content" data="{{content}}" type="application/pdf"
+					style="width: 98%; height: 485px;"></object>
+			</div>
+		</div>
+	</div>
+	<div class="row col-sm-12"
+		style="background-color: blueviolet; bottom: 0;" id="pageFooter">
+		<div class="col-sm-3">
+			<a href="http://tranfode.com/" target="_new"><img
+				src="images/tranfode.png"></a>
+		</div>
+		<div class="col-sm-9"
+			style="text-align: right !important; margin-top: 2%;">
+			<a href="http://tranfode.com/" target="_new"
+				class="text-white font-style">© Tranfode Technologies (P) Ltd.</a>
+		</div>
+	</div>
+</body>
+</html>

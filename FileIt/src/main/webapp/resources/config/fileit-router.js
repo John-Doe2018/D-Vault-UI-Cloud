@@ -18,6 +18,9 @@ fileItApp.config([ '$routeProvider', function($routeProvider) {
 	}).when('/landingPage', {
 		templateUrl : 'app/modules/landing/views/landingpage.html',
 		controller : 'LandingController'
+	}).when('/thumbnailView', {
+		templateUrl : 'app/modules/landing/views/thumbnailview.html',
+		controller : 'ThumbnailViewController'
 	}).when('/dashboard', {
 		templateUrl : 'app/modules/dashboard/views/dashboard.html',
 		controller : 'DashboardController'
