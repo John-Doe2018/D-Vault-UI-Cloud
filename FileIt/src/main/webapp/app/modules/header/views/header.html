@@ -17,18 +17,12 @@
 			ng-click="backtoHome()"
 			style="height: 67px;width: 132px;margin-left: -79%; outline: none;"></md-icon></md-button>
 		<p id="demo" style="margin: 2%; color: aliceblue; width: 76px;"></p>
-		<md-autocomplete md-selected-item="selectedItem" style="color: black;"
-			md-search-text="searchText" md-items="item in getMatches(searchText)"
-			md-item-text="item.bookname" placeholder="Search books"
-			md-no-cache="true"> <md-item-template>
-		<span class="font-style">{{item.bookname}} - </span> <span
-			md-highlight-text="searchText" class="font-style"
-			md-highlight-flags="^i">{{item.classname}}</span> </md-item-template> <md-not-found
-			class="font-style"> No matches found. </md-not-found> </md-autocomplete>
+		<input type="text" name="Search" ng-model="searchText"
+			autocomplete="off" placeholder="Search" required>
 		<md-button class="md-fab md-mini" aria-label="Search"
-			style="background-color: blueviolet;" ng-click="selectedBook()">
-		<md-icon md-svg-src="images/search.svg" aria-label="Search"></md-icon>
-		</md-button>
+			style="background-color: blueviolet;"
+			ng-click="getMatches(searchText)"> <md-icon
+			md-svg-src="images/search.svg" aria-label="Search"></md-icon> </md-button>
 		<md-menu> <md-button
 			class="md-fab md-mini dropdown-toggle user-bottom"
 			data-toggle="dropdown" aria-label="Profile" ng-click="$mdOpenMenu()">
@@ -36,9 +30,10 @@
 		<md-menu-item> <md-menu> <md-button
 			ng-click="gotoProfile()"> <md-icon
 			md-svg-src="images/profile.svg" aria-label="Profile"></md-icon></md-button> </md-menu> </md-menu-item> <md-menu-item>
-		<md-menu> <md-button ng-click="gotoSettings()"> <md-icon
-			md-svg-src="images/settings.svg" aria-label="Settings"></md-icon></md-button> </md-menu> </md-menu-item> <md-menu-item>
-		<md-menu> <md-button ng-click="logout()"> <md-icon
+		<md-menu> <md-button ng-click="gotoSettings()">
+		<md-icon md-svg-src="images/settings.svg" aria-label="Settings"></md-icon></md-button>
+		</md-menu> </md-menu-item> <md-menu-item> <md-menu> <md-button
+			ng-click="logout()"> <md-icon
 			md-svg-src="images/logout.svg" aria-label="Logout"></md-icon></md-button> </md-menu> </md-menu-item> </md-menu-content> </md-menu>
 	</div>
 	<div class="w3-sidebar w3-light-grey w3-animate-left"
@@ -56,6 +51,39 @@
 				Book</a> <a class="w3-bar-item w3-button font-style"
 				href="javascript:void(0)" style="color: blueviolet;"
 				ng-click="createClassification()">Create Classes</a>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">X</span>
+				</button>
+				<h4 class="modal-title font-style" id="myModalLabel">Search
+					Result</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row" style="margin-left: 2%;" ng-repeat="n in people">
+					<div
+						style="font-family: monospace; color: blue; font-size: large; font-weight: bold;">Classification
+						: {{n.classification}}</div>
+					<div
+						style="margin-left: 4%; font-family: cursive; font-style: italic;">Book
+						: {{n.book}}</div>
+					<div style="margin-left: 7%;">
+						Files :
+						<ul ng-repeat="f in n.fileList">
+							<li><a href ng-click="selectedBook(n)" class="font-style"
+								style="color: brown;">{{f}}</a></li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
 		</div>
 	</div>
 </div>

@@ -41,6 +41,11 @@ fileItApp.factory('LandingOperationsSvc', [ 'RestSvc', 'EncoderSvc',
 				addfile : function(reqObj) {
 
 					return RestSvc.postData(BINDER_SVC.addfile, reqObj);
-				}
+				},
+				
+				contentSearch : function(reqObj) {
+
+					return RestSvc.postData(BINDER_SVC.contentSearch, reqObj);
+				},
 			};
 		} ]);

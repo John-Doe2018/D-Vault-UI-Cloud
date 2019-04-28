@@ -15,66 +15,59 @@ fileItApp
 						'DashboardSvc',
 						'IMAGE_URLS',
 						'ACL',
+						'$mdToast',
 						function($rootScope, $scope, $location,
 								$sessionStorage, LandingOperationsSvc,
 								BINDER_NAME, LOGGED_USER, $timeout, dateFilter,
-								$q, DashboardSvc, IMAGE_URLS, ACL) {
+								$q, DashboardSvc, IMAGE_URLS, ACL, $mdToast) {
 							$scope.people = [];
 							$scope.gotoSettings = function() {
 								$location.path('/settings');
 							};
-							function adavnceSearch() {
+							$scope.getMatches = function(searchText) {
 								$scope.people = [];
 								var reqObj = {
 									'customHeader' : {
 										'userName' : ACL.username,
 										'role' : ACL.role,
 										'group' : ACL.group
-									}
+									},
+									'query' : searchText
 								}
-								DashboardSvc
-										.classifiedData(reqObj)
+								LandingOperationsSvc
+										.contentSearch(reqObj)
 										.then(
 												function(result) {
-													var keys = Object
-															.keys(result.data);
-													for (var i = 0; i < keys.length; i++) {
-														if (keys[i] !== "BlankArray") {
-															for (var m = 0; m < result.data[keys[i]].length; m++) {
-																var obj = {
-																	'bookname' : result.data[keys[i]][m],
-																	'classname' : keys[i]
-																}
-																$scope.people
-																		.push(obj);
+													if (result.data.bookList === null
+															|| result.data.bookList.length === 0) {
+														$mdToast
+																.show($mdToast
+																		.simple()
+																		.textContent(
+																				'No result found !!')
+																		.position(
+																				'bottom')
+																		.theme(
+																				'error-toast')
+																		.hideDelay(
+																				3000));
+													} else {
+														for (var a = 0; a <= result.data.bookList.length; a++) {
+															var dataObj = {
+																'classification' : result.data.bookList[a].classification,
+																'book' : result.data.bookList[a].bookName,
+																'fileList' : result.data.bookList[a].fileList
 															}
+															$scope.people
+																	.push(dataObj);
 														}
+														$('#myModal').modal(
+																'show');
 													}
+
 												});
 
-							}
-							$scope.getMatches = function(searchText) {
-								var deferred = $q.defer();
-								adavnceSearch();
-								$timeout(
-										function() {
-											var states = $scope.people
-													.filter(function(state) {
-														return (state.bookname
-																.toUpperCase()
-																.indexOf(
-																		searchText
-																				.toUpperCase()) !== -1 || state.bookname
-																.toUpperCase()
-																.indexOf(
-																		searchText
-																				.toUpperCase()) !== -1);
-													});
-											deferred.resolve(states);
-										}, 1500);
-
-								return deferred.promise;
-							}
+							};
 
 							var myVar = setInterval(myTimer, 1000);
 
@@ -115,56 +108,50 @@ fileItApp
 							}
 
 							$scope.selectedBook = function(selected) {
-								if ($scope.selectedItem) {
-									var reqObj = {
-										'customHeader' : {
-											'userName' : ACL.username,
-											'role' : ACL.role,
-											'group' : ACL.group
-										},
-										bookName : $scope.selectedItem.bookname
-									}
-									LandingOperationsSvc
-											.searchBook(reqObj)
-											.then(
-													function(result) {
-														if (result.data.errorId !== undefined) {
-															$rootScope
-																	.$broadcast(
-																			'error',
-																			result.data.description);
-														} else {
-															BINDER_NAME.name = $scope.selectedItem.bookname;
-															$scope.range = [ 1,
-																	2 ];
-															var reqObj1 = {
-																'customHeader' : {
-																	'userName' : ACL.username,
-																	'role' : ACL.role,
-																	'group' : ACL.group
-																},
-																"bookName" : $scope.selectedItem.bookname,
-																"classification" : $scope.selectedItem.classname,
-																"rangeList" : $scope.range
-															}
-															LandingOperationsSvc
-																	.getImage(
-																			reqObj1)
-																	.then(
-																			function(
-																					result) {
-																				IMAGE_URLS.url = result.data;
-																				$location
-																						.path('/landingPage');
-																			});
-														}
-													});
-
-								} else {
-									console.log('cleared');
+								$scope.booksname = selected.book;
+								$scope.claasesname = selected.classification;
+								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
+									bookName : $scope.booksname
 								}
-							};
+								LandingOperationsSvc
+										.searchBook(reqObj)
+										.then(
+												function(result) {
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														BINDER_NAME.name = $scope.booksname;
+														$scope.range = [ 1, 2 ];
+														var reqObj1 = {
+															'customHeader' : {
+																'userName' : ACL.username,
+																'role' : ACL.role,
+																'group' : ACL.group
+															},
+															"bookName" : $scope.booksname,
+															"classification" : $scope.claasesname,
+															"rangeList" : $scope.range
+														}
+														LandingOperationsSvc
+																.getImage(
+																		reqObj1)
+																.then(
+																		function(
+																				result) {
+																			IMAGE_URLS.url = result.data;
+																			$location
+																					.path('/landingPage');
+																		});
+													}
+												});
 
-							$scope.onSearch = function(selectedBook) {
-							}
+							};
 						} ]);
