@@ -16,10 +16,13 @@ fileItApp
 						'IMAGE_URLS',
 						'ACL',
 						'$mdToast',
+						'$route',
+						'LOGGED_USER',
 						function($rootScope, $scope, $location,
 								$sessionStorage, LandingOperationsSvc,
 								BINDER_NAME, LOGGED_USER, $timeout, dateFilter,
-								$q, DashboardSvc, IMAGE_URLS, ACL, $mdToast) {
+								$q, DashboardSvc, IMAGE_URLS, ACL, $mdToast,
+								$route, LOGGED_USER) {
 							$scope.people = [];
 							$scope.gotoSettings = function() {
 								$location.path('/settings');
@@ -61,8 +64,8 @@ fileItApp
 															$scope.people
 																	.push(dataObj);
 														}
-														$('#myModal').modal(
-																'show');
+														$('#searchModal')
+																.modal('show');
 													}
 
 												});
@@ -79,14 +82,17 @@ fileItApp
 							$scope.loggeduser = LOGGED_USER.name;
 
 							$scope.w3_open = function() {
-								document.getElementById("mainPage").style.marginLeft = "20%";
-								document.getElementById("mySidebar").style.width = "20%";
+								document.getElementById("mainPage").style.marginLeft = "10%";
+								document.getElementById("mySidebar").style.width = "10%";
 								document.getElementById("mySidebar").style.display = "block";
 								$rootScope.$broadcast('closesidebarLanding');
 							}
 
 							$scope.logout = function() {
 								$rootScope.$broadcast('LogoutSucess');
+								LOGGED_USER.browser_refresh = true;
+								var myEl = angular.element( document.querySelector( '#headerDiv' ) );
+								myEl.remove();
 								$location.path('/login');
 							};
 

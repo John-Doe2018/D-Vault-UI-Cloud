@@ -53,9 +53,11 @@
 							ng-value="groups.code"> {{groups.name}} </md-option> </md-select> </md-input-container>
 					</div>
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn font-style"
+						<button class="login100-form-btn font-style" style="margin: 1%;"
 							ng-disabled="signUpForm.$invalid" ng-click="onSignUpClick()">Sign
 							Up</button>
+						<button class="login100-form-btn font-style" style="margin: 1%;"
+							ng-click="onCancelClick()">Cancel</button>
 					</div>
 				</form>
 			</div>

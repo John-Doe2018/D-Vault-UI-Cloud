@@ -17,6 +17,9 @@ fileItApp
 								UserOperationsSvc, LoginLoadingService, ACL) {
 							$scope.roleArray = [];
 							$scope.groupArray = [];
+							$scope.onCancelClick = function() {
+								$location.path('/login');
+							};
 							$scope.getGroup = function() {
 								UserOperationsSvc
 										.getAllGroups()

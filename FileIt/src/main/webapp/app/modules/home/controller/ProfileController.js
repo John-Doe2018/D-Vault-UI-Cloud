@@ -1,16 +1,7 @@
-fileItApp
-		.controller(
-				'ProfileController',
-				[
-						'$rootScope',
-						'$scope',
-						'$location',
-						'$sessionStorage',
-						'LandingOperationsSvc',
-						'BINDER_NAME',
-						'LOGGED_USER',
-						function($rootScope, $scope, $location,
-								$sessionStorage, LandingOperationsSvc,
-								BINDER_NAME, LOGGED_USER) {
-							
-						} ]);
+fileItApp.controller('ProfileController', [ '$rootScope', '$scope',
+		'$location', '$sessionStorage', 'ACL',
+		function($rootScope, $scope, $location, $sessionStorage, ACL) {
+			$scope.userName = ACL.username;
+			$scope.role = ACL.role;
+			$scope.group = ACL.group;
+		} ]);

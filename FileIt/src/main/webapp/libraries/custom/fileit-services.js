@@ -301,7 +301,8 @@ fileItApp.value('IMAGE_URLS', {
 });
 
 fileItApp.value('LOGGED_USER', {
-	name : ''
+	name : '',
+	browser_refresh: false
 });
 
 fileItApp.value('DASHBOARD_DETALS', {

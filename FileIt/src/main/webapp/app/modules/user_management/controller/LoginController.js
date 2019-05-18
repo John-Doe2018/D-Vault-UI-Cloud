@@ -20,6 +20,12 @@ fileItApp
 								UserOperationsSvc, LoginLoadingService,
 								LoadingService, LOGGED_USER, DashboardSvc,
 								DASHBOARD_DETALS, ACL) {
+							angular.element(document).ready(function() {
+								if (LOGGED_USER.browser_refresh) {
+									$route.reload();
+								}
+							});
+
 							$rootScope.$broadcast('LogoutSucess');
 							(function($) {
 								"use strict";

@@ -1,7 +1,7 @@
 <div ng-controller="HeaderController" class="header" id="pageHeader"
 	ng-cloak>
 	<md-toolbar style="min-height: 50px !important;">
-	<div class="md-toolbar-tools"
+	<div class="md-toolbar-tools" id="headerDiv"
 		style="background-color: blueviolet; height: 50px !important;">
 		<md-button aria-label="Side Panel" ng-click="w3_open()" tabindex="0">
 		<md-icon md-svg-src="images/icons8-menu-filled.svg"
@@ -12,12 +12,12 @@
 			style="position: absolute; left: 620px; width: 10%; top: 7px; bottom: 13px; color: cornsilk; font-size: 24px;">D-</label>
 		<label class="font-style"
 			style="position: absolute; left: 648px; top: 7px; bottom: 13px; color: red; font-size: 24px; font-style: oblique;">Vault</label>
-		<md-button style="left: -170px;"> <md-icon
+		<md-button style="left: -169px;"> <md-icon
 			md-svg-src="images/d vault.svg" aria-label="Home"
 			ng-click="backtoHome()"
 			style="height: 67px;width: 132px;margin-left: -79%; outline: none;"></md-icon></md-button>
-		<p id="demo" style="margin: 2%; color: aliceblue; width: 76px;"></p>
-		<input type="text" name="Search" ng-model="searchText"
+		<p id="demo" style="margin: 1%; color: aliceblue; width: 80px;"></p>
+		<input type="text" name="Search" ng-model="searchText" maxlength="10"
 			autocomplete="off" placeholder="Search" required>
 		<md-button class="md-fab md-mini" aria-label="Search"
 			style="background-color: blueviolet;"
@@ -54,7 +54,7 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+<div class="modal fade" id="searchModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
