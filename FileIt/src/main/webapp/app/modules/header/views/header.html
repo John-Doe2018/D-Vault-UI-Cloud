@@ -26,15 +26,17 @@
 		<md-menu> <md-button
 			class="md-fab md-mini dropdown-toggle user-bottom"
 			data-toggle="dropdown" aria-label="Profile" ng-click="$mdOpenMenu()">
-		<md-icon md-svg-src="images/user.svg" aria-label="User"></md-icon></md-button> <md-menu-content>
-		<md-menu-item> <md-menu> <md-button
+		<md-icon md-svg-src="images/user.svg" aria-label="User"></md-icon></md-button> <md-menu-content
+			width="1"> <md-menu-item> <md-button
 			ng-click="gotoProfile()"> <md-icon
-			md-svg-src="images/profile.svg" aria-label="Profile"></md-icon></md-button> </md-menu> </md-menu-item> <md-menu-item>
-		<md-menu> <md-button ng-click="gotoSettings()">
-		<md-icon md-svg-src="images/settings.svg" aria-label="Settings"></md-icon></md-button>
-		</md-menu> </md-menu-item> <md-menu-item> <md-menu> <md-button
+			style="margin-left: 30% !important;" md-svg-src="images/profile.svg"
+			aria-label="Profile"></md-icon></md-button> </md-menu-item> <md-menu-item> <md-button
+			ng-click="gotoSettings()"> <md-icon
+			style="margin-left: 30% !important;" md-svg-src="images/settings.svg"
+			aria-label="Settings"></md-icon></md-button> </md-menu-item> <md-menu-item> <md-button
 			ng-click="logout()"> <md-icon
-			md-svg-src="images/logout.svg" aria-label="Logout"></md-icon></md-button> </md-menu> </md-menu-item> </md-menu-content> </md-menu>
+			style="margin-left: 30% !important;" md-svg-src="images/logout.svg"
+			aria-label="Logout"></md-icon></md-button> </md-menu-item> </md-menu-content> </md-menu>
 	</div>
 	<div class="w3-sidebar w3-light-grey w3-animate-left"
 		style="display: none;" id="mySidebar">

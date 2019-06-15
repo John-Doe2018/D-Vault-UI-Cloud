@@ -20,12 +20,13 @@ fileItApp
 						'DASHBOARD_DETALS',
 						'$mdDialog',
 						'ACL',
+						'$mdToast',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder,
 								LandingOperationsSvc, BINDER_NAME, rfc4122,
 								$route, IMAGE_URLS, LoadingService, $http,
 								FILEIT_CONFIG, BINDER_SVC, DASHBOARD_DETALS,
-								$mdDialog, ACL) {
+								$mdDialog, ACL, $mdToast) {
 							$scope.viewSwitch = 'ThumbnailView';
 							$scope.onViewChange = function() {
 								$scope.viewSwitch = 'BookView';
@@ -782,13 +783,27 @@ fileItApp
 							});
 
 							$scope.onOptionClick = function() {
-								if ($scope.optselect === 'view') {
-									$scope.onnodeclick($scope.nodeNaME);
-								} else if ($scope.optselect === 'delete') {
-									$scope.removeFile(this,
-											$scope.nodeNaME.title);
-								} else if ($scope.optselect === 'download') {
-									$scope.downloadFile($scope.nodeNaME.title);
+								if($scope.rangestart >= $scope.totalpages){
+									if ($scope.optselect === 'view') {
+										$scope.onnodeclick($scope.nodeNaME);
+									} else if ($scope.optselect === 'delete') {
+										$scope.removeFile(this,
+												$scope.nodeNaME.title);
+									} else if ($scope.optselect === 'download') {
+										$scope.downloadFile($scope.nodeNaME.title);
+									}
+								} else {
+									$mdToast
+									.show($mdToast
+											.simple()
+											.textContent(
+													"Please wait untill all pages load")
+											.position(
+													'bottom')
+											.theme(
+													'error-toast')
+											.hideDelay(
+													3000));
 								}
 							};
 

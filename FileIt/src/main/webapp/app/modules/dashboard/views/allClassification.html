@@ -5,32 +5,34 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div layout="row" layout-align="start start">
-		<div flex="100">
-			<md-card> <md-card-header> <md-card-header-text>
-			<span class="md-title font-style"
-				style="font-size: 25px; color: blue;"><md-icon
-					md-svg-src="images/class.svg" aria-label="Classifications"></md-icon>Classifications</span>
-			<span class="md-subhead font-style">Total Count : {{count}} </span> </md-card-header-text>
-			</md-card-header> </md-card>
+	<div id="allClassPage">
+		<div layout="row" layout-align="start start">
+			<div flex="100">
+				<md-card> <md-card-header> <md-card-header-text>
+				<span class="md-title font-style"
+					style="font-size: 25px; color: blue;"><md-icon
+						md-svg-src="images/class.svg" aria-label="Classifications"></md-icon>Classifications</span>
+				<span class="md-subhead font-style">Total Count : {{count}} </span>
+				</md-card-header-text> </md-card-header> </md-card>
+			</div>
 		</div>
-	</div>
-	<div class='md-padding' layout="row" layout-wrap>
-		<md-card style="width: 250px;" ng-repeat="x in records"> <md-card-header>
-		<md-card-header-text> <span
-			class="md-title font-style">{{x.classification}}</span> <span
-			class="md-subhead font-style">Book Count : {{x.count}} </span> </md-card-header-text> </md-card-header>
-		<div class="md-actions" layout="row" layout-align="end center">
-			<md-button md-no-ink class="md-primary"
-				ng-click="shelfView(x.classification)"> <md-icon
-				md-svg-src="images/visibility.svg" aria-label="View Document"></md-icon></md-button>
-			<md-button class="md-warn" ng-click="createBooks(x.classification)">
-			<i class="fa fa-plus"></i></md-button>
+		<div class='md-padding' layout="row" layout-wrap>
+			<md-card style="width: 250px;" ng-repeat="x in records"> <md-card-header>
+			<md-card-header-text> <span
+				class="md-title font-style">{{x.classification}}</span> <span
+				class="md-subhead font-style">Book Count : {{x.count}} </span> </md-card-header-text> </md-card-header>
+			<div class="md-actions" layout="row" layout-align="end center">
+				<md-button md-no-ink class="md-primary"
+					ng-click="shelfView(x.classification)"> <md-icon
+					md-svg-src="images/visibility.svg" aria-label="View Document"></md-icon></md-button>
+				<md-button class="md-warn" ng-click="createBooks(x.classification)">
+				<i class="fa fa-plus"></i></md-button>
+			</div>
+			</md-card>
 		</div>
-		</md-card>
 	</div>
 	<div class="row col-sm-12"
-		style="background-color: blueviolet; bottom: 0;">
+		style="background-color: blueviolet; bottom: 0;" id="footer">
 		<div class="col-sm-3">
 			<a href="http://tranfode.com/" target="_new"><img
 				src="images/tranfode.png"></a>

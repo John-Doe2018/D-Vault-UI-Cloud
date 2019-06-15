@@ -8,6 +8,12 @@ fileItApp.controller('AllClassificationController', [
 		'DashboardSvc',
 		function($rootScope, $scope, $location, $sessionStorage, Idle,
 				DASHBOARD_DETALS, DashboardSvc) {
+			$scope.resize = function() {
+				var newheight = $(window).height() - $('#pageHeader').height() - $('#footer').height();
+				$("#allClassPage").height(newheight);
+			};
+
+			$scope.resize();
 			$scope.initialize = function() {
 				$scope.records = DASHBOARD_DETALS.classificationlist;
 				$scope.count = $scope.records.length;
