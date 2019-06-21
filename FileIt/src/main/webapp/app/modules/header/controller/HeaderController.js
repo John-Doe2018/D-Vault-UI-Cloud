@@ -23,7 +23,7 @@ fileItApp
 								BINDER_NAME, LOGGED_USER, $timeout, dateFilter,
 								$q, DashboardSvc, IMAGE_URLS, ACL, $mdToast,
 								$route, LOGGED_USER) {
-							$scope.people = [];
+							$rootScope.searchResult = [];
 							$scope.gotoSettings = function() {
 								$location.path('/settings');
 							};
@@ -41,6 +41,7 @@ fileItApp
 										.contentSearch(reqObj)
 										.then(
 												function(result) {
+													$rootScope.searchResult = [];
 													if (result.data.bookList === null
 															|| result.data.bookList.length === 0) {
 														$mdToast
@@ -55,17 +56,18 @@ fileItApp
 																		.hideDelay(
 																				3000));
 													} else {
-														for (var a = 0; a <= result.data.bookList.length; a++) {
+														for (var a = 0; a < result.data.bookList.length; a++) {
 															var dataObj = {
 																'classification' : result.data.bookList[a].classification,
 																'book' : result.data.bookList[a].bookName,
 																'fileList' : result.data.bookList[a].fileList
 															}
-															$scope.people
+															$rootScope.searchResult
 																	.push(dataObj);
 														}
 														$('#searchModal')
 																.modal('show');
+
 													}
 
 												});
@@ -91,7 +93,8 @@ fileItApp
 							$scope.logout = function() {
 								$rootScope.$broadcast('LogoutSucess');
 								LOGGED_USER.browser_refresh = true;
-								var myEl = angular.element( document.querySelector( '#headerDiv' ) );
+								var myEl = angular.element(document
+										.querySelector('#headerDiv'));
 								myEl.remove();
 								$location.path('/login');
 							};
