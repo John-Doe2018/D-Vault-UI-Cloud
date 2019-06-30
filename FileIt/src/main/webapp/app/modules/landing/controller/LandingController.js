@@ -285,12 +285,13 @@ fileItApp
 
 							$scope.showZoom = function() {
 								$(".carousel-inner").empty();
-								// for (var n = 0; n < $scope.zoomUrls.length;
-								// n++) {
-								var text1 = '<div class="item active"><img src="data:image/jpeg;base64,'
-										+ $scope.zoomUrls[0]
-										+ ' "alt="Los Angeles" style="width: 100%;border: 3px solid blueviolet;"></div>';
-								$(text1).appendTo(".carousel-inner");
+								for (var n = 0; n < $scope.zoomUrls.length; n++) {
+									var text1 = '<div class="item active"><img src="data:image/jpeg;base64,'
+											+ $scope.zoomUrls[n]
+											+ ' "alt="Los Angeles" style="width: 100%;border: 3px solid blueviolet;"></div>';
+									$(text1).appendTo(".carousel-inner");
+								}
+
 								/*
 								 * if (n == 0) { text1 = '<div class="item
 								 * active"><img src="data:image/jpeg;base64,' +
@@ -783,27 +784,25 @@ fileItApp
 							});
 
 							$scope.onOptionClick = function() {
-								if($scope.rangestart >= $scope.totalpages){
+								if ($scope.rangestart >= $scope.totalpages) {
 									if ($scope.optselect === 'view') {
 										$scope.onnodeclick($scope.nodeNaME);
 									} else if ($scope.optselect === 'delete') {
 										$scope.removeFile(this,
 												$scope.nodeNaME.title);
 									} else if ($scope.optselect === 'download') {
-										$scope.downloadFile($scope.nodeNaME.title);
+										$scope
+												.downloadFile($scope.nodeNaME.title);
 									}
 								} else {
 									$mdToast
-									.show($mdToast
-											.simple()
-											.textContent(
-													"Please wait untill all pages load")
-											.position(
-													'bottom')
-											.theme(
-													'error-toast')
-											.hideDelay(
-													3000));
+											.show($mdToast
+													.simple()
+													.textContent(
+															"Please wait untill all pages load")
+													.position('bottom').theme(
+															'error-toast')
+													.hideDelay(3000));
 								}
 							};
 
