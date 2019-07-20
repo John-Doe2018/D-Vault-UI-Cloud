@@ -42,8 +42,8 @@ fileItApp
 										.then(
 												function(result) {
 													$rootScope.searchResult = [];
-													if (result.data.bookList === null
-															|| result.data.bookList.length === 0) {
+													if (result.data.docList === null
+															|| result.data.docList.length === 0) {
 														$mdToast
 																.show($mdToast
 																		.simple()
@@ -56,11 +56,14 @@ fileItApp
 																		.hideDelay(
 																				3000));
 													} else {
-														for (var a = 0; a < result.data.bookList.length; a++) {
+														for (var a = 0; a < result.data.docList.length; a++) {
 															var dataObj = {
-																'classification' : result.data.bookList[a].classification,
-																'book' : result.data.bookList[a].bookName,
-																'fileList' : result.data.bookList[a].fileList
+																'classification' : result.data.docList[a].classification,
+																'book' : result.data.docList[a].bookName,
+																'fileName' : result.data.docList[a].fileName,
+																'date' : result.data.docList[a].date,
+																'filePath' : result.data.docList[a].filePath,
+																'user' : result.data.docList[a].userName
 															}
 															$rootScope.searchResult
 																	.push(dataObj);
@@ -116,51 +119,27 @@ fileItApp
 								$location.path('/home');
 							}
 
-							$scope.selectedBook = function(selected) {
+							$rootScope.selectedBook = function(selected) {
 								$scope.booksname = selected.book;
 								$scope.claasesname = selected.classification;
-								var reqObj = {
+								BINDER_NAME.name = $scope.booksname;
+								$scope.range = [ 1, 2 ];
+								var reqObj1 = {
 									'customHeader' : {
 										'userName' : ACL.username,
 										'role' : ACL.role,
 										'group' : ACL.group
 									},
-									bookName : $scope.booksname
+									"bookName" : $scope.booksname,
+									"classification" : $scope.claasesname,
+									"rangeList" : $scope.range
 								}
-								LandingOperationsSvc
-										.searchBook(reqObj)
-										.then(
-												function(result) {
-													if (result.data.errorId !== undefined) {
-														$rootScope
-																.$broadcast(
-																		'error',
-																		result.data.description);
-													} else {
-														BINDER_NAME.name = $scope.booksname;
-														$scope.range = [ 1, 2 ];
-														var reqObj1 = {
-															'customHeader' : {
-																'userName' : ACL.username,
-																'role' : ACL.role,
-																'group' : ACL.group
-															},
-															"bookName" : $scope.booksname,
-															"classification" : $scope.claasesname,
-															"rangeList" : $scope.range
-														}
-														LandingOperationsSvc
-																.getImage(
-																		reqObj1)
-																.then(
-																		function(
-																				result) {
-																			IMAGE_URLS.url = result.data;
-																			$location
-																					.path('/landingPage');
-																		});
-													}
-												});
+								LandingOperationsSvc.getImage(reqObj1).then(
+										function(result) {
+											IMAGE_URLS.url = result.data;
+											$('#searchModal').modal('hide');
+											$location.path('/landingPage');
+										});
 
 							};
 						} ]);

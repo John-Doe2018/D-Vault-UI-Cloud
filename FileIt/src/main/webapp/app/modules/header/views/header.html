@@ -69,7 +69,7 @@
 					Result</h4>
 			</div>
 			<div class="modal-body">
-				<div class="row" style="margin-left: 2%;" ng-repeat="n in searchResult">
+				<!-- <div class="row" style="margin-left: 2%;" ng-repeat="n in searchResult">
 					<div
 						style="font-family: monospace; color: blue; font-size: large; font-weight: bold;">Classification
 						: {{n.classification}}</div>
@@ -84,7 +84,30 @@
 						</ul>
 					</div>
 				</div>
+ -->
 
+				<table class="table table-striped table-condensed table-hover"
+					style="margin-top: 1%;">
+					<thead style="background-color: lightgrey !important;">
+						<tr>
+							<th class="no font-style">Classification</th>
+							<th class="classification font-style">Book</th>
+							<th class="count font-style">File</th>
+							<th class="Add font-style">User</th>
+							<th class="Add font-style">Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in searchResult">
+							<th scope="row">{{item.classification}}</th>
+							<td>{{item.book}}</td>
+							<td><a class="text-danger" href="javascript:void(0)"
+								ng-click="selectedBook(item)" class="font-style">{{item.fileName}}</a></td>
+							<td>{{item.user}}</td>
+							<td>{{item.date}}</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
