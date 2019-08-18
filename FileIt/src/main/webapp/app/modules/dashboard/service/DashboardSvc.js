@@ -9,6 +9,12 @@ fileItApp.factory('DashboardSvc', [ 'RestSvc', 'EncoderSvc', '$sessionStorage',
 				getbookmark : function(reqObj) {
 
 					return RestSvc.postData(BINDER_SVC.getbookmark, reqObj);
-				}
+				},
+				
+				getActiveUsers : function() {
+
+					return RestSvc.getData(BINDER_SVC.getActiveUsers);
+				},
+				
 			};
 		} ]);

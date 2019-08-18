@@ -14,11 +14,12 @@
 						ng-click="downloadFile('multiple');"><span
 							class="glyphicon glyphicon-download-alt"></span></a>
 						<ul style="overflow-x: hidden; overflow-y: scroll;">
-							<li class="has-sub" ng-repeat="nodearray in node.nodes"><a
+							<li class="has-sub"
+								ng-repeat="nodearray in node.nodes | orderBy:'firstIndex'"><a
 								href="javascript:void(0)" ng-click="openBookPopUp(nodearray)"><p
 										class="font-style font-size16"
 										style="width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-										<input type="checkbox" value="{{node.title}}" name="sport">{{nodearray.title}}
+										<input type="checkbox" value="{{node.title}}" name="sport">{{nodearray.title}}[{{nodearray.firstIndex}}-{{nodearray.lastIndex}}]
 									</p></a></li>
 						</ul></li>
 				</ul>
@@ -28,7 +29,7 @@
 			<md-switch ng-model="viewSwitch" aria-label="Switch View"
 				ng-change="onViewChange()"> {{ viewSwitch }} </md-switch>
 		</div>
-		<div class="col-sm-2">Page loaded :
+		<!-- <div class="col-sm-2">Page loaded :
 			{{rangestart}}/{{totalpages}}</div>
 		<div class="col-sm-1 form-group">
 			<input type="text" class="form-control" id="goto" ng-model="pageNo"
@@ -36,9 +37,9 @@
 		</div>
 		<div class="col-sm-1">
 			<md-button aria-label="Side Panel" ng-click="gotoPage()"
-				style="margin-top: -1%; margin-left: -27%; background:transparent;"> <md-icon
-				md-svg-src="images/forward.svg"></md-icon></md-button>
-		</div>
+				style="margin-top: -1%; margin-left: -27%; background:transparent;">
+			<md-icon md-svg-src="images/forward.svg"></md-icon></md-button>
+		</div> -->
 		<div class="w3-container">
 			<div class="book_wrapper" id="bookContainer">
 				<a id="next_page_button" ng-click="nextButtonClick();"></a> <a

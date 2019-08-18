@@ -27,70 +27,16 @@ fileItApp
 								$route, IMAGE_URLS, LoadingService, $http,
 								FILEIT_CONFIG, BINDER_SVC, DASHBOARD_DETALS,
 								$mdDialog, ACL, $mdToast) {
+							$scope.rangeBegin = 2;
+							$scope.zoomUrls = [];
+							$scope.nodearray = [];
+							$scope.fileList = [];
 							$scope.viewSwitch = 'ThumbnailView';
 							$scope.onViewChange = function() {
 								$scope.viewSwitch = 'BookView';
 								$location.path('/thumbnailView');
 							};
-							$scope.zoomUrls = [];
-							$scope.validFile = true;
-							$scope.totalpages = 0;
-							$scope.openBookPopUp = function(nodeName) {
-								$scope.optselect = undefined;
-								$scope.nodeNaME = nodeName;
-								$('#fileModal').modal('show');
-							};
-							var myVar = setInterval(addImage, 3000);
-							$scope.rangestart = 2;
-							function addImage() {
-								if ($scope.viewSwitch === 'BookView') {
-									clearInterval(this);
-								} else {
-									if (($scope.rangestart + 1) <= $scope.totalpages) {
-										$scope.range = [ $scope.rangestart + 1,
-												$scope.rangestart + 2 ];
-										var reqObj1 = {
-											'customHeader' : {
-												'userName' : ACL.username,
-												'role' : ACL.role,
-												'group' : ACL.group
-											},
-											"bookName" : BINDER_NAME.name,
-											"classification" : DASHBOARD_DETALS.booklist,
-											"rangeList" : $scope.range
-										}
-										LandingOperationsSvc
-												.getImage(reqObj1)
-												.then(
-														function(result) {
-															LoadingService
-																	.hideLoad();
-															IMAGE_URLS.url = result.data;
-															if (IMAGE_URLS.url.length === 0) {
-																clearInterval(myVar);
-															} else {
-																for (var n = 0; n < IMAGE_URLS.url.length; n++) {
-																	$scope.zoomUrls
-																			.push(IMAGE_URLS.url[n]);
-																	$('#mybook')
-																			.booklet(
-																					"add",
-																					"end",
-																					'<div><img src="data:image/jpeg;base64,'
-																							+ IMAGE_URLS.url[n]
-																							+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
-
-																}
-															}
-
-														});
-										$scope.rangestart += 2;
-									}
-								}
-
-							}
-
-							$scope.onnodeclick = function(nodearray) {
+							$scope.getData = function() {
 								var reqObj = {
 									'customHeader' : {
 										'userName' : ACL.username,
@@ -98,9 +44,8 @@ fileItApp
 										'group' : ACL.group
 									},
 									'bookName' : BINDER_NAME.name,
-									'fileName' : nodearray.title
+									'classification' : DASHBOARD_DETALS.booklist
 								}
-
 								LandingOperationsSvc
 										.getPageIndex(reqObj)
 										.then(
@@ -111,164 +56,32 @@ fileItApp
 																		'error',
 																		result.data.description);
 													} else {
-														if ($scope.rangestart < result.data.firstIndex) {
-															$rootScope
-																	.$broadcast(
-																			'error',
-																			"Page is loading.. Please wait..");
-														} else {
-															$('#mybook')
-																	.booklet(
-																			"gotopage",
-																			result.data.firstIndex);
-														}
-
-													}
-												});
-							};
-							$scope.totalgetPageDetails = function() {
-								for (var r = 0; r < $scope.nodearray.length; r++) {
-									var reqObj = {
-										'customHeader' : {
-											'userName' : ACL.username,
-											'role' : ACL.role,
-											'group' : ACL.group
-										},
-										'bookName' : BINDER_NAME.name,
-										'fileName' : $scope.nodearray[r].title
-									}
-
-									LandingOperationsSvc
-											.getPageIndex(reqObj)
-											.then(
-													function(result) {
-														if (result.data.errorId !== undefined) {
-															$rootScope
-																	.$broadcast(
-																			'error',
-																			result.data.description);
-														} else {
-															$scope.nodearray[r - 1].firstIndex = result.data.firstIndex;
-															$scope.nodearray[r - 1].lastIndex = result.data.lastIndex;
-															if (r === $scope.nodearray.length) {
-																$scope.totalpages = result.data.lastIndex;
-															}
-														}
-													});
-
-								}
-							};
-							$scope.getData = function() {
-								var reqObj = {
-									'customHeader' : {
-										'userName' : ACL.username,
-										'role' : ACL.role,
-										'group' : ACL.group
-									},
-									'bookname' : BINDER_NAME.name,
-									'classificationname' : DASHBOARD_DETALS.booklist
-								}
-								LandingOperationsSvc
-										.treeList(reqObj)
-										.then(
-												function(result) {
-													if (result.data.errorId !== undefined) {
-														$rootScope
-																.$broadcast(
-																		'error',
-																		result.data.description);
-													} else {
 														var resultObj = result.data;
-														var a = resultObj.map.body.topicref.topic;
-														if (angular.isArray(a)) {
-															for (var x = 0; x < a.length; x++) {
+														if (resultObj.pageDetailsList !== undefined) {
+															for (var x = 0; x < resultObj.pageDetailsList.length; x++) {
 																var nodeObj = {
-																	'id' : a[x].id,
-																	'title' : a[x].name,
-																	'path' : a[x].path,
-																	'firstIndex' : '',
-																	'lastIndex' : ''
+																	'id' : x,
+																	'title' : resultObj.pageDetailsList[x].fileName,
+																	'firstIndex' : resultObj.pageDetailsList[x].firstIndex,
+																	'lastIndex' : resultObj.pageDetailsList[x].lastIndex
 																}
 																$scope.nodearray
 																		.push(nodeObj);
 															}
-														} else {
-															var nodeObj = {
-																'id' : a.id,
-																'title' : a.name,
-																'path' : a.path,
-																'firstIndex' : '',
-																'lastIndex' : ''
-															}
-															$scope.nodearray
-																	.push(nodeObj);
 														}
 
 														var nodeObjMaster = {
-															'id' : resultObj.map.id,
-															'title' : resultObj.map.body.topicref.navtitle,
+															'id' : 1,
 															'nodes' : $scope.nodearray
 														};
 														$scope.data = [];
 														$scope.data
 																.push(nodeObjMaster);
-														$scope
-																.totalgetPageDetails();
+														$scope.totalpages = $scope.nodearray[$scope.nodearray.length - 1].lastIndex;
 
 													}
 												});
 							};
-
-							$scope.downloadFile = function(name) {
-								$scope.filelist = [];
-								if (name === 'multiple') {
-									$.each($("input[name='sport']:checked"),
-											function() {
-												$scope.filelist.push($(this)
-														.val());
-											});
-								} else {
-									$scope.filelist.push(name);
-								}
-
-								var reqObj = {
-									'customHeader' : {
-										'userName' : ACL.username,
-										'role' : ACL.role,
-										'group' : ACL.group
-									},
-									"bookName" : BINDER_NAME.name,
-									'classificationname' : DASHBOARD_DETALS.booklist,
-									"fileName" : $scope.filelist
-								}
-								LandingOperationsSvc
-										.downloadFile(reqObj)
-										.then(
-												function(result) {
-													if (result.data.errorId !== undefined) {
-														$rootScope
-																.$broadcast(
-																		'error',
-																		result.data.description);
-													} else {
-
-														var a = document
-																.createElement("a");
-														a.href = result.data.URL;
-														fileName = result.data.URL
-																.split("/")
-																.pop();
-														a.target = "_blank";
-														document.body
-																.appendChild(a);
-														a.click();
-														window.URL
-																.revokeObjectURL(result.data.URL);
-														a.remove();
-													}
-												});
-
-							}
 
 							$scope.getImage = function() {
 								for (var n = 0; n < IMAGE_URLS.url.length; n++) {
@@ -281,178 +94,30 @@ fileItApp
 								$scope.getData();
 							};
 							$scope.getImage();
-							$scope.zoomcount = 0;
 
-							$scope.showZoom = function() {
-								$(".carousel-inner").empty();
-								for (var n = 0; n < $scope.zoomUrls.length; n++) {
-									var text1 = '<div class="item active"><img src="data:image/jpeg;base64,'
-											+ $scope.zoomUrls[n]
-											+ ' "alt="Los Angeles" style="width: 100%;border: 3px solid blueviolet;"></div>';
-									$(text1).appendTo(".carousel-inner");
-								}
-
-								/*
-								 * if (n == 0) { text1 = '<div class="item
-								 * active"><img src="data:image/jpeg;base64,' +
-								 * $scope.zoomUrls[n] + ' "alt="Los Angeles"
-								 * style="width: 100%;"></div>'; } else { text1 = '<div
-								 * class="item"><img
-								 * src="data:image/jpeg;base64,' +
-								 * $scope.zoomUrls[n] + ' "alt="Los Angeles"
-								 * style="width: 100%;"></div>'; }
-								 */
-
-								// }
-								$('#fsModal').modal('show');
-							};
-
-							$('.carousel-control.left').click(function() {
-								$('#myCarousel').carousel('prev');
+							$('input[type=radio]').click(function() {
+								$scope.optselect = $(this).val();
 							});
 
-							$('.carousel-control.right')
-									.click(
-											function() {
-												$scope.zoomcount += 1;
-												if ($scope.zoomcount >= $scope.zoomUrls.length) {
-													$scope.range = [
-															$scope.zoomcount,
-															$scope.zoomcount + 2 ];
-													var reqObj1 = {
-														'customHeader' : {
-															'userName' : ACL.username,
-															'role' : ACL.role,
-															'group' : ACL.group
-														},
-														"bookName" : BINDER_NAME.name,
-														"classification" : DASHBOARD_DETALS.booklist,
-														"rangeList" : $scope.range
-													}
-													LandingOperationsSvc
-															.getImage(reqObj1)
-															.then(
-																	function(
-																			result) {
-																		IMAGE_URLS.url = result.data;
-																		for (var n = 0; n < IMAGE_URLS.url.length; n++) {
-																			$scope.zoomUrls
-																					.push(IMAGE_URLS.url[n]);
-
-																			var text1 = '<div class="item"><img src="data:image/jpeg;base64,'
-																					+ IMAGE_URLS.url[n]
-																					+ ' "alt="Page" style="width: 100%;border: 3px solid blueviolet;"></div>';
-																			$(
-																					text1)
-																					.appendTo(
-																							".carousel-inner");
-																			$(
-																					'#myCarousel')
-																					.carousel(
-																							'next');
-
-																		}
-
-																	});
-
-												} else {
-													var text1 = '<div class="item"><img src="data:image/jpeg;base64,'
-															+ $scope.zoomUrls[$scope.zoomcount]
-															+ ' "alt="Page" style="width: 100%;border: 3px solid blueviolet;"></div>';
-													$(text1).appendTo(
-															".carousel-inner");
-													$('#myCarousel').carousel(
-															'next');
-												}
-											});
-
-							$scope.onFileDownload = function() {
-								var reqObj = {
-									'customHeader' : {
-										'userName' : ACL.username,
-										'role' : ACL.role,
-										'group' : ACL.group
-									},
-									"bookName" : BINDER_NAME.name,
-									'classificationname' : DASHBOARD_DETALS.booklist,
-								}
-								LandingOperationsSvc
-										.downloadFile(reqObj)
-										.then(
-												function(result) {
-													if (result.data.errorId !== undefined) {
-														$rootScope
-																.$broadcast(
-																		'error',
-																		result.data.description);
-													} else {
-														console
-																.log(result.data.URL);
-														var a = document
-																.createElement("a");
-														a.href = result.data.URL;
-														fileName = result.data.URL
-																.split("/")
-																.pop();
-														a.download = fileName;
-														document.body
-																.appendChild(a);
-														a.click();
-														window.URL
-																.revokeObjectURL(result.data.URL);
-														a.remove();
-													}
-												});
-
-							}
-
-							var bookScope;
-
-							$scope.removeFile = function(scope, fileName) {
-								$rootScope.$broadcast('showConfirmModal');
-								$scope.deleteFileName = fileName;
-								bookScope = scope;
+							$scope.openSideBar = function() {
+								document.getElementById("main").style.marginLeft = "15%";
+								document.getElementById("mySidebar1").style.width = "15%";
+								document.getElementById("mySidebar1").style.display = "block";
+								document.getElementById("openNav").style.display = 'none';
+								$("#bookContainer").css("margin-top", "-1%");
+								$rootScope.$broadcast('closesidebar');
 							};
 
-							$scope
-									.$on(
-											'confirmAgreed',
-											function() {
-												var requestObj = {
-													'customHeader' : {
-														'userName' : ACL.username,
-														'role' : ACL.role,
-														'group' : ACL.group
-													},
-													'bookName' : BINDER_NAME.name,
-													'fileName' : $scope.deleteFileName,
-													'bookcreated' : true,
-													'classificationName' : DASHBOARD_DETALS.booklist
-												}
-												LandingOperationsSvc
-														.deleteFile(requestObj)
-														.then(
-																function(result) {
-																	if (result.data.Success !== undefined) {
-																		bookScope
-																				.remove(this);
-																		bookScope = null;
-																		$route
-																				.reload();
-																	} else {
-																		$rootScope
-																				.$broadcast(
-																						'error',
-																						result.data.description);
-																	}
-																});
-											});
-
-							$scope.closeModal = function() {
-								$scope.fileList = [];
+							$scope.closeSideBar = function() {
+								document.getElementById("main").style.marginLeft = "0%";
+								document.getElementById("mySidebar1").style.display = "none";
+								document.getElementById("openNav").style.display = "inline-block";
+								$("#bookContainer").css("margin-top", "-4%");
 							}
 
-							$scope.fileList = [];
+							$scope.$on('closesidebarLanding', function(event) {
+								$scope.closeSideBar();
+							});
 
 							$scope.addFlieClick = function() {
 								$('#addFileModal').modal('show');
@@ -572,6 +237,7 @@ fileItApp
 										'group' : ACL.group
 									},
 									bookName : BINDER_NAME.name,
+									classifcationName : DASHBOARD_DETALS.booklist,
 									oBookRequests : $scope.fileList
 								};
 								LandingOperationsSvc
@@ -600,30 +266,14 @@ fileItApp
 								elem.scrollTop = elem.scrollHeight;
 							}, 5000);
 
-							$scope.openSideBar = function() {
-								document.getElementById("main").style.marginLeft = "15%";
-								document.getElementById("mySidebar1").style.width = "15%";
-								document.getElementById("mySidebar1").style.display = "block";
-								document.getElementById("openNav").style.display = 'none';
-								$("#bookContainer").css("margin-top", "-1%");
-								$rootScope.$broadcast('closesidebar');
-							};
-
-							$scope.closeSideBar = function() {
-								document.getElementById("main").style.marginLeft = "0%";
-								document.getElementById("mySidebar1").style.display = "none";
-								document.getElementById("openNav").style.display = "inline-block";
-								$("#bookContainer").css("margin-top", "-4%");
-							}
-
-							$scope.$on('closesidebarLanding', function(event) {
-								$scope.closeSideBar();
-							});
-
 							$scope.$on('onNodeClick', function(event, node) {
 								console.log(node);
 								$location.path('/docView');
 							});
+
+							$scope.closeModal = function() {
+								$scope.fileList = [];
+							};
 
 							$scope.deletebook = function(bookname) {
 								var deleteObj = {
@@ -651,6 +301,46 @@ fileItApp
 												});
 							}
 
+							$scope.onFileDownload = function() {
+								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
+									"bookName" : BINDER_NAME.name,
+									'classificationname' : DASHBOARD_DETALS.booklist,
+								}
+								LandingOperationsSvc
+										.downloadFile(reqObj)
+										.then(
+												function(result) {
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														console
+																.log(result.data.URL);
+														var a = document
+																.createElement("a");
+														a.href = result.data.URL;
+														fileName = result.data.URL
+																.split("/")
+																.pop();
+														a.download = fileName;
+														document.body
+																.appendChild(a);
+														a.click();
+														window.URL
+																.revokeObjectURL(result.data.URL);
+														a.remove();
+													}
+												});
+
+							}
+
 							$scope.removeBook = function(ev) {
 								var confirm = $mdDialog
 										.confirm()
@@ -674,64 +364,156 @@ fileItApp
 
 							}
 
-							$scope.toggle = function(scope) {
-								scope.toggle();
+							$scope.showZoom = function() {
+								$(".carousel-inner").empty();
+								for (var n = 0; n < $scope.zoomUrls.length; n++) {
+									var text1 = '<div class="item active"><img src="data:image/jpeg;base64,'
+											+ $scope.zoomUrls[n]
+											+ ' "alt="Los Angeles" style="width: 100%;border: 3px solid blueviolet;"></div>';
+									$(text1).appendTo(".carousel-inner");
+								}
+
+								/*
+								 * if (n == 0) { text1 = '<div class="item
+								 * active"><img src="data:image/jpeg;base64,' +
+								 * $scope.zoomUrls[n] + ' "alt="Los Angeles"
+								 * style="width: 100%;"></div>'; } else { text1 = '<div
+								 * class="item"><img
+								 * src="data:image/jpeg;base64,' +
+								 * $scope.zoomUrls[n] + ' "alt="Los Angeles"
+								 * style="width: 100%;"></div>'; }
+								 */
+
+								// }
+								$('#fsModal').modal('show');
 							};
 
-							$scope.moveLastToTheBeginning = function() {
-								var a = $scope.data.pop();
-								$scope.data.splice(0, 0, a);
-							};
-
-							$scope.newSubItem = function(scope) {
-								var nodeData = scope.$modelValue;
-								nodeData.nodes.push({
-									id : nodeData.id * 10
-											+ nodeData.nodes.length,
-									title : nodeData.title + '.'
-											+ (nodeData.nodes.length + 1),
-									nodes : []
-								});
-							};
-
-							$scope.collapseAll = function() {
-								$scope
-										.$broadcast('angular-ui-tree:collapse-all');
-							};
-
-							$scope.expandAll = function() {
-								$scope.$broadcast('angular-ui-tree:expand-all');
-							};
-
-							$scope.testArray = [ "1", "2" ];
-
-							$scope.pageCount = 0;
-
-							$scope.nodearray = [];
-
-							$("#mybook").bind("bookletadd",
-									function(event, data) {
-
-									});
-
-							$scope.servicecounter = 1;
-							$scope.actualcounter = 1;
-
-							$('#prev_page_button')
-									.click(
-											function(e) {
-												e.preventDefault();
-												$scope.actualcounter = $scope.actualcounter - 2;
+							$scope
+									.$on(
+											'confirmAgreed',
+											function() {
+												var requestObj = {
+													'customHeader' : {
+														'userName' : ACL.username,
+														'role' : ACL.role,
+														'group' : ACL.group
+													},
+													'bookName' : BINDER_NAME.name,
+													'fileName' : $scope.deleteFileName,
+													'bookcreated' : true,
+													'classificationName' : DASHBOARD_DETALS.booklist
+												}
+												LandingOperationsSvc
+														.deleteFile(requestObj)
+														.then(
+																function(result) {
+																	if (result.data.Success !== undefined) {
+																		bookScope
+																				.remove(this);
+																		bookScope = null;
+																		$route
+																				.reload();
+																	} else {
+																		$rootScope
+																				.$broadcast(
+																						'error',
+																						result.data.description);
+																	}
+																});
 											});
+
+							$scope.removeFile = function(scope, fileName) {
+								$rootScope.$broadcast('showConfirmModal');
+								$scope.deleteFileName = fileName;
+								bookScope = scope;
+							};
+
+							$scope.downloadFile = function(name) {
+								$scope.filelist = [];
+								if (name === 'multiple') {
+									$.each($("input[name='sport']:checked"),
+											function() {
+												$scope.filelist.push($(this)
+														.val());
+											});
+								} else {
+									$scope.filelist.push(name);
+								}
+
+								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
+									"bookName" : BINDER_NAME.name,
+									'classificationname' : DASHBOARD_DETALS.booklist,
+									"fileName" : $scope.filelist
+								}
+								LandingOperationsSvc
+										.downloadFile(reqObj)
+										.then(
+												function(result) {
+													if (result.data.errorId !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+
+														var a = document
+																.createElement("a");
+														a.href = result.data.URL;
+														fileName = result.data.URL
+																.split("/")
+																.pop();
+														a.target = "_blank";
+														document.body
+																.appendChild(a);
+														a.click();
+														window.URL
+																.revokeObjectURL(result.data.URL);
+														a.remove();
+													}
+												});
+
+							}
+
+							$scope.openBookPopUp = function(nodeName) {
+								$scope.optselect = undefined;
+								$scope.nodeNaME = nodeName;
+								$('#fileModal').modal('show');
+							};
+
+							$scope.onOptionClick = function() {
+								if ($scope.optselect === 'view') {
+									$scope.onnodeclick($scope.nodeNaME);
+								} else if ($scope.optselect === 'delete') {
+									$scope.removeFile(this,
+											$scope.nodeNaME.title);
+								} else if ($scope.optselect === 'download') {
+									$scope.downloadFile($scope.nodeNaME.title);
+								}
+							};
+
+							$scope.currentPage = 2;
+							$('.carousel-control.left').click(function() {
+								$('#myCarousel').carousel('prev');
+							});
+
+							$('#prev_page_button').click(function() {
+								if ($scope.currentPage > 2) {
+									$scope.currentPage -= 2;
+								}
+							});
+
 							$('#next_page_button')
 									.click(
-											function(e) {
-												e.preventDefault();
-												$scope.actualcounter += 1;
-												if ($scope.actualcounter > $scope.rangestart) {
+											function() {
+												if (($scope.currentPage + 2) > $scope.rangeBegin) {
 													$scope.range = [
-															$scope.servicecounter + 1,
-															$scope.servicecounter + 2 ];
+															$scope.rangeBegin + 1,
+															$scope.rangeBegin + 2 ];
 													var reqObj1 = {
 														'customHeader' : {
 															'userName' : ACL.username,
@@ -749,6 +531,7 @@ fileItApp
 																			result) {
 																		IMAGE_URLS.url = result.data;
 																		for (var n = 0; n < IMAGE_URLS.url.length; n++) {
+																			$scope.zoomUrls = [];
 																			$scope.zoomUrls
 																					.push(IMAGE_URLS.url[n]);
 																			$(
@@ -761,51 +544,16 @@ fileItApp
 																									+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
 
 																		}
-																		$scope.servicecounter += 2;
-																		$scope.actualcounter += 2;
+																		$scope.currentPage += 2;
+																		$scope.rangeBegin += 2;
 																	});
-
 												}
+
 											});
 
-							$scope.gotoPage = function() {
-								if ($scope.actualcounter > $scope.pageNo) {
-									$('#mybook').booklet("gotopage",
-											$scope.pageNo);
-								} else {
-									$('#mybook').booklet("gotopage",
-											$scope.pageNo);
-									$scope.actualcounter = $scope.pageNo;
-								}
-							}
-							$('input[type=radio]').click(function() {
-								$scope.optselect = $(this).val();
-
+							$('.carousel-control.right').click(function() {
+								$('#myCarousel').carousel('next');
 							});
-
-							$scope.onOptionClick = function() {
-								if ($scope.rangestart >= $scope.totalpages) {
-									if ($scope.optselect === 'view') {
-										$scope.onnodeclick($scope.nodeNaME);
-									} else if ($scope.optselect === 'delete') {
-										$scope.removeFile(this,
-												$scope.nodeNaME.title);
-									} else if ($scope.optselect === 'download') {
-										$scope
-												.downloadFile($scope.nodeNaME.title);
-									}
-								} else {
-									$mdToast
-											.show($mdToast
-													.simple()
-													.textContent(
-															"Please wait untill all pages load")
-													.position('bottom').theme(
-															'error-toast')
-													.hideDelay(3000));
-								}
-							};
-
 							$(function() {
 								var $mybook = $('#mybook');
 								var $bttn_next = $('#next_page_button');
@@ -1105,5 +853,4 @@ fileItApp
 								});
 
 							});
-
 						} ]);

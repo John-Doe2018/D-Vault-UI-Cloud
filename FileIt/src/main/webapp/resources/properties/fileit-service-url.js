@@ -22,5 +22,6 @@ fileItApp.constant('BINDER_SVC', {
 	getAllGroups : '/binder/getAllGroups',
 	getAccessList : '/binder/getAccessList',
 	updateAccess : '/binder/updateAccess',
-	contentSearch : '/binder/search'
+	contentSearch : '/binder/search',
+	getActiveUsers : '/binder/getActiveUser'
 });

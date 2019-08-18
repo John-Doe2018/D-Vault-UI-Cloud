@@ -84,8 +84,7 @@ fileItApp.factory('RestSvc', [
 				},
 
 				postData : function(relURL, data) {
-					if (!relURL.includes("login")
-							&& !relURL.includes("getImage")) {
+					if (!relURL.includes("login")) {
 						LoadingService.showLoad();
 					}
 					var appPostUrl = FILEIT_CONFIG.apiUrl + relURL;
@@ -302,7 +301,7 @@ fileItApp.value('IMAGE_URLS', {
 
 fileItApp.value('LOGGED_USER', {
 	name : '',
-	browser_refresh: false
+	browser_refresh : false
 });
 
 fileItApp.value('DASHBOARD_DETALS', {

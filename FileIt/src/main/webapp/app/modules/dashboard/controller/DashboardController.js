@@ -68,7 +68,24 @@ fileItApp
 											IMAGE_URLS.url = result.data;
 											$location.path('/landingPage');
 										});
-							}
+							};
+							
+							$scope.activeUsers = 0;
+							$scope.getActiveUsers = function() {
+								DashboardSvc
+										.getActiveUsers()
+										.then(
+												function(result) {
+													if (result.data.errorMessage === undefined) {
+														$scope.activeUsers = result.data;
+													}
+
+												});
+
+							
+							};
+							
+							$scope.getActiveUsers();
 
 							$scope.getBookMarks = function() {
 								var reqObj = {
