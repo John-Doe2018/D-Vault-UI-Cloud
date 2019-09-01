@@ -19,7 +19,8 @@
 								href="javascript:void(0)" ng-click="openBookPopUp(nodearray)"><p
 										class="font-style font-size16"
 										style="width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-										<input type="checkbox" value="{{node.title}}" name="sport">{{nodearray.title}}[{{nodearray.firstIndex}}-{{nodearray.lastIndex}}]
+										<input id="checkbox{{nodearray.firstIndex}}" type="checkbox"
+											value="{{node.title}}" name="sport">{{nodearray.title}}
 									</p></a></li>
 						</ul></li>
 				</ul>

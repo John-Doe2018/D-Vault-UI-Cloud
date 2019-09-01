@@ -86,7 +86,9 @@ fileItApp
 							$scope.getImage = function() {
 								for (var n = 0; n < IMAGE_URLS.url.length; n++) {
 									$scope.zoomUrls.push(IMAGE_URLS.url[n]);
-									var text1 = '<div><img src="data:image/jpeg;base64,'
+									var text1 = '<div><img id="'
+											+ n
+											+ '" src="data:image/jpeg;base64,'
 											+ IMAGE_URLS.url[n]
 											+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>';
 									$(text1).appendTo(".b-load");
@@ -266,10 +268,56 @@ fileItApp
 								elem.scrollTop = elem.scrollHeight;
 							}, 5000);
 
-							$scope.$on('onNodeClick', function(event, node) {
-								console.log(node);
-								$location.path('/docView');
-							});
+							/*
+							 * $scope.$on('onNodeClick', function(event, node) {
+							 * console.log(node); $location.path('/docView');
+							 * });
+							 */
+
+							$scope.indexChanged = false;
+
+							$scope.onnodeclick = function(node) {
+								$scope.indexChanged = true;
+								var reqObj1 = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
+									"bookName" : BINDER_NAME.name,
+									"classification" : DASHBOARD_DETALS.booklist,
+									"rangeList" : [ node.firstIndex,
+											node.firstIndex + 1 ]
+								}
+								LandingOperationsSvc
+										.getImage(reqObj1)
+										.then(
+												function(result) {
+													$scope.currentPage = 2;
+													$scope.rangeBegin = 2;
+													$scope.newBookRange = node.firstIndex + 2;
+													IMAGE_URLS.url = result.data;
+													$scope.zoomUrls = [];
+													$scope.zoomUrls
+															.push(IMAGE_URLS.url[0]);
+													$scope.zoomUrls
+															.push(IMAGE_URLS.url[1]);
+													$("#0")
+															.attr(
+																	"src",
+																	"data:image/jpeg;base64,"
+																			+ IMAGE_URLS.url[0]);
+													$("#1")
+															.attr(
+																	"src",
+																	"data:image/jpeg;base64,"
+																			+ IMAGE_URLS.url[1]);
+
+													$('#mybook').booklet(
+															"gotopage", 1);
+												});
+
+							};
 
 							$scope.closeModal = function() {
 								$scope.fileList = [];
@@ -480,6 +528,8 @@ fileItApp
 							}
 
 							$scope.openBookPopUp = function(nodeName) {
+								document.getElementById("checkbox"
+										+ nodeName.firstIndex).checked = false;
 								$scope.optselect = undefined;
 								$scope.nodeNaME = nodeName;
 								$('#fileModal').modal('show');
@@ -511,9 +561,16 @@ fileItApp
 									.click(
 											function() {
 												if (($scope.currentPage + 2) > $scope.rangeBegin) {
-													$scope.range = [
-															$scope.rangeBegin + 1,
-															$scope.rangeBegin + 2 ];
+													if ($scope.indexChanged) {
+														$scope.range = [
+																$scope.newBookRange,
+																$scope.newBookRange + 1 ];
+													} else {
+														$scope.range = [
+																$scope.rangeBegin + 1,
+																$scope.rangeBegin + 2 ];
+													}
+
 													var reqObj1 = {
 														'customHeader' : {
 															'userName' : ACL.username,
@@ -529,23 +586,83 @@ fileItApp
 															.then(
 																	function(
 																			result) {
+
 																		IMAGE_URLS.url = result.data;
-																		for (var n = 0; n < IMAGE_URLS.url.length; n++) {
-																			$scope.zoomUrls = [];
+																		$scope.zoomUrls = [];
+																		var indexadd = $scope.currentPage;
+																		if ($scope.indexChanged) {
 																			$scope.zoomUrls
-																					.push(IMAGE_URLS.url[n]);
+																					.push(IMAGE_URLS.url[0]);
+																			$scope.zoomUrls
+																					.push(IMAGE_URLS.url[1]);
+																			var id1 = "#"
+																					+ indexadd;
+																			var id2 = "#"
+																					+ (indexadd + 1);
+																			if ($(id1).length) {
+																				$(
+																						id1)
+																						.attr(
+																								"src",
+																								"data:image/jpeg;base64,"
+																										+ IMAGE_URLS.url[0]);
+																			} else {
+																				$(
+																						'#mybook')
+																						.booklet(
+																								"add",
+																								"end",
+																								'<div><img id="'
+																										+ id1
+																										+ '"src="data:image/jpeg;base64,'
+																										+ IMAGE_URLS.url[0]
+																										+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
+																			}
+																			if ($(id2).length) {
+																				$(
+																						id2)
+																						.attr(
+																								"src",
+																								"data:image/jpeg;base64,"
+																										+ IMAGE_URLS.url[1]);
+																			} else {
+																				$(
+																						'#mybook')
+																						.booklet(
+																								"add",
+																								"end",
+																								'<div><img id="'
+																										+ id2
+																										+ '"src="data:image/jpeg;base64,'
+																										+ IMAGE_URLS.url[1]
+																										+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
+																			}
+																		} else {
 																			$(
 																					'#mybook')
 																					.booklet(
 																							"add",
 																							"end",
-																							'<div><img src="data:image/jpeg;base64,'
-																									+ IMAGE_URLS.url[n]
+																							'<div><img id="'
+																									+ indexadd
+																									+ '"src="data:image/jpeg;base64,'
+																									+ IMAGE_URLS.url[0]
 																									+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
-
+																			$(
+																					'#mybook')
+																					.booklet(
+																							"add",
+																							"end",
+																							'<div><img id="'
+																									+ (indexadd + 1)
+																									+ '"src="data:image/jpeg;base64,'
+																									+ IMAGE_URLS.url[1]
+																									+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
 																		}
+
 																		$scope.currentPage += 2;
 																		$scope.rangeBegin += 2;
+																		$scope.newBookRange += 2;
 																	});
 												}
 
