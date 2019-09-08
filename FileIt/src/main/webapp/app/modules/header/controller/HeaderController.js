@@ -24,9 +24,41 @@ fileItApp
 								$q, DashboardSvc, IMAGE_URLS, ACL, $mdToast,
 								$route, LOGGED_USER) {
 							$rootScope.searchResult = [];
+							$scope.bookmarkList = [];
 							$scope.gotoSettings = function() {
 								$location.path('/settings');
 							};
+							$scope.onViewBookmark = function() {
+								$rootScope.$broadcast('closesidebar');
+								$location.path('/bookmarks');
+							};
+
+							$scope.getBookMarks = function() {
+								$scope.favlength = 0;
+								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
+									'userName' : LOGGED_USER.name,
+									'bookName' : "",
+									'classificationName' : ""
+								}
+								DashboardSvc
+										.getbookmark(reqObj)
+										.then(
+												function(result) {
+													if (result.data.errorMessage === null) {
+														DASHBOARD_DETALS.bookmarklist = result.data.bookmarkDetailsList;
+														$scope.favlength = DASHBOARD_DETALS.bookmarklist.length;
+													}
+
+												});
+
+							};
+							$scope.getBookMarks();
+
 							$scope.getMatches = function(searchText) {
 								$scope.people = [];
 								var reqObj = {

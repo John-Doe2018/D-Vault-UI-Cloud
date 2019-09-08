@@ -35,12 +35,12 @@
 		<div class="col-sm-1 form-group">
 			<input type="text" class="form-control" id="goto" ng-model="pageNo"
 				placeholder="Go to.." style="height: 32px; width: 100px;">
-		</div>
-		<div class="col-sm-1">
-			<md-button aria-label="Side Panel" ng-click="gotoPage()"
-				style="margin-top: -1%; margin-left: -27%; background:transparent;">
-			<md-icon md-svg-src="images/forward.svg"></md-icon></md-button>
 		</div> -->
+		<div class="col-sm-1">
+			<md-button aria-label="Back" ng-click="backToBookView()"
+				style="margin-top: 11%; background:transparent;"> <md-icon
+				md-svg-src="images/back-arrow.svg"></md-icon></md-button>
+		</div>
 		<div class="w3-container">
 			<div class="book_wrapper" id="bookContainer">
 				<a id="next_page_button" ng-click="nextButtonClick();"></a> <a

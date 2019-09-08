@@ -9,13 +9,19 @@
 		<div class="md-ripple-container"></div>
 		</md-button>
 		<span flex></span> <label class="font-style"
-			style="position: absolute; left: 620px; width: 10%; top: 7px; bottom: 13px; color: cornsilk; font-size: 24px;">D-</label>
+			style="position: absolute; left: 42%; width: 10%; top: 7px; bottom: 13px; color: cornsilk; font-size: 24px;">D-</label>
 		<label class="font-style"
-			style="position: absolute; left: 648px; top: 7px; bottom: 13px; color: red; font-size: 24px; font-style: oblique;">Vault</label>
+			style="position: absolute; left: 44%; top: 7px; bottom: 13px; color: red; font-size: 24px; font-style: oblique;">Vault</label>
 		<md-button style="left: -169px;"> <md-icon
 			md-svg-src="images/d vault.svg" aria-label="Home"
 			ng-click="backtoHome()"
 			style="height: 67px;width: 132px;margin-left: -79%; outline: none;"></md-icon></md-button>
+		<a href="javascript:void(0)" ng-click="onViewBookmark()"
+			class="notification"> <span><md-icon
+					md-svg-src="images/heart.svg"
+					class="md-default-theme ng-scope ng-isolate-scope material-icons"></md-icon></span>
+			<span class="badge">{{favlength}}</span>
+		</a>
 		<p id="demo" style="margin: 1%; color: aliceblue; width: 80px;"></p>
 		<input type="text" name="Search" ng-model="searchText" maxlength="10"
 			autocomplete="off" placeholder="Search" required>

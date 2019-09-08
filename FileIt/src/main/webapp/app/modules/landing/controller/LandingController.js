@@ -527,6 +527,10 @@ fileItApp
 
 							}
 
+							$scope.backToBookView = function() {
+								$location.path('/home');
+							}
+
 							$scope.openBookPopUp = function(nodeName) {
 								document.getElementById("checkbox"
 										+ nodeName.firstIndex).checked = false;

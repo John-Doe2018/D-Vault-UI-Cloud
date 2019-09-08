@@ -19,10 +19,6 @@ fileItApp
 								LandingOperationsSvc, ACL) {
 							var sortingOrder = 'classification';
 							$rootScope.$broadcast('closesidebar');
-							$scope.onViewBookmark = function() {
-								$rootScope.$broadcast('closesidebar');
-								$location.path('/bookmarks');
-							};
 
 							$scope.gotoClassification = function() {
 								$rootScope.$broadcast('closesidebar');
@@ -49,7 +45,6 @@ fileItApp
 								var b = Math.floor(Math.random() * 255);
 								return "rgb(" + r + "," + g + "," + b + ")";
 							};
-							$scope.bookmarkList = [];
 
 							$scope.gotoBookView = function(bookName, className) {
 								$scope.range = [ 1, 2 ];
@@ -86,40 +81,6 @@ fileItApp
 							};
 							
 							$scope.getActiveUsers();
-
-							$scope.getBookMarks = function() {
-								var reqObj = {
-									'customHeader' : {
-										'userName' : ACL.username,
-										'role' : ACL.role,
-										'group' : ACL.group
-									},
-									'userName' : LOGGED_USER.name,
-									'bookName' : "",
-									'classificationName' : ""
-								}
-								DashboardSvc
-										.getbookmark(reqObj)
-										.then(
-												function(result) {
-													if (result.data.errorMessage === null) {
-														DASHBOARD_DETALS.bookmarklist = result.data.bookmarkDetailsList;
-														var length = 0;
-														if (DASHBOARD_DETALS.bookmarklist.length < 5) {
-															length = DASHBOARD_DETALS.bookmarklist.length;
-														} else {
-															length = 5;
-														}
-														for (var k = 0; k < length; k++) {
-															$scope.bookmarkList
-																	.push(DASHBOARD_DETALS.bookmarklist[k]);
-														}
-													}
-
-												});
-
-							};
-							$scope.getBookMarks();
 
 							$scope.gotoAllDocs = function() {
 								$location.path('/allDocs');
