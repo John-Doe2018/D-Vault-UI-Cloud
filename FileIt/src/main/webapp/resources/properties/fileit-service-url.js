@@ -23,5 +23,8 @@ fileItApp.constant('BINDER_SVC', {
 	getAccessList : '/binder/getAccessList',
 	updateAccess : '/binder/updateAccess',
 	contentSearch : '/binder/search',
-	getActiveUsers : '/binder/getActiveUser'
+	getActiveUsers : '/binder/getActiveUser',
+	getAllBooks : '/binder/getAllBooks',
+	addComment : '/binder/addComment',
+	getAllComments : '/binder/getAllComments'
 });

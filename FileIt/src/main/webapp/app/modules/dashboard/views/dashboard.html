@@ -23,7 +23,7 @@
 							</div>
 							<div class="col-xs-9 text-right">
 								<div class="huge font-style">{{docCount}}</div>
-								<div class="font-style">Documents!</div>
+								<div class="font-style">Books!</div>
 							</div>
 						</div>
 					</div>
@@ -66,14 +66,14 @@
 								<i class="fa fa-comments fa-5x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
-								<div class="huge font-style">124</div>
+								<div class="huge font-style">{{commentListCount}}</div>
 								<div class="font-style">New Comments!</div>
 							</div>
 						</div>
 					</div>
 					<div class="panel-footer">
 						<span class="pull-left font-style">View Details</span>
-						<button class="pull-right">
+						<button class="pull-right" ng-click="gotoComments()">
 							<i class="fa fa-arrow-circle-right"></i>
 						</button>
 						<div class="clearfix"></div>
@@ -117,15 +117,9 @@
 							style="margin-top: 1%;">
 							<thead style="background-color: lightgrey !important;">
 								<tr>
-									<th class="no font-style">Sl&nbsp;<a
-										style="color: #0088cc; text-decoration: none;"
-										ng-click="sort_by('no')"><i class="fa fa-sort"></i></a></th>
-									<th class="classification font-style">Classification&nbsp;<a
-										style="color: #0088cc; text-decoration: none;"
-										ng-click="sort_by('classification')"><i class="fa fa-sort"></i></a></th>
-									<th class="count font-style">Book Count&nbsp;<a
-										style="color: #0088cc; text-decoration: none;"
-										ng-click="sort_by('count')"><i class="fa fa-sort"></i></a></th>
+									<th class="no font-style">Sl&nbsp;</th>
+									<th class="classification font-style">Classification&nbsp;</th>
+									<th class="count font-style">Book Count&nbsp;</th>
 									<th class="Add font-style">Add</th>
 								</tr>
 							</thead>
@@ -167,7 +161,7 @@
 					</div>
 				</div>
 				</md-card>
-				<md-card>
+				<!-- <md-card>
 				<div class="card col-sm-5"
 					style="border: 1px solid rgba(0, 0, 0, 0.125); border-radius: 0; margin-top: 2%;">
 					<div class="card-header">
@@ -191,7 +185,7 @@
 						</a>
 					</div>
 				</div>
-				</md-card>
+				</md-card> -->
 			</div>
 			<div class="col-sm-4 card" style="margin-top: 0%; margin-left: -1%;">
 				<canvas id="chart-area" width="300 !important"

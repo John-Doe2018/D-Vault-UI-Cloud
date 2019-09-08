@@ -25,6 +25,11 @@ fileItApp
 								$location.path('/classification');
 							};
 
+							$scope.gotoClassification = function() {
+								$rootScope.$broadcast('closesidebar');
+								$location.path('/gotoComments');
+							};
+
 							$scope.sortingOrder = sortingOrder;
 							$scope.reverse = false;
 							$scope.filteredItems = [];
@@ -64,7 +69,7 @@ fileItApp
 											$location.path('/landingPage');
 										});
 							};
-							
+
 							$scope.activeUsers = 0;
 							$scope.getActiveUsers = function() {
 								DashboardSvc
@@ -77,10 +82,24 @@ fileItApp
 
 												});
 
-							
 							};
-							
+
 							$scope.getActiveUsers();
+
+							$scope.commentListCount = 0;
+							$scope.getAllComments = function() {
+								DashboardSvc
+										.getAllComments()
+										.then(
+												function(result) {
+													if (result.data.errorMessage === undefined) {
+														DASHBOARD_DETALS.commentlist = result.data.comments;
+														$scope.commentListCount = DASHBOARD_DETALS.commentlist.length;
+													}
+
+												});
+
+							};
 
 							$scope.gotoAllDocs = function() {
 								$location.path('/allDocs');
