@@ -13,9 +13,11 @@ fileItApp.controller('BookMarkController', [
 		'FILEIT_CONFIG',
 		'DASHBOARD_DETALS',
 		'ACL',
+		'IMAGE_URLS',
 		function($rootScope, $scope, $location, $sessionStorage, Idle,
 				AesEncoder, LandingOperationsSvc, BINDER_NAME, $route,
-				LoadingService, $http, FILEIT_CONFIG, DASHBOARD_DETALS, ACL) {
+				LoadingService, $http, FILEIT_CONFIG, DASHBOARD_DETALS, ACL,
+				IMAGE_URLS) {
 			$scope.init = function() {
 				$scope.count = DASHBOARD_DETALS.bookmarklist.length;
 				$scope.records = DASHBOARD_DETALS.bookmarklist;

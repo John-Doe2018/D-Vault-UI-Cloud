@@ -100,6 +100,8 @@ fileItApp
 												});
 
 							};
+							
+							$scope.getAllComments();
 
 							$scope.gotoAllDocs = function() {
 								$location.path('/allDocs');

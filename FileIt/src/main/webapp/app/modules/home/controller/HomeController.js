@@ -265,11 +265,13 @@ fileItApp
 																		'error',
 																		result.data.description);
 													} else {
+														$rootScope
+																.$broadcast('getBM');
 														$mdToast
 																.show($mdToast
 																		.simple()
 																		.textContent(
-																				"Bookmark Added Successfully !!!")
+																				"Favourite Added Successfully !!!")
 																		.position(
 																				'bottom')
 																		.theme(

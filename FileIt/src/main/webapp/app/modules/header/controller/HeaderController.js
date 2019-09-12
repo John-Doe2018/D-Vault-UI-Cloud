@@ -18,11 +18,12 @@ fileItApp
 						'$mdToast',
 						'$route',
 						'LOGGED_USER',
+						'DASHBOARD_DETALS',
 						function($rootScope, $scope, $location,
 								$sessionStorage, LandingOperationsSvc,
 								BINDER_NAME, LOGGED_USER, $timeout, dateFilter,
 								$q, DashboardSvc, IMAGE_URLS, ACL, $mdToast,
-								$route, LOGGED_USER) {
+								$route, LOGGED_USER, DASHBOARD_DETALS) {
 							$rootScope.searchResult = [];
 							$scope.bookmarkList = [];
 							$scope.gotoSettings = function() {
@@ -58,6 +59,10 @@ fileItApp
 
 							};
 							$scope.getBookMarks();
+							
+							$scope.$on('getBM', function(event) {
+								$scope.getBookMarks();
+							});
 
 							$scope.getMatches = function(searchText) {
 								$scope.people = [];
