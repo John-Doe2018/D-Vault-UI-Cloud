@@ -21,14 +21,19 @@ fileItApp.factory('DashboardSvc', [ 'RestSvc', 'EncoderSvc', '$sessionStorage',
 					return RestSvc.getData(BINDER_SVC.getAllBooks);
 				},
 
-				getAllComments : function() {
+				getAllComments : function(reqObj) {
 
-					return RestSvc.getData(BINDER_SVC.getAllComments);
+					return RestSvc.postData(BINDER_SVC.getAllComments, reqObj);
 				},
 
 				addComment : function(reqObj) {
 
 					return RestSvc.postData(BINDER_SVC.addComment, reqObj);
+				},
+
+				getAllUsers : function(reqObj) {
+
+					return RestSvc.postData(BINDER_SVC.getAllUsers, reqObj);
 				}
 
 			};

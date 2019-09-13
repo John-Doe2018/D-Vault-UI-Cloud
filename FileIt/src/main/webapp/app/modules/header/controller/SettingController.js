@@ -16,6 +16,11 @@ fileItApp
 							$scope.gotoDashboardPage = function() {
 								$location.path('/dashboard');
 							}
+
+							$scope.onAddUserClicked = function() {
+								$location.path('/signup');
+							}
+
 							if (ACL.role === 'RL001') {
 								$scope.showPage = true;
 							} else {

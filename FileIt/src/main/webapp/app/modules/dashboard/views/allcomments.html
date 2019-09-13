@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="allCommentPage">
+		<div class="row">
+			<div class="col-sm-12" style="margin-left: 2%;">
+				<h3>All Comments</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-6" ng-repeat="x in comments">
+				<div class="col-sm-1">
+					<div class="thumbnail">
+						<img class="img-responsive user-photo" src="images/avatar_2x.png">
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<strong>{{x.userName}}</strong> <span class="text-muted">commented
+							on {{x.dateTime}}</span>
+					</div>
+					<div class="panel-body">{{x.message}}</div>
+					<!-- /panel-body -->
+				</div>
+				<!-- /panel panel-default -->
+			</div>
+			<!-- /col-sm-5 -->
+
+			<div class="col-sm-1"></div>
+
+			<div class="col-sm-3">
+				<p>Add Comment</p>
+				<textarea ng-model="myTextarea"></textarea>
+				<button type="submit" class="btn btn-submit font-style"
+					ng-click="addComment(myTextarea)">Submit</button>
+			</div>
+			<div class="col-sm-1"></div>
+		</div>
+	</div>
+	<div class="row col-sm-12"
+		style="background-color: blueviolet; bottom: 0;" id="footer">
+		<div class="col-sm-3">
+			<a href="http://tranfode.com/" target="_new"><img
+				src="images/tranfode.png"></a>
+		</div>
+		<div class="col-sm-9"
+			style="text-align: right !important; margin-top: 2%;">
+			<a href="http://tranfode.com/" target="_new"
+				class="text-white font-style">© Tranfode Technologies (P) Ltd.</a>
+		</div>
+	</div>
+</body>
+</html>

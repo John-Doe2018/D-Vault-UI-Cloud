@@ -45,6 +45,12 @@ fileItApp.config([ '$routeProvider', function($routeProvider) {
 	}).when('/classification', {
 		templateUrl : 'app/modules/dashboard/views/allClassification.html',
 		controller : 'AllClassificationController'
+	}).when('/comments', {
+		templateUrl : 'app/modules/dashboard/views/allcomments.html',
+		controller : 'AllCommentsController'
+	}).when('/users', {
+		templateUrl : 'app/modules/dashboard/views/allusers.html',
+		controller : 'AllUsersController'
 	}).otherwise({
 		redirectTo : '/'
 	});

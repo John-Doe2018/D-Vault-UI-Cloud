@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="row" id="allUsersPage">
+		<div class="col-lg-12">
+			<div class="main-box no-header clearfix">
+				<div class="main-box-body clearfix">
+					<div class="table-responsive">
+						<table class="table user-list">
+							<thead>
+								<tr>
+									<th><span style="margin-left: 5%;">User</span></th>
+									<th><span>UserName</span></th>
+									<th class="text-center"><span>Role</span></th>
+									<th><span>Group</span></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="x in users">
+									<td><img src="images/user_1.jpg"
+										alt=""> <label
+										style="font-size: 1.25em; padding-top: 3px; margin-left: 60px;">{{x.firstName}}</label>
+										<span style="font-size: 0.875em; font-style: italic;">{{x.lastName}}</span></td>
+									<td>{{x.userName}}</td>
+									<td class="text-center"><span class="label label-default">{{x.role}}</span>
+									</td>
+									<td><a href="javascript:void(0)">{{x.group}}</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row col-sm-12"
+		style="background-color: blueviolet; bottom: 0;" id="footer">
+		<div class="col-sm-3">
+			<a href="http://tranfode.com/" target="_new"><img
+				src="images/tranfode.png"></a>
+		</div>
+		<div class="col-sm-9"
+			style="text-align: right !important; margin-top: 2%;">
+			<a href="http://tranfode.com/" target="_new"
+				class="text-white font-style">© Tranfode Technologies (P) Ltd.</a>
+		</div>
+	</div>
+</body>
+</html>

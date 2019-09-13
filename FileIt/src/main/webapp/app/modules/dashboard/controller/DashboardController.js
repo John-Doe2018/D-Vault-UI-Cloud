@@ -25,9 +25,14 @@ fileItApp
 								$location.path('/classification');
 							};
 
-							$scope.gotoClassification = function() {
+							$scope.gotoComments = function() {
 								$rootScope.$broadcast('closesidebar');
-								$location.path('/gotoComments');
+								$location.path('/comments');
+							};
+
+							$scope.gotoUsers = function() {
+								$rootScope.$broadcast('closesidebar');
+								$location.path('/users');
 							};
 
 							$scope.sortingOrder = sortingOrder;
@@ -88,8 +93,15 @@ fileItApp
 
 							$scope.commentListCount = 0;
 							$scope.getAllComments = function() {
+								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									}
+								}
 								DashboardSvc
-										.getAllComments()
+										.getAllComments(reqObj)
 										.then(
 												function(result) {
 													if (result.data.errorMessage === undefined) {
@@ -100,7 +112,7 @@ fileItApp
 												});
 
 							};
-							
+
 							$scope.getAllComments();
 
 							$scope.gotoAllDocs = function() {
