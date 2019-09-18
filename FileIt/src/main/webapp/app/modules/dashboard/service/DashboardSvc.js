@@ -34,6 +34,16 @@ fileItApp.factory('DashboardSvc', [ 'RestSvc', 'EncoderSvc', '$sessionStorage',
 				getAllUsers : function(reqObj) {
 
 					return RestSvc.postData(BINDER_SVC.getAllUsers, reqObj);
+				},
+				
+				getNewComments : function(reqObj) {
+
+					return RestSvc.postData(BINDER_SVC.getNewComments, reqObj);
+				},
+				
+				getFav : function(reqObj) {
+
+					return RestSvc.postData(BINDER_SVC.getFav, reqObj);
 				}
 
 			};

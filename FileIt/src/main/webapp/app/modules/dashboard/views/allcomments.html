@@ -6,7 +6,70 @@
 </head>
 <body>
 	<div id="allCommentPage">
-		<div class="row">
+		<div class="chatContainer">
+
+			<div class="chatTitleContainer">Comments</div>
+			<div class="chatHistoryContainer">
+
+				<ul class="formComments">
+					<li class="commentLi commentstep-1" data-commentid="{{$index}}"
+						ng-repeat="x in comments">
+						<table class="form-comments-table">
+							<tr>
+								<td><div class="comment-timestamp">{{x.dateTime}}</div></td>
+								<td><div class="comment-user">{{x.userName}}</div></td>
+								<td>
+									<div class="comment-avatar">
+										<i class="fa fa-comments"
+											style="margin-top: 26%; margin-left: 24%;"></i>
+									</div>
+								</td>
+								<td>
+									<div id="comment-{{$index}}" data-commentid="{{$index}}"
+										class="comment comment-step1">
+										{{x.message}}
+										<div id="commentactions-{{$index}}" class="comment-actions">
+											<div class="btn-group" role="group" aria-label="...">
+												<button type="button" class="btn btn-primary btn-sm">
+													<i class="fa fa-edit"></i> Reply
+												</button>
+												<button type="button" class="btn btn-default btn-sm">
+													<i class="fa fa-pencil"></i> Edit
+												</button>
+												<button type="button" class="btn btn-danger btn-sm">
+													<i class="fa fa-trash"></i>Delete
+												</button>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</li>
+				</ul>
+			</div>
+			<div class="input-group input-group-sm chatMessageControls">
+				<span class="input-group-addon" id="sizing-addon3">Comment</span> <input
+					type="text" class="form-control" ng-model="myTextarea"
+					placeholder="Type your message here.."
+					aria-describedby="sizing-addon3"> <span
+					class="input-group-btn">
+					<button id="clearMessageButton" class="btn btn-default"
+						style="color: #333; background-color: #e6e6e6; border-color: #adadad; box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);"
+						type="button" ng-click="clear()">Clear</button>
+					<button type="submit" class="btn btn-submit font-style"
+						ng-click="addComment(myTextarea)">
+						<i class="fa fa-send"></i>Send
+					</button>
+				</span> <span class="input-group-btn">
+					<button id="undoSendButton" class="btn btn-default" type="button"
+						style="color: black;" disabled>
+						<i class="fa fa-undo"></i>Undo
+					</button>
+				</span>
+			</div>
+		</div>
+		<!-- <div class="row">
 			<div class="col-sm-12" style="margin-left: 2%;">
 				<h3>All Comments</h3>
 			</div>
@@ -25,11 +88,11 @@
 							on {{x.dateTime}}</span>
 					</div>
 					<div class="panel-body">{{x.message}}</div>
-					<!-- /panel-body -->
+					/panel-body
 				</div>
-				<!-- /panel panel-default -->
+				/panel panel-default
 			</div>
-			<!-- /col-sm-5 -->
+			/col-sm-5
 
 			<div class="col-sm-1"></div>
 
@@ -39,20 +102,20 @@
 				<button type="submit" class="btn btn-submit font-style"
 					ng-click="addComment(myTextarea)">Submit</button>
 			</div>
-			<div class="col-sm-1"></div>
+			<div class="col-sm-1"></div> -->
+		</di
+					v>
+		<div class="row col-sm-12"
+			style="background-color: blueviolet; bottom: 0;" id="footer">
+			<div class="col-sm-3">
+				<a href="http://tranfode.com/" target="_new"><img
+					src="images/tranfode.png"></a>
+			</div>
+			<div class="col-sm-9"
+				style="text-align: right !important; margin-top: 2%;">
+				<a href="http://tranfode.com/" target="_new"
+					class="text-white font-style">© Tranfode Technologies (P) Ltd.</a>
+			</div>
 		</div>
-	</div>
-	<div class="row col-sm-12"
-		style="background-color: blueviolet; bottom: 0;" id="footer">
-		<div class="col-sm-3">
-			<a href="http://tranfode.com/" target="_new"><img
-				src="images/tranfode.png"></a>
-		</div>
-		<div class="col-sm-9"
-			style="text-align: right !important; margin-top: 2%;">
-			<a href="http://tranfode.com/" target="_new"
-				class="text-white font-style">© Tranfode Technologies (P) Ltd.</a>
-		</div>
-	</div>
 </body>
 </html>

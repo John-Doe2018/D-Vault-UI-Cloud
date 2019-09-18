@@ -19,6 +19,11 @@ fileItApp.factory('HomeSvc', [
 				},
 				tag : function(reqObj) {
 					return RestSvc.postData(BINDER_SVC.bookmark, reqObj);
+				},
+				
+				updateFav : function(reqObj) {
+					return RestSvc.postData(BINDER_SVC.updateFav, reqObj);
 				}
+				
 			};
 		} ]);

@@ -251,12 +251,14 @@ fileItApp
 										'role' : ACL.role,
 										'group' : ACL.group
 									},
-									'userName' : LOGGED_USER.name,
-									'bookName' : BINDER_NAME.name,
-									'classificationName' : DASHBOARD_DETALS.booklist
+									"book" : {
+										"bookName" : BINDER_NAME.name,
+										"classification" : DASHBOARD_DETALS.booklist
+									},
+									"action" : "Add"
 								}
 								HomeSvc
-										.tag(reqObj)
+										.updateFav(reqObj)
 										.then(
 												function(result) {
 													if (result.data.errorId !== undefined) {
@@ -271,7 +273,7 @@ fileItApp
 																.show($mdToast
 																		.simple()
 																		.textContent(
-																				"Favourite Added Successfully !!!")
+																				result.data.successMessage)
 																		.position(
 																				'bottom')
 																		.theme(

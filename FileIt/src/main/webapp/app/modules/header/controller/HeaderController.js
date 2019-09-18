@@ -30,8 +30,17 @@ fileItApp
 								$location.path('/settings');
 							};
 							$scope.onViewBookmark = function() {
-								$rootScope.$broadcast('closesidebar');
-								$location.path('/bookmarks');
+								if ($scope.favlength > 0) {
+									$rootScope.$broadcast('closesidebar');
+									$location.path('/bookmarks');
+								} else {
+									$mdToast.show($mdToast.simple()
+											.textContent(
+													'No Favourites Added !!')
+											.position('bottom').theme(
+													'error-toast').hideDelay(
+													3000));
+								}
 							};
 
 							$scope.getBookMarks = function() {
@@ -41,17 +50,14 @@ fileItApp
 										'userName' : ACL.username,
 										'role' : ACL.role,
 										'group' : ACL.group
-									},
-									'userName' : LOGGED_USER.name,
-									'bookName' : "",
-									'classificationName' : ""
+									}
 								}
 								DashboardSvc
-										.getbookmark(reqObj)
+										.getFav(reqObj)
 										.then(
 												function(result) {
-													if (result.data.errorMessage === null) {
-														DASHBOARD_DETALS.bookmarklist = result.data.bookmarkDetailsList;
+													if (result.data.errorMessage === undefined) {
+														DASHBOARD_DETALS.bookmarklist = result.data.books;
 														$scope.favlength = DASHBOARD_DETALS.bookmarklist.length;
 													}
 
@@ -59,7 +65,7 @@ fileItApp
 
 							};
 							$scope.getBookMarks();
-							
+
 							$scope.$on('getBM', function(event) {
 								$scope.getBookMarks();
 							});

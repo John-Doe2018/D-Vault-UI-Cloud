@@ -29,21 +29,23 @@
 							<div flex="20"></div>
 						</div>
 						<div layout="row" layout-wrap flex>
-							<div flex="35"></div>
-							<div flex="15">
+							<div flex="40"></div>
+							<div flex="20">
 								<button type="button" class="btn btn-next font-style"
 									ng-click="onSettingsClicked()">Submit</button>
 							</div>
-							<div flex="5"></div>
-							<div flex="15">
-								<button type="button" class="btn btn-next font-style"
-									ng-click="onAddUserClicked()">Add User</button>
-							</div>
-							<div flex="30"></div>
+							<div flex="40"></div>
 						</div>
 					</fieldset>
 				</div>
 			</div>
+			<nav mfb-menu position="br" effect="zoomin" active-icon="ion-close"
+				resting-icon="ion-grid" toggling-method="hover" class="app-menu"
+				menu-state="menuState"
+				ng-class="{'fadeOut' : menuState === 'closed'}">
+				<button mfb-button label="Add User" icon="ion-plus-round"
+					ng-click="onAddUserClicked()"></button>
+			</nav>
 		</div>
 		<div id="notfound" ng-if="!showPage">
 			<div class="notfound">

@@ -18,7 +18,7 @@ fileItApp
 							$scope.roleArray = [];
 							$scope.groupArray = [];
 							$scope.onCancelClick = function() {
-								$location.path('/login');
+								$location.path('/settings');
 							};
 							$scope.getGroup = function() {
 								UserOperationsSvc

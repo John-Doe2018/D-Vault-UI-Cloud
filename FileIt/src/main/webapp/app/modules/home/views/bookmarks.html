@@ -5,30 +5,33 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div layout="row" layout-align="start start">
-		<div flex="100">
-			<md-card> <md-card-header> <md-card-header-text>
-			<span class="md-title font-style"
-				style="font-size: 25px; color: blue;"><md-icon
-					md-svg-src="images/bookmarks.svg" aria-label="Delete"></md-icon>BookMarks</span>
-			<span class="md-subhead font-style">Total Count : {{count}} </span> </md-card-header-text>
-			</md-card-header> </md-card>
+	<div id="allbookPage">
+		<div layout="row" layout-align="start start">
+			<div flex="100">
+				<md-card> <md-card-header> <md-card-header-text>
+				<span class="md-title font-style"
+					style="font-size: 25px; color: blue;"><md-icon
+						md-svg-src="images/bookmarks.svg" aria-label="Delete"></md-icon>BookMarks</span>
+				<span class="md-subhead font-style">Total Count : {{count}} </span>
+				</md-card-header-text> </md-card-header> </md-card>
+			</div>
 		</div>
-	</div>
-	<div class='md-padding' layout="row" layout-wrap>
-		<md-card style="width: 250px;" ng-repeat="x in records"> <md-card-header>
-		<md-card-header-text> <span
-			class="md-title font-style">{{x.bookName}}</span> <span
-			class="md-subhead font-style">Classification :
-			{{x.classification}} </span> </md-card-header-text> </md-card-header>
-		<div class="md-actions" layout="row" layout-align="end center">
-			<md-button md-no-ink class="md-primary"
-				ng-click="gotoBookView(x.bookName,x.classification)"> <md-icon
-				md-svg-src="images/visibility.svg" aria-label="View Document"></md-icon></md-button>
-			<md-button class="md-warn"> <md-icon
-				md-svg-src="images/delete.svg" aria-label="Delete"></md-icon></md-button>
+		<div class='md-padding' layout="row" layout-wrap>
+			<md-card style="width: 250px;" ng-repeat="x in records"> <md-card-header>
+			<md-card-header-text> <span
+				class="md-title font-style">{{x.bookName}}</span> <span
+				class="md-subhead font-style">Classification :
+				{{x.classification}} </span> </md-card-header-text> </md-card-header>
+			<div class="md-actions" layout="row" layout-align="end center">
+				<md-button md-no-ink class="md-primary"
+					ng-click="gotoBookView(x.bookName,x.classification)"> <md-icon
+					md-svg-src="images/visibility.svg" aria-label="View Document"></md-icon></md-button>
+				<md-button class="md-warn"
+					ng-click="remove(x.bookName,x.classification)"> <md-icon
+					md-svg-src="images/delete.svg" aria-label="Delete"></md-icon></md-button>
+			</div>
+			</md-card>
 		</div>
-		</md-card>
 	</div>
 	<div class="row col-sm-12"
 		style="background-color: blueviolet; bottom: 0;">

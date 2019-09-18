@@ -55,3 +55,7 @@ fileItApp.config([ '$routeProvider', function($routeProvider) {
 		redirectTo : '/'
 	});
 } ]);
+
+fileItApp.config([ '$locationProvider', function($locationProvider) {
+	$locationProvider.hashPrefix('');
+} ]);

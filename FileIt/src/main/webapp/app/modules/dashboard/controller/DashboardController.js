@@ -92,6 +92,7 @@ fileItApp
 							$scope.getActiveUsers();
 
 							$scope.commentListCount = 0;
+
 							$scope.getAllComments = function() {
 								var reqObj = {
 									'customHeader' : {
@@ -113,7 +114,28 @@ fileItApp
 
 							};
 
-							$scope.getAllComments();
+							$scope.getNewComments = function() {
+								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									}
+								}
+								DashboardSvc
+										.getNewComments(reqObj)
+										.then(
+												function(result) {
+													if (result.data.errorMessage === undefined) {
+														$scope.commentListCount = result.data.newCommentCount;
+														$scope.getAllComments();
+													}
+
+												});
+
+							};
+
+							$scope.getNewComments();
 
 							$scope.gotoAllDocs = function() {
 								$location.path('/allDocs');
