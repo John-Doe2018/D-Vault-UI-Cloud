@@ -23,6 +23,11 @@
 								$location.path('/createBook');
 							};
 
+							$scope.miniMizeModal = function() {
+								$('#searchModal').modal('hide');
+								$rootScope.$broadcast('minModal');
+							}
+
 							$scope.$on('closesidebar', function(event) {
 								$scope.w3_close();
 							});

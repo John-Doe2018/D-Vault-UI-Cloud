@@ -27,6 +27,24 @@ fileItApp
 								$route, IMAGE_URLS, LoadingService, $http,
 								FILEIT_CONFIG, BINDER_SVC, DASHBOARD_DETALS,
 								$mdDialog, ACL, $mdToast) {
+							if (DASHBOARD_DETALS.searchsave === '') {
+								DASHBOARD_DETALS.searchsave = false;
+							}
+							$scope.minimizeModal = DASHBOARD_DETALS.searchsave;
+							$scope.$on('minModal', function(event) {
+								$scope.minimizeModal = true;
+								DASHBOARD_DETALS.searchsave = true;
+							});
+							$scope.maximizemodal = function() {
+								DASHBOARD_DETALS.searchsave = false;
+								$scope.minimizeModal = false;
+								$rootScope.$broadcast('maximizeModal');
+							}
+
+							$scope.closePopup = function() {
+								DASHBOARD_DETALS.searchsave = false;
+								$scope.minimizeModal = false;
+							}
 							$scope.rangeBegin = 2;
 							$scope.zoomUrls = [];
 							$scope.nodearray = [];

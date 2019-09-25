@@ -11,9 +11,28 @@ fileItApp
 						'$route',
 						'$mdToast',
 						'ACL',
+						'DASHBOARD_DETALS',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, HomeSvc, $route,
-								$mdToast, ACL) {
+								$mdToast, ACL, DASHBOARD_DETALS) {
+							if (DASHBOARD_DETALS.searchsave === '') {
+								DASHBOARD_DETALS.searchsave = false;
+							}
+							$scope.minimizeModal = DASHBOARD_DETALS.searchsave;
+							$scope.$on('minModal', function(event) {
+								$scope.minimizeModal = true;
+								DASHBOARD_DETALS.searchsave = true;
+							});
+							$scope.maximizemodal = function() {
+								DASHBOARD_DETALS.searchsave = false;
+								$scope.minimizeModal = false;
+								$rootScope.$broadcast('maximizeModal');
+							}
+
+							$scope.closePopup = function() {
+								DASHBOARD_DETALS.searchsave = false;
+								$scope.minimizeModal = false;
+							}
 							var newheight = $(window).height()
 									- $('#pageHeader').height();
 							document.getElementById("createClassPage").style.height = newheight

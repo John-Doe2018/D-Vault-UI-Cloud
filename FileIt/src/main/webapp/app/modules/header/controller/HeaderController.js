@@ -70,6 +70,10 @@ fileItApp
 								$scope.getBookMarks();
 							});
 
+							$scope.$on('maximizeModal', function(event) {
+								$('#searchModal').modal('show');
+							});
+
 							$scope.getMatches = function(searchText) {
 								$scope.people = [];
 								var reqObj = {

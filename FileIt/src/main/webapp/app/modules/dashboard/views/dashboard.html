@@ -192,6 +192,16 @@
 					height="300 !important"></canvas>
 			</div>
 		</div>
+		<div class="minmaxCon" ng-if="minimizeModal"
+			style="background-color: gainsboro; width: 15%;">
+			Search Results
+			<button type="button" class="close" ng-click="closePopup()">
+				<i class="fa fa-times"></i>
+			</button>
+			<button class="close modalMinimize" ng-click="maximizemodal()">
+				<i class="fa fa-clone"></i>
+			</button>
+		</div>
 	</div>
 	<div class="row col-sm-12"
 		style="background-color: blueviolet; bottom: 0;">

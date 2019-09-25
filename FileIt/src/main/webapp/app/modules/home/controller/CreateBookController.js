@@ -28,6 +28,24 @@ fileItApp
 								BINDER_SVC, $route, DASHBOARD_DETALS, $mdToast,
 								LandingOperationsSvc, BINDER_NAME, $mdDialog,
 								Upload, $timeout, ACL) {
+							if (DASHBOARD_DETALS.searchsave === '') {
+								DASHBOARD_DETALS.searchsave = false;
+							}
+							$scope.minimizeModal = DASHBOARD_DETALS.searchsave;
+							$scope.$on('minModal', function(event) {
+								$scope.minimizeModal = true;
+								DASHBOARD_DETALS.searchsave = true;
+							});
+							$scope.maximizemodal = function() {
+								DASHBOARD_DETALS.searchsave = false;
+								$scope.minimizeModal = false;
+								$rootScope.$broadcast('maximizeModal');
+							}
+
+							$scope.closePopup = function() {
+								DASHBOARD_DETALS.searchsave = false;
+								$scope.minimizeModal = false;
+							}
 							$('form input').keydown(function(e) {
 								if (e.keyCode == 13) {
 									e.preventDefault();

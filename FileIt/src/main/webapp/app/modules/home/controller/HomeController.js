@@ -32,6 +32,24 @@ fileItApp
 								IMAGE_URLS, LandingOperationsSvc, $interval,
 								DASHBOARD_DETALS, DashboardSvc, LOGGED_USER,
 								$mdToast, ACL) {
+							if (DASHBOARD_DETALS.searchsave === '') {
+								DASHBOARD_DETALS.searchsave = false;
+							}
+							$scope.minimizeModal = DASHBOARD_DETALS.searchsave;
+							$scope.$on('minModal', function(event) {
+								$scope.minimizeModal = true;
+								DASHBOARD_DETALS.searchsave = true;
+							});
+							$scope.maximizemodal = function() {
+								DASHBOARD_DETALS.searchsave = false;
+								$scope.minimizeModal = false;
+								$rootScope.$broadcast('maximizeModal');
+							}
+
+							$scope.closePopup = function() {
+								DASHBOARD_DETALS.searchsave = false;
+								$scope.minimizeModal = false;
+							}
 							$scope.validFile = true;
 							$scope.fileList = [];
 							$scope.curFile;

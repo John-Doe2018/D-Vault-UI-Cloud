@@ -17,6 +17,24 @@ fileItApp
 								$sessionStorage, Idle, DASHBOARD_DETALS,
 								DashboardSvc, LOGGED_USER, $filter,
 								LandingOperationsSvc, ACL) {
+							if (DASHBOARD_DETALS.searchsave === '') {
+								DASHBOARD_DETALS.searchsave = false;
+							}
+							$scope.minimizeModal = DASHBOARD_DETALS.searchsave;
+							$scope.$on('minModal', function(event) {
+								$scope.minimizeModal = true;
+								DASHBOARD_DETALS.searchsave = true;
+							});
+							$scope.maximizemodal = function() {
+								DASHBOARD_DETALS.searchsave = false;
+								$scope.minimizeModal = false;
+								$rootScope.$broadcast('maximizeModal');
+							}
+
+							$scope.closePopup = function() {
+								DASHBOARD_DETALS.searchsave = false;
+								$scope.minimizeModal = false;
+							}
 							var sortingOrder = 'classification';
 							$rootScope.$broadcast('closesidebar');
 
