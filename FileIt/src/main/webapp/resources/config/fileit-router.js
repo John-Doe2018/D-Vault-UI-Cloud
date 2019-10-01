@@ -51,6 +51,9 @@ fileItApp.config([ '$routeProvider', function($routeProvider) {
 	}).when('/users', {
 		templateUrl : 'app/modules/dashboard/views/allusers.html',
 		controller : 'AllUsersController'
+	}).when('/books', {
+		templateUrl : 'app/modules/dashboard/views/allbooks.html',
+		controller : 'AllBooksController'
 	}).otherwise({
 		redirectTo : '/'
 	});

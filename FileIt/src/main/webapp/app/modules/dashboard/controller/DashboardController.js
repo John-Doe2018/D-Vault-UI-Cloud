@@ -53,6 +53,11 @@ fileItApp
 								$location.path('/users');
 							};
 
+							$scope.gotoBooks = function() {
+								$rootScope.$broadcast('closesidebar');
+								$location.path('/books');
+							};
+
 							$scope.sortingOrder = sortingOrder;
 							$scope.reverse = false;
 							$scope.filteredItems = [];
@@ -314,7 +319,6 @@ fileItApp
 										.classifiedData(reqObj)
 										.then(
 												function(result) {
-													$scope.docCount = 0;
 													var keys = Object
 															.keys(result.data);
 													for (var i = 0; i < keys.length; i++) {
@@ -330,7 +334,6 @@ fileItApp
 																	.push(dynamicColors());
 															$scope.labels
 																	.push(keys[i]);
-															$scope.docCount += result.data[keys[i]].length;
 															$scope.data
 																	.push(result.data[keys[i]].length);
 														}
@@ -341,6 +344,17 @@ fileItApp
 												});
 							};
 							$scope.getDashboard();
+
+							$scope.getBooksList = function() {
+								DashboardSvc
+										.getAllBooks()
+										.then(
+												function(result) {
+													$scope.docCount = result.data.bookList.length;
+													DASHBOARD_DETALS.allbookslist = result.data.bookList;
+												});
+							};
+							$scope.getBooksList();
 							$scope.shelfView = function(bookList) {
 								$rootScope.$broadcast('closesidebar');
 								DASHBOARD_DETALS.booklist = bookList;

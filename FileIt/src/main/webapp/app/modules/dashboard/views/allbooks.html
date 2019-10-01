@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="allBookPage">
+		<h1 style="margin-left: 2%;">Books List</h1>
+
+		<div class="col-sm-1"></div>
+		<div class="col-sm-3 min-padding">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Search term"
+					data-ng-model="searchTerm">
+			</div>
+		</div>
+		<div class="col-sm-8"></div>
+		<div class="col-sm-1"></div>
+		<div class="constrained col-sm-8">
+			<table class="table table-striped" id="loggingTable"
+				infinite-scroll="loadMore()"
+				infinite-scroll-container='".constrained"'
+				infinite-scroll-distance="1" infinite-scroll-parent="true">
+				<tr data-ng-show="logEventFilter.length === 0">
+					<td class="center" colspan="3">Nobody is here</td>
+				</tr>
+				<tr>
+					<td><b style="color: blue;">No.</b></td>
+					<td><b style="color: blue;">Book Name</b></td>
+					<td><b style="color: blue;">Classification</b></td>
+					<td><b style="color: blue;">User</b></td>
+					<td><b style="color: blue;">Date</b></td>
+					<td><b style="color: blue; margin-left: 20%;">View</b></td>
+				</tr>
+				<tr
+					data-ng-repeat="logEvent in logEventFilter = (bookList | filter:searchTerm | limitTo:numberToDisplay) track by $index">
+					<td>{{$index}}</td>
+					<td>{{logEvent.bookName}}</td>
+					<td>{{logEvent.classification}}</td>
+					<td>{{logEvent.userName}}</td>
+					<td>{{logEvent.date}}</td>
+					<td><md-button md-no-ink class="md-primary"
+							ng-click="bookView(logEvent)"> <md-icon
+							md-svg-src="images/visibility.svg" aria-label="View Document"></md-icon></md-button></td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-sm-3"></div>
+
+	</div>
+	<div class="row col-sm-12"
+		style="background-color: blueviolet; bottom: 0;" id="footer">
+		<div class="col-sm-3">
+			<a href="http://tranfode.com/" target="_new"><img
+				src="images/tranfode.png"></a>
+		</div>
+		<div class="col-sm-9"
+			style="text-align: right !important; margin-top: 2%;">
+			<a href="http://tranfode.com/" target="_new"
+				class="text-white font-style">© Tranfode Technologies (P) Ltd.</a>
+		</div>
+	</div>
+</body>
+</html>

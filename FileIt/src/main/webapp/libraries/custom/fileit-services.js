@@ -316,7 +316,8 @@ fileItApp.value('DASHBOARD_DETALS', {
 	bookmarklist : '',
 	classificationlist : '',
 	commentlist : '',
-	searchsave : ''
+	searchsave : '',
+	allbookslist : ''
 });
 
 fileItApp.value('ACL', {
