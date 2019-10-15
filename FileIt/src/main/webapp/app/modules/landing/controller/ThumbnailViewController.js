@@ -65,7 +65,7 @@ fileItApp
 														$scope.content = $sce
 																.trustAsResourceUrl(result.data.URL);
 														$scope.pdf = {
-															src : result.data.URL,
+															src : $scope.content,
 															data : null
 														};
 													}
@@ -129,7 +129,8 @@ fileItApp
 														$scope.data
 																.push(nodeObjMaster);
 														$scope.nodeslt = $scope.data[0].nodes;
-														$scope.showPdf($scope.nodeslt[0].title);
+														$scope
+																.showPdf($scope.nodeslt[0].title);
 													}
 												});
 							};

@@ -28,6 +28,11 @@
 								$rootScope.$broadcast('minModal');
 							}
 
+							$scope.$on('minModalAfterSerach', function(event) {
+								$('#searchModal').modal('hide');
+								$rootScope.$broadcast('minModal');
+							});
+
 							$scope.$on('closesidebar', function(event) {
 								$scope.w3_close();
 							});

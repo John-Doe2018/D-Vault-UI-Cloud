@@ -32,6 +32,7 @@ fileItApp
 								IMAGE_URLS, LandingOperationsSvc, $interval,
 								DASHBOARD_DETALS, DashboardSvc, LOGGED_USER,
 								$mdToast, ACL) {
+							$scope.errorCase = false;
 							if (DASHBOARD_DETALS.searchsave === '') {
 								DASHBOARD_DETALS.searchsave = false;
 							}
@@ -50,6 +51,10 @@ fileItApp
 								DASHBOARD_DETALS.searchsave = false;
 								$scope.minimizeModal = false;
 							}
+
+							$scope.$on('closePopUP', function(event) {
+								$scope.closePopup();
+							});
 							$scope.validFile = true;
 							$scope.fileList = [];
 							$scope.curFile;
@@ -259,6 +264,8 @@ fileItApp
 							$scope.onBinderClick = function(value) {
 								BINDER_NAME.name = value;
 								$scope.addFiles = false;
+								$scope.errorCase = false;
+								$scope.optselect = undefined;
 								$('#myModal').modal('show');
 							};
 
@@ -445,17 +452,23 @@ fileItApp
 
 							}
 							$scope.onOptionClick = function() {
-								if ($scope.optselect === 'landing') {
-									$scope.gotolandingPage();
-								} else if ($scope.optselect === 'bookmark') {
-									$scope.addFiles = false;
-									$scope.addTag();
-								} else if ($scope.optselect === 'delete') {
-									$scope.deletebook();
-								} else if ($scope.optselect === 'add') {
-									$scope.onAddFileClick();
-								} else if ($scope.optselect === 'download') {
-									$scope.onFileDownload();
+								if ($scope.optselect === undefined) {
+									$scope.errorCase = true;
+								} else {
+									$('#myModal').modal('hide');
+									$scope.errorCase = false;
+									if ($scope.optselect === 'landing') {
+										$scope.gotolandingPage();
+									} else if ($scope.optselect === 'bookmark') {
+										$scope.addFiles = false;
+										$scope.addTag();
+									} else if ($scope.optselect === 'delete') {
+										$scope.deletebook();
+									} else if ($scope.optselect === 'add') {
+										$scope.onAddFileClick();
+									} else if ($scope.optselect === 'download') {
+										$scope.onFileDownload();
+									}
 								}
 							};
 

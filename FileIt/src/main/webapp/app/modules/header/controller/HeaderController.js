@@ -75,6 +75,7 @@ fileItApp
 							});
 
 							$scope.getMatches = function(searchText) {
+								$rootScope.$broadcast('closePopUP');
 								$scope.people = [];
 								var reqObj = {
 									'customHeader' : {
@@ -181,12 +182,16 @@ fileItApp
 									"classification" : $scope.claasesname,
 									"rangeList" : $scope.range
 								}
-								LandingOperationsSvc.getImage(reqObj1).then(
-										function(result) {
-											IMAGE_URLS.url = result.data;
-											$('#searchModal').modal('hide');
-											$location.path('/landingPage');
-										});
+								LandingOperationsSvc
+										.getImage(reqObj1)
+										.then(
+												function(result) {
+													IMAGE_URLS.url = result.data;
+													$rootScope
+															.$broadcast('minModalAfterSerach');
+													$location
+															.path('/landingPage');
+												});
 
 							};
 						} ]);

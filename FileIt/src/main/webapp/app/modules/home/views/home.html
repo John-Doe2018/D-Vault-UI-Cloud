@@ -39,6 +39,7 @@
 					Option</h4>
 			</div>
 			<div class="modal-body">
+				<p ng-if="errorCase" style="color: red;">Please select an option</p>
 				<label class="radio-inline font-style"> <input type="radio"
 					name="inlineRadioOptions" id="inlineRadio1" value="landing">
 					BookView
@@ -108,7 +109,7 @@
 			</div>
 			<div class="modal-footer">
 				<md-button class="md-raised md-primary md-hue-2 font-style"
-					style="margin: 20px 0;" data-dismiss="modal" aria-hidden="true"
+					style="margin: 20px 0;" aria-hidden="true"
 					ng-click="onOptionClick()">{{'SUBMIT' | translate}}</md-button>
 				<md-button style="margin: 20px 0; "
 					class="md-warn md-raised md-hue-2 font-style" data-dismiss="modal"

@@ -35,6 +35,10 @@ fileItApp
 								DASHBOARD_DETALS.searchsave = false;
 								$scope.minimizeModal = false;
 							}
+
+							$scope.$on('closePopUP', function(event) {
+								$scope.closePopup();
+							});
 							var sortingOrder = 'classification';
 							$rootScope.$broadcast('closesidebar');
 

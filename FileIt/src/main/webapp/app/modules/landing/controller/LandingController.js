@@ -27,6 +27,7 @@ fileItApp
 								$route, IMAGE_URLS, LoadingService, $http,
 								FILEIT_CONFIG, BINDER_SVC, DASHBOARD_DETALS,
 								$mdDialog, ACL, $mdToast) {
+							$scope.loadImageIndex = 2;
 							if (DASHBOARD_DETALS.searchsave === '') {
 								DASHBOARD_DETALS.searchsave = false;
 							}
@@ -45,6 +46,10 @@ fileItApp
 								DASHBOARD_DETALS.searchsave = false;
 								$scope.minimizeModal = false;
 							}
+
+							$scope.$on('closePopUP', function(event) {
+								$scope.closePopup();
+							});
 							$scope.rangeBegin = 2;
 							$scope.zoomUrls = [];
 							$scope.nodearray = [];
@@ -439,20 +444,65 @@ fileItApp
 									$(text1).appendTo(".carousel-inner");
 								}
 
-								/*
-								 * if (n == 0) { text1 = '<div class="item
-								 * active"><img src="data:image/jpeg;base64,' +
-								 * $scope.zoomUrls[n] + ' "alt="Los Angeles"
-								 * style="width: 100%;"></div>'; } else { text1 = '<div
-								 * class="item"><img
-								 * src="data:image/jpeg;base64,' +
-								 * $scope.zoomUrls[n] + ' "alt="Los Angeles"
-								 * style="width: 100%;"></div>'; }
-								 */
-
-								// }
 								$('#fsModal').modal('show');
 							};
+
+							$scope.loadImageZoom = function() {
+								console.log($scope.rangeBegin);
+								var reqObj1 = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
+									"bookName" : BINDER_NAME.name,
+									"classification" : DASHBOARD_DETALS.booklist,
+									"rangeList" : [ $scope.loadImageIndex + 1,
+											$scope.loadImageIndex + 2 ]
+								}
+
+								LandingOperationsSvc
+										.getImage(reqObj1)
+										.then(
+												function(result) {
+
+													IMAGE_URLS.url = result.data;
+													var text1 = '<div class="item active"><img src="data:image/jpeg;base64,'
+															+ IMAGE_URLS.url[0]
+															+ ' "alt="Los Angeles" style="width: 100%;border: 3px solid blueviolet;"></div>';
+													$(text1).appendTo(
+															".carousel-inner");
+													var text2 = '<div class="item active"><img src="data:image/jpeg;base64,'
+															+ IMAGE_URLS.url[1]
+															+ ' "alt="Los Angeles" style="width: 100%;border: 3px solid blueviolet;"></div>';
+													$(text2).appendTo(
+															".carousel-inner");
+													$scope.loadImageIndex += 2;
+												});
+							};
+
+							var scrollRange = 1200;
+							$('#bookViewModel')
+									.on(
+											"scroll",
+											function() {
+												var y = $(this).scrollTop();
+												if (y > 20) {
+													document
+															.getElementById("myBtn").style.display = "block";
+												} else {
+													document
+															.getElementById("myBtn").style.display = "none";
+												}
+												if (y > scrollRange) {
+													scrollRange += 1200;
+													$scope.loadImageZoom();
+												}
+											});
+
+							$scope.topFunction = function() {
+								$('#bookViewModel').scrollTop(0);
+							}
 
 							$scope
 									.$on(
@@ -689,6 +739,13 @@ fileItApp
 												}
 
 											});
+
+							$('.scroll-top').click(function() {
+								$("html, body").animate({
+									scrollTop : 0
+								}, 100);
+								return false;
+							});
 
 							$('.carousel-control.right').click(function() {
 								$('#myCarousel').carousel('next');

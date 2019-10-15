@@ -33,6 +33,10 @@ fileItApp
 								DASHBOARD_DETALS.searchsave = false;
 								$scope.minimizeModal = false;
 							}
+							
+							$scope.$on('closePopUP', function(event) {
+								$scope.closePopup();
+							});
 							var newheight = $(window).height()
 									- $('#pageHeader').height();
 							document.getElementById("createClassPage").style.height = newheight

@@ -46,6 +46,10 @@ fileItApp
 								DASHBOARD_DETALS.searchsave = false;
 								$scope.minimizeModal = false;
 							}
+
+							$scope.$on('closePopUP', function(event) {
+								$scope.closePopup();
+							});
 							$('form input').keydown(function(e) {
 								if (e.keyCode == 13) {
 									e.preventDefault();
