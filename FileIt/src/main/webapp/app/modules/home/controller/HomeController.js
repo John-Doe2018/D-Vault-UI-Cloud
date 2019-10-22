@@ -334,8 +334,10 @@ fileItApp
 										'role' : ACL.role,
 										'group' : ACL.group
 									},
-									bookName : BINDER_NAME.name,
-									classificationName : DASHBOARD_DETALS.booklist
+									"book" : {
+										"bookName" : BINDER_NAME.name,
+										"classification" : DASHBOARD_DETALS.booklist
+									}
 								}
 								LandingOperationsSvc
 										.deleteBook(deleteObj)
@@ -405,11 +407,15 @@ fileItApp
 									"classification" : DASHBOARD_DETALS.booklist,
 									"rangeList" : $scope.range
 								}
-								LandingOperationsSvc.getImage(reqObj1).then(
-										function(result) {
-											IMAGE_URLS.url = result.data;
-											$location.path('/landingPage');
-										});
+								LandingOperationsSvc
+										.getImage(reqObj1)
+										.then(
+												function(result) {
+													DASHBOARD_DETALS.backview = "/home";
+													IMAGE_URLS.url = result.data;
+													$location
+															.path('/landingPage');
+												});
 							};
 
 							$scope.onFileDownload = function() {
@@ -420,7 +426,7 @@ fileItApp
 										'group' : ACL.group
 									},
 									"bookName" : BINDER_NAME.name,
-									'classificationname' : DASHBOARD_DETALS.booklist
+									'classification' : DASHBOARD_DETALS.booklist
 								}
 								LandingOperationsSvc
 										.downloadFile(reqObj)

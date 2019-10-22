@@ -146,11 +146,8 @@ fileItApp
 														}
 														if (!fileFound) {
 															$scope.showSubmitButton = true;
-															$scope.ImageProperty.name = files[i].name;
-															$scope.ImageProperty.path = $scope.binderName
-																	+ "/Images/";
+															$scope.ImageProperty.fileName = files[i].name;
 															$scope.ImageProperty.type = files[i].type;
-
 															$scope.fileList
 																	.push($scope.ImageProperty);
 															$scope.ImageProperty = {};
@@ -199,12 +196,8 @@ fileItApp
 							$rootScope.$broadcast('loginSuccess');
 							$scope.fileList = [];
 							$scope.ImageProperty = {
-								id : rfc4122.newuuid(),
-								name : "",
-								path : "",
-								type : "",
-								version : "1.0 ",
-								note : "NA"
+								fileName : "",
+								type : ""
 							};
 
 							$scope.deleteFile = function(index, filename, ev) {
@@ -224,10 +217,13 @@ fileItApp
 															'role' : ACL.role,
 															'group' : ACL.group
 														},
-														'bookName' : $scope.bookName,
-														'fileName' : filename,
-														'bookcreated' : false,
-														'classificationName' : $scope.classificationName
+														"book" : {
+															"bookName" : $scope.bookName,
+															"classification" : $scope.classificationName,
+															"documents" : [ {
+																"fileName" : filename
+															} ]
+														}
 													}
 													LandingOperationsSvc
 															.deleteFile(
@@ -260,26 +256,20 @@ fileItApp
 							$scope.onSubmitClick = function() {
 
 								var reqObj = {
-									"id" : rfc4122.newuuid(),
-									"name" : $scope.bookName,
-									"classification" : $scope.classificationName,
-									"children" : $scope.fileList
-								}
-								var str = angular.toJson(reqObj).replace(
-										'/"/g', '\"');
-								var reqObj1 = {
-									'customHeader' : {
-										'userName' : ACL.username,
-										'role' : ACL.role,
-										'group' : ACL.group
+									"customHeader" : {
+										"userName" : ACL.username,
+										"role" : ACL.role,
+										"group" : ACL.group
 									},
-									"htmlContent" : str
+									"book" : {
+										"bookName" : $scope.bookName,
+										"classification" : $scope.classificationName,
+										"documents" : $scope.fileList
+									}
 								}
-								var str1 = angular.toJson(reqObj1);
-								var res = str1.replace("\\\\\\\\", "/")
-										.replace("\\\\\\\\", "/");
+
 								HomeSvc
-										.createBinder(str1)
+										.createBinder(reqObj)
 										.then(
 												function(result) {
 													if (result.data.description !== undefined) {

@@ -37,6 +37,7 @@ fileItApp.controller('AllBooksController', [
 				}
 				LandingOperationsSvc.getImage(reqObj1).then(function(result) {
 					IMAGE_URLS.url = result.data;
+					DASHBOARD_DETALS.backview = "/books";
 					$location.path('/landingPage');
 				});
 			}

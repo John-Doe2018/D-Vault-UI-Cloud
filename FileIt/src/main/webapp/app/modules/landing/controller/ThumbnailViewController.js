@@ -49,7 +49,7 @@ fileItApp
 										'group' : ACL.group
 									},
 									"bookName" : BINDER_NAME.name,
-									'classificationname' : DASHBOARD_DETALS.booklist,
+									'classification' : DASHBOARD_DETALS.booklist,
 									"fileName" : $scope.filelist
 								}
 								LandingOperationsSvc
@@ -81,8 +81,10 @@ fileItApp
 										'role' : ACL.role,
 										'group' : ACL.group
 									},
-									'bookname' : BINDER_NAME.name,
-									'classificationname' : DASHBOARD_DETALS.booklist
+									"book" : {
+										"bookName" : BINDER_NAME.name,
+										"classification" : DASHBOARD_DETALS.booklist
+									}
 								}
 								LandingOperationsSvc
 										.treeList(reqObj)
@@ -95,24 +97,11 @@ fileItApp
 																		result.data.description);
 													} else {
 														var resultObj = result.data;
-														var a = resultObj.map.body.topicref.topic;
-														if (angular.isArray(a)) {
-															for (var x = 0; x < a.length; x++) {
-																var nodeObj = {
-																	'id' : a[x].id,
-																	'title' : a[x].name,
-																	'path' : a[x].path,
-																	'firstIndex' : '',
-																	'lastIndex' : ''
-																}
-																$scope.nodearray
-																		.push(nodeObj);
-															}
-														} else {
+														for (var k = 0; k < resultObj.book.documents.length; k++) {
 															var nodeObj = {
-																'id' : a.id,
-																'title' : a.name,
-																'path' : a.path,
+																'id' : resultObj.book.documents[k].serialNo,
+																'title' : resultObj.book.documents[k].fileName,
+																'path' : resultObj.book.documents[k].filePath,
 																'firstIndex' : '',
 																'lastIndex' : ''
 															}
@@ -121,8 +110,7 @@ fileItApp
 														}
 
 														var nodeObjMaster = {
-															'id' : resultObj.map.id,
-															'title' : resultObj.map.body.topicref.navtitle,
+															'title' : resultObj.bookName,
 															'nodes' : $scope.nodearray
 														};
 														$scope.data = [];

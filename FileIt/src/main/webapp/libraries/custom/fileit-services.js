@@ -317,7 +317,8 @@ fileItApp.value('DASHBOARD_DETALS', {
 	classificationlist : '',
 	commentlist : '',
 	searchsave : '',
-	allbookslist : ''
+	allbookslist : '',
+	backview : ''
 });
 
 fileItApp.value('ACL', {

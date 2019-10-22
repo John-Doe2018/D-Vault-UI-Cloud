@@ -66,8 +66,10 @@ fileItApp
 										'role' : ACL.role,
 										'group' : ACL.group
 									},
-									'bookName' : BINDER_NAME.name,
-									'classification' : DASHBOARD_DETALS.booklist
+									"book" : {
+										"bookName" : BINDER_NAME.name,
+										"classification" : DASHBOARD_DETALS.booklist
+									}
 								}
 								LandingOperationsSvc
 										.getPageIndex(reqObj)
@@ -80,17 +82,15 @@ fileItApp
 																		result.data.description);
 													} else {
 														var resultObj = result.data;
-														if (resultObj.pageDetailsList !== undefined) {
-															for (var x = 0; x < resultObj.pageDetailsList.length; x++) {
-																var nodeObj = {
-																	'id' : x,
-																	'title' : resultObj.pageDetailsList[x].fileName,
-																	'firstIndex' : resultObj.pageDetailsList[x].firstIndex,
-																	'lastIndex' : resultObj.pageDetailsList[x].lastIndex
-																}
-																$scope.nodearray
-																		.push(nodeObj);
+														for (var x = 0; x < resultObj.book.documents.length; x++) {
+															var nodeObj = {
+																'id' : resultObj.book.documents[x].serialNo,
+																'title' : resultObj.book.documents[x].fileName,
+																'firstIndex' : resultObj.book.documents[x].startIndex,
+																'lastIndex' : resultObj.book.documents[x].endIndex
 															}
+															$scope.nodearray
+																	.push(nodeObj);
 														}
 
 														var nodeObjMaster = {
@@ -261,9 +261,11 @@ fileItApp
 										'role' : ACL.role,
 										'group' : ACL.group
 									},
-									bookName : BINDER_NAME.name,
-									classifcationName : DASHBOARD_DETALS.booklist,
-									oBookRequests : $scope.fileList
+									"book" : {
+										"bookName" : BINDER_NAME.name,
+										"classification" : DASHBOARD_DETALS.booklist,
+										"documents" : $scope.fileList
+									}
 								};
 								LandingOperationsSvc
 										.addfile(addFileObj)
@@ -353,8 +355,10 @@ fileItApp
 										'role' : ACL.role,
 										'group' : ACL.group
 									},
-									bookName : bookname,
-									classificationName : DASHBOARD_DETALS.booklist
+									"book" : {
+										"bookName" : bookname,
+										"classification" : DASHBOARD_DETALS.booklist
+									}
 								}
 								LandingOperationsSvc
 										.deleteBook(deleteObj)
@@ -380,7 +384,7 @@ fileItApp
 										'group' : ACL.group
 									},
 									"bookName" : BINDER_NAME.name,
-									'classificationname' : DASHBOARD_DETALS.booklist,
+									'classification' : DASHBOARD_DETALS.booklist,
 								}
 								LandingOperationsSvc
 										.downloadFile(reqObj)
@@ -394,6 +398,7 @@ fileItApp
 													} else {
 														console
 																.log(result.data.URL);
+														result.data.URL = "download/Reqres.zip";
 														var a = document
 																.createElement("a");
 														a.href = result.data.URL;
@@ -514,10 +519,14 @@ fileItApp
 														'role' : ACL.role,
 														'group' : ACL.group
 													},
-													'bookName' : BINDER_NAME.name,
-													'fileName' : $scope.deleteFileName,
-													'bookcreated' : true,
-													'classificationName' : DASHBOARD_DETALS.booklist
+
+													"book" : {
+														"bookName" : BINDER_NAME.name,
+														"classification" : DASHBOARD_DETALS.booklist,
+														"documents" : [ {
+															"fileName" : $scope.deleteFileName
+														} ]
+													}
 												}
 												LandingOperationsSvc
 														.deleteFile(requestObj)
@@ -549,11 +558,18 @@ fileItApp
 								if (name === 'multiple') {
 									$.each($("input[name='sport']:checked"),
 											function() {
-												$scope.filelist.push($(this)
-														.val());
+												var obj = {
+													"fileName" : $(this).val(),
+													"type" : "application/pdf"
+												};
+												$scope.filelist.push(obj);
 											});
 								} else {
-									$scope.filelist.push(name);
+									var obj = {
+										"fileName" : name,
+										"type" : "application/pdf"
+									};
+									$scope.filelist.push(obj);
 								}
 
 								var reqObj = {
@@ -563,7 +579,7 @@ fileItApp
 										'group' : ACL.group
 									},
 									"bookName" : BINDER_NAME.name,
-									'classificationname' : DASHBOARD_DETALS.booklist,
+									'classification' : DASHBOARD_DETALS.booklist,
 									"fileName" : $scope.filelist
 								}
 								LandingOperationsSvc
@@ -596,7 +612,7 @@ fileItApp
 							}
 
 							$scope.backToBookView = function() {
-								$location.path('/home');
+								$location.path(DASHBOARD_DETALS.backview);
 							}
 
 							$scope.openBookPopUp = function(nodeName) {
