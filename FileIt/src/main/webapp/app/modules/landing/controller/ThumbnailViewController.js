@@ -64,6 +64,10 @@ fileItApp
 													} else {
 														$scope.content = $sce
 																.trustAsResourceUrl(result.data.URL);
+														$('#showThumbnailPdf')
+																.attr(
+																		"data",
+																		$scope.content);
 														$scope.pdf = {
 															src : $scope.content,
 															data : null

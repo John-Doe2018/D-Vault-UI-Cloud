@@ -13,10 +13,11 @@ fileItApp
 						'$filter',
 						'LandingOperationsSvc',
 						'ACL',
+						'HomeSvc',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, DASHBOARD_DETALS,
 								DashboardSvc, LOGGED_USER, $filter,
-								LandingOperationsSvc, ACL) {
+								LandingOperationsSvc, ACL, HomeSvc) {
 							if (DASHBOARD_DETALS.searchsave === '') {
 								DASHBOARD_DETALS.searchsave = false;
 							}
@@ -342,12 +343,39 @@ fileItApp
 																	.push(result.data[keys[i]].length);
 														}
 													}
-													DASHBOARD_DETALS.classificationlist = $scope.items;
-													$scope.classCount = $scope.labels.length;
 													$scope.getData();
 												});
 							};
 							$scope.getDashboard();
+
+							$scope.getClassification = function() {
+								$scope.classList = [];
+								HomeSvc
+										.getClassification()
+										.then(
+												function(result) {
+													if (result.data.description !== undefined) {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.description);
+													} else {
+														for (var i = 0; i < result.data.length; i++) {
+															var dataObj = {
+																'no' : i + 1,
+																'classification' : result.data[i]
+															}
+															$scope.classList
+																	.push(dataObj);
+														}
+														DASHBOARD_DETALS.classificationlist = $scope.classList;
+														$scope.classCount = $scope.classList.length;
+													}
+												});
+
+							};
+
+							$scope.getClassification();
 
 							$scope.getBooksList = function() {
 								DashboardSvc

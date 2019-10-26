@@ -41,7 +41,6 @@ fileItApp.controller('AllBooksController', [
 					$location.path('/landingPage');
 				});
 			}
-			$scope.title = "infinite scroll example";
 			$scope.searchTerm = "";
 			$scope.numberToDisplay = 20;
 			$scope.bookList = DASHBOARD_DETALS.allbookslist;

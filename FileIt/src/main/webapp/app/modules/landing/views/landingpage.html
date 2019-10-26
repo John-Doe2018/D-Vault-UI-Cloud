@@ -16,7 +16,8 @@
 						<ul style="overflow-x: hidden; overflow-y: scroll;">
 							<li class="has-sub"
 								ng-repeat="nodearray in node.nodes | orderBy:'firstIndex'"><a
-								href="javascript:void(0)" ng-click="openBookPopUp(nodearray)"><p
+								href="javascript:void(0)"
+								ng-click="openBookPopUp(nodearray, $index)"><p
 										class="font-style font-size16"
 										style="width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
 										<input id="checkbox{{nodearray.firstIndex}}" type="checkbox"
@@ -198,7 +199,7 @@
 									<tbody>
 										<tr ng-repeat="file in fileList">
 
-											<td class="font-style">{{file.name}}</td>
+											<td class="font-style">{{file.fileName}}</td>
 											<td class="font-style">{{file.type}}</td>
 											<td class="glyphicon glyphicon-trash file-delete"
 												ng-click="deleteFile($index, file.name, $event);"></td>
@@ -227,41 +228,21 @@
 	</div>
 	<div id="fsModal" class="modal animated bounceIn" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<!-- dialog -->
 		<div class="modal-dialog" style="width: 98%; height: 92%; padding: 0;">
 			<div class="modal-content">
 				<div class="modal-header">
-					<a style="background-color: #f1f1f1; color: black;"
-						class="font-style" href="javascript:void(0)"
-						ng-click="previousZoom()">&laquo; Previous</a> <a
-						style="background-color: #f1f1f1; color: black;"
-						class="font-style" href="javascript:void(0)" ng-click="nextZoom()">Next
-						&raquo;</a>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body scorlBody" id="bookViewModel">
 					<div id="myCarousel" class="carousel slide vertical"
 						data-ride="carousel" data-interval="false">
-						<!-- Indicators -->
 						<ol class="carousel-indicators">
 							<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 						</ol>
-						<!-- Wrapper for slides -->
 						<div class="carousel-inner"></div>
-						<span class="left carousel-control" data-target="#myCarousel">
-							<span class="glyphicon glyphicon-chevron-up"
-							style="margin-left: -64px !important;"></span>
-						</span> <span class="right carousel-control" data-target="#myCarousel">
-							<span class="glyphicon glyphicon-chevron-down"
-							style="margin-right: -52px !important;"></span>
-						</span>
 						<button ng-click="topFunction()" id="myBtn" title="Go to top">Top</button>
 					</div>
 				</div>
-				<!-- <div id="carousel-modal-demo" class="carousel slide"
-					data-ride="carousel">
-					<div class="carousel-inner"></div>
-				</div> -->
 			</div>
 		</div>
 </body>

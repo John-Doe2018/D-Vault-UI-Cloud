@@ -82,6 +82,7 @@ fileItApp
 																		result.data.description);
 													} else {
 														var resultObj = result.data;
+														$scope.nodearray = [];
 														for (var x = 0; x < resultObj.book.documents.length; x++) {
 															var nodeObj = {
 																'id' : resultObj.book.documents[x].serialNo,
@@ -145,15 +146,12 @@ fileItApp
 							});
 
 							$scope.addFlieClick = function() {
+								$scope.fileList = [];
 								$('#addFileModal').modal('show');
 							}
 							$scope.ImageProperty = {
-								id : rfc4122.newuuid(),
-								name : "",
-								path : "",
-								type : "",
-								version : "1.0 ",
-								note : "NA"
+								fileName : "",
+								type : ""
 							};
 
 							$scope.convertImage = function() {
@@ -198,7 +196,9 @@ fileItApp
 													.open(
 															"POST",
 															FILEIT_CONFIG.apiUrl
-																	+ BINDER_SVC.convertImg)
+																	+ BINDER_SVC.convertImg);
+											xhr.setRequestHeader("UserName",
+													ACL.username);
 											xhr.send(fd)
 
 										}
@@ -237,11 +237,8 @@ fileItApp
 														}
 														if (!fileFound) {
 															$scope.showSubmitButton = true;
-															$scope.ImageProperty.name = files[i].name;
-															$scope.ImageProperty.path = $scope.binderName
-																	+ "/Images/";
+															$scope.ImageProperty.fileName = files[i].name;
 															$scope.ImageProperty.type = files[i].type;
-
 															$scope.fileList
 																	.push($scope.ImageProperty);
 															$scope.ImageProperty = {};
@@ -277,7 +274,7 @@ fileItApp
 																		'error',
 																		result.data.description);
 													} else {
-														$location.path('\home');
+														$scope.getData();
 													}
 												});
 
@@ -532,12 +529,67 @@ fileItApp
 														.deleteFile(requestObj)
 														.then(
 																function(result) {
-																	if (result.data.Success !== undefined) {
-																		bookScope
-																				.remove(this);
-																		bookScope = null;
-																		$route
-																				.reload();
+																	if (result.data.successMessage !== undefined) {
+																		$scope.nodeArrayLatest = $scope.data[0].nodes;
+																		$scope.nodeArrayLatest
+																				.splice(
+																						$scope.selectedFIleIndex,
+																						1);
+																		var nodeObjMaster = {
+																			'id' : 1,
+																			'nodes' : $scope.nodearray
+																		};
+																		$scope.data = [];
+																		$scope.data
+																				.push(nodeObjMaster);
+																		$scope.indexChanged = true;
+																		var reqObj1 = {
+																			'customHeader' : {
+																				'userName' : ACL.username,
+																				'role' : ACL.role,
+																				'group' : ACL.group
+																			},
+																			"bookName" : BINDER_NAME.name,
+																			"classification" : DASHBOARD_DETALS.booklist,
+																			"rangeList" : [
+																					1,
+																					2 ]
+																		}
+																		LandingOperationsSvc
+																				.getImage(
+																						reqObj1)
+																				.then(
+																						function(
+																								result) {
+																							$scope.currentPage = 2;
+																							$scope.rangeBegin = 2;
+																							$scope.newBookRange = 3;
+																							IMAGE_URLS.url = result.data;
+																							$scope.zoomUrls = [];
+																							$scope.zoomUrls
+																									.push(IMAGE_URLS.url[0]);
+																							$scope.zoomUrls
+																									.push(IMAGE_URLS.url[1]);
+																							$(
+																									"#0")
+																									.attr(
+																											"src",
+																											"data:image/jpeg;base64,"
+																													+ IMAGE_URLS.url[0]);
+																							$(
+																									"#1")
+																									.attr(
+																											"src",
+																											"data:image/jpeg;base64,"
+																													+ IMAGE_URLS.url[1]);
+
+																							$(
+																									'#mybook')
+																									.booklet(
+																											"gotopage",
+																											1);
+																						});
+
 																	} else {
 																		$rootScope
 																				.$broadcast(
@@ -558,18 +610,14 @@ fileItApp
 								if (name === 'multiple') {
 									$.each($("input[name='sport']:checked"),
 											function() {
-												var obj = {
-													"fileName" : $(this).val(),
-													"type" : "application/pdf"
-												};
-												$scope.filelist.push(obj);
+												$scope.filelist.push($(this)
+														.val());
 											});
 								} else {
 									var obj = {
-										"fileName" : name,
-										"type" : "application/pdf"
+										"fileName" : name
 									};
-									$scope.filelist.push(obj);
+									$scope.filelist.push(name);
 								}
 
 								var reqObj = {
@@ -615,7 +663,8 @@ fileItApp
 								$location.path(DASHBOARD_DETALS.backview);
 							}
 
-							$scope.openBookPopUp = function(nodeName) {
+							$scope.openBookPopUp = function(nodeName, index) {
+								$scope.selectedFIleIndex = index;
 								document.getElementById("checkbox"
 										+ nodeName.firstIndex).checked = false;
 								$scope.optselect = undefined;
