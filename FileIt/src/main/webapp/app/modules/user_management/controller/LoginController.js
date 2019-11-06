@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
 fileItApp
 		.controller(
 				'LoginController',
@@ -5,21 +10,13 @@ fileItApp
 						'$rootScope',
 						'$scope',
 						'$location',
-						'$sessionStorage',
-						'Idle',
-						'AesEncoder',
 						'UserOperationsSvc',
 						'LoginLoadingService',
-						'LoadingService',
 						'LOGGED_USER',
-						'DashboardSvc',
-						'DASHBOARD_DETALS',
 						'ACL',
 						function($rootScope, $scope, $location,
-								$sessionStorage, Idle, AesEncoder,
 								UserOperationsSvc, LoginLoadingService,
-								LoadingService, LOGGED_USER, DashboardSvc,
-								DASHBOARD_DETALS, ACL) {
+								LOGGED_USER, ACL) {
 							angular.element(document).ready(function() {
 								if (LOGGED_USER.browser_refresh) {
 									$route.reload();
@@ -134,7 +131,7 @@ fileItApp
 												function(result) {
 													LoginLoadingService
 															.hideLoad();
-													if (result.data.successMsg !== undefined) {
+													if (result.data.successMsg !== null) {
 														ACL.group = result.data.customHeader.group;
 														ACL.role = result.data.customHeader.role;
 														ACL.username = result.data.customHeader.userName;
@@ -147,7 +144,7 @@ fileItApp
 														$rootScope
 																.$broadcast(
 																		'error',
-																		result.data.description);
+																		result.data.businessErrorData.description);
 													}
 												});
 

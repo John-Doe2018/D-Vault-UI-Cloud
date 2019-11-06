@@ -1,6 +1,10 @@
-fileItApp.factory('LandingOperationsSvc', [ 'RestSvc', 'EncoderSvc',
-		'$sessionStorage', 'BINDER_SVC',
-		function(RestSvc, EncoderSvc, $sessionStorage, BINDER_SVC) {
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
+fileItApp.factory('LandingOperationsSvc', [ 'RestSvc', 'BINDER_SVC',
+		function(RestSvc, BINDER_SVC) {
 			return {
 				treeList : function(reqObj) {
 
@@ -42,7 +46,7 @@ fileItApp.factory('LandingOperationsSvc', [ 'RestSvc', 'EncoderSvc',
 
 					return RestSvc.postData(BINDER_SVC.addfile, reqObj);
 				},
-				
+
 				contentSearch : function(reqObj) {
 
 					return RestSvc.postData(BINDER_SVC.contentSearch, reqObj);

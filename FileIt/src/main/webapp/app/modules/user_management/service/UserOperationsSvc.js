@@ -1,6 +1,10 @@
-fileItApp.factory('UserOperationsSvc', [ 'RestSvc', 'EncoderSvc',
-		'$sessionStorage', 'BINDER_SVC',
-		function(RestSvc, EncoderSvc, $sessionStorage, BINDER_SVC) {
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
+fileItApp.factory('UserOperationsSvc', [ 'RestSvc', 'BINDER_SVC',
+		function(RestSvc, BINDER_SVC) {
 			return {
 				login : function(reqObj) {
 					return RestSvc.postData(BINDER_SVC.login, reqObj);
@@ -24,6 +28,10 @@ fileItApp.factory('UserOperationsSvc', [ 'RestSvc', 'EncoderSvc',
 
 				updateAccess : function(reqObj) {
 					return RestSvc.postData(BINDER_SVC.updateAccess, reqObj);
+				},
+
+				updateUser : function(reqObj) {
+					return RestSvc.postData(BINDER_SVC.updateUser, reqObj);
 				}
 			};
 		} ]);

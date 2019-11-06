@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
 fileItApp
 		.controller(
 				'HomeController',
@@ -5,32 +10,22 @@ fileItApp
 						'$rootScope',
 						'$scope',
 						'$location',
-						'$sessionStorage',
-						'Idle',
-						'AesEncoder',
 						'BINDER_NAME',
 						'HomeSvc',
 						'rfc4122',
 						'$compile',
-						'LoadingService',
 						'$route',
 						'FILEIT_CONFIG',
 						'BINDER_SVC',
-						'$http',
 						'IMAGE_URLS',
 						'LandingOperationsSvc',
-						'$interval',
 						'DASHBOARD_DETALS',
-						'DashboardSvc',
-						'LOGGED_USER',
 						'$mdToast',
 						'ACL',
-						function($rootScope, $scope, $location,
-								$sessionStorage, Idle, AesEncoder, BINDER_NAME,
-								HomeSvc, rfc4122, $compile, LoadingService,
-								$route, FILEIT_CONFIG, BINDER_SVC, $http,
-								IMAGE_URLS, LandingOperationsSvc, $interval,
-								DASHBOARD_DETALS, DashboardSvc, LOGGED_USER,
+						function($rootScope, $scope, $location, BINDER_NAME,
+								HomeSvc, rfc4122, $compile, $route,
+								FILEIT_CONFIG, BINDER_SVC, IMAGE_URLS,
+								LandingOperationsSvc, DASHBOARD_DETALS,
 								$mdToast, ACL) {
 							$scope.errorCase = false;
 							if (DASHBOARD_DETALS.searchsave === '') {
@@ -59,12 +54,8 @@ fileItApp
 							$scope.fileList = [];
 							$scope.curFile;
 							$scope.ImageProperty = {
-								id : rfc4122.newuuid(),
-								name : "",
-								path : "",
-								type : "",
-								version : "1.0 ",
-								note : "NA"
+								fileName : "",
+								type : ""
 							};
 							$scope.convertImage = function() {
 								if ($scope.gFiles && $scope.gFiles.length) {
@@ -74,11 +65,12 @@ fileItApp
 											var fd = new FormData();
 											fd.append('file', file);
 											fd.append('filename', file.name);
-											fd.append('bookName',
-													$scope.bookName);
 											fd.append('classification',
 													DASHBOARD_DETALS.booklist);
-											fd.append('path', $scope.bookName
+											fd.append('bookName',
+													BINDER_NAME.name);
+											fd.append('group', ACL.group);
+											fd.append('path', BINDER_NAME.name
 													+ "/Images/");
 											fd.append('type', file.type);
 											$scope.progressvisible = true
@@ -108,7 +100,9 @@ fileItApp
 													.open(
 															"POST",
 															FILEIT_CONFIG.apiUrl
-																	+ BINDER_SVC.convertImg)
+																	+ BINDER_SVC.convertImg);
+											xhr.setRequestHeader("UserName",
+													ACL.username);
 											xhr.send(fd)
 
 										}
@@ -117,7 +111,14 @@ fileItApp
 							};
 
 							function uploadComplete(evt) {
-								$scope.resize();
+								if(evt.currentTarget.response.includes("Error")){
+									alert(evt.currentTarget.response)
+									for(var le=0; le < $scope.fileList.length; le++){
+										if($scope.fileList[le].fileName === evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>'))){
+											$scope.fileList.pop();
+										}
+									}
+								}
 							}
 
 							function uploadFailed(evt) {
@@ -136,22 +137,23 @@ fileItApp
 											function() {
 												var files = $scope.gFiles;
 												$scope.validFile = true;
+												var filesize = (($scope.gFiles[0].size/1024)/1024).toFixed(4);
+												if(filesize > 5 ){
+													$scope.validFile = false;
+												}
 												if ($scope.validFile) {
 													for (var i = 0; i < files.length; i++) {
 														var fileFound = false;
 														for (var j = 0; j < $scope.fileList.length; j++) {
-															if ($scope.fileList[j].name == files[i].name) {
+															if ($scope.fileList[j].fileName == files[i].name) {
 																fileFound = true;
 																break;
 															}
 														}
 														if (!fileFound) {
 															$scope.showSubmitButton = true;
-															$scope.ImageProperty.name = files[i].name;
-															$scope.ImageProperty.path = $scope.binderName
-																	+ "/Images/";
+															$scope.ImageProperty.fileName = files[i].name;
 															$scope.ImageProperty.type = files[i].type;
-
 															$scope.fileList
 																	.push($scope.ImageProperty);
 															$scope.ImageProperty = {};
@@ -160,6 +162,8 @@ fileItApp
 														}
 													}
 													$scope.convertImage();
+												} else {
+													alert("File size exceeds 5MB !!");
 												}
 
 											});
@@ -171,86 +175,75 @@ fileItApp
 										'userName' : ACL.username,
 										'role' : ACL.role,
 										'group' : ACL.group
-									}
+									},
+									'classification' : DASHBOARD_DETALS.booklist
 								}
-								DashboardSvc
-										.classifiedData(reqObj)
+								HomeSvc
+										.getBookLists(reqObj)
 										.then(
 												function(result) {
-													var keys = Object
-															.keys(result.data);
-													for (var i = 0; i < keys.length; i++) {
-														$scope.bookshelfcount = 0;
-														if (keys[i] === DASHBOARD_DETALS.booklist) {
-															if (result.data[keys[i]].length === 0) {
-																$scope.noBookPresent = false;
+													$scope.booklength = result.data.length;
+													if ($scope.booklength === 0) {
+														$scope.noBookPresent = false;
+													} else {
+														for (var i = 0; i < $scope.booklength; i++) {
+															$scope.h2name = result.data[i];
+															var text1;
+															if (i % 5 == 0) {
+																text1 = "<div class='book-tilted'><div class='book' id='"
+																		+ (i+1)
+																		+ "'><h2>"
+																		+ $scope.h2name
+																		+ "</h2></div></div>";
 															} else {
-																$scope.noBookPresent = true;
-																$scope.booklength = result.data[keys[i]].length;
-																for (var j = 0; j < result.data[keys[i]].length; j++) {
-																	$scope.bookshelfcount += 1;
-																	$scope.h2name = result.data[keys[i]][j];
-																	var text1;
-																	if (j % 5 == 0) {
-																		text1 = "<div class='book-tilted'><div class='book' id='"
-																				+ $scope.h2name
-																				+ "'><h2>"
-																				+ $scope.h2name
-																				+ "</h2></div></div>";
-																	} else {
-																		text1 = "<div class='book' id='"
-																				+ $scope.h2name
-																				+ "'><h2>"
-																				+ $scope.h2name
-																				+ "</h2></div>";
-																	}
-																	var id = '#'
-																			+ $scope.h2name;
-																	$(text1)
-																			.appendTo(
-																					".bookshelf");
-																	var array = [
-																			"book-green",
-																			"book-blue",
-																			"book-umber",
-																			"book-springer" ];
-																	var colorNumber = Math
-																			.round((Math
-																					.random() * (array.length - 1)));
-																	$(id)
-																			.addClass(
-																					array[colorNumber]);
-
-																	$(id)
-																			.replaceWith(
-																					$(id));
-																	$(id)
-																			.attr(
-																					'ng-click',
-																					"onBinderClick('"
-																							+ $scope.h2name
-																							+ "')");
-																	$compile(
-																			$(id))
-																			(
-																					$scope);
-																}
-
+																text1 = "<div class='book' id='"
+																		+ (i+1)
+																		+ "'><h2>"
+																		+ $scope.h2name
+																		+ "</h2></div>";
 															}
-															if ($scope.bookshelfcount <= 60) {
-																$('.bookshelf')
-																		.css(
-																				'height',
-																				'534px');
-															} else {
-																$('.bookshelf')
-																		.css(
-																				'height',
-																				'100%');
-															}
-															break;
+															var id = '#'
+																	+ (i+1);
+															$(text1)
+																	.appendTo(
+																			".bookshelf");
+															var array = [
+																	"book-green",
+																	"book-blue",
+																	"book-umber",
+																	"book-springer" ];
+															var colorNumber = Math
+																	.round((Math
+																			.random() * (array.length - 1)));
+															$(id)
+																	.addClass(
+																			array[colorNumber]);
+
+															$(id).replaceWith(
+																	$(id));
+															$(id)
+																	.attr(
+																			'ng-click',
+																			"onBinderClick('"
+																					+ $scope.h2name
+																					+ "')");
+															$compile($(id))(
+																	$scope);
+														}
+
+														if ($scope.booklength <= 60) {
+															$('.bookshelf')
+																	.css(
+																			'height',
+																			'534px');
+														} else {
+															$('.bookshelf')
+																	.css(
+																			'height',
+																			'100%');
 														}
 													}
+
 												});
 
 							};
@@ -263,7 +256,6 @@ fileItApp
 
 							$scope.onBinderClick = function(value) {
 								BINDER_NAME.name = value;
-								$scope.addFiles = false;
 								$scope.errorCase = false;
 								$scope.optselect = undefined;
 								$('#myModal').modal('show');
@@ -286,12 +278,8 @@ fileItApp
 										.updateFav(reqObj)
 										.then(
 												function(result) {
-													if (result.data.errorId !== undefined) {
-														$rootScope
-																.$broadcast(
-																		'error',
-																		result.data.description);
-													} else {
+													if (result.data.successMessage !== null) {
+
 														$rootScope
 																.$broadcast('getBM');
 														$mdToast
@@ -305,6 +293,12 @@ fileItApp
 																				'success-toast')
 																		.hideDelay(
 																				3000));
+
+													} else {
+														$rootScope
+																.$broadcast(
+																		'error',
+																		result.data.businessErrorData.description);
 													}
 
 												});
@@ -314,15 +308,12 @@ fileItApp
 								$scope.optselect = $(this).val();
 								$scope.fileList = [];
 								if ($scope.optselect === 'landing') {
-									$scope.addFiles = false;
 								} else if ($scope.optselect === 'bookmark') {
-									$scope.addFiles = false;
 								} else if ($scope.optselect === 'delete') {
-									$scope.addFiles = false;
 								} else if ($scope.optselect === 'add') {
-									$scope.addFiles = true;
+									$('#myModal').modal('hide');
+									$('#addFileModal').modal('show');
 								} else if ($scope.optselect === 'download') {
-									$scope.addFiles = false;
 								}
 
 							});
@@ -378,8 +369,11 @@ fileItApp
 										'role' : ACL.role,
 										'group' : ACL.group
 									},
-									bookName : BINDER_NAME.name,
-									oBookRequests : $scope.fileList
+									"book" : {
+										"bookName" : BINDER_NAME.name,
+										"classification" : DASHBOARD_DETALS.booklist,
+										"documents" : $scope.fileList
+									}
 								};
 								LandingOperationsSvc
 										.addfile(addFileObj)
@@ -390,6 +384,8 @@ fileItApp
 																.$broadcast(
 																		'error',
 																		result.data.description);
+													} else {
+														$scope.optselect = undefined;
 													}
 												});
 
@@ -461,22 +457,37 @@ fileItApp
 								if ($scope.optselect === undefined) {
 									$scope.errorCase = true;
 								} else {
-									$('#myModal').modal('hide');
 									$scope.errorCase = false;
+									$('input[type=radio]').attr("checked",
+											false);
 									if ($scope.optselect === 'landing') {
+										$scope.optselect === undefined;
+										$('#myModal').modal('hide');
 										$scope.gotolandingPage();
 									} else if ($scope.optselect === 'bookmark') {
-										$scope.addFiles = false;
+										$scope.optselect === undefined;
+										$('#myModal').modal('hide');
 										$scope.addTag();
 									} else if ($scope.optselect === 'delete') {
+										$scope.optselect === undefined;
+										$('#myModal').modal('hide');
 										$scope.deletebook();
 									} else if ($scope.optselect === 'add') {
+										$scope.optselect === undefined;
 										$scope.onAddFileClick();
 									} else if ($scope.optselect === 'download') {
+										$scope.optselect === undefined;
+										$('#myModal').modal('hide');
 										$scope.onFileDownload();
 									}
 								}
 							};
+							
+							$scope.closeModal = function() {
+								$('#myModal').modal('hide');
+								$('input[type=radio]').attr("checked",
+										false);
+							}
 
 							$scope.deleteFile = function(index) {
 								$scope.fileList.splice(index, 1);

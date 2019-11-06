@@ -6,117 +6,49 @@
 </head>
 <body>
 	<div id="allCommentPage">
-		<div class="chatContainer">
-
-			<div class="chatTitleContainer">Comments</div>
-			<div class="chatHistoryContainer">
-
-				<ul class="formComments">
-					<li class="commentLi commentstep-1" data-commentid="{{$index}}"
-						ng-repeat="x in comments">
-						<table class="form-comments-table">
-							<tr>
-								<td><div class="comment-timestamp">{{x.dateTime}}</div></td>
-								<td><div class="comment-user">{{x.userName}}</div></td>
-								<td>
-									<div class="comment-avatar">
-										<i class="fa fa-comments"
-											style="margin-top: 26%; margin-left: 24%;"></i>
+		<div class="row bootstrap snippets">
+			<div class="col-md-6 col-md-offset-3 col-sm-12">
+				<div class="comment-wrapper">
+					<div class="panel panel-info">
+						<div class="panel-heading">Comment panel</div>
+						<div class="panel-body conver">
+							<textarea class="form-control" placeholder="write a comment..."
+								rows="3" ng-model="myTextarea"></textarea>
+							<br>
+							<button type="button" class="btn btn-info pull-right"
+								ng-click="addComment(myTextarea)">Post</button>
+							<div class="clearfix"></div>
+							<hr>
+							<ul class="media-list" style="overflow-x: auto; height: 250px;">
+								<li class="media" ng-repeat="x in comments"
+									ng-style="loggeduser === x.userName && {'background':'#e1ffc7','color': '#000', 'border-radius': '5px 0px 5px 5px', 'padding' : '8px !important', 'font-size' : '15px', 'text-shadow': '0 1px 1px rgba(0, 0, 0, .2)'} || loggeduser !== x.userName && {'background':'#ffffff', 'color': '#000', 'border-radius': '0px 5px 5px 5px', 'padding' : '8px !important', 'font-size' : '15px', 'text-shadow': '0 1px 1px rgba(0, 0, 0, .2)'}">
+									<div class="media-body">
+										<span class="text-muted pull-right"> <small
+											class="text-muted pull-right"
+											style="color: rgba(0, 0, 0, .45); font-size: 11px; display: inline-block;">{{x.dateTime}}</small>
+										</span> <strong class="text-success">@{{x.userName}}</strong>
+										<p style="word-break: break-all;">{{x.message}}</p>
 									</div>
-								</td>
-								<td>
-									<div id="comment-{{$index}}" data-commentid="{{$index}}"
-										class="comment comment-step1"
-										style="white-space: initial; word-wrap: break-word;">
-										{{x.message}}
-										<div id="commentactions-{{$index}}" class="comment-actions">
-											<div class="btn-group" role="group" aria-label="...">
-												<button type="button" class="btn btn-primary btn-sm">
-													<i class="fa fa-edit"></i> Reply
-												</button>
-												<button type="button" class="btn btn-default btn-sm">
-													<i class="fa fa-pencil"></i> Edit
-												</button>
-												<button type="button" class="btn btn-danger btn-sm">
-													<i class="fa fa-trash"></i>Delete
-												</button>
-											</div>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</table>
-					</li>
-				</ul>
-			</div>
-			<div class="input-group input-group-sm chatMessageControls">
-				<span class="input-group-addon" id="sizing-addon3">Comment</span> <input
-					type="text" class="form-control" ng-model="myTextarea"
-					placeholder="Type your message here.."
-					aria-describedby="sizing-addon3"> <span
-					class="input-group-btn">
-					<button id="clearMessageButton" class="btn btn-default"
-						style="color: #333; background-color: #e6e6e6; border-color: #adadad; box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);"
-						type="button" ng-click="clear()">Clear</button>
-					<button type="submit" class="btn btn-submit font-style"
-						ng-click="addComment(myTextarea)">
-						<i class="fa fa-send"></i>Send
-					</button>
-				</span> <span class="input-group-btn">
-					<button id="undoSendButton" class="btn btn-default" type="button"
-						style="color: black;" disabled>
-						<i class="fa fa-undo"></i>Undo
-					</button>
-				</span>
-			</div>
-		</div>
-		<!-- <div class="row">
-			<div class="col-sm-12" style="margin-left: 2%;">
-				<h3>All Comments</h3>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-1"></div>
-			<div class="col-sm-6" ng-repeat="x in comments">
-				<div class="col-sm-1">
-					<div class="thumbnail">
-						<img class="img-responsive user-photo" src="images/avatar_2x.png">
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<strong>{{x.userName}}</strong> <span class="text-muted">commented
-							on {{x.dateTime}}</span>
-					</div>
-					<div class="panel-body">{{x.message}}</div>
-					/panel-body
-				</div>
-				/panel panel-default
-			</div>
-			/col-sm-5
 
-			<div class="col-sm-1"></div>
-
-			<div class="col-sm-3">
-				<p>Add Comment</p>
-				<textarea ng-model="myTextarea"></textarea>
-				<button type="submit" class="btn btn-submit font-style"
-					ng-click="addComment(myTextarea)">Submit</button>
-			</div>
-			<div class="col-sm-1"></div> -->
-		</di
-					v>
-		<div class="row col-sm-12"
-			style="background-color: blueviolet; bottom: 0;" id="footer">
-			<div class="col-sm-3">
-				<a href="http://tranfode.com/" target="_new"><img
-					src="images/tranfode.png"></a>
-			</div>
-			<div class="col-sm-9"
-				style="text-align: right !important; margin-top: 2%;">
-				<a href="http://tranfode.com/" target="_new"
-					class="text-white font-style">© Tranfode Technologies (P) Ltd.</a>
 			</div>
 		</div>
+	</div>
+	<div class="row col-sm-12"
+		style="background-color: blueviolet; bottom: 0;" id="footer">
+		<div class="col-sm-3">
+			<a href="http://tranfode.com/" target="_new"><img
+				src="images/tranfode.png"></a>
+		</div>
+		<div class="col-sm-9"
+			style="text-align: right !important; margin-top: 2%;">
+			<a href="http://tranfode.com/" target="_new"
+				class="text-white font-style">© Tranfode Technologies (P) Ltd.</a>
+		</div>
+	</div>
 </body>
 </html>

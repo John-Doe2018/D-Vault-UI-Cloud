@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
 fileItApp.constant('FILEIT_CONFIG', {
 	appName : 'FileIt',
 	appVersion : '1.0',

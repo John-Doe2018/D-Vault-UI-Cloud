@@ -1,14 +1,8 @@
-/*******************************************************************************
- * "© Copyright 2014, Tata Consultancy Services Limited and its licensors. All
- * rights reserved."
- * 
- * TCS OmniStore Product
- * 
- * This software is the confidential and proprietary information of TCS
- * ("Confidential Information"). You shall not disclose such confidential
- * Information and shall use it only in accordance with the terms of the license
- * agreement you entered into with TCS.
- ******************************************************************************/
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
 
 (function(r, e, s) {
 	'use strict';

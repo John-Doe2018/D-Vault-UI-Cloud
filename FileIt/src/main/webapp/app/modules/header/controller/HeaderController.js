@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
 fileItApp
 		.controller(
 				'HeaderController',
@@ -5,25 +10,19 @@ fileItApp
 						'$rootScope',
 						'$scope',
 						'$location',
-						'$sessionStorage',
 						'LandingOperationsSvc',
 						'BINDER_NAME',
 						'LOGGED_USER',
-						'$timeout',
-						'dateFilter',
-						'$q',
 						'DashboardSvc',
 						'IMAGE_URLS',
 						'ACL',
 						'$mdToast',
 						'$route',
-						'LOGGED_USER',
 						'DASHBOARD_DETALS',
 						function($rootScope, $scope, $location,
-								$sessionStorage, LandingOperationsSvc,
-								BINDER_NAME, LOGGED_USER, $timeout, dateFilter,
-								$q, DashboardSvc, IMAGE_URLS, ACL, $mdToast,
-								$route, LOGGED_USER, DASHBOARD_DETALS) {
+								LandingOperationsSvc, BINDER_NAME, LOGGED_USER,
+								DashboardSvc, IMAGE_URLS, ACL, $mdToast,
+								$route, DASHBOARD_DETALS) {
 							$rootScope.searchResult = [];
 							$scope.bookmarkList = [];
 							$scope.gotoSettings = function() {

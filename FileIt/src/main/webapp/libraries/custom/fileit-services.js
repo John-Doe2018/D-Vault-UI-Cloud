@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
 fileItApp.service('LoadingService', function($rootScope) {
 	this.showLoad = function() {
 		$('#loadingScreen').addClass('display-flex');

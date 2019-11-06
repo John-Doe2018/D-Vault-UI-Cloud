@@ -31,10 +31,6 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">X</span>
-				</button>
 				<h4 class="modal-title font-style" id="myModalLabel">Choose
 					Option</h4>
 			</div>
@@ -49,16 +45,38 @@
 				</label> <label class="radio-inline font-style"> <input type="radio"
 					name="inlineRadioOptions" id="inlineRadio3" value="delete">
 					Delete
-				</label>
-				<!-- <label class="radio-inline"> <input type="radio"
+				</label> <label class="radio-inline"> <input type="radio"
 					name="inlineRadioOptions" id="inlineRadio1" value="add">
 					Add Files
-				</label> -->
-				<label class="radio-inline font-style"> <input type="radio"
+				</label> <label class="radio-inline font-style"> <input type="radio"
 					name="inlineRadioOptions" id="inlineRadio1" value="download">
 					Download
 				</label>
-				<div ng-if="addFiles">
+			</div>
+			<div class="modal-footer">
+				<md-button class="md-raised md-primary md-hue-2 font-style"
+					style="margin: 20px 0;" aria-hidden="true"
+					ng-click="onOptionClick()">{{'SUBMIT' | translate}}</md-button>
+				<md-button style="margin: 20px 0; "
+					class="md-warn md-raised md-hue-2 font-style"
+					ng-click="closeModal()" aria-hidden="true">{{'CANCEL' |
+				translate}}</md-button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="addFileModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg" style="width: 90%">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title font-style">Add Files</h4>
+			</div>
+			<div class="modal-body">
+				<div>
 					<div class="dropzone" ngf-drop ngf-select ng-model="gFiles"
 						ngf-pattern="'.pdf, .pptx, .docx'" ngf-multiple="true"
 						ngf-drag-over-class="'dragover'">
@@ -81,22 +99,24 @@
 						<div class="progress" style="background-color: blue;">
 							<div class="progress-bar font-style" role="progressbar"
 								aria-valuenow="{{progress}}" aria-valuemin="0"
-								aria-valuemax="100" style="width: {{progress">{{progress}}</div>
+								aria-valuemax="100" style="width: {{progress">
+								{{progress}}</div>
 						</div>
 						<hr>
-						<div class="col-md-12" style="padding-top: 10px;">
+						<div class="col-md-12"
+							style="padding-top: 10px; overflow-y: auto; height: 150px;">
 							<table class="table table-bordered table-striped">
 								<thead>
 									<tr>
 										<th class="font-style">File Name</th>
 										<th class="font-style">File Type</th>
-										<th></th>
+										<th class="font-style">Delete</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr ng-repeat="file in fileList">
 
-										<td class="font-style">{{file.name}}</td>
+										<td class="font-style">{{file.fileName}}</td>
 										<td class="font-style">{{file.type}}</td>
 										<td class="glyphicon glyphicon-trash file-delete"
 											ng-click="deleteFile($index, file.name, $event);"></td>
@@ -108,13 +128,18 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<md-button class="md-raised md-primary md-hue-2 font-style"
-					style="margin: 20px 0;" aria-hidden="true"
-					ng-click="onOptionClick()">{{'SUBMIT' | translate}}</md-button>
-				<md-button style="margin: 20px 0; "
-					class="md-warn md-raised md-hue-2 font-style" data-dismiss="modal"
-					aria-hidden="true">{{'CANCEL' | translate}}</md-button>
+				<div class="pull-right">
+					<md-button class="md-raised md-primary md-hue-2 font-style"
+						style="margin: 20px 0;" data-dismiss="modal" aria-hidden="true"
+						ng-click="onAddFileClick()">{{'SUBMIT' | translate}}</md-button>
+					<md-button style="margin: 20px 0;"
+						class="md-warn md-raised md-hue-2 font-style" data-dismiss="modal"
+						aria-hidden="true" ng-click="onCancelClick()">{{'CANCEL'
+					| translate}}</md-button>
+				</div>
+				<div class="clearfix"></div>
 			</div>
 		</div>
+
 	</div>
 </div>

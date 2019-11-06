@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
 fileItApp
 		.controller(
 				'DashboardController',
@@ -5,8 +10,6 @@ fileItApp
 						'$rootScope',
 						'$scope',
 						'$location',
-						'$sessionStorage',
-						'Idle',
 						'DASHBOARD_DETALS',
 						'DashboardSvc',
 						'LOGGED_USER',
@@ -15,9 +18,8 @@ fileItApp
 						'ACL',
 						'HomeSvc',
 						function($rootScope, $scope, $location,
-								$sessionStorage, Idle, DASHBOARD_DETALS,
-								DashboardSvc, LOGGED_USER, $filter,
-								LandingOperationsSvc, ACL, HomeSvc) {
+								DASHBOARD_DETALS, DashboardSvc, LOGGED_USER,
+								$filter, LandingOperationsSvc, ACL, HomeSvc) {
 							if (DASHBOARD_DETALS.searchsave === '') {
 								DASHBOARD_DETALS.searchsave = false;
 							}
@@ -120,7 +122,6 @@ fileItApp
 							$scope.getActiveUsers();
 
 							$scope.commentListCount = 0;
-
 							$scope.getAllComments = function() {
 								var reqObj = {
 									'customHeader' : {
@@ -331,7 +332,7 @@ fileItApp
 															var recObj = {
 																'no' : i + 1,
 																'classification' : keys[i],
-																'count' : result.data[keys[i]].length
+																'count' : result.data[keys[i]]
 															};
 															$scope.items
 																	.push(recObj);
@@ -340,7 +341,7 @@ fileItApp
 															$scope.labels
 																	.push(keys[i]);
 															$scope.data
-																	.push(result.data[keys[i]].length);
+																	.push(result.data[keys[i]]);
 														}
 													}
 													$scope.getData();
@@ -349,9 +350,16 @@ fileItApp
 							$scope.getDashboard();
 
 							$scope.getClassification = function() {
+								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									}
+								}
 								$scope.classList = [];
 								HomeSvc
-										.getClassification()
+										.getClassification(reqObj)
 										.then(
 												function(result) {
 													if (result.data.description !== undefined) {
@@ -378,12 +386,20 @@ fileItApp
 							$scope.getClassification();
 
 							$scope.getBooksList = function() {
+								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									}
+								}
 								DashboardSvc
-										.getAllBooks()
+										.getAllBooks(reqObj)
 										.then(
 												function(result) {
-													$scope.docCount = result.data.bookList.length;
-													DASHBOARD_DETALS.allbookslist = result.data.bookList;
+													console.log(result.data);
+													$scope.docCount = result.data.length;
+													DASHBOARD_DETALS.allbookslist = result.data;
 												});
 							};
 							$scope.getBooksList();

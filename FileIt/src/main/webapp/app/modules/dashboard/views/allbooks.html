@@ -27,23 +27,29 @@
 				</tr>
 				<thead style="background-color: lightgrey !important;">
 					<tr>
-						<th class="no font-style" style="text-align: center;">No.</th>
-						<th class="classification font-style" style="text-align: center;">Book
+						<th class="no font-style"
+							style="text-align: center; position: sticky; top: 0; background-color: lightgrey !important;">No.</th>
+						<th class="classification font-style"
+							style="text-align: center; position: sticky; top: 0; background-color: lightgrey !important;">Book
 							Name</th>
-						<th class="count font-style" style="text-align: center;">Classification</th>
-						<th class="Add font-style" style="text-align: center;">User</th>
-						<th class="Add font-style" style="text-align: center;">Date &
-							Time</th>
-						<th class="Add font-style" style="text-align: center;">View</th>
+						<th class="count font-style"
+							style="text-align: center; position: sticky; top: 0; background-color: lightgrey !important;">Classification</th>
+						<th class="Add font-style"
+							style="text-align: center; position: sticky; top: 0; background-color: lightgrey !important;">User</th>
+						<th class="Add font-style"
+							style="text-align: center; position: sticky; top: 0; background-color: lightgrey !important;">Date
+							& Time</th>
+						<th class="Add font-style"
+							style="text-align: center; position: sticky; top: 0; background-color: lightgrey !important;">View</th>
 					</tr>
 				</thead>
 				<tr
 					data-ng-repeat="logEvent in logEventFilter = (bookList | filter:searchTerm | limitTo:numberToDisplay) track by $index"
 					style="text-align: center;">
 					<td>{{$index + 1}}</td>
-					<td>{{logEvent.bookName}}</td>
+					<td>{{logEvent.bookname}}</td>
 					<td>{{logEvent.classification}}</td>
-					<td>{{logEvent.userName}}</td>
+					<td>{{logEvent.username}}</td>
 					<td>{{logEvent.date}}</td>
 					<td>
 						<button ng-click="bookView(logEvent)">

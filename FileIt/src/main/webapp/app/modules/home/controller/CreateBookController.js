@@ -1,33 +1,28 @@
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
 fileItApp
 		.controller(
 				'CreateBookController',
 				[
 						'$rootScope',
 						'$scope',
-						'$location',
-						'$sessionStorage',
-						'Idle',
-						'rfc4122',
 						'HomeSvc',
-						'LoadingService',
-						'$http',
 						'FILEIT_CONFIG',
 						'BINDER_SVC',
 						'$route',
 						'DASHBOARD_DETALS',
 						'$mdToast',
 						'LandingOperationsSvc',
-						'BINDER_NAME',
 						'$mdDialog',
-						'Upload',
-						'$timeout',
 						'ACL',
-						function($rootScope, $scope, $location,
-								$sessionStorage, Idle, rfc4122, HomeSvc,
-								LoadingService, $http, FILEIT_CONFIG,
+						function($rootScope, $scope, HomeSvc, FILEIT_CONFIG,
 								BINDER_SVC, $route, DASHBOARD_DETALS, $mdToast,
-								LandingOperationsSvc, BINDER_NAME, $mdDialog,
-								Upload, $timeout, ACL) {
+								LandingOperationsSvc, $mdDialog, ACL) {
+							$scope.hgt = $(window).height()
+							- $('#pageHeader').height()- $('#pageFooter').height();
 							if (DASHBOARD_DETALS.searchsave === '') {
 								DASHBOARD_DETALS.searchsave = false;
 							}
@@ -56,13 +51,6 @@ fileItApp
 									return false;
 								}
 							});
-							$scope.resize = function() {
-								var newheight = $(window).height()
-										- $('#pageHeader').height();
-								$("#createBookPage").height(newheight);
-							};
-
-							$scope.resize();
 							$scope.convertImage = function() {
 								if ($scope.gFiles && $scope.gFiles.length) {
 									for (var i = 0; i < $scope.gFiles.length; i++) {
@@ -77,6 +65,7 @@ fileItApp
 													$scope.bookName);
 											fd.append('path', $scope.bookName
 													+ "/Images/");
+											fd.append('group', ACL.group);
 											fd.append('type', file.type);
 											$scope.progressvisible = true
 											var xhr = new XMLHttpRequest();
@@ -135,11 +124,15 @@ fileItApp
 											function() {
 												var files = $scope.gFiles;
 												$scope.validFile = true;
+												var filesize = (($scope.gFiles[0].size/1024)/1024).toFixed(4);
+												if(filesize > 5 ){
+													$scope.validFile = false;
+												}
 												if ($scope.validFile) {
 													for (var i = 0; i < files.length; i++) {
 														var fileFound = false;
 														for (var j = 0; j < $scope.fileList.length; j++) {
-															if ($scope.fileList[j].name == files[i].name) {
+															if ($scope.fileList[j].fileName == files[i].name) {
 																fileFound = true;
 																break;
 															}
@@ -156,6 +149,8 @@ fileItApp
 														}
 													}
 													$scope.convertImage();
+												} else {
+													alert("File size exceeds 5MB !!");
 												}
 
 											});
@@ -170,8 +165,15 @@ fileItApp
 								}
 								$scope.classlist.push(dataObj);
 							} else {
+								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									}
+								}
 								HomeSvc
-										.getClassification()
+										.getClassification(reqObj)
 										.then(
 												function(result) {
 													if (result.data.description !== undefined) {
@@ -201,7 +203,7 @@ fileItApp
 							};
 
 							$scope.deleteFile = function(index, filename, ev) {
-
+								$scope.deletedFiledName = filename;
 								var confirm = $mdDialog.confirm().title(
 										'Would you like to delete the file?')
 										.ariaLabel('Lucky day').targetEvent(ev)
@@ -221,7 +223,7 @@ fileItApp
 															"bookName" : $scope.bookName,
 															"classification" : $scope.classificationName,
 															"documents" : [ {
-																"fileName" : filename
+																"fileName" : $scope.deletedFiledName
 															} ]
 														}
 													}
@@ -231,7 +233,7 @@ fileItApp
 															.then(
 																	function(
 																			result) {
-																		if (result.data.Success !== undefined) {
+																		if (result.data.successMessage !== undefined) {
 																			$scope.fileList
 																					.splice(
 																							index,
@@ -295,17 +297,6 @@ fileItApp
 
 							};
 
-							function scroll_to_class(element_class,
-									removed_height) {
-								var scroll_to = $(element_class).offset().top
-										- removed_height;
-								if ($(window).scrollTop() != scroll_to) {
-									$('html, body').stop().animate({
-										scrollTop : scroll_to
-									}, 0);
-								}
-							}
-
 							function bar_progress(progress_line_object,
 									direction) {
 								var number_of_steps = progress_line_object
@@ -328,7 +319,6 @@ fileItApp
 							jQuery(document)
 									.ready(
 											function() {
-
 												/*
 												 * Form
 												 */
@@ -535,7 +525,7 @@ fileItApp
 																	// validation
 
 																});
-
+												
 											});
 
 						} ]);

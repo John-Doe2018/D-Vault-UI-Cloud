@@ -13,7 +13,8 @@
 						class="btn  btn-xs" data-nodrag
 						ng-click="downloadFile('multiple');"><span
 							class="glyphicon glyphicon-download-alt"></span></a>
-						<ul style="overflow-x: hidden; overflow-y: scroll;">
+						<ul
+							style="overflow-x: hidden; overflow-y: scroll; max-height: 500px;">
 							<li class="has-sub"
 								ng-repeat="nodearray in node.nodes | orderBy:'firstIndex'"><a
 								href="javascript:void(0)"
@@ -31,12 +32,6 @@
 			<md-switch ng-model="viewSwitch" aria-label="Switch View"
 				ng-change="onViewChange()"> {{ viewSwitch }} </md-switch>
 		</div>
-		<!-- <div class="col-sm-2">Page loaded :
-			{{rangestart}}/{{totalpages}}</div>
-		<div class="col-sm-1 form-group">
-			<input type="text" class="form-control" id="goto" ng-model="pageNo"
-				placeholder="Go to.." style="height: 32px; width: 100px;">
-		</div> -->
 		<div class="col-sm-1">
 			<md-button aria-label="Back" ng-click="backToBookView()"
 				style="margin-top: 11%; background:transparent;"> <md-icon
@@ -119,10 +114,6 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">X</span>
-					</button>
 					<h4 class="modal-title font-style" id="myModalLabel">Choose
 						Option</h4>
 				</div>
@@ -143,8 +134,9 @@
 						style="margin: 20px 0;" data-dismiss="modal" aria-hidden="true"
 						ng-click="onOptionClick()">{{'SUBMIT' | translate}}</md-button>
 					<md-button style="margin: 20px 0; "
-						class="md-warn md-raised md-hue-2 font-style" data-dismiss="modal"
-						aria-hidden="true">{{'CANCEL' | translate}}</md-button>
+						class="md-warn md-raised md-hue-2 font-style"
+						ng-click="closeFileModal()" aria-hidden="true">{{'CANCEL'
+					| translate}}</md-button>
 				</div>
 			</div>
 		</div>
@@ -193,7 +185,7 @@
 										<tr>
 											<th class="font-style">File Name</th>
 											<th class="font-style">File Type</th>
-											<th></th>
+											<th class="font-style">Delete</th>
 										</tr>
 									</thead>
 									<tbody>

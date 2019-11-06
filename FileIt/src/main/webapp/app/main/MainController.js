@@ -1,4 +1,9 @@
-﻿fileItApp
+﻿/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
+fileItApp
 		.controller(
 				'MainController',
 				[
@@ -68,7 +73,6 @@
 							$location.path('/login');
 							$scope.headerPath = "app/modules/header/views/header.html";
 							$scope.footerPath = "app/modules/header/views/footer.html";
-							// below field controls the currency position
 							$scope.leftPlacing = true;
 
 							$(document)
@@ -83,58 +87,9 @@
 												}
 											});
 
-							/**
-							 * It is the common route change success call back.
-							 * It will be triggered when the router changes
-							 */
-							$scope.$on('$routeChangeSuccess', function(next,
-									current) {
-								// $translate.use(OMNI_PROP.locale);
-								// $scope.fitScreen();
-							});
-
-							/**
-							 * Window resize call back. Call fitScreen() when
-							 * window is resized.
-							 */
 							var windowObj = angular.element($window);
 							windowObj.bind('resize', function() {
-								// $scope.fitScreen();
 							});
-
-							/**
-							 * This method sets height of ng-view area. To
-							 * initiate fitScreen() method call after 100ms
-							 * delay Reason: ng-view takes time to load the page
-							 */
-							$scope.fitScreen = function() {
-								var fitScreenDelay = $interval(function() {
-									$interval.cancel(fitScreenDelay);
-									var windowHeight = $(window).height();
-									var headerHeight = $('#pageHeader')
-											.height();
-
-									var footerHeight = $('#pageFooter')
-											.height();
-
-									var appPageContainer = windowHeight
-											- headerHeight - footerHeight;
-
-									$('.app-page-container').height(
-											appPageContainer + 'px');
-								}, 50);
-								$rootScope.$broadcast('FitSideMenu');
-							};
-
-							// call fit screen when App loads for the first time
-							// $scope.fitScreen();
-							$scope.$on('FitScreen', function() {
-								// $scope.fitScreen();
-							});
-
-							/**
-							 * Successful login callback
-							 */
 
 							$scope.$on('loginSuccess', function() {
 								$scope.loginState = true;
@@ -144,10 +99,6 @@
 								$scope.loginState = false;
 							});
 
-							/**
-							 * This is the common function can be used to
-							 * convert the amount with standard format
-							 */
 							$scope.parseFloat = function(amount) {
 								amount = parseFloat(amount).toFixed(2);
 								if (isNaN(amount)) {

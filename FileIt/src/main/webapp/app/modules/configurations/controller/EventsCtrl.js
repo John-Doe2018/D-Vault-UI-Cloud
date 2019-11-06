@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
 fileItApp.controller('EventsCtrl', [
 
 '$rootScope', '$scope', '$location', function($rootScope, $scope, $location) {
@@ -11,7 +16,7 @@ fileItApp.controller('EventsCtrl', [
 	});
 
 } ]).config(function(IdleProvider, KeepaliveProvider) {
-	IdleProvider.idle(1); // 15 min
+	IdleProvider.idle(1);
 	IdleProvider.timeout(1);
-	KeepaliveProvider.interval(1); // in seconds
+	KeepaliveProvider.interval(1);
 });

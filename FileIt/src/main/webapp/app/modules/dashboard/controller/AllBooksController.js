@@ -1,29 +1,29 @@
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
 fileItApp.controller('AllBooksController', [
-		'$rootScope',
 		'$scope',
 		'$location',
-		'$sessionStorage',
-		'Idle',
 		'DASHBOARD_DETALS',
-		'DashboardSvc',
-		'$window',
 		'IMAGE_URLS',
 		'BINDER_NAME',
 		'LandingOperationsSvc',
 		'ACL',
-		function($rootScope, $scope, $location, $sessionStorage, Idle,
-				DASHBOARD_DETALS, DashboardSvc, $window, IMAGE_URLS,
-				BINDER_NAME, LandingOperationsSvc, ACL) {
+		function($scope, $location, DASHBOARD_DETALS, IMAGE_URLS, BINDER_NAME,
+				LandingOperationsSvc, ACL) {
 			$scope.resize = function() {
 				var newheight = $(window).height() - $('#pageHeader').height()
-						- $('#footer').height();
+						- $('#pageFooter').height();
 				$("#allBookPage").height(newheight);
 			};
 
 			$scope.resize();
 
 			$scope.bookView = function(book) {
-				BINDER_NAME.name = book.bookName;
+				BINDER_NAME.name = book.bookname;
+				DASHBOARD_DETALS.booklist = book.classification;
 				$scope.range = [ 1, 2 ];
 				var reqObj1 = {
 					'customHeader' : {

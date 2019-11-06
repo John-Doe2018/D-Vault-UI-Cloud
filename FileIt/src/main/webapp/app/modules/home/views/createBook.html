@@ -6,7 +6,7 @@
 </head>
 <body>
 	<form class="f1" name="createBookForm" novalidate>
-		<div class="row" id="createBookPage">
+		<div class="row" style="height: {{ hgt }}px">
 			<div
 				class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 
@@ -30,7 +30,7 @@
 					</div>
 					<div class="f1-step">
 						<div class="f1-step-icon">
-							<i class="fa fa-cloud-upload" style="margin-left: 32%"></i>
+							<i class="fa fa-upload" style="margin-left: 32%"></i>
 						</div>
 						<p style="margin-left: 36%" class="font-style">upload</p>
 					</div>
@@ -41,8 +41,7 @@
 					<md-input-container class="md-block" flex-gt-sm>
 					<label class="font-style">Book Name</label> <input
 						ng-model="bookName" name="bookName" maxlength="20"
-						restrict-field="bookName" ng-pattern="/^[-\w\s]+$/" required>
-					</md-input-container>
+						ng-pattern="/^[-\w\s]+$/" required> </md-input-container>
 					<span style="color: red" class="font-style"
 						ng-if="createBookForm.bookName.$dirty && createBookForm.bookName.$invalid">
 						<span ng-if="createBookForm.bookName.$error">Maximum 20
@@ -101,13 +100,13 @@
 						</div>
 						<hr>
 						<div class="col-md-12"
-							style="padding-top: 10px; overflow-y: auto; height: 150px;">
+							style="padding-top: 10px; overflow-y: auto; height: 100px;">
 							<table class="table table-bordered table-striped">
 								<thead>
 									<tr>
 										<th class="font-style">File Name</th>
 										<th class="font-style">File Type</th>
-										<th></th>
+										<th class="font-style">Delete</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -116,7 +115,7 @@
 										<td class="font-style">{{file.fileName}}</td>
 										<td class="font-style">{{file.type}}</td>
 										<td class="glyphicon glyphicon-trash file-delete"
-											ng-click="deleteFile($index, file.name, $event);"></td>
+											ng-click="deleteFile($index, file.fileName, $event);"></td>
 									</tr>
 								</tbody>
 							</table>

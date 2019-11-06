@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
 fileItApp.constant('BINDER_SVC', {
 	signup : '/auth/signup',
 	createBinder : '/binder/create',
@@ -30,5 +35,7 @@ fileItApp.constant('BINDER_SVC', {
 	getAllUsers : '/binder/getAllUsers',
 	getNewComments : '/binder/getNewCommentCount',
 	updateFav : '/binder/updateFavourites',
-	getFav : '/binder/getFavourites'
+	getFav : '/binder/getFavourites',
+	getBookLists : '/binder/getBookLists',
+	updateUser : '/auth/updateUser'
 });

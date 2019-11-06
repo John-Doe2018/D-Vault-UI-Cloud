@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
 fileItApp
 		.controller(
 				'LandingController',
@@ -36,6 +41,11 @@ fileItApp
 								$scope.minimizeModal = true;
 								DASHBOARD_DETALS.searchsave = true;
 							});
+							$scope.closeFileModal = function() {
+								$('#fileModal').modal('hide');
+								$('input[type=radio]').attr("checked",
+										false);
+							}
 							$scope.maximizemodal = function() {
 								DASHBOARD_DETALS.searchsave = false;
 								$scope.minimizeModal = false;
@@ -168,6 +178,7 @@ fileItApp
 													BINDER_NAME.name);
 											fd.append('path', BINDER_NAME.name
 													+ "/Images/");
+											fd.append('group', ACL.group);
 											fd.append('type', file.type);
 											$scope.progressvisible = true
 											var xhr = new XMLHttpRequest()
@@ -207,7 +218,14 @@ fileItApp
 							};
 
 							function uploadComplete(evt) {
-								$scope.resize();
+								if(evt.currentTarget.response.includes("Error")){
+									alert(evt.currentTarget.response)
+									for(var le=0; le < $scope.fileList.length; le++){
+										if($scope.fileList[le].fileName === evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>'))){
+											$scope.fileList.pop();
+										}
+									}
+								}
 							}
 
 							function uploadFailed(evt) {
@@ -226,11 +244,15 @@ fileItApp
 											function() {
 												var files = $scope.gFiles;
 												$scope.validFile = true;
+												var filesize = (($scope.gFiles[0].size/1024)/1024).toFixed(4);
+												if(filesize > 5 ){
+													$scope.validFile = false;
+												}
 												if ($scope.validFile) {
 													for (var i = 0; i < files.length; i++) {
 														var fileFound = false;
 														for (var j = 0; j < $scope.fileList.length; j++) {
-															if ($scope.fileList[j].name == files[i].name) {
+															if ($scope.fileList[j].fileName == files[i].name) {
 																fileFound = true;
 																break;
 															}
@@ -247,6 +269,8 @@ fileItApp
 														}
 													}
 													$scope.convertImage();
+												} else {
+													alert("File size exceeds 5MB !!");
 												}
 
 											});
@@ -395,7 +419,6 @@ fileItApp
 													} else {
 														console
 																.log(result.data.URL);
-														result.data.URL = "download/Reqres.zip";
 														var a = document
 																.createElement("a");
 														a.href = result.data.URL;
@@ -447,10 +470,10 @@ fileItApp
 								}
 
 								$('#fsModal').modal('show');
+								$('#bookViewModel').scrollTop(0);
 							};
 
 							$scope.loadImageZoom = function() {
-								console.log($scope.rangeBegin);
 								var reqObj1 = {
 									'customHeader' : {
 										'userName' : ACL.username,
@@ -535,61 +558,65 @@ fileItApp
 																				.splice(
 																						$scope.selectedFIleIndex,
 																						1);
-																		var nodeObjMaster = {
-																			'id' : 1,
-																			'nodes' : $scope.nodearray
-																		};
-																		$scope.data = [];
-																		$scope.data
-																				.push(nodeObjMaster);
-																		$scope.indexChanged = true;
-																		var reqObj1 = {
-																			'customHeader' : {
-																				'userName' : ACL.username,
-																				'role' : ACL.role,
-																				'group' : ACL.group
-																			},
-																			"bookName" : BINDER_NAME.name,
-																			"classification" : DASHBOARD_DETALS.booklist,
-																			"rangeList" : [
-																					1,
-																					2 ]
+																		if ($scope.nodeArrayLatest.length === 0) {
+																			$location
+																					.path('/home');
+																		} else {
+																			var nodeObjMaster = {
+																				'id' : 1,
+																				'nodes' : $scope.nodearray
+																			};
+																			$scope.data = [];
+																			$scope.data
+																					.push(nodeObjMaster);
+																			$scope.indexChanged = true;
+																			var reqObj1 = {
+																				'customHeader' : {
+																					'userName' : ACL.username,
+																					'role' : ACL.role,
+																					'group' : ACL.group
+																				},
+																				"bookName" : BINDER_NAME.name,
+																				"classification" : DASHBOARD_DETALS.booklist,
+																				"rangeList" : [
+																						1,
+																						2 ]
+																			}
+																			LandingOperationsSvc
+																					.getImage(
+																							reqObj1)
+																					.then(
+																							function(
+																									result) {
+																								$scope.currentPage = 2;
+																								$scope.rangeBegin = 2;
+																								$scope.newBookRange = 3;
+																								IMAGE_URLS.url = result.data;
+																								$scope.zoomUrls = [];
+																								$scope.zoomUrls
+																										.push(IMAGE_URLS.url[0]);
+																								$scope.zoomUrls
+																										.push(IMAGE_URLS.url[1]);
+																								$(
+																										"#0")
+																										.attr(
+																												"src",
+																												"data:image/jpeg;base64,"
+																														+ IMAGE_URLS.url[0]);
+																								$(
+																										"#1")
+																										.attr(
+																												"src",
+																												"data:image/jpeg;base64,"
+																														+ IMAGE_URLS.url[1]);
+
+																								$(
+																										'#mybook')
+																										.booklet(
+																												"gotopage",
+																												1);
+																							});
 																		}
-																		LandingOperationsSvc
-																				.getImage(
-																						reqObj1)
-																				.then(
-																						function(
-																								result) {
-																							$scope.currentPage = 2;
-																							$scope.rangeBegin = 2;
-																							$scope.newBookRange = 3;
-																							IMAGE_URLS.url = result.data;
-																							$scope.zoomUrls = [];
-																							$scope.zoomUrls
-																									.push(IMAGE_URLS.url[0]);
-																							$scope.zoomUrls
-																									.push(IMAGE_URLS.url[1]);
-																							$(
-																									"#0")
-																									.attr(
-																											"src",
-																											"data:image/jpeg;base64,"
-																													+ IMAGE_URLS.url[0]);
-																							$(
-																									"#1")
-																									.attr(
-																											"src",
-																											"data:image/jpeg;base64,"
-																													+ IMAGE_URLS.url[1]);
-
-																							$(
-																									'#mybook')
-																									.booklet(
-																											"gotopage",
-																											1);
-																						});
-
 																	} else {
 																		$rootScope
 																				.$broadcast(
@@ -664,6 +691,7 @@ fileItApp
 							}
 
 							$scope.openBookPopUp = function(nodeName, index) {
+								$('input[type=radio]').attr("checked", false);
 								$scope.selectedFIleIndex = index;
 								document.getElementById("checkbox"
 										+ nodeName.firstIndex).checked = false;
@@ -673,6 +701,7 @@ fileItApp
 							};
 
 							$scope.onOptionClick = function() {
+								$('input[type=radio]').attr("checked", false);
 								if ($scope.optselect === 'view') {
 									$scope.onnodeclick($scope.nodeNaME);
 								} else if ($scope.optselect === 'delete') {
@@ -725,7 +754,8 @@ fileItApp
 																			result) {
 
 																		IMAGE_URLS.url = result.data;
-																		$scope.zoomUrls = [];
+																		// $scope.zoomUrls
+																		// = [];
 																		var indexadd = $scope.currentPage;
 																		if ($scope.indexChanged) {
 																			$scope.zoomUrls
@@ -795,6 +825,10 @@ fileItApp
 																									+ '"src="data:image/jpeg;base64,'
 																									+ IMAGE_URLS.url[1]
 																									+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
+																			$scope.zoomUrls
+																			.push(IMAGE_URLS.url[0]);
+																	$scope.zoomUrls
+																			.push(IMAGE_URLS.url[1]);
 																		}
 
 																		$scope.currentPage += 2;

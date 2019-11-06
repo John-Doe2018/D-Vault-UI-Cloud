@@ -7,14 +7,17 @@
 <body>
 	<div layout="row" layout-xs="column">
 		<div flex="20">
-			<div class="bg-light border-right" id="sidebar-wrapper"
-				ng-repeat="node in data">
-				<div ng-repeat="nodearray in node.nodes">
-					<a href="javascript:void(0)" ng-click="showPdf(nodearray.title)"
+			<nav>
+				<ul
+					style="height: 400px; overflow: hidden; overflow-y: scroll; margin-left: 10%;"
+					ng-repeat="node in data">
+					<li ng-repeat="nodearray in node.nodes"><a
+						href="javascript:void(0)" ng-click="showPdf(nodearray.title)"
 						class="list-group-item list-group-item-action bg-light"
-						style="margin-bottom: 0px !important">{{nodearray.title}}</a>
-				</div>
-			</div>
+						style="margin-bottom: 0px !important">{{nodearray.title}}</a></li>
+
+				</ul>
+			</nav>
 		</div>
 		<div flex="80" class="blue box">
 			<div layout="row" layout-xs="column">

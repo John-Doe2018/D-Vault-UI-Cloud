@@ -1,20 +1,21 @@
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
 fileItApp
 		.controller(
 				'CreateClassificationController',
 				[
 						'$rootScope',
 						'$scope',
-						'$location',
-						'$sessionStorage',
-						'Idle',
 						'HomeSvc',
 						'$route',
 						'$mdToast',
 						'ACL',
 						'DASHBOARD_DETALS',
-						function($rootScope, $scope, $location,
-								$sessionStorage, Idle, HomeSvc, $route,
-								$mdToast, ACL, DASHBOARD_DETALS) {
+						function($rootScope, $scope, HomeSvc, $route, $mdToast,
+								ACL, DASHBOARD_DETALS) {
 							if (DASHBOARD_DETALS.searchsave === '') {
 								DASHBOARD_DETALS.searchsave = false;
 							}
@@ -33,7 +34,7 @@ fileItApp
 								DASHBOARD_DETALS.searchsave = false;
 								$scope.minimizeModal = false;
 							}
-							
+
 							$scope.$on('closePopUP', function(event) {
 								$scope.closePopup();
 							});

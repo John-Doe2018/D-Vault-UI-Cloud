@@ -89,7 +89,7 @@
 							</div>
 							<div class="col-xs-9 text-right">
 								<div class="huge font-style">{{activeUsers}}</div>
-								<div class="font-style">Active Users!</div>
+								<div class="font-style">Total Users!</div>
 							</div>
 						</div>
 					</div>
@@ -106,7 +106,7 @@
 		<div class="row col-sm-12" style="margin-left: 1%;">
 			<div class="col-sm-8 grid-margin">
 				<md-card style="margin-top: 0%;">
-				<div class="card">
+				<div class="card" style="height: 450px;">
 					<div class="card-body">
 						<h4 class="card-title font-style">Document Classes</h4>
 						<div class="input-append">
@@ -161,33 +161,9 @@
 					</div>
 				</div>
 				</md-card>
-				<!-- <md-card>
-				<div class="card col-sm-5"
-					style="border: 1px solid rgba(0, 0, 0, 0.125); border-radius: 0; margin-top: 2%;">
-					<div class="card-header">
-						<div class="row">
-							<div class="col-md-8 font-style">
-								<i class="fa fa-bookmark fa-lg text-primary"></i> Bookmarks
-							</div>
-							<div class="col-md-4 text-right">
-								<button ng-click="onViewBookmark()" class="font-style">
-									View All <i class="fa fa-arrow-circle-right text-primary"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-					<div class="list-group list-group-flush"
-						ng-repeat="y in bookmarkList"
-						ng-click="gotoBookView(y.bookName, y.classification)">
-						<a href="javascript:void(0)"
-							class="list-group-item  list-group-item-action font-style"> <i
-							class="fa fa-bookmark fa-lg text-danger"></i> {{y.bookName}}
-						</a>
-					</div>
-				</div>
-				</md-card> -->
 			</div>
-			<div class="col-sm-4 card" style="margin-top: 0%; margin-left: -1%;">
+			<div class="col-sm-4 card"
+				style="margin-top: 0%; margin-left: -1%; height: 450px;">
 				<canvas id="chart-area" width="300 !important"
 					height="300 !important"></canvas>
 			</div>

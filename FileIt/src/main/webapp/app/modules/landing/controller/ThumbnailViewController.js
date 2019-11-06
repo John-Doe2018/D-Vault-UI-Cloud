@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
 fileItApp
 		.controller(
 				'ThumbnailViewController',
@@ -5,18 +10,15 @@ fileItApp
 						'$rootScope',
 						'$scope',
 						'$location',
-						'$sessionStorage',
-						'Idle',
 						'ACL',
 						'BINDER_NAME',
 						'DASHBOARD_DETALS',
 						'LandingOperationsSvc',
 						'IMAGE_URLS',
 						'$sce',
-						function($rootScope, $scope, $location,
-								$sessionStorage, Idle, ACL, BINDER_NAME,
-								DASHBOARD_DETALS, LandingOperationsSvc,
-								IMAGE_URLS, $sce) {
+						function($rootScope, $scope, $location, ACL,
+								BINDER_NAME, DASHBOARD_DETALS,
+								LandingOperationsSvc, IMAGE_URLS, $sce) {
 							$scope.viewSwitch = 'BookView';
 							$scope.onViewChange = function() {
 								$scope.viewSwitch = 'BookView';

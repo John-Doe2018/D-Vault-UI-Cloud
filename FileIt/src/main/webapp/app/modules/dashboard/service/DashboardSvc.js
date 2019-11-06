@@ -1,6 +1,10 @@
-fileItApp.factory('DashboardSvc', [ 'RestSvc', 'EncoderSvc', '$sessionStorage',
-		'BINDER_SVC',
-		function(RestSvc, EncoderSvc, $sessionStorage, BINDER_SVC) {
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
+fileItApp.factory('DashboardSvc', [ 'RestSvc', 'BINDER_SVC',
+		function(RestSvc, BINDER_SVC) {
 			return {
 				classifiedData : function(reqObj) {
 
@@ -16,9 +20,9 @@ fileItApp.factory('DashboardSvc', [ 'RestSvc', 'EncoderSvc', '$sessionStorage',
 					return RestSvc.getData(BINDER_SVC.getActiveUsers);
 				},
 
-				getAllBooks : function() {
+				getAllBooks : function(reqObj) {
 
-					return RestSvc.getData(BINDER_SVC.getAllBooks);
+					return RestSvc.postData(BINDER_SVC.getAllBooks, reqObj);
 				},
 
 				getAllComments : function(reqObj) {
@@ -35,12 +39,12 @@ fileItApp.factory('DashboardSvc', [ 'RestSvc', 'EncoderSvc', '$sessionStorage',
 
 					return RestSvc.postData(BINDER_SVC.getAllUsers, reqObj);
 				},
-				
+
 				getNewComments : function(reqObj) {
 
 					return RestSvc.postData(BINDER_SVC.getNewComments, reqObj);
 				},
-				
+
 				getFav : function(reqObj) {
 
 					return RestSvc.postData(BINDER_SVC.getFav, reqObj);

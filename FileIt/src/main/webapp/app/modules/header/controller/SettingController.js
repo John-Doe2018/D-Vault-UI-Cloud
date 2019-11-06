@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) Tranfode Technologies to Present 
+ *
+ * All Rights Reserved.
+ */
 fileItApp
 		.controller(
 				'SettingController',
@@ -5,20 +10,14 @@ fileItApp
 						'$rootScope',
 						'$scope',
 						'$location',
-						'$sessionStorage',
 						'UserOperationsSvc',
 						'$mdToast',
 						'$route',
 						'ACL',
 						function($rootScope, $scope, $location,
-								$sessionStorage, UserOperationsSvc, $mdToast,
-								$route, ACL) {
+								UserOperationsSvc, $mdToast, $route, ACL) {
 							$scope.gotoDashboardPage = function() {
 								$location.path('/dashboard');
-							}
-
-							$scope.onAddUserClicked = function() {
-								$location.path('/signup');
 							}
 
 							if (ACL.role === 'RL001') {
