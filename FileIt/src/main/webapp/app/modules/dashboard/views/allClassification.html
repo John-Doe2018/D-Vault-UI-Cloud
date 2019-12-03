@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="row" style="height: {{">
+	<div class="row" style="height: {{ hgt }}px">
 		<div layout="row" layout-align="start start" style="margin-left: 2%;">
 			<div flex="100">
 				<md-card> <md-card-header> <md-card-header-text>
@@ -18,20 +18,21 @@
 		</div>
 		<div class='md-padding' layout="row" layout-wrap id="classHeight"
 			style="margin-left: 2%;">
-			<md-card style="width: 250px;" ng-repeat="x in records"> <md-card-header>
+			<md-card style="width: 250px; border-color: blueviolet;border-width: 3px;border-style: solid;" ng-repeat="x in records"> <md-card-header>
 			<md-card-header-text> <span
 				class="md-title font-style">{{x.classification}}</span> <span
 				class="md-subhead font-style">Book Count : {{x.count}} </span> </md-card-header-text> </md-card-header>
 			<div class="md-actions" layout="row" layout-align="end center">
-				<md-button md-no-ink class="md-primary"
+				<md-button md-no-ink class="md-primary" style="border-color: blueviolet;border-width: 1px;border-style: solid;"
 					ng-click="shelfView(x.classification)"> <md-icon
 					md-svg-src="images/visibility.svg" aria-label="View Document"></md-icon></md-button>
-				<md-button class="md-warn" ng-click="createBooks(x.classification)">
+				<md-button class="md-warn" style="border-color: blueviolet;border-width: 1px;border-style: solid;" ng-click="createBooks(x.classification)">
 				<i class="fa fa-plus"></i></md-button>
 			</div>
 			</md-card>
 		</div>
-		<div class="row col-sm-12"
+	</div>
+	<div class="row col-sm-12"
 			style="background-color: blueviolet; bottom: 0;" id="footer">
 			<div class="col-sm-3">
 				<a href="http://tranfode.com/" target="_new"><img
@@ -40,9 +41,8 @@
 			<div class="col-sm-9"
 				style="text-align: right !important; margin-top: 2%;">
 				<a href="http://tranfode.com/" target="_new"
-					class="text-white font-style">© Tranfode Technologies (P) Ltd.</a>
+					class="text-white font-style">Â© Tranfode Technologies (P) Ltd.</a>
 			</div>
 		</div>
-	</div>
 </body>
 </html>
