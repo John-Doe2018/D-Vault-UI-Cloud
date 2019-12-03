@@ -219,7 +219,8 @@ fileItApp
 
 							function uploadComplete(evt) {
 								if(evt.currentTarget.response.includes("Error")){
-									alert(evt.currentTarget.response)
+									$scope.progress = 0;
+									alert(evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>')) + " Already present");
 									for(var le=0; le < $scope.fileList.length; le++){
 										if($scope.fileList[le].fileName === evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>'))){
 											$scope.fileList.pop();
@@ -392,7 +393,7 @@ fileItApp
 																		result.data.description);
 													} else {
 														$location
-																.path('/dashboard');
+																.path(DASHBOARD_DETALS.backview);
 													}
 												});
 							}

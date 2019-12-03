@@ -238,8 +238,8 @@ fileItApp
 																					.splice(
 																							index,
 																							1);
-																			if ($scope.fileList.length < 1) {
-																				$scope.showSubmitButton = false;
+																			if($scope.fileList.length === 0){
+																				$scope.progressvisible = false;
 																			}
 																		} else {
 																			$rootScope

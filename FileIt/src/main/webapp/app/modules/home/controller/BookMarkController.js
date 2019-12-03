@@ -18,7 +18,7 @@ fileItApp.controller('BookMarkController', [
 		function($rootScope, $scope, $location, LandingOperationsSvc, $route,
 				DASHBOARD_DETALS, ACL, IMAGE_URLS, HomeSvc, $mdToast,
 				DashboardSvc) {
-			jQuery(document).ready(
+			angular.element(document).ready(
 					function() {
 						$scope.hgt = $(window).height()
 								- $('#pageHeader').height()
@@ -29,6 +29,11 @@ fileItApp.controller('BookMarkController', [
 					});
 
 			$scope.init = function() {
+				$scope.hgt = $(window).height() - $('#pageHeader').height()
+						- $('#footer').height();
+				if ($scope.hgt < $('#bookHeight').height()) {
+					$scope.hgt = $('#bookHeight').height();
+				}
 				var reqObj = {
 					'customHeader' : {
 						'userName' : ACL.username,

@@ -312,6 +312,8 @@ fileItApp
 								} else if ($scope.optselect === 'delete') {
 								} else if ($scope.optselect === 'add') {
 									$('#myModal').modal('hide');
+									$('input[type=radio]').attr("checked",
+											false);
 									$('#addFileModal').modal('show');
 								} else if ($scope.optselect === 'download') {
 								}

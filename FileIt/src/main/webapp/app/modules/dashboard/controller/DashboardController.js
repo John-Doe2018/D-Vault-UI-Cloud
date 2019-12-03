@@ -42,7 +42,7 @@ fileItApp
 							$scope.$on('closePopUP', function(event) {
 								$scope.closePopup();
 							});
-							var sortingOrder = 'classification';
+							var sortingOrder = 'no';
 							$rootScope.$broadcast('closesidebar');
 
 							$scope.gotoClassification = function() {
