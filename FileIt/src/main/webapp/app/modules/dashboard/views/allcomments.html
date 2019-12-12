@@ -12,13 +12,6 @@
 					<div class="panel panel-info">
 						<div class="panel-heading">Comment panel</div>
 						<div class="panel-body conver">
-							<textarea class="form-control" placeholder="write a comment..."
-								rows="3" ng-model="myTextarea"></textarea>
-							<br>
-							<button type="button" class="btn btn-info pull-right"
-								ng-click="addComment(myTextarea)">Post</button>
-							<div class="clearfix"></div>
-							<hr>
 							<ul class="media-list" style="overflow-x: auto; height: 250px;">
 								<li class="media" ng-repeat="x in comments"
 									ng-style="loggeduser === x.userName && {'background':'#e1ffc7','color': '#000', 'border-radius': '5px 0px 5px 5px', 'padding' : '8px !important', 'font-size' : '15px', 'text-shadow': '0 1px 1px rgba(0, 0, 0, .2)'} || loggeduser !== x.userName && {'background':'#ffffff', 'color': '#000', 'border-radius': '0px 5px 5px 5px', 'padding' : '8px !important', 'font-size' : '15px', 'text-shadow': '0 1px 1px rgba(0, 0, 0, .2)'}">
@@ -28,10 +21,17 @@
 											style="color: rgba(0, 0, 0, .45); font-size: 11px; display: inline-block;">{{x.dateTime}}</small>
 										</span> <strong class="text-success"
 											ng-style="loggeduser === x.userName && {'color': 'black'} || loggeduser !== x.userName && {'color': 'blue'}">@{{x.userName}}</strong>
-										<p style="word-break: break-all;">{{x.message}}</p>
+										<p style="word-break: break-all;" ng-style="loggeduser === x.userName && {'color': 'black'} || loggeduser !== x.userName && {'color': 'blue'}">{{x.message}}</p>
 									</div>
 								</li>
 							</ul>
+							<hr>
+							<div class="clearfix"></div>
+							<textarea class="form-control" placeholder="write a comment..."
+								rows="3" ng-model="myTextarea"></textarea>
+							<br>
+							<button type="button" class="btn btn-info pull-right"
+								ng-click="addComment(myTextarea)"><i class="fa fa-paper-plane"></i></button>
 						</div>
 					</div>
 				</div>
@@ -40,7 +40,7 @@
 		</div>
 	</div>
 	<div class="row col-sm-12"
-		style="background-color: blueviolet; bottom: 0;" id="footer">
+		style="background-color: #00239CFF; bottom: 0;" id="footer">
 		<div class="col-sm-3">
 			<a href="http://tranfode.com/" target="_new"><img
 				src="images/tranfode.png"></a>

@@ -471,6 +471,7 @@ fileItApp
 								}
 
 								$('#fsModal').modal('show');
+								$scope.scrollRange = 1200;
 								$('#bookViewModel').scrollTop(0);
 							};
 
@@ -507,7 +508,7 @@ fileItApp
 												});
 							};
 
-							var scrollRange = 1200;
+							$scope.scrollRange = 1200;
 							$('#bookViewModel')
 									.on(
 											"scroll",
@@ -520,14 +521,15 @@ fileItApp
 													document
 															.getElementById("myBtn").style.display = "none";
 												}
-												if (y > scrollRange) {
-													scrollRange += 1200;
+												if (y > $scope.scrollRange) {
+													$scope.scrollRange += 1200;
 													$scope.loadImageZoom();
 												}
 											});
 
 							$scope.topFunction = function() {
 								$('#bookViewModel').scrollTop(0);
+								$scope.scrollRange = 1200;
 							}
 
 							$scope

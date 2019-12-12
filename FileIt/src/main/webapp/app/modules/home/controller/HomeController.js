@@ -231,17 +231,11 @@ fileItApp
 																	$scope);
 														}
 
-														if ($scope.booklength <= 60) {
 															$('.bookshelf')
 																	.css(
 																			'height',
-																			'534px');
-														} else {
-															$('.bookshelf')
-																	.css(
-																			'height',
-																			'100%');
-														}
+																			$(window).height()
+																			- $('#pageHeader').height()- $('#pageFooter').height());
 													}
 
 												});

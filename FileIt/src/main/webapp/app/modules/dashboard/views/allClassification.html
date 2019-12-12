@@ -18,22 +18,22 @@
 		</div>
 		<div class='md-padding' layout="row" layout-wrap id="classHeight"
 			style="margin-left: 2%;">
-			<md-card style="width: 250px;" ng-repeat="x in records"> <md-card-header>
+			<md-card style="width: 250px;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);transition: 0.3s;border-left: 5px solid darkgray;" ng-repeat="x in records"> <md-card-header>
 			<md-card-header-text> <span
 				class="md-title font-style">{{x.classification}}</span> <span
 				class="md-subhead font-style">Book Count : {{x.count}} </span> </md-card-header-text> </md-card-header>
 			<div class="md-actions" layout="row" layout-align="end center">
-				<md-button md-no-ink class="md-primary"
+				<md-button md-no-ink class="md-primary" style="border-width: 1px;border-style: solid;border-color: blue;"
 					ng-click="shelfView(x.classification)"> <md-icon
 					md-svg-src="images/visibility.svg" aria-label="View Document"></md-icon></md-button>
-				<md-button class="md-warn" ng-click="createBooks(x.classification)">
+				<md-button class="md-warn" ng-click="createBooks(x.classification)" style="border-width: 1px;border-style: solid;border-color: blue;">
 				<i class="fa fa-plus"></i></md-button>
 			</div>
 			</md-card>
 		</div>
 	</div>
 	<div class="row col-sm-12"
-			style="background-color: blueviolet; bottom: 0;" id="footer">
+			style="background-color: #00239CFF; bottom: 0;" id="footer">
 			<div class="col-sm-3">
 				<a href="http://tranfode.com/" target="_new"><img
 					src="images/tranfode.png"></a>

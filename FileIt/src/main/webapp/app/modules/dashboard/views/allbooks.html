@@ -11,13 +11,13 @@
 				<span class="md-title font-style"
 					style="font-size: 25px; color: blue; margin: 3%;">Books</span>
 				<div class="input-group" style="margin-left: 3%;">
-					<input type="text" class="form-control" placeholder="Search term"
+					<input type="text" class="form-control" placeholder="Search Book"
 						data-ng-model="searchTerm">
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-1"></div>
-		<div class="constrained col-sm-8">
+		<div class="constrained col-sm-12">
 			<table class="table table-striped table-condensed table-hover"
 				id="loggingTable" infinite-scroll="loadMore()"
 				infinite-scroll-container='".constrained"'
@@ -28,24 +28,24 @@
 				<thead style="background-color: lightgrey !important;">
 					<tr>
 						<th class="no font-style"
-							style="text-align: center; position: sticky; top: 0; background-color: lightgrey !important;">No.</th>
+							style="text-align: center; position: sticky; top: 0; background-color: #167F92 !important; border: 1px solid #FFF; color: #FFF;">No.</th>
 						<th class="classification font-style"
-							style="text-align: center; position: sticky; top: 0; background-color: lightgrey !important;">Book
+							style="text-align: center; position: sticky; top: 0; background-color: #167F92 !important; border: 1px solid #FFF; color: #FFF;">Book
 							Name</th>
 						<th class="count font-style"
-							style="text-align: center; position: sticky; top: 0; background-color: lightgrey !important;">Classification</th>
+							style="text-align: center; position: sticky; top: 0; background-color: #167F92 !important; border: 1px solid #FFF; color: #FFF;">Classification</th>
 						<th class="Add font-style"
-							style="text-align: center; position: sticky; top: 0; background-color: lightgrey !important;">User</th>
+							style="text-align: center; position: sticky; top: 0; background-color: #167F92 !important; border: 1px solid #FFF; color: #FFF;">User</th>
 						<th class="Add font-style"
-							style="text-align: center; position: sticky; top: 0; background-color: lightgrey !important;">Date
+							style="text-align: center; position: sticky; top: 0; background-color: #167F92 !important; border: 1px solid #FFF; color: #FFF;">Date
 							& Time</th>
 						<th class="Add font-style"
-							style="text-align: center; position: sticky; top: 0; background-color: lightgrey !important;">View</th>
+							style="text-align: center; position: sticky; top: 0; background-color: #167F92 !important; border: 1px solid #FFF; color: #FFF;">View</th>
 					</tr>
 				</thead>
 				<tr
 					data-ng-repeat="logEvent in logEventFilter = (bookList | filter:searchTerm | limitTo:numberToDisplay) track by $index"
-					style="text-align: center;">
+					style="text-align: center; color: #024457; border: 1px solid #D9E4E6;">
 					<td>{{$index + 1}}</td>
 					<td>{{logEvent.bookname}}</td>
 					<td>{{logEvent.classification}}</td>
@@ -62,7 +62,7 @@
 		<div class="col-sm-3"></div>
 	</div>
 	<div class="row col-sm-12"
-		style="background-color: blueviolet; bottom: 0;" id="footer">
+		style="background-color: #00239CFF; bottom: 0;" id="footer">
 		<div class="col-sm-3">
 			<a href="http://tranfode.com/" target="_new"><img
 				src="images/tranfode.png"></a>
