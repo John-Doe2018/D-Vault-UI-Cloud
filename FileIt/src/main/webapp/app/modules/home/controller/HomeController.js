@@ -112,10 +112,11 @@ fileItApp
 
 							function uploadComplete(evt) {
 								if(evt.currentTarget.response.includes("Error")){
-									alert(evt.currentTarget.response)
 									for(var le=0; le < $scope.fileList.length; le++){
 										if($scope.fileList[le].fileName === evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>'))){
 											$scope.fileList.pop();
+											$scope.progress = 0;
+											alert(evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>')) + " Already present !!");
 										}
 									}
 								}
@@ -135,37 +136,38 @@ fileItApp
 									.$watch(
 											'gFiles',
 											function() {
-												var files = $scope.gFiles;
-												$scope.validFile = true;
-												var filesize = (($scope.gFiles[0].size/1024)/1024).toFixed(4);
-												if(filesize > 5 ){
-													$scope.validFile = false;
-												}
-												if ($scope.validFile) {
-													for (var i = 0; i < files.length; i++) {
-														var fileFound = false;
-														for (var j = 0; j < $scope.fileList.length; j++) {
-															if ($scope.fileList[j].fileName == files[i].name) {
-																fileFound = true;
-																break;
+												if($scope.gFiles.length > 0){
+													var files = $scope.gFiles;
+													$scope.validFile = true;
+													var filesize = (($scope.gFiles[0].size/1024)/1024).toFixed(4);
+													if(filesize > 5 ){
+														$scope.validFile = false;
+													}
+													if ($scope.validFile) {
+														for (var i = 0; i < files.length; i++) {
+															var fileFound = false;
+															for (var j = 0; j < $scope.fileList.length; j++) {
+																if ($scope.fileList[j].fileName == files[i].name) {
+																	fileFound = true;
+																	break;
+																}
+															}
+															if (!fileFound) {
+																$scope.showSubmitButton = true;
+																$scope.ImageProperty.fileName = files[i].name;
+																$scope.ImageProperty.type = files[i].type;
+																$scope.fileList
+																		.push($scope.ImageProperty);
+																$scope.ImageProperty = {};
+															} else {
+																alert("Cannot upload same file twice !!");
 															}
 														}
-														if (!fileFound) {
-															$scope.showSubmitButton = true;
-															$scope.ImageProperty.fileName = files[i].name;
-															$scope.ImageProperty.type = files[i].type;
-															$scope.fileList
-																	.push($scope.ImageProperty);
-															$scope.ImageProperty = {};
-														} else {
-															alert("Cannot upload same file twice !!");
-														}
+														$scope.convertImage();
+													} else {
+														alert("File size exceeds 5MB !!");
 													}
-													$scope.convertImage();
-												} else {
-													alert("File size exceeds 5MB !!");
 												}
-
 											});
 
 							$scope.noBookPresent = true;

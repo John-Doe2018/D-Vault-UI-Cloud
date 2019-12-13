@@ -205,7 +205,7 @@
 				<div class="modal-footer">
 					<div class="pull-right">
 						<md-button class="md-raised md-primary md-hue-2 font-style"
-							style="margin: 20px 0;" data-dismiss="modal" aria-hidden="true"
+							style="margin: 20px 0;" data-dismiss="modal" aria-hidden="true" ng-disabled="fileList.length === 0"
 							ng-click="onAddFileClick()">{{'SUBMIT' | translate}}</md-button>
 						<md-button style="margin: 20px 0;"
 							class="md-warn md-raised md-hue-2 font-style"

@@ -21,6 +21,7 @@ fileItApp
 						function($rootScope, $scope, HomeSvc, FILEIT_CONFIG,
 								BINDER_SVC, $route, DASHBOARD_DETALS, $mdToast,
 								LandingOperationsSvc, $mdDialog, ACL) {
+							$scope.disableSubmitButton = false;
 							$scope.hgt = $(window).height()
 							- $('#pageHeader').height()- $('#pageFooter').height();
 							if (DASHBOARD_DETALS.searchsave === '') {
@@ -53,6 +54,7 @@ fileItApp
 							});
 							$scope.convertImage = function() {
 								if ($scope.gFiles && $scope.gFiles.length) {
+									$scope.disableSubmitButton = true;
 									for (var i = 0; i < $scope.gFiles.length; i++) {
 										var file = $scope.gFiles[i];
 										if (!file.$error) {
@@ -105,7 +107,18 @@ fileItApp
 							};
 
 							function uploadComplete(evt) {
-								$scope.resize();
+								if(evt.currentTarget.response.includes("Error")){
+									for(var le=0; le < $scope.fileList.length; le++){
+										if($scope.fileList[le].fileName === evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>'))){
+											$scope.fileList.pop();
+											$scope.progress = 0;
+											alert(evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>')) + " Already present !!");
+										}
+									}
+								} else {
+									$scope.disableSubmitButton = false;
+								}
+							
 							}
 
 							function uploadFailed(evt) {
@@ -182,15 +195,17 @@ fileItApp
 																		'error',
 																		result.data.description);
 													} else {
-														for (var i = 0; i < result.data.length; i++) {
+														var keys = Object
+																.keys(result.data);
+														for (var i = 0; i < keys.length; i++) {
 															var dataObj = {
-																'name' : result.data[i],
-																'selected' : false
-															}
+																	'name' : keys[i],
+																	'selected' : false
+																}
 															$scope.classlist
-																	.push(dataObj);
-														}
+															.push(dataObj);
 
+														}
 													}
 												});
 							}
@@ -274,11 +289,11 @@ fileItApp
 										.createBinder(reqObj)
 										.then(
 												function(result) {
-													if (result.data.description !== undefined) {
+													if (result.data.businessErrorData !== null) {
 														$rootScope
 																.$broadcast(
 																		'error',
-																		result.data.description);
+																		result.data.businessErrorData.description);
 													} else {
 														$mdToast
 																.show($mdToast

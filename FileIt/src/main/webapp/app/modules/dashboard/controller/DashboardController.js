@@ -368,13 +368,17 @@ fileItApp
 																		'error',
 																		result.data.description);
 													} else {
-														for (var i = 0; i < result.data.length; i++) {
+														var keys = Object
+																.keys(result.data);
+														for (var i = 0; i < keys.length; i++) {
 															var dataObj = {
 																'no' : i + 1,
-																'classification' : result.data[i]
+																'classification' : keys[i],
+																'count' : result.data[keys[i]]
 															}
 															$scope.classList
 																	.push(dataObj);
+
 														}
 														DASHBOARD_DETALS.classificationlist = $scope.classList;
 														$scope.classCount = $scope.classList.length;

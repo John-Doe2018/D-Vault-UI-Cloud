@@ -219,11 +219,11 @@ fileItApp
 
 							function uploadComplete(evt) {
 								if(evt.currentTarget.response.includes("Error")){
-									$scope.progress = 0;
-									alert(evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>')) + " Already present");
 									for(var le=0; le < $scope.fileList.length; le++){
 										if($scope.fileList[le].fileName === evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>'))){
 											$scope.fileList.pop();
+											$scope.progress = 0;
+											alert(evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>')) + " Already present !!");
 										}
 									}
 								}
@@ -463,6 +463,7 @@ fileItApp
 
 							$scope.showZoom = function() {
 								$(".carousel-inner").empty();
+								$scope.loadImagezooncheck = true;
 								for (var n = 0; n < $scope.zoomUrls.length; n++) {
 									var text1 = '<div class="item active"><img src="data:image/jpeg;base64,'
 											+ $scope.zoomUrls[n]
@@ -475,6 +476,7 @@ fileItApp
 								$('#bookViewModel').scrollTop(0);
 							};
 
+							$scope.loadImagezooncheck = true;
 							$scope.loadImageZoom = function() {
 								var reqObj1 = {
 									'customHeader' : {
@@ -492,18 +494,25 @@ fileItApp
 										.getImage(reqObj1)
 										.then(
 												function(result) {
-
-													IMAGE_URLS.url = result.data;
-													var text1 = '<div class="item active"><img src="data:image/jpeg;base64,'
-															+ IMAGE_URLS.url[0]
-															+ ' "alt="Los Angeles" style="width: 100%;border: 3px solid blueviolet;"></div>';
-													$(text1).appendTo(
-															".carousel-inner");
-													var text2 = '<div class="item active"><img src="data:image/jpeg;base64,'
-															+ IMAGE_URLS.url[1]
-															+ ' "alt="Los Angeles" style="width: 100%;border: 3px solid blueviolet;"></div>';
-													$(text2).appendTo(
-															".carousel-inner");
+													if(result.data.length > 0){
+														IMAGE_URLS.url = result.data;
+															var text1 = '<div class="item active"><img src="data:image/jpeg;base64,'
+																+ IMAGE_URLS.url[0]
+																+ ' "alt="Los Angeles" style="width: 100%;border: 3px solid blueviolet;"></div>';
+														$(text1).appendTo(
+																".carousel-inner");
+														if(IMAGE_URLS.url[1] !== undefined){
+															var text2 = '<div class="item active"><img src="data:image/jpeg;base64,'
+																+ IMAGE_URLS.url[1]
+																+ ' "alt="Los Angeles" style="width: 100%;border: 3px solid blueviolet;"></div>';
+														$(text2).appendTo(
+																".carousel-inner");
+														} else {
+															$scope.loadImagezooncheck = false;
+														}
+													} else {
+														$scope.loadImagezooncheck = false;
+													}
 													$scope.loadImageIndex += 2;
 												});
 							};
@@ -523,7 +532,9 @@ fileItApp
 												}
 												if (y > $scope.scrollRange) {
 													$scope.scrollRange += 1200;
-													$scope.loadImageZoom();
+													if($scope.loadImagezooncheck){
+														$scope.loadImageZoom();
+													}
 												}
 											});
 
@@ -755,27 +766,63 @@ fileItApp
 															.then(
 																	function(
 																			result) {
-
-																		IMAGE_URLS.url = result.data;
-																		// $scope.zoomUrls
-																		// = [];
-																		var indexadd = $scope.currentPage;
-																		if ($scope.indexChanged) {
-																			$scope.zoomUrls
-																					.push(IMAGE_URLS.url[0]);
-																			$scope.zoomUrls
+																		if(result.data.length > 0){
+																			IMAGE_URLS.url = result.data;
+																			// $scope.zoomUrls
+																			// =
+																			// [];
+																			var indexadd = $scope.currentPage;
+																			if ($scope.indexChanged) {
+																				$scope.zoomUrls
+																						.push(IMAGE_URLS.url[0]);
+																				if(IMAGE_URLS.url[1] !== undefined){
+																					$scope.zoomUrls
 																					.push(IMAGE_URLS.url[1]);
-																			var id1 = "#"
-																					+ indexadd;
-																			var id2 = "#"
-																					+ (indexadd + 1);
-																			if ($(id1).length) {
-																				$(
-																						id1)
-																						.attr(
-																								"src",
-																								"data:image/jpeg;base64,"
-																										+ IMAGE_URLS.url[0]);
+																				}
+																				var id1 = "#"
+																						+ indexadd;
+																				var id2 = "#"
+																						+ (indexadd + 1);
+																				if ($(id1).length) {
+																					$(
+																							id1)
+																							.attr(
+																									"src",
+																									"data:image/jpeg;base64,"
+																											+ IMAGE_URLS.url[0]);
+																				} else {
+																					$(
+																							'#mybook')
+																							.booklet(
+																									"add",
+																									"end",
+																									'<div><img id="'
+																											+ id1
+																											+ '"src="data:image/jpeg;base64,'
+																											+ IMAGE_URLS.url[0]
+																											+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
+																				}
+																				if(IMAGE_URLS.url[1] !== undefined){
+																					if ($(id2).length) {
+																						$(
+																								id2)
+																								.attr(
+																										"src",
+																										"data:image/jpeg;base64,"
+																												+ IMAGE_URLS.url[1]);
+																					} else {
+																						$(
+																								'#mybook')
+																								.booklet(
+																										"add",
+																										"end",
+																										'<div><img id="'
+																												+ id2
+																												+ '"src="data:image/jpeg;base64,'
+																												+ IMAGE_URLS.url[1]
+																												+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
+																					}
+																				}
 																			} else {
 																				$(
 																						'#mybook')
@@ -783,42 +830,12 @@ fileItApp
 																								"add",
 																								"end",
 																								'<div><img id="'
-																										+ id1
+																										+ indexadd
 																										+ '"src="data:image/jpeg;base64,'
 																										+ IMAGE_URLS.url[0]
 																										+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
-																			}
-																			if ($(id2).length) {
-																				$(
-																						id2)
-																						.attr(
-																								"src",
-																								"data:image/jpeg;base64,"
-																										+ IMAGE_URLS.url[1]);
-																			} else {
-																				$(
-																						'#mybook')
-																						.booklet(
-																								"add",
-																								"end",
-																								'<div><img id="'
-																										+ id2
-																										+ '"src="data:image/jpeg;base64,'
-																										+ IMAGE_URLS.url[1]
-																										+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
-																			}
-																		} else {
-																			$(
-																					'#mybook')
-																					.booklet(
-																							"add",
-																							"end",
-																							'<div><img id="'
-																									+ indexadd
-																									+ '"src="data:image/jpeg;base64,'
-																									+ IMAGE_URLS.url[0]
-																									+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
-																			$(
+																				if(IMAGE_URLS.url[1] !== undefined){
+																					$(
 																					'#mybook')
 																					.booklet(
 																							"add",
@@ -828,15 +845,19 @@ fileItApp
 																									+ '"src="data:image/jpeg;base64,'
 																									+ IMAGE_URLS.url[1]
 																									+ '" style="height: 465px; width: 370px; margin-top: 0px; margin-left: 2px !important;border: 3px solid blueviolet;" /></div>');
-																			$scope.zoomUrls
-																			.push(IMAGE_URLS.url[0]);
-																	$scope.zoomUrls
-																			.push(IMAGE_URLS.url[1]);
-																		}
+																				}
+																				$scope.zoomUrls
+																				.push(IMAGE_URLS.url[0]);
+																				if(IMAGE_URLS.url[1] !== undefined){
+																					$scope.zoomUrls
+																					.push(IMAGE_URLS.url[1]);
+																				}
+																			}
 
-																		$scope.currentPage += 2;
-																		$scope.rangeBegin += 2;
-																		$scope.newBookRange += 2;
+																			$scope.currentPage += 2;
+																			$scope.rangeBegin += 2;
+																			$scope.newBookRange += 2;
+																		} 
 																	});
 												}
 

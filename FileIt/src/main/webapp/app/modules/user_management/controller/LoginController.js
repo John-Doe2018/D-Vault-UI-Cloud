@@ -131,7 +131,7 @@ fileItApp
 												function(result) {
 													LoginLoadingService
 															.hideLoad();
-													if (result.data.successMsg !== null) {
+													if (result.data.successMsg !== undefined) {
 														ACL.group = result.data.customHeader.group;
 														ACL.role = result.data.customHeader.role;
 														ACL.username = result.data.customHeader.userName;
@@ -144,7 +144,7 @@ fileItApp
 														$rootScope
 																.$broadcast(
 																		'error',
-																		result.data.businessErrorData.description);
+																		result.data.description);
 													}
 												});
 

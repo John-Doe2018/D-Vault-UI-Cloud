@@ -6,7 +6,7 @@
 fileItApp.constant('FILEIT_CONFIG', {
 	appName : 'FileIt',
 	appVersion : '1.0',
-	apiUrl : 'http://LAPTOP-TUB69LHR:8080/DVault-Services/rest'
+	apiUrl : 'http://saiwktlloj003:8080/DVault-Services/rest'
 });
 
 fileItApp.value('OMNI_PROP', {
