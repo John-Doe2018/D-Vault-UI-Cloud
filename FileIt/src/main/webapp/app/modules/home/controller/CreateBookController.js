@@ -195,16 +195,13 @@ fileItApp
 																		'error',
 																		result.data.description);
 													} else {
-														var keys = Object
-																.keys(result.data);
-														for (var i = 0; i < keys.length; i++) {
+														for (var i = 0; i < result.data.length; i++) {
 															var dataObj = {
-																	'name' : keys[i],
+																	'name' : result.data[i],
 																	'selected' : false
 																}
 															$scope.classlist
 															.push(dataObj);
-
 														}
 													}
 												});

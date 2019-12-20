@@ -24,7 +24,7 @@
 				class="md-subhead font-style">Book Count : {{x.count}} </span> </md-card-header-text> </md-card-header>
 			<div class="md-actions" layout="row" layout-align="end center">
 				<md-button md-no-ink class="md-primary" style="border-width: 1px;border-style: solid;border-color: blue;"
-					ng-click="shelfView(x.classification)"> <md-icon
+					ng-click="shelfView(x.classification)" ng-disabled="x.count === 0"> <md-icon
 					md-svg-src="images/visibility.svg" aria-label="View Document"></md-icon></md-button>
 				<md-button class="md-warn" ng-click="createBooks(x.classification)" style="border-width: 1px;border-style: solid;border-color: blue;">
 				<i class="fa fa-plus"></i></md-button>

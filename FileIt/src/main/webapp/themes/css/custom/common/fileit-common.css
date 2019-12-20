@@ -2017,30 +2017,39 @@ button.btn.btn-previous:active:focus, button.btn.btn-previous.active:focus { bac
   font-size: 40px;
 }
 .panel-green {
-  border-color: #5cb85c;
+  border-color: #5CB85D;
 }
 .panel-green > .panel-heading {
-  border-color: #5cb85c;
+  border-color: #5CB85D;
   color: white;
-  background-color: #5cb85c;
+  background-color: #5CB85D;
+}
+
+.panel-blue {
+  border-color: #3333FF;
+}
+.panel-blue > .panel-heading {
+  border-color: #3333FF;
+  color: white;
+  background-color: #3333FF;
 }
 
 .panel-yellow {
-  border-color: #f0ad4e;
+  border-color: #F0A94E;
 }
 .panel-yellow > .panel-heading {
-  border-color: #f0ad4e;
+  border-color: #F0A94E;
   color: white;
-  background-color: #f0ad4e;
+  background-color: #F0A94E;
 }
 
 .panel-red {
-  border-color: #d9534f;
+  border-color: #9333FF;
 }
 .panel-red > .panel-heading {
-  border-color: #d9534f;
+  border-color: #9333FF;
   color: white;
-  background-color: #d9534f;
+  background-color: #9333FF;
 }
 .sidenav {
     height: 100%;
