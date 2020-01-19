@@ -14,14 +14,38 @@ fileItApp
 						'LoginLoadingService',
 						'LOGGED_USER',
 						'ACL',
+						'$localStorage',
+						'$http',
 						function($rootScope, $scope, $location,
 								UserOperationsSvc, LoginLoadingService,
-								LOGGED_USER, ACL) {
+								LOGGED_USER, ACL, $localStorage, $http) {
+
+							function create_UUID() {
+								var dt = new Date().getTime();
+								var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+										.replace(
+												/[xy]/g,
+												function(c) {
+													var r = (dt + Math.random() * 16) % 16 | 0;
+													dt = Math.floor(dt / 16);
+													return (c == 'x' ? r
+															: (r & 0x3 | 0x8))
+															.toString(16);
+												});
+								return uuid;
+							}
 							angular.element(document).ready(function() {
 								if (LOGGED_USER.browser_refresh) {
 									$route.reload();
 								}
 							});
+
+							if ($localStorage.ip !== undefined) {
+								LOGGED_USER.ip = $localStorage.ip;
+							} else {
+								LOGGED_USER.ip = create_UUID();
+								$localStorage.ip = LOGGED_USER.ip;
+							}
 
 							$rootScope.$broadcast('LogoutSucess');
 							(function($) {

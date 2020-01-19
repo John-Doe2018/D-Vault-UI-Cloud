@@ -124,7 +124,7 @@ fileItApp.factory('RestSvc', [
 		} ]);
 
 fileItApp.factory('authInterceptor', function($rootScope, $q, $sessionStorage,
-		ACL) {
+		ACL, LOGGED_USER) {
 	return {
 		request : function(config) {
 			config.headers = config.headers || {};
@@ -133,19 +133,22 @@ fileItApp.factory('authInterceptor', function($rootScope, $q, $sessionStorage,
 				config.headers = {
 					'Accept' : 'application/json',
 					'Content-type' : 'application/json',
-					'UserName' : ACL.username
+					'UserName' : ACL.username,
+					'IP' : LOGGED_USER.ip
 				};
 			} else if (config.url.includes("imageConvert")) {
 				config.headers = {
 					'Accept' : 'application/json',
 					'Content-type' : undefined,
-					'UserName' : ACL.username
+					'UserName' : ACL.username,
+					'IP' : LOGGED_USER.ip
 				};
 			} else {
 				config.headers = {
 					'Accept' : 'application/json',
 					'Content-type' : 'application/json',
-					'UserName' : ACL.username
+					'UserName' : ACL.username,
+					'IP' : LOGGED_USER.ip
 				};
 			}
 
@@ -306,7 +309,8 @@ fileItApp.value('IMAGE_URLS', {
 
 fileItApp.value('LOGGED_USER', {
 	name : '',
-	browser_refresh : false
+	browser_refresh : false,
+	ip: ''
 });
 
 fileItApp.value('DASHBOARD_DETALS', {

@@ -19,10 +19,13 @@ fileItApp
 						'$mdToast',
 						'$route',
 						'DASHBOARD_DETALS',
+						'$localStorage',
+						'UserOperationsSvc',
 						function($rootScope, $scope, $location,
 								LandingOperationsSvc, BINDER_NAME, LOGGED_USER,
 								DashboardSvc, IMAGE_URLS, ACL, $mdToast,
-								$route, DASHBOARD_DETALS) {
+								$route, DASHBOARD_DETALS, $localStorage,
+								UserOperationsSvc) {
 							$rootScope.searchResult = [];
 							$scope.bookmarkList = [];
 							$scope.gotoSettings = function() {
@@ -141,12 +144,33 @@ fileItApp
 							}
 
 							$scope.logout = function() {
-								$rootScope.$broadcast('LogoutSucess');
-								LOGGED_USER.browser_refresh = true;
-								var myEl = angular.element(document
-										.querySelector('#headerDiv'));
-								myEl.remove();
-								$location.path('/login');
+								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
+									'userName' : ACL.username,
+									'ip' : LOGGED_USER.IP
+								}
+								UserOperationsSvc
+										.logout(reqObj)
+										.then(
+												function(result) {
+													if (result.data.successMsg !== undefined) {
+														$rootScope
+																.$broadcast('LogoutSucess');
+														LOGGED_USER.browser_refresh = true;
+														var myEl = angular
+																.element(document
+																		.querySelector('#headerDiv'));
+														myEl.remove();
+														$localStorage.ip = undefined;
+														$location
+																.path('/login');
+													}
+												});
+
 							};
 
 							$scope.gotoProfile = function() {

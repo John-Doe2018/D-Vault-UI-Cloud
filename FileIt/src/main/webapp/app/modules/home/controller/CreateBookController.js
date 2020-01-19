@@ -195,14 +195,18 @@ fileItApp
 																		'error',
 																		result.data.description);
 													} else {
-														for (var i = 0; i < result.data.length; i++) {
+														var keys = Object
+																.keys(result.data);
+														for (var i = 0; i < keys.length; i++) {
 															var dataObj = {
-																	'name' : result.data[i],
-																	'selected' : false
-																}
+																'selected' : false,
+																'name' : keys[i]
+															}
 															$scope.classlist
-															.push(dataObj);
+																	.push(dataObj);
+
 														}
+														
 													}
 												});
 							}
