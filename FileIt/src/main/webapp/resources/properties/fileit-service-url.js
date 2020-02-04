@@ -37,5 +37,6 @@ fileItApp.constant('BINDER_SVC', {
 	updateFav : '/binder/updateFavourites',
 	getFav : '/binder/getFavourites',
 	getBookLists : '/binder/getBookLists',
-	updateUser : '/auth/updateUser'
+	updateUser : '/auth/updateUser',
+	logout: '/auth/logout'
 });

@@ -130,9 +130,15 @@ fileItApp
 							var myVar = setInterval(myTimer, 1000);
 
 							function myTimer() {
-								var d = new Date();
-								document.getElementById("demo").innerHTML = d
-										.toLocaleTimeString();
+								var currentTime = new Date(), hours = currentTime
+										.getHours(), minutes = currentTime
+										.getMinutes();
+								if (minutes < 10) {
+									minutes = "0" + minutes;
+								}
+
+								var realTime = hours + ":" + minutes;
+								document.getElementById("demo").innerHTML = realTime;
 							}
 							$scope.loggeduser = LOGGED_USER.name;
 

@@ -76,8 +76,7 @@ fileItApp
 							DASHBOARD_DETALS.classname = '';
 							$scope.items = [];
 							$scope.colorArray = [];
-							$scope.labels = [];
-							$scope.data = [];
+							$scope.chartDATA = [];
 							$rootScope.$broadcast('loginSuccess');
 							var dynamicColors = function() {
 								var r = Math.floor(Math.random() * 255);
@@ -280,37 +279,10 @@ fileItApp
 							};
 
 							$scope.getData = function() {
-								new Chart(
-										document.getElementById("chart-area"),
-										{
-											type : 'doughnut',
-											data : {
-												labels : $scope.labels,
-												datasets : [ {
-													label : "Documents",
-													backgroundColor : $scope.colorArray,
-													data : $scope.data
-												} ]
-											},
-											options : {
-												title : {
-													display : true,
-													text : 'Active Documents'
-												},
-												segmentShowStroke : true,
-												segmentStrokeColor : "#fff",
-												segmentStrokeWidth : 2,
-												percentageInnerCutout : 50,
-												animationSteps : 100,
-												animationEasing : "easeOutBounce",
-												animateRotate : true,
-												animateScale : false,
-												responsive : true,
-												maintainAspectRatio : true,
-												showScale : true,
-												animateScale : true
-											}
-										});
+								Morris.Donut({
+									element : 'bar-example',
+									data : $scope.chartDATA
+								});
 								$scope.search();
 							};
 							$scope.getDashboard = function() {
@@ -338,10 +310,12 @@ fileItApp
 																	.push(recObj);
 															$scope.colorArray
 																	.push(dynamicColors());
-															$scope.labels
-																	.push(keys[i]);
-															$scope.data
-																	.push(result.data[keys[i]]);
+															var dataObj = {
+																	label : keys[i],
+																	value : result.data[keys[i]]
+															}
+															$scope.chartDATA
+																	.push(dataObj);
 														}
 													}
 													$scope.getData();

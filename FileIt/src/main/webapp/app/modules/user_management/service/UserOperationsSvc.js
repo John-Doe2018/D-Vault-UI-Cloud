@@ -32,6 +32,10 @@ fileItApp.factory('UserOperationsSvc', [ 'RestSvc', 'BINDER_SVC',
 
 				updateUser : function(reqObj) {
 					return RestSvc.postData(BINDER_SVC.updateUser, reqObj);
+				},
+				
+				logout: function(reqObj) {
+					return RestSvc.postData(BINDER_SVC.logout, reqObj);
 				}
 			};
 		} ]);

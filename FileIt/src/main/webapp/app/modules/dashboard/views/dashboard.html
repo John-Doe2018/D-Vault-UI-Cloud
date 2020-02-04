@@ -5,100 +5,113 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div>
+	<div class="container-fluid">
 		<div class="col-sm-12" style="margin-left: 2%;">
-			<span class="text-uppercase page-subtitle font-style"
-				style="letter-spacing: .125rem; color: #818ea3; font-size: .625rem;">Dashboard</span>
-			<h3 class="font-style"
-				style="font-size: 1.625rem; font-weight: 500; line-height: 1; margin: 0; padding: 0;">Vault
-				Overview</h3>
+			<h4 class="font-style"
+				style="font-size: 21px !important; font-weight: 400; line-height: 1; padding: 0;">Vault
+				Overview</h4>
 		</div>
-		<div class="row col-sm-12" style="margin-top: 1%; margin-left: 1%;">
-			<div class="col-lg-3 col-md-6">
-				<div class="panel panel-blue card-1">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-xs-3">
-								<i class="fa fa-file-text fa-5x"></i>
+		<div class="row">
+			<div class="col-md-3 col-sm-12">
+				<div class="square-card"
+					style="border-color: #7266bb !important; background-color: #7266bb !important;">
+					<div class="card-body">
+						<div class="mb-4">
+							<h5 class="card-title mb-0 text-white"
+								style="font-family: sans-serif; margin-left: 5%; margin-top: 7%;">
+								<i class="fa fa-file-text" style="font-size: 3em;"></i> Books!
+							</h5>
+						</div>
+						<div class="row d-flex align-items-center mb-4">
+							<div class="col-sm-8">
+								<h2 class="d-flex align-items-center mb-0 text-white">{{docCount}}</h2>
 							</div>
-							<div class="col-xs-9 text-right">
-								<div class="huge font-style">{{docCount}}</div>
-								<div class="font-style">Books!</div>
+							<div class="col-sm-4 text-right">
+								<a href="javascript:void(0)" ng-click="gotoBooks()"
+									style="cursor: pointer;"> <span class="text-white"
+									style="font-family: unset; font-size: .8125rem; font-weight: 400; line-height: 1.5;">View
+										Details <i class="fa fa-arrow-circle-right"></i>
+								</span></a>
 							</div>
 						</div>
-					</div>
-					<div class="panel-footer">
-						<span class="pull-left font-style">View Details</span>
-						<button class="pull-right" ng-click="gotoBooks()">
-							<i class="fa fa-arrow-circle-right"></i>
-						</button>
-						<div class="clearfix"></div>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="panel panel-green card-1">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-xs-3">
-								<i class="fa fa-tasks fa-5x"></i>
+			<div class="col-md-3 col-sm-12">
+				<div class="square-card"
+					style="border-color: #2ac14e !important; background-color: #2ac14e !important;">
+					<div class="card-body">
+						<div class="mb-4">
+							<h5 class="card-title mb-0 text-white"
+								style="font-family: sans-serif; margin-left: 5%; margin-top: 7%;">
+								<i class="fa fa-list" style="font-size: 3em;"></i>
+								Classifications!
+							</h5>
+						</div>
+						<div class="row d-flex align-items-center mb-4">
+							<div class="col-sm-8">
+								<h2 class="d-flex align-items-center mb-0 text-white">{{classCount}}</h2>
 							</div>
-							<div class="col-xs-9 text-right">
-								<div class="huge font-style">{{classCount}}</div>
-								<div class="font-style">Classifications!</div>
+							<div class="col-sm-4 text-right">
+								<a href="javascript:void(0)" ng-click="gotoClassification()"
+									style="cursor: pointer;"> <span class="text-white"
+									style="font-family: unset; font-size: .8125rem; font-weight: 400; line-height: 1.5;">View
+										Details <i class="fa fa-arrow-circle-right"></i>
+								</span>
+								</a>
 							</div>
 						</div>
-					</div>
-					<div class="panel-footer">
-						<span class="pull-left font-style">View Details</span>
-						<button class="pull-right" ng-click="gotoClassification()">
-							<i class="fa fa-arrow-circle-right"></i>
-						</button>
-						<div class="clearfix"></div>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="panel panel-yellow card-1">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-xs-3">
-								<i class="fa fa-comments fa-5x"></i>
+			<div class="col-md-3 col-sm-12">
+				<div class="square-card"
+					style="border-color: #f8ac5a !important; background-color: #f8ac5a !important;">
+					<div class="card-body">
+						<div class="mb-4">
+							<h5 class="card-title mb-0 text-white"
+								style="font-family: sans-serif; margin-left: 5%; margin-top: 7%;">
+								<i class="fa fa-comment" style="font-size: 3em;"></i> New
+								Comments!
+							</h5>
+						</div>
+						<div class="row d-flex align-items-center mb-4">
+							<div class="col-sm-8">
+								<h2 class="d-flex align-items-center mb-0 text-white">{{commentListCount}}</h2>
 							</div>
-							<div class="col-xs-9 text-right">
-								<div class="huge font-style">{{commentListCount}}</div>
-								<div class="font-style">New Comments!</div>
+							<div class="col-sm-4 text-right">
+								<a href="javascript:void(0)" ng-click="gotoComments()"
+									style="cursor: pointer;"> <span class="text-white"
+									style="font-family: unset; font-size: .8125rem; font-weight: 400; line-height: 1.5;">View
+										Details <i class="fa fa-arrow-circle-right"></i>
+								</span></a>
 							</div>
 						</div>
-					</div>
-					<div class="panel-footer">
-						<span class="pull-left font-style">View Details</span>
-						<button class="pull-right" ng-click="gotoComments()">
-							<i class="fa fa-arrow-circle-right"></i>
-						</button>
-						<div class="clearfix"></div>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="panel panel-red card-1">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-xs-3">
-								<i class="fa fa-user fa-5x"></i>
+			<div class="col-md-3 col-sm-12">
+				<div class="square-card"
+					style="border-color: #23b5e2 !important; background-color: #23b5e2 !important;">
+					<div class="card-body">
+						<div class="mb-4">
+							<h5 class="card-title mb-0 text-white"
+								style="font-family: sans-serif; margin-left: 5%; margin-top: 7%;">
+								<i class="fa fa-user" style="font-size: 3em;"></i> Total Users!
+							</h5>
+						</div>
+						<div class="row d-flex align-items-center mb-4">
+							<div class="col-sm-8">
+								<h2 class="d-flex align-items-center mb-0 text-white">{{activeUsers}}</h2>
 							</div>
-							<div class="col-xs-9 text-right">
-								<div class="huge font-style">{{activeUsers}}</div>
-								<div class="font-style">Total Users!</div>
+							<div class="col-sm-4 text-right">
+								<a href="javascript:void(0)" ng-click="gotoUsers()"
+									style="cursor: pointer;"> <span class="text-white"
+									style="font-family: unset; font-size: .8125rem; font-weight: 400; line-height: 1.5;">View
+										Details <i class="fa fa-arrow-circle-right"></i>
+								</span></a>
 							</div>
 						</div>
-					</div>
-					<div class="panel-footer">
-						<span class="pull-left font-style">View Details</span>
-						<button class="pull-right" ng-click="gotoUsers()">
-							<i class="fa fa-arrow-circle-right"></i>
-						</button>
-						<div class="clearfix"></div>
 					</div>
 				</div>
 			</div>
@@ -110,28 +123,27 @@
 					<div class="card-body">
 						<div class="row">
 							<div class="col-sm-12 col-md-6">
-								<h4 class="card-title font-style">Document Classes</h4>
+								<h4 class="card-title"
+									style="font-family: unset; font-weight: 400;">Document
+									Classes</h4>
 							</div>
 							<div class="col-sm-12 col-md-6">
-								<div class="input-append">
-									Search: <input type="text" ng-model="query"
-										ng-change="search()" class="input-large search-query">
+								<div class="pull-right">
+									<input type="text" ng-model="query" ng-change="search()"
+										class="search form-control"
+										style="box-sizing: border-box; border: 2px solid #ccc; border-radius: 4px; font-size: 16px; background-color: white; background-image: url(images/search.png); background-position: 10px; background-repeat: no-repeat; padding: 12px 20px 12px 40px; -webkit-transition: width 0.4s ease-in-out; transition: width 0.4s ease-in-out;">
 								</div>
 							</div>
 						</div>
 						<table class="table table-striped table-condensed table-hover"
 							style="margin-top: 1%;">
-							<thead style="background-color: lightgrey !important;">
+							<thead class="font-style"
+								style="color: #747a80; font-size: .8125rem; font-weight: 400; line-height: 1.5;">
 								<tr>
-									<th class="no font-style"
-										style="font-family: Lato-Bold; font-size: 18px; color: darkslategrey; line-height: 1.4; background-color: #dee2e6;">Sl&nbsp;</th>
-									<th class="classification font-style"
-										style="font-family: Lato-Bold; font-size: 18px; color: darkslategrey; line-height: 1.4; background-color: #dee2e6;">Classification&nbsp;</th>
-									<th class="count font-style"
-										style="font-family: Lato-Bold; font-size: 18px; color: darkslategrey; line-height: 1.4; background-color: #dee2e6;">Book
-										Count&nbsp;</th>
-									<th class="Add font-style"
-										style="font-family: Lato-Bold; font-size: 18px; color: darkslategrey; line-height: 1.4; background-color: #dee2e6;">Add</th>
+									<th class="no font-style">Sl&nbsp;</th>
+									<th class="classification font-style">Classification&nbsp;</th>
+									<th class="count font-style">Book Count&nbsp;</th>
+									<th class="Add font-style">Add</th>
 								</tr>
 							</thead>
 							<tfoot>
@@ -156,14 +168,19 @@
 								<tr
 									ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse">
 									<th scope="row"><a href="javascript:void(0)"
+										style="color: #747a80;"
 										ng-click="shelfView(item.classification)" class="font-style">{{item.no}}</a></th>
-									<td><a href="javascript:void(0)"
+									<td><a href="javascript:void(0)" style="color: #747a80;"
 										ng-click="shelfView(item.classification)" class="font-style">{{item.classification}}</a></td>
-									<td><a class="text-danger" href="javascript:void(0)"
+									<td><a href="javascript:void(0)" style="color: #747a80;"
 										ng-click="shelfView(item.classification)" class="font-style">{{item.count}}</a></td>
-									<td><a class="text-danger" href="javascript:void(0)"
-										ng-click="createBooks(item.classification)"><i
-											class="fa fa-plus"></i></a></td>
+									<td><div class="circle-plus" style="cursor: pointer;"
+											ng-click="createBooks(item.classification)">
+											<div class="circle">
+												<div class="horizontal"></div>
+												<div class="vertical"></div>
+											</div>
+										</div></td>
 								</tr>
 							</tbody>
 						</table>
@@ -175,8 +192,11 @@
 			</div>
 			<div class="col-sm-4 card"
 				style="margin-top: 0%; margin-left: -1%; height: 450px;">
-				<canvas id="chart-area" width="300 !important"
-					height="300 !important"></canvas>
+				<h4 style="font-family: unset; font-weight: 400;">Active
+					Documents</h4>
+				<div id="bar-example"></div>
+				<!-- <canvas id="chart-area" width="300 !important"
+					height="300 !important"></canvas> -->
 			</div>
 		</div>
 		<div class="minmaxCon" ng-if="minimizeModal"
@@ -191,15 +211,18 @@
 		</div>
 	</div>
 	<div class="row col-sm-12"
-		style="background-color: #00239CFF; bottom: 0;">
-		<div class="col-sm-3">
-			<a href="http://tranfode.com/" target="_new"><img
-				src="images/tranfode.png"></a>
-		</div>
-		<div class="col-sm-9"
-			style="text-align: right !important; margin-top: 2%;">
-			<a href="http://tranfode.com/" target="_new"
-				class="text-white font-style">© Tranfode Technologies (P) Ltd.</a>
+		style="right: 0; color: #6c757d; left: 0px; background-color: #fff; bottom: 0; border-top: 1px solid #dee2e6; bottom: 0; padding: 19px 12px 20px;">
+		<div class="row">
+			<div class="col-sm-5"
+				style="margin-left: 2%; font-family: sans-serif; font-size: small; font-weight: 400;">
+				2019 Â© Tranfode Technologies (P) Ltd.</div>
+			<div class="col-sm-1"></div>
+			<div class="col-sm-6">
+				<div class="pull-right"
+					style="font-family: sans-serif; font-weight: 400; font-size: smaller;">Design
+					&amp; Develop Tranfode</div>
+			</div>
+			<div class="col-sm-1"></div>
 		</div>
 	</div>
 </body>
