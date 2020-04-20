@@ -22,12 +22,15 @@ fileItApp
 						'DASHBOARD_DETALS',
 						'$mdToast',
 						'ACL',
+						'LOGGED_USER',
+						'$http',
 						function($rootScope, $scope, $location, BINDER_NAME,
 								HomeSvc, rfc4122, $compile, $route,
 								FILEIT_CONFIG, BINDER_SVC, IMAGE_URLS,
 								LandingOperationsSvc, DASHBOARD_DETALS,
-								$mdToast, ACL) {
+								$mdToast, ACL, LOGGED_USER, $http) {
 							$scope.errorCase = false;
+							$scope.disableSubmitButton = true;
 							if (DASHBOARD_DETALS.searchsave === '') {
 								DASHBOARD_DETALS.searchsave = false;
 							}
@@ -57,9 +60,10 @@ fileItApp
 								fileName : "",
 								type : ""
 							};
-							$scope.convertImage = function() {
+							$scope.convertImage = function(i) {
+								$scope.convertImagelength = i;
 								if ($scope.gFiles && $scope.gFiles.length) {
-									for (var i = 0; i < $scope.gFiles.length; i++) {
+									if(i < $scope.gFiles.length){
 										var file = $scope.gFiles[i];
 										if (!file.$error) {
 											var fd = new FormData();
@@ -69,69 +73,46 @@ fileItApp
 													DASHBOARD_DETALS.booklist);
 											fd.append('bookName',
 													BINDER_NAME.name);
-											fd.append('group', ACL.group);
 											fd.append('path', BINDER_NAME.name
 													+ "/Images/");
+											fd.append('group', ACL.group);
 											fd.append('type', file.type);
-											$scope.progressvisible = true
-											var xhr = new XMLHttpRequest()
-											xhr.upload.onprogress = function(
-													evt) {
-
-												$scope
-														.$apply(function() {
-															if (evt.lengthComputable) {
-																var progressPercentage = parseInt(100.0
-																		* evt.loaded
-																		/ evt.total);
-																$scope.progress = progressPercentage
-																		+ '% ';
-															}
-
-														})
-											};
-											xhr.addEventListener("load",
-													uploadComplete, false)
-											xhr.addEventListener("error",
-													uploadFailed, false)
-											xhr.addEventListener("abort",
-													uploadCanceled, false)
-											xhr
-													.open(
-															"POST",
-															FILEIT_CONFIG.apiUrl
-																	+ BINDER_SVC.convertImg);
-											xhr.setRequestHeader("UserName",
-													ACL.username);
-											xhr.send(fd)
-
+											$scope.progressvisible = true;
+											$scope.disableSubmitButton =true;
+											 $http({
+											      method: "POST",
+											      url: FILEIT_CONFIG.apiUrl
+													+ BINDER_SVC.convertImg,
+													data: fd,
+											      eventHandlers: {
+											        progress: function(event) {
+											          console.log(event);
+											        },
+											        readystatechange: function(event) {
+											          console.log(event);
+											        }
+											      },
+											      uploadEventHandlers: {
+											        progress: function(object) {
+											        	console.log(object);
+											        	$scope.progress = object
+														+ '% ';
+											        }
+											      }
+											    }).then(function (response){
+											    	if(($scope.convertImagelength+1) === $scope.gFiles.length){
+														$scope.disableSubmitButton = false;
+													}else {
+														$scope.convertImage($scope.convertImagelength +1);
+													}
+											    },function (error){
+											    	$scope.progress = 0;
+											    })
 										}
 									}
 								}
 							};
 
-							function uploadComplete(evt) {
-								if(evt.currentTarget.response.includes("Error")){
-									for(var le=0; le < $scope.fileList.length; le++){
-										if($scope.fileList[le].fileName === evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>'))){
-											$scope.fileList.pop();
-											$scope.progress = 0;
-											alert(evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>')) + " Already present !!");
-										}
-									}
-								}
-							}
-
-							function uploadFailed(evt) {
-								alert("There was an error attempting to upload the file.")
-							}
-
-							function uploadCanceled(evt) {
-								scope.$apply(function() {
-									$scope.progressvisible = false
-								})
-								alert("The upload has been canceled by the user or the browser dropped the connection.")
-							}
 							$scope
 									.$watch(
 											'gFiles',
@@ -152,7 +133,7 @@ fileItApp
 																	break;
 																}
 															}
-															if (!fileFound) {
+															if (!fileFound && $scope.filelistValidation.indexOf(files[i].name) === -1) {
 																$scope.showSubmitButton = true;
 																$scope.ImageProperty.fileName = files[i].name;
 																$scope.ImageProperty.type = files[i].type;
@@ -160,10 +141,15 @@ fileItApp
 																		.push($scope.ImageProperty);
 																$scope.ImageProperty = {};
 															} else {
+																if($scope.fileList.length === 0){
+																	$scope.disableSubmitButton = true;
+																}
 																alert("Cannot upload same file twice !!");
 															}
 														}
-														$scope.convertImage();
+														if($scope.fileList.length > 0){
+															$scope.convertImage(0);
+														}
 													} else {
 														alert("File size exceeds 5MB !!");
 													}
@@ -299,6 +285,37 @@ fileItApp
 
 												});
 							}
+							
+							$scope.getFileList = function() {
+								$scope.filelistValidation = [];
+								var reqObj = {
+										'customHeader' : {
+											'userName' : ACL.username,
+											'role' : ACL.role,
+											'group' : ACL.group
+										},
+										"book" : {
+											"bookName" : BINDER_NAME.name,
+											"classification" : DASHBOARD_DETALS.booklist
+										}
+									}
+									LandingOperationsSvc
+											.getPageIndex(reqObj)
+											.then(
+													function(result) {
+														if (result.data.errorId !== undefined) {
+															$rootScope
+																	.$broadcast(
+																			'error',
+																			result.data.description);
+														} else {
+															var resultObj = result.data;
+															for (var x = 0; x < resultObj.book.documents.length; x++) {
+																$scope.filelistValidation.push(resultObj.book.documents[x].fileName);
+															}
+														}
+													});
+							}
 
 							$('input[type=radio]').click(function() {
 								$scope.optselect = $(this).val();
@@ -310,6 +327,7 @@ fileItApp
 									$('#myModal').modal('hide');
 									$('input[type=radio]').attr("checked",
 											false);
+									$scope.getFileList();
 									$('#addFileModal').modal('show');
 								} else if ($scope.optselect === 'download') {
 								}

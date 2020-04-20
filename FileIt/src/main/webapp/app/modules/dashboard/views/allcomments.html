@@ -5,42 +5,38 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id="allCommentPage">
-		<div class="row bootstrap snippets">
-			<div class="col-md-6 col-md-offset-3 col-sm-12">
-				<div class="comment-wrapper">
-					<div class="panel panel-info">
-						<div class="panel-heading">Comment panel</div>
-						<div class="panel-body conver">
-							<ul class="media-list" style="overflow-x: auto; height: 250px;">
-								<li class="media" ng-repeat="x in comments"
-									ng-style="loggeduser === x.userName && {'background':'#e1ffc7','color': '#000', 'border-radius': '5px 0px 5px 5px', 'padding' : '8px !important', 'font-size' : '15px', 'text-shadow': '0 1px 1px rgba(0, 0, 0, .2)'} || loggeduser !== x.userName && {'background':'#ffffff', 'color': '#000', 'border-radius': '0px 5px 5px 5px', 'padding' : '8px !important', 'font-size' : '15px', 'text-shadow': '0 1px 1px rgba(0, 0, 0, .2)'}">
-									<div class="media-body">
-										<span class="text-muted pull-right"> <small
-											class="text-muted pull-right"
-											style="color: rgba(0, 0, 0, .45); font-size: 11px; display: inline-block;">{{x.dateTime}}</small>
-										</span> <strong class="text-success"
-											ng-style="loggeduser === x.userName && {'color': 'black'} || loggeduser !== x.userName && {'color': 'blue'}">@{{x.userName}}</strong>
-										<p style="word-break: break-all;" ng-style="loggeduser === x.userName && {'color': 'black'} || loggeduser !== x.userName && {'color': 'blue'}">{{x.message}}</p>
-									</div>
-								</li>
-							</ul>
-							<hr>
-							<div class="clearfix"></div>
-							<textarea class="form-control" placeholder="write a comment..."
-								rows="3" ng-model="myTextarea"></textarea>
-							<br>
-							<button type="button" class="btn btn-info pull-right"
-								ng-click="addComment(myTextarea)"><i class="fa fa-paper-plane"></i></button>
-						</div>
-					</div>
+	<div class="panel-body conver" id="allCommentPage">
+		<ul class="media-list"
+			style="overflow-x: auto; padding: 2%; height: 85%;">
+			<li class="media" ng-repeat="x in comments"
+				ng-style="loggeduser === x.userName && {'color': '#000', 'border-radius': '5px 0px 5px 5px', 'padding' : '8px !important', 'font-size' : '15px', 'text-shadow': '0 1px 1px rgba(0, 0, 0, .2)'} || loggeduser !== x.userName && {'color': '#000', 'border-radius': '0px 5px 5px 5px', 'padding' : '8px !important', 'font-size' : '15px', 'text-shadow': '0 1px 1px rgba(0, 0, 0, .2)'}">
+				<div
+					ng-style="loggeduser === x.userName && {'width':'40%','float': 'right'} || loggeduser !== x.userName && {'width':'40%'}">
+					<p
+						ng-style="loggeduser === x.userName && {'background':'#059AFA none repeat scroll 0 0','font-size':'14px', 'margin':'0','color':'#fff','padding':'5px 10px 5px 12px', 'width':'100%','font-family':'sans-serif' } || loggeduser !== x.userName && {'background':'#FFF none repeat scroll 0 0','font-size':'14px', 'margin':'0','color':'#059AFA','padding':'5px 10px 5px 12px', 'width':'100%','font-family':'sans-serif'}">{{x.userName}}</p>
+					<p
+						ng-style="loggeduser === x.userName && {'background':'#059AFA none repeat scroll 0 0','font-size':'15px', 'margin':'0','color':'#fff','padding':'5px 10px 5px 12px', 'width':'100%', 'font-weight': 'bold','font-family':'sans-serif'  } || loggeduser !== x.userName && {'background':'#FFF none repeat scroll 0 0','font-size':'15px', 'margin':'0','color':'black','padding':'5px 10px 5px 12px', 'width':'100%','font-weight': 'bold','font-family':'sans-serif'}">{{x.message}}</p>
+					<span
+						ng-style="loggeduser === x.userName && {'color':'#747474','display': 'block','font-size':'12px','margin':'8px 0 0','float': 'right', 'font-family':'sans-serif' } || loggeduser !== x.userName && {'color':'#747474','display': 'block','font-size':'12px','margin':'8px 0 0', 'font-family':'sans-serif'}">
+						{{x.dateTime.split(' ')[0]}} | {{x.dateTime.split(' ')[1]}}</span>
 				</div>
-
-			</div>
+			</li>
+		</ul>
+		<hr>
+		<div class="clearfix"></div>
+		<div class="input-group" id="chatbox">
+			<input id="btn-input" type="text" class="form-control input-sm"
+				style="background: transparent;" ng-model="myTextarea"
+				placeholder="Write Your Reply"> <span
+				class="input-group-btn">
+				<button class="btn btn-warning btn-sm" id="btn-chat"
+					style="background: #059AFA;" ng-click="addComment(myTextarea)">POST</button>
+			</span>
 		</div>
 	</div>
 	<div class="row col-sm-12"
-		style="right: 0; color: #6c757d; left: 0px; background-color: #fff; bottom: 0; border-top: 1px solid #dee2e6; bottom: 0; padding: 19px 12px 20px;">
+		style="right: 0; color: #6c757d; left: 0px; background-color: #fff; bottom: 0; border-top: 1px solid #dee2e6; bottom: 0; padding: 19px 12px 20px;"
+		id="footer">
 		<div class="row">
 			<div class="col-sm-5"
 				style="margin-left: 2%; font-family: sans-serif; font-size: small; font-weight: 400;">

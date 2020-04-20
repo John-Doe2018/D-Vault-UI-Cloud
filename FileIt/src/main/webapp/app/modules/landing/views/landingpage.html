@@ -17,13 +17,12 @@
 							style="overflow-x: hidden; overflow-y: scroll; max-height: 500px;">
 							<li class="has-sub"
 								ng-repeat="nodearray in node.nodes | orderBy:'firstIndex'"><a
-								href="javascript:void(0)"
-								ng-click="openBookPopUp(nodearray, $index)"><p
-										class="font-style font-size16"
-										style="width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-										<input id="checkbox{{nodearray.firstIndex}}" type="checkbox"
-											value="{{node.title}}" name="sport">{{nodearray.title}}
-									</p></a></li>
+								href="javascript:void(0)"> <input
+									id="checkbox{{nodearray.firstIndex}}" type="checkbox"
+									value="{{node.title}}" name="sport"> <label>{{nodearray.title}}</label>
+									<label ng-click="openBookPopUp(nodearray, $index)"
+									style="margin-left: 10%; cursor: pointer;">-></label>
+							</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -208,8 +207,9 @@
 				<div class="modal-footer">
 					<div class="pull-right">
 						<md-button class="md-raised md-primary md-hue-2 font-style"
-							style="margin: 20px 0;" data-dismiss="modal" aria-hidden="true" ng-disabled="fileList.length === 0"
-							ng-click="onAddFileClick()">{{'SUBMIT' | translate}}</md-button>
+							style="margin: 20px 0;" data-dismiss="modal" aria-hidden="true"
+							ng-disabled="disableSubmitButton" ng-click="onAddFileClick()">{{'SUBMIT'
+						| translate}}</md-button>
 						<md-button style="margin: 20px 0;"
 							class="md-warn md-raised md-hue-2 font-style"
 							data-dismiss="modal" aria-hidden="true"
@@ -228,14 +228,16 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
-				<div class="modal-body scorlBody" id="bookViewModel">
+				<div class="modal-body scorlBody" id="bookViewModel"
+					infinite-scroll-disabled='busyLoadingData'>
 					<div id="myCarousel" class="carousel slide vertical"
 						data-ride="carousel" data-interval="false">
 						<ol class="carousel-indicators">
 							<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 						</ol>
 						<div class="carousel-inner"></div>
-						<button ng-click="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-arrow-circle-up"></i></button>
+						<i class="fas fa-arrow-circle-up" id="myBtn"
+							ng-click="topFunction()" title="Go to top"></i>
 					</div>
 				</div>
 			</div>

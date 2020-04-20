@@ -10,13 +10,21 @@ fileItApp.controller('AllCommentsController', [
 		'LOGGED_USER',
 		'ACL',
 		function($scope, DASHBOARD_DETALS, DashboardSvc, LOGGED_USER, ACL) {
-			$scope.resize = function() {
-				var newheight = $(window).height() - $('#pageHeader').height()
-						- $('#footer').height();
-				$("#allCommentPage").height(newheight);
+			angular.element(document).ready(
+					function() {
+						$('#allCommentPage').height(
+								$(window).height() - $('#pageHeader').height()
+										- $('#footer').height());
+					});
+
+			$scope.initialize = function() {
+				$('#allCommentPage').height(
+						$(window).height() - $('#pageHeader').height()
+								- $('#footer').height());
 			};
+
+			$scope.initialize();
 			$scope.comments = DASHBOARD_DETALS.commentlist;
-			$scope.resize();
 			$scope.count = 1;
 			$scope.loggeduser = ACL.username;
 			$scope.addComment = function(myTextarea) {

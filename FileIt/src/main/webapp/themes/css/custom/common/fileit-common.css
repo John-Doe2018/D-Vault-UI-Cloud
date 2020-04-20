@@ -633,20 +633,19 @@ a { cursor: pointer; }
   display: none;
   position: fixed;
   bottom: 20px;
-  right: 30px;
+  right: -11px;
   z-index: 99;
-  font-size: 18px;
+  font-size: 27px;
   border: none;
   outline: none;
-  background-color: red;
-  color: white;
+  color: red;
   cursor: pointer;
   padding: 15px;
   border-radius: 4px;
 }
 
 #myBtn:hover {
-  background-color: #555;
+  background-color: transparent;
 }
 
 .constrained {

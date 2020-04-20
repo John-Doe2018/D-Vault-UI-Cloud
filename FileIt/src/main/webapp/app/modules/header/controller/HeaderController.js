@@ -200,27 +200,36 @@ fileItApp
 								$scope.booksname = selected.book;
 								$scope.claasesname = selected.classification;
 								BINDER_NAME.name = $scope.booksname;
-								$scope.range = [ 1, 2 ];
-								var reqObj1 = {
-									'customHeader' : {
-										'userName' : ACL.username,
-										'role' : ACL.role,
-										'group' : ACL.group
-									},
-									"bookName" : $scope.booksname,
-									"classification" : $scope.claasesname,
-									"rangeList" : $scope.range
+								DASHBOARD_DETALS.booklist = $scope.claasesname;
+								if ($location.url() === '/landingPage') {
+									$rootScope
+											.$broadcast('minModalAfterSerach');
+									$rootScope.$broadcast('searchView', {
+										filename : selected.fileName
+									});
+								} else {
+									$scope.range = [ 1, 2 ];
+									var reqObj1 = {
+										'customHeader' : {
+											'userName' : ACL.username,
+											'role' : ACL.role,
+											'group' : ACL.group
+										},
+										"bookName" : $scope.booksname,
+										"classification" : $scope.claasesname,
+										"rangeList" : $scope.range
+									}
+									LandingOperationsSvc
+											.getImage(reqObj1)
+											.then(
+													function(result) {
+														IMAGE_URLS.url = result.data;
+														$rootScope
+																.$broadcast('minModalAfterSerach');
+														$location
+																.path('/landingPage');
+													});
 								}
-								LandingOperationsSvc
-										.getImage(reqObj1)
-										.then(
-												function(result) {
-													IMAGE_URLS.url = result.data;
-													$rootScope
-															.$broadcast('minModalAfterSerach');
-													$location
-															.path('/landingPage');
-												});
 
 							};
 						} ]);

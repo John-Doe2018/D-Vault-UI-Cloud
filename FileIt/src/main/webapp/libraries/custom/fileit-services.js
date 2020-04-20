@@ -310,7 +310,7 @@ fileItApp.value('IMAGE_URLS', {
 fileItApp.value('LOGGED_USER', {
 	name : '',
 	browser_refresh : false,
-	ip: ''
+	ip : ''
 });
 
 fileItApp.value('DASHBOARD_DETALS', {
@@ -327,7 +327,9 @@ fileItApp.value('DASHBOARD_DETALS', {
 	commentlist : '',
 	searchsave : '',
 	allbookslist : '',
-	backview : ''
+	backview : '',
+	nodedata : '',
+	pdfdata: ''
 });
 
 fileItApp.value('ACL', {

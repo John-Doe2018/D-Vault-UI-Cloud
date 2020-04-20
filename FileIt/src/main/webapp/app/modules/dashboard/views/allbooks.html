@@ -6,14 +6,15 @@
 </head>
 <body>
 	<div id="allBookPage">
-		<div layout="row" layout-align="start start">
-			<div flex="100">
-				<span class="md-title font-style"
-					style="font-size: 25px; color: blue; margin: 3%;">Books</span>
-				<div class="input-group" style="margin-left: 3%;">
-					<input type="text" class="form-control" placeholder="Search Book"
-						data-ng-model="searchTerm">
+		<div layout="row" layout-align="start start" style="padding-top: 1%;">
+			<div class="row" flex="100">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-2" style="font-size: 25px;">ALL BOOKS</div>
+				<div class="input-group col-sm-8" style="margin-left: 3%;">
+					<input type="text" class="form-control"
+						placeholder="Search for Books" data-ng-model="searchTerm">
 				</div>
+				<div class="col-sm-1"></div>
 			</div>
 		</div>
 		<div class="col-sm-1"></div>
@@ -28,30 +29,31 @@
 				<thead style="background-color: lightgrey !important;">
 					<tr>
 						<th class="no font-style"
-							style="text-align: center; position: sticky; top: 0; background-color: #167F92 !important; border: 1px solid #FFF; color: #FFF;">No.</th>
+							style="position: sticky; top: 0; background-color: #FFF !important; border: 1px solid #D9E4E6; color: #747a80;">NO</th>
 						<th class="classification font-style"
-							style="text-align: center; position: sticky; top: 0; background-color: #167F92 !important; border: 1px solid #FFF; color: #FFF;">Book
-							Name</th>
+							style="position: sticky; top: 0; background-color: #FFF !important; border: 1px solid #D9E4E6; color: #747a80;">BOOK
+							NAME</th>
 						<th class="count font-style"
-							style="text-align: center; position: sticky; top: 0; background-color: #167F92 !important; border: 1px solid #FFF; color: #FFF;">Classification</th>
+							style="position: sticky; top: 0; background-color: #FFF !important; border: 1px solid #D9E4E6; color: #747a80;">CLASSIFICATION</th>
 						<th class="Add font-style"
-							style="text-align: center; position: sticky; top: 0; background-color: #167F92 !important; border: 1px solid #FFF; color: #FFF;">User</th>
+							style="position: sticky; top: 0; background-color: #FFF !important; border: 1px solid #D9E4E6; color: #747a80;">USER</th>
 						<th class="Add font-style"
-							style="text-align: center; position: sticky; top: 0; background-color: #167F92 !important; border: 1px solid #FFF; color: #FFF;">Date
-							& Time</th>
+							style="position: sticky; top: 0; background-color: #FFF !important; border: 1px solid #D9E4E6; color: #747a80;">DATE
+							& TIME</th>
 						<th class="Add font-style"
-							style="text-align: center; position: sticky; top: 0; background-color: #167F92 !important; border: 1px solid #FFF; color: #FFF;">View</th>
+							style="position: sticky; top: 0; background-color: #FFF !important; border: 1px solid #D9E4E6; color: #747a80;">VIEW</th>
 					</tr>
 				</thead>
 				<tr
 					data-ng-repeat="logEvent in logEventFilter = (bookList | filter:searchTerm | limitTo:numberToDisplay) track by $index"
-					style="text-align: center; color: #024457; border: 1px solid #D9E4E6;">
-					<td>{{$index + 1}}</td>
-					<td>{{logEvent.bookname}}</td>
-					<td>{{logEvent.classification}}</td>
-					<td>{{logEvent.username}}</td>
-					<td>{{logEvent.date}}</td>
-					<td>
+					style="color: #024457; border: 1px solid #D9E4E6;">
+					<td style="border: 1px solid #D9E4E6; padding: 10px;">{{$index
+						+ 1}}</td>
+					<td style="border: 1px solid #D9E4E6; padding: 10px;">{{logEvent.bookname}}</td>
+					<td style="border: 1px solid #D9E4E6; padding: 10px;">{{logEvent.classification}}</td>
+					<td style="border: 1px solid #D9E4E6; padding: 10px;">{{logEvent.username}}</td>
+					<td style="border: 1px solid #D9E4E6; padding: 10px;">{{logEvent.date}}</td>
+					<td style="border: 1px solid #D9E4E6; padding: 10px;">
 						<button ng-click="bookView(logEvent)">
 							<i class="fa fa-eye"></i>
 						</button>

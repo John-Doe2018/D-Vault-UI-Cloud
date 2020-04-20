@@ -26,13 +26,20 @@ fileItApp
 						'$mdDialog',
 						'ACL',
 						'$mdToast',
+						'LOGGED_USER',
+						'$http',
+						'$sce',
 						function($rootScope, $scope, $location,
 								$sessionStorage, Idle, AesEncoder,
 								LandingOperationsSvc, BINDER_NAME, rfc4122,
 								$route, IMAGE_URLS, LoadingService, $http,
 								FILEIT_CONFIG, BINDER_SVC, DASHBOARD_DETALS,
-								$mdDialog, ACL, $mdToast) {
+								$mdDialog, ACL, $mdToast, LOGGED_USER, $http, $sce) {
+							DASHBOARD_DETALS.nodedata = '';
+							$scope.busyLoadingData = false;
 							$scope.loadImageIndex = 2;
+							$scope.filelistValidation = [];
+							$scope.disableSubmitButton = true;
 							if (DASHBOARD_DETALS.searchsave === '') {
 								DASHBOARD_DETALS.searchsave = false;
 							}
@@ -66,8 +73,36 @@ fileItApp
 							$scope.fileList = [];
 							$scope.viewSwitch = 'ThumbnailView';
 							$scope.onViewChange = function() {
-								$scope.viewSwitch = 'BookView';
-								$location.path('/thumbnailView');
+								$scope.thumbnailist = [];
+								$scope.thumbnailist.push($scope.data[0].nodes[0].title);
+								var reqObj = {
+									'customHeader' : {
+										'userName' : ACL.username,
+										'role' : ACL.role,
+										'group' : ACL.group
+									},
+									"bookName" : BINDER_NAME.name,
+									'classification' : DASHBOARD_DETALS.booklist,
+									"fileName" : $scope.thumbnailist
+								}
+								LandingOperationsSvc.downloadFile(reqObj).then(
+										function(result) {
+											if (result.data.errorId !== undefined) {
+												$rootScope.$broadcast('error',
+														result.data.description);
+											} else {
+												$scope.content = $sce
+												.trustAsResourceUrl(result.data.URL);
+												$scope.pdf = {
+													src : $scope.content,
+													data : null
+												};
+												DASHBOARD_DETALS.pdfdata = $scope.pdf;
+												DASHBOARD_DETALS.nodedata = $scope.data;
+												$scope.viewSwitch = 'BookView';
+												$location.path('/thumbnailView');
+											}
+										});
 							};
 							$scope.getData = function() {
 								var reqObj = {
@@ -100,6 +135,7 @@ fileItApp
 																'firstIndex' : resultObj.book.documents[x].startIndex,
 																'lastIndex' : resultObj.book.documents[x].endIndex
 															}
+															$scope.filelistValidation.push(resultObj.book.documents[x].fileName);
 															$scope.nodearray
 																	.push(nodeObj);
 														}
@@ -164,9 +200,10 @@ fileItApp
 								type : ""
 							};
 
-							$scope.convertImage = function() {
+							$scope.convertImage = function(i) {
+								$scope.convertImagelength = i;
 								if ($scope.gFiles && $scope.gFiles.length) {
-									for (var i = 0; i < $scope.gFiles.length; i++) {
+									if(i < $scope.gFiles.length){
 										var file = $scope.gFiles[i];
 										if (!file.$error) {
 											var fd = new FormData();
@@ -180,65 +217,42 @@ fileItApp
 													+ "/Images/");
 											fd.append('group', ACL.group);
 											fd.append('type', file.type);
-											$scope.progressvisible = true
-											var xhr = new XMLHttpRequest()
-											xhr.upload.onprogress = function(
-													evt) {
-
-												$scope
-														.$apply(function() {
-															if (evt.lengthComputable) {
-																var progressPercentage = parseInt(100.0
-																		* evt.loaded
-																		/ evt.total);
-																$scope.progress = progressPercentage
-																		+ '% ';
-															}
-
-														})
-											};
-											xhr.addEventListener("load",
-													uploadComplete, false)
-											xhr.addEventListener("error",
-													uploadFailed, false)
-											xhr.addEventListener("abort",
-													uploadCanceled, false)
-											xhr
-													.open(
-															"POST",
-															FILEIT_CONFIG.apiUrl
-																	+ BINDER_SVC.convertImg);
-											xhr.setRequestHeader("UserName",
-													ACL.username);
-											xhr.send(fd)
-
+											$scope.progressvisible = true;
+											$scope.disableSubmitButton =true;
+											 $http({
+											      method: "POST",
+											      url: FILEIT_CONFIG.apiUrl
+													+ BINDER_SVC.convertImg,
+													data: fd,
+											      eventHandlers: {
+											        progress: function(event) {
+											          console.log(event);
+											        },
+											        readystatechange: function(event) {
+											          console.log(event);
+											        }
+											      },
+											      uploadEventHandlers: {
+											        progress: function(object) {
+											        	console.log(object);
+											        	$scope.progress = object
+														+ '% ';
+											        }
+											      }
+											    }).then(function (response){
+											    	if(($scope.convertImagelength+1) === $scope.gFiles.length){
+														$scope.disableSubmitButton = false;
+													}else {
+														$scope.convertImage($scope.convertImagelength +1);
+													}
+											    },function (error){
+											    	$scope.progress = 0;
+											    })
 										}
 									}
 								}
 							};
 
-							function uploadComplete(evt) {
-								if(evt.currentTarget.response.includes("Error")){
-									for(var le=0; le < $scope.fileList.length; le++){
-										if($scope.fileList[le].fileName === evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>'))){
-											$scope.fileList.pop();
-											$scope.progress = 0;
-											alert(evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>')) + " Already present !!");
-										}
-									}
-								}
-							}
-
-							function uploadFailed(evt) {
-								alert("There was an error attempting to upload the file.")
-							}
-
-							function uploadCanceled(evt) {
-								scope.$apply(function() {
-									$scope.progressvisible = false
-								})
-								alert("The upload has been canceled by the user or the browser dropped the connection.")
-							}
 							$scope
 									.$watch(
 											'gFiles',
@@ -258,7 +272,7 @@ fileItApp
 																break;
 															}
 														}
-														if (!fileFound) {
+														if (!fileFound && $scope.filelistValidation.indexOf(files[i].name) === -1) {
 															$scope.showSubmitButton = true;
 															$scope.ImageProperty.fileName = files[i].name;
 															$scope.ImageProperty.type = files[i].type;
@@ -266,10 +280,15 @@ fileItApp
 																	.push($scope.ImageProperty);
 															$scope.ImageProperty = {};
 														} else {
+															if($scope.fileList.length === 0){
+																$scope.disableSubmitButton = true;
+															}
 															alert("Cannot upload same file twice !!");
 														}
 													}
-													$scope.convertImage();
+													if($scope.fileList.length > 0){
+														$scope.convertImage(0);
+													}
 												} else {
 													alert("File size exceeds 5MB !!");
 												}
@@ -365,6 +384,98 @@ fileItApp
 												});
 
 							};
+							
+							$scope.$on('searchView', function(event, opt) {
+								var startIndex = '';
+								var reqObj = {
+										'customHeader' : {
+											'userName' : ACL.username,
+											'role' : ACL.role,
+											'group' : ACL.group
+										},
+										"book" : {
+											"bookName" : BINDER_NAME.name,
+											"classification" : DASHBOARD_DETALS.booklist
+										}
+									}
+									LandingOperationsSvc
+											.getPageIndex(reqObj)
+											.then(
+													function(result) {
+														if (result.data.errorId !== undefined) {
+															$rootScope
+																	.$broadcast(
+																			'error',
+																			result.data.description);
+														} else {
+															var resultObj = result.data;
+															$scope.nodearray = [];
+															for (var x = 0; x < resultObj.book.documents.length; x++) {
+																if(resultObj.book.documents[x].fileName === opt.filename)
+																	startIndex = resultObj.book.documents[x].startIndex;
+																var nodeObj = {
+																	'id' : resultObj.book.documents[x].serialNo,
+																	'title' : resultObj.book.documents[x].fileName,
+																	'firstIndex' : resultObj.book.documents[x].startIndex,
+																	'lastIndex' : resultObj.book.documents[x].endIndex
+																}
+																$scope.filelistValidation.push(resultObj.book.documents[x].fileName);
+																$scope.nodearray
+																		.push(nodeObj);
+															}
+
+															var nodeObjMaster = {
+																'id' : 1,
+																'nodes' : $scope.nodearray
+															};
+															$scope.data = [];
+															$scope.data
+																	.push(nodeObjMaster);
+															$scope.totalpages = $scope.nodearray[$scope.nodearray.length - 1].lastIndex;
+															$scope.indexChanged = true;
+															var reqObj1 = {
+																'customHeader' : {
+																	'userName' : ACL.username,
+																	'role' : ACL.role,
+																	'group' : ACL.group
+																},
+																"bookName" : BINDER_NAME.name,
+																"classification" : DASHBOARD_DETALS.booklist,
+																"rangeList" : [ startIndex,
+																	startIndex + 1 ]
+															}
+															LandingOperationsSvc
+																	.getImage(reqObj1)
+																	.then(
+																			function(result) {
+																				$scope.currentPage = 2;
+																				$scope.rangeBegin = 2;
+																				$scope.newBookRange = startIndex + 2;
+																				IMAGE_URLS.url = result.data;
+																				$scope.zoomUrls = [];
+																				$scope.zoomUrls
+																						.push(IMAGE_URLS.url[0]);
+																				$scope.zoomUrls
+																						.push(IMAGE_URLS.url[1]);
+																				$("#0")
+																						.attr(
+																								"src",
+																								"data:image/jpeg;base64,"
+																										+ IMAGE_URLS.url[0]);
+																				$("#1")
+																						.attr(
+																								"src",
+																								"data:image/jpeg;base64,"
+																										+ IMAGE_URLS.url[1]);
+
+																				$('#mybook').booklet(
+																						"gotopage", 1);
+																			});
+
+														}
+													});
+							});
+							
 
 							$scope.closeModal = function() {
 								$scope.fileList = [];
@@ -478,6 +589,7 @@ fileItApp
 
 							$scope.loadImagezooncheck = true;
 							$scope.loadImageZoom = function() {
+								$scope.busyLoadingData = true;
 								var reqObj1 = {
 									'customHeader' : {
 										'userName' : ACL.username,
@@ -507,6 +619,7 @@ fileItApp
 																+ ' "alt="Los Angeles" style="width: 100%;border: 3px solid blueviolet;"></div>';
 														$(text2).appendTo(
 																".carousel-inner");
+														$scope.busyLoadingData = false;
 														} else {
 															$scope.loadImagezooncheck = false;
 														}

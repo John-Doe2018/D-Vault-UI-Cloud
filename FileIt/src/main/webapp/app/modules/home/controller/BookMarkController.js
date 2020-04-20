@@ -20,20 +20,15 @@ fileItApp.controller('BookMarkController', [
 				DashboardSvc) {
 			angular.element(document).ready(
 					function() {
-						$scope.hgt = $(window).height()
-								- $('#pageHeader').height()
-								- $('#footer').height();
-						if ($scope.hgt < $('#bookHeight').height()) {
-							$scope.hgt = $('#bookHeight').height();
-						}
+						$('#bookHeight').height(
+								$(window).height() - $('#pageHeader').height()
+										- $('#footer').height());
 					});
 
 			$scope.init = function() {
-				$scope.hgt = $(window).height() - $('#pageHeader').height()
-						- $('#footer').height();
-				if ($scope.hgt < $('#bookHeight').height()) {
-					$scope.hgt = $('#bookHeight').height();
-				}
+				$('#bookHeight').height(
+						$(window).height() - $('#pageHeader').height()
+								- $('#footer').height());
 				var reqObj = {
 					'customHeader' : {
 						'userName' : ACL.username,

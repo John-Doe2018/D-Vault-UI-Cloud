@@ -28,8 +28,9 @@
 				</div>
 			</div>
 			<div layout="row" layout-xs="column">
-				<object ng-show="content" type="application/pdf"
-					id="showThumbnailPdf" style="width: 98%; height: 485px;"></object>
+				<object ng-show="content" type="application/pdf" ng-load
+					id="showThumbnailPdf"
+					style="width: 98%; height: 485px; pointer-events: none;"></object>
 			</div>
 		</div>
 	</div>

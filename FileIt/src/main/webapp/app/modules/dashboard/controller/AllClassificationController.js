@@ -13,22 +13,16 @@ fileItApp.controller('AllClassificationController', [
 		function($scope, $location, DASHBOARD_DETALS, ACL, $mdToast, HomeSvc) {
 			angular.element(document).ready(
 					function() {
-						$scope.hgt = $(window).height()
-								- $('#pageHeader').height()
-								- $('#footer').height();
-						if ($scope.hgt < $('#classHeight').height()) {
-							$scope.hgt = $('#classHeight').height();
-						}
+						$('#classHeight').height(
+								$(window).height() - $('#pageHeader').height()
+										- $('#footer').height());
 					});
 			$scope.initialize = function() {
 				$scope.records = DASHBOARD_DETALS.classificationlist;
 				$scope.count = $scope.records.length;
-
-				$scope.hgt = $(window).height() - $('#pageHeader').height()
-						- $('#footer').height();
-				if ($scope.hgt < $('#classHeight').height()) {
-					$scope.hgt = $('#classHeight').height();
-				}
+				$('#classHeight').height(
+						$(window).height() - $('#pageHeader').height()
+								- $('#footer').height());
 
 			};
 

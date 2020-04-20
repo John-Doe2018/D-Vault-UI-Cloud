@@ -18,9 +18,11 @@ fileItApp
 						'LandingOperationsSvc',
 						'$mdDialog',
 						'ACL',
+						'LOGGED_USER',
+						'$http',
 						function($rootScope, $scope, HomeSvc, FILEIT_CONFIG,
 								BINDER_SVC, $route, DASHBOARD_DETALS, $mdToast,
-								LandingOperationsSvc, $mdDialog, ACL) {
+								LandingOperationsSvc, $mdDialog, ACL, LOGGED_USER, $http) {
 							$scope.disableSubmitButton = false;
 							$scope.hgt = $(window).height()
 							- $('#pageHeader').height()- $('#pageFooter').height();
@@ -52,10 +54,10 @@ fileItApp
 									return false;
 								}
 							});
-							$scope.convertImage = function() {
+							$scope.convertImage = function(i) {
+								$scope.convertImagelength = i;
 								if ($scope.gFiles && $scope.gFiles.length) {
-									$scope.disableSubmitButton = true;
-									for (var i = 0; i < $scope.gFiles.length; i++) {
+									if(i < $scope.gFiles.length){
 										var file = $scope.gFiles[i];
 										if (!file.$error) {
 											var fd = new FormData();
@@ -69,103 +71,78 @@ fileItApp
 													+ "/Images/");
 											fd.append('group', ACL.group);
 											fd.append('type', file.type);
-											$scope.progressvisible = true
-											var xhr = new XMLHttpRequest();
-											xhr.upload.onprogress = function(
-													evt) {
-
-												$scope
-														.$apply(function() {
-															if (evt.lengthComputable) {
-																var progressPercentage = parseInt(100.0
-																		* evt.loaded
-																		/ evt.total);
-																$scope.progress = progressPercentage
-																		+ '% ';
-															}
-
-														})
-											};
-											xhr.addEventListener("load",
-													uploadComplete, false)
-											xhr.addEventListener("error",
-													uploadFailed, false)
-											xhr.addEventListener("abort",
-													uploadCanceled, false)
-											xhr
-													.open(
-															"POST",
-															FILEIT_CONFIG.apiUrl
-																	+ BINDER_SVC.convertImg);
-											xhr.setRequestHeader("UserName",
-													ACL.username);
-											xhr.send(fd)
-
+											$scope.progressvisible = true;
+											$scope.disableSubmitButton =true;
+											 $http({
+											      method: "POST",
+											      url: FILEIT_CONFIG.apiUrl
+													+ BINDER_SVC.convertImg,
+													data: fd,
+											      eventHandlers: {
+											        progress: function(event) {
+											          console.log(event);
+											        },
+											        readystatechange: function(event) {
+											          console.log(event);
+											        }
+											      },
+											      uploadEventHandlers: {
+											        progress: function(object) {
+											        	console.log(object);
+											        	$scope.progress = object
+														+ '% ';
+											        }
+											      }
+											    }).then(function (response){
+											    	if(($scope.convertImagelength+1) === $scope.gFiles.length){
+														$scope.disableSubmitButton = false;
+													}else {
+														$scope.convertImage($scope.convertImagelength +1);
+													}
+											    },function (error){
+											    	$scope.progress = 0;
+											    })
 										}
 									}
 								}
 							};
 
-							function uploadComplete(evt) {
-								if(evt.currentTarget.response.includes("Error")){
-									for(var le=0; le < $scope.fileList.length; le++){
-										if($scope.fileList[le].fileName === evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>'))){
-											$scope.fileList.pop();
-											$scope.progress = 0;
-											alert(evt.currentTarget.response.substring(evt.currentTarget.response.lastIndexOf('<') + 1, evt.currentTarget.response.lastIndexOf('>')) + " Already present !!");
-										}
-									}
-								} else {
-									$scope.disableSubmitButton = false;
-								}
-							
-							}
-
-							function uploadFailed(evt) {
-								alert("There was an error attempting to upload the file.")
-							}
-
-							function uploadCanceled(evt) {
-								scope.$apply(function() {
-									$scope.progressvisible = false
-								})
-								alert("The upload has been canceled by the user or the browser dropped the connection.")
-							}
 							$scope
 									.$watch(
 											'gFiles',
 											function() {
-												var files = $scope.gFiles;
-												$scope.validFile = true;
-												var filesize = (($scope.gFiles[0].size/1024)/1024).toFixed(4);
-												if(filesize > 5 ){
-													$scope.validFile = false;
-												}
-												if ($scope.validFile) {
-													for (var i = 0; i < files.length; i++) {
-														var fileFound = false;
-														for (var j = 0; j < $scope.fileList.length; j++) {
-															if ($scope.fileList[j].fileName == files[i].name) {
-																fileFound = true;
-																break;
+												if($scope.gFiles.length > 0){
+													var files = $scope.gFiles;
+													$scope.validFile = true;
+													var filesize = (($scope.gFiles[0].size/1024)/1024).toFixed(4);
+													if(filesize > 5 ){
+														$scope.validFile = false;
+													}
+													if ($scope.validFile) {
+														for (var i = 0; i < files.length; i++) {
+															var fileFound = false;
+															for (var j = 0; j < $scope.fileList.length; j++) {
+																if ($scope.fileList[j].fileName == files[i].name) {
+																	fileFound = true;
+																	break;
+																}
+															}
+															if (!fileFound) {
+																$scope.showSubmitButton = true;
+																$scope.ImageProperty.fileName = files[i].name;
+																$scope.ImageProperty.type = files[i].type;
+																$scope.fileList
+																		.push($scope.ImageProperty);
+																$scope.ImageProperty = {};
+															} else {
+																alert("Cannot upload same file twice !!");
 															}
 														}
-														if (!fileFound) {
-															$scope.showSubmitButton = true;
-															$scope.ImageProperty.fileName = files[i].name;
-															$scope.ImageProperty.type = files[i].type;
-															$scope.fileList
-																	.push($scope.ImageProperty);
-															$scope.ImageProperty = {};
-														} else {
-															alert("Cannot upload same file twice !!");
-														}
+														$scope.convertImage(0);
+													} else {
+														alert("File size exceeds 5MB !!");
 													}
-													$scope.convertImage();
-												} else {
-													alert("File size exceeds 5MB !!");
 												}
-
 											});
 
 							$scope.classfound = false;
@@ -437,9 +414,6 @@ fileItApp
 																							// of
 																							// the
 																							// form
-																							scroll_to_class(
-																									$('.f1'),
-																									20);
 																						});
 																	}
 
